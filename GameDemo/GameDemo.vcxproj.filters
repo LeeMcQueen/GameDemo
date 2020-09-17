@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\renderEngine">
+      <UniqueIdentifier>{1d2472cc-df36-4696-aa28-a55e91793cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\renderEngine">
+      <UniqueIdentifier>{4d7a2f18-1de3-4093-aab0-bf7cbfc115a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\engineTester">
+      <UniqueIdentifier>{5be311fd-f1a4-4883-a4d5-5d4b3b1e0d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\shaders">
+      <UniqueIdentifier>{6522bc12-5668-4d89-883b-c7ef27c473fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders">
+      <UniqueIdentifier>{3d9b7a7d-4edd-4fb8-93e6-3616f1f52b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\thirdparty">
+      <UniqueIdentifier>{f49e7758-4dea-4715-aa85-4c5c86a52cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\texture">
+      <UniqueIdentifier>{24d14c50-b385-4c73-9fb9-54c5659337e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\texture">
+      <UniqueIdentifier>{d0f5cb4c-3dc3-44d2-bb36-d1f0bd86d7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Model">
+      <UniqueIdentifier>{c492f79a-8d1b-4a71-8f87-c27b8e00dfcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Model">
+      <UniqueIdentifier>{33cde5f1-2aed-4f58-8806-222c2ac37201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\ShaderSource">
+      <UniqueIdentifier>{c89a0a50-797a-4e8e-9a1c-f93d79c120be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DisplayManager.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件\engineTester</Filter>
+    </ClCompile>
+    <ClCompile Include="Loader.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>源文件\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticShader.cpp">
+      <Filter>源文件\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelTexture.cpp">
+      <Filter>源文件\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="RawModel.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedModel.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="lodepng.cpp">
+      <Filter>头文件\thirdparty</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DisplayManager.h">
+      <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.h">
+      <Filter>头文件\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticShader.h">
+      <Filter>头文件\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="lodepng.h">
+      <Filter>头文件\thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelTexture.h">
+      <Filter>头文件\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="RawModel.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedModel.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>头文件\thirdparty</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="fragmentShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="vertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="blendMap.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\g.png">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
