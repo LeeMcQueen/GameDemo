@@ -147,7 +147,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StaticShader.h" />
-    <ClInclude Include="stb_image.h" />
     <ClInclude Include="TexturedModel.h" />
   </ItemGroup>
   <ItemGroup>

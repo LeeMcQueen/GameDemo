@@ -9,6 +9,7 @@ const char* StaticShader::FRAGMENT_FILE = "fragmentShader.txt";
 
 StaticShader::StaticShader(): ShaderProgram(VERTEX_FILE, FRAGMENT_FILE)
 {
+	//bindAttribute
 	bindAttributes();
 
 	//Bind VAO attributes and link program

@@ -35,6 +35,12 @@ void ShaderProgram::bindAttribute(GLint attribute, const char* variableName)
 	cerr << "3." <<variableName << endl;
 }
 
+GLuint ShaderProgram::getUniformLocation(const char* uniformName)
+{
+	//1.check program 2.location name
+	return glGetUniformLocation(programID, uniformName);
+}
+
 ShaderProgram::~ShaderProgram()
 {
 	stop();

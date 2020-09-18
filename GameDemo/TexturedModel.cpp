@@ -10,6 +10,7 @@ TexturedModel::TexturedModel(RawModel& model, ModelTexture& texture)
 
 TexturedModel::~TexturedModel()
 {
+
 }
 
 RawModel TexturedModel::GetRawModel() const

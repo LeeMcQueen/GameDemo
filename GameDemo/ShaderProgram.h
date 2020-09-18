@@ -25,7 +25,11 @@ private:
 
 protected:
 
+	//Shader program id
 	GLint programID;
+
+	//get Uniform Location in shader program by name
+	GLuint getUniformLocation(const char* uniformName);
 
 	//bind VAO attribute id to shader variable name
 	void bindAttribute(GLint attribute, const char* variableName);
