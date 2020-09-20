@@ -130,6 +130,7 @@
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maths.cpp" />
     <ClCompile Include="ModelTexture.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -141,12 +142,14 @@
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StaticShader.h" />
+    <ClInclude Include="struct.h" />
     <ClInclude Include="TexturedModel.h" />
   </ItemGroup>
   <ItemGroup>

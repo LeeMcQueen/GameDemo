@@ -20,10 +20,19 @@ public:
 	//FragmentShader file name
 	static const char* FRAGMENT_FILE;
 
-private:
+	void loadTransformationMatrix(const float* matrix);
 
 protected:
 
+	//bind VAO attribules
 	void bindAttributes() override;
+
+	//get all uniform locations
+	void getAllUniformLocations() override;
+
+private:
+
+	//Location of transformation matrix in shader progam
+	GLuint Location_tansformationMatrix;
 };
 

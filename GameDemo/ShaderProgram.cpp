@@ -35,12 +35,6 @@ void ShaderProgram::bindAttribute(GLint attribute, const char* variableName)
 	cerr << "3." <<variableName << endl;
 }
 
-GLuint ShaderProgram::getUniformLocation(const char* uniformName)
-{
-	//1.check program 2.location name
-	return glGetUniformLocation(programID, uniformName);
-}
-
 ShaderProgram::~ShaderProgram()
 {
 	stop();
@@ -49,6 +43,34 @@ ShaderProgram::~ShaderProgram()
 	glDeleteShader(vertexShaderID);
 	glDeleteShader(fragmentShaderID);
 	glDeleteProgram(programID);
+}
+
+void ShaderProgram::loadFloat(GLuint location, float value)
+{
+	glUniform1i(location, value);
+}
+
+void ShaderProgram::loadVector3(GLuint location, vector3 vec)
+{
+	glUniform3f(location, vec.x, vec.y, vec.z);
+}
+
+void ShaderProgram::loadBoolean(GLuint location, bool value)
+{
+	//true = 1 , false = 0
+	glUniform1f(location, value ? 1.0 : 0.0);
+}
+
+void ShaderProgram::loadMatrix4(GLuint location, const float * value)
+{
+	//check
+	glUniformMatrix4fv(location, 1, GL_FALSE, value);
+}
+
+GLuint ShaderProgram::getUniformLocation(const char* uniformName)
+{
+	//1.check program 2.location name
+	return glGetUniformLocation(programID, uniformName);
 }
 
 GLint ShaderProgram::loadShader(const char* fileName, int type)

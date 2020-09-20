@@ -11,6 +11,8 @@
 
 using namespace std;
 
+//Info : you can check modelLoader.cpp
+
 GLuint Loader::createVAO() 
 {
 	GLuint vaoID;

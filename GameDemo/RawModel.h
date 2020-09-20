@@ -9,13 +9,13 @@ public:
 
 	//get VAO id
 	GLuint getVaoId() const;
+
 	//get vertex number
 	GLuint getVertexCount() const;
 
 private:
 	GLuint vaoId_;
 	GLuint vertexCount_;
-
 	GLuint* vboId_;
 	int vboCount_;
 };

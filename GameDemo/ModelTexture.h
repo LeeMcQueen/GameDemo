@@ -9,8 +9,10 @@ class ModelTexture
 public:
 	//Constructor
 	ModelTexture(GLuint id);
+
 	//Destructor
 	~ModelTexture();
+
 	//Get texture id
 	GLuint getID() const;
 

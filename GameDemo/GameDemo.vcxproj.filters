@@ -46,6 +46,18 @@
     <Filter Include="资源文件\ShaderSource">
       <UniqueIdentifier>{c89a0a50-797a-4e8e-9a1c-f93d79c120be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\utils">
+      <UniqueIdentifier>{52ab1ced-4c12-4d15-9327-ffe8c8af492b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\utils\struct">
+      <UniqueIdentifier>{761dfc3c-21f5-4ee7-9138-41b77cd95235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{aecd3602-42ba-49c4-93d0-4ef653d66b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils\struct">
+      <UniqueIdentifier>{2a135eb3-e4b0-42de-a525-83cb9da3550f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -78,6 +90,9 @@
     <ClCompile Include="lodepng.cpp">
       <Filter>头文件\thirdparty</Filter>
     </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>源文件\utils\struct</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -109,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>头文件\utils\struct</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>头文件\utils\struct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

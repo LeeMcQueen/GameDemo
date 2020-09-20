@@ -23,3 +23,15 @@ void StaticShader::bindAttributes()
 	bindAttribute(0, "position");
 	bindAttribute(1, "textureCoords");
 }
+
+//get all uniform location
+void StaticShader::getAllUniformLocations()
+{
+	Location_tansformationMatrix = getUniformLocation("transformationMatrix");
+}
+
+
+void StaticShader::loadTransformationMatrix(const float * matrix)
+{
+	loadMatrix4(Location_tansformationMatrix, matrix);
+}
