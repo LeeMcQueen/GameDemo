@@ -20,8 +20,8 @@ float * Maths::createTransformationMatrix(vector3 position, vector3 rotation, fl
 	leftMultiMatrix(res, scalingMatrix);
 	delete[] scalingMatrix;
 
-	calculateRotationMatrix(res, rotation);
 	calculateTransformationMatrix(res, position);
+	calculateRotationMatrix(res, rotation);
 
 	return res;
 }
@@ -87,10 +87,14 @@ void Maths::calculateTransformationMatrix(float * res, vector3 position)
 {
 	float* translationMatrix = new float[4 * 4]
 	{
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		position.x, position.y, position.z, 1
+		//1, 0, 0, 0,
+		//0, 1, 0, 0,
+		//0, 0, 1, 0,
+		//position.x, position.y, position.z, 1
+		1, 0, 0, position.x,
+		0, 1, 0, position.y,
+		0, 0, 1, position.z,
+		0, 0, 0, 1
 	};
 	leftMultiMatrix(res, translationMatrix);
 	delete[] translationMatrix;

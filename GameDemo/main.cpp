@@ -52,6 +52,7 @@ int main() {
 	RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);
 	ModelTexture texture(myLoader->loadTexture("g"));
 	TexturedModel texturedModel(model, texture);
+	Entity entity(texturedModel, vector3(-1, 0, 0), vector3(0, 0, 0), 1.0);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -62,12 +63,14 @@ int main() {
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		entity.increasePosition(0.1f, 0.0f, 0.0f);
+
 		myRenderer->Prepare();
 
 		//Ê¹ÓÃµÄShaderPrograme
 		myShader->start();
 
-		myRenderer->Render(texturedModel);
+		myRenderer->Render(entity, myShader);
 
 		myShader->stop();
 

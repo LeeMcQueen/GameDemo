@@ -13,7 +13,9 @@ public:
 	ModelTexture GetTextureModel() const;
 
 private:
+
 	RawModel rawModel_;
+
 	ModelTexture modelTexture_;
 };
 

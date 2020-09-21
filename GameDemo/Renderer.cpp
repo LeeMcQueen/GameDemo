@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "RawModel.h"
 #include "TexturedModel.h"
+#include "Maths.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -13,21 +14,32 @@ void Renderer::Prepare()
 }
 
 //void Renderer::Render(RawModel model) {
-void Renderer::Render(TexturedModel texturedModel) {
+//void Renderer::Render(TexturedModel texturedModel) {
+void Renderer::Render(Entity entity, StaticShader* shader) {
+
+	//Get textureModel form entity
+	TexturedModel& model = entity.GetTexture();
 
 	//Get rawModel from textredModel
-	RawModel& model = texturedModel.GetRawModel();
+	RawModel& rawModel = model.GetRawModel();
 
-	glBindVertexArray(model.getVaoId());
+	glBindVertexArray(rawModel.getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texturedModel.GetTextureModel().getID());
+	//calculate transformation matrix
+	float* transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
+		entity.getRotation(),
+		entity.getScale());
+
+	shader->loadTransformationMatrix(transformationMatrix);
+
+ 	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, model.GetTextureModel().getID());
 
 	//Draw function (MODEL triangles, Draw how many point, type, indices)
 	/*glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());*/
-	glDrawElements(GL_TRIANGLES, model.getVertexCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, rawModel.getVertexCount(), GL_UNSIGNED_INT, 0);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

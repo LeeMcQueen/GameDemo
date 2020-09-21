@@ -1,26 +1,2 @@
-﻿  StaticShader.cpp
-  Maths.cpp
-  正在生成代码...
-  正在编译...
-  ShaderProgram.cpp
-d:\opengl\demo\gamedemo\gamedemo\shaderprogram.cpp(50): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\shaderprogram.cpp(61): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-  main.cpp
-  正在生成代码...
-  正在跳过...(未检测到相关更改)
-  Loader.cpp
-LINK : warning LNK4098: 嘁
-LINK : warning LNK4098: 嘁
-Loader.obj : warning LNK4049: 涍
-Loader.obj : warning LNK4049: 涍
-Loader.obj : warning LNK4049: 涍
-Loader.obj : warning LNK4049: 涍
-Loader.obj : warning LNK4049: 涍
-Renderer.obj : warning LNK4049: 涍
-Loader.obj : warning LNK4049: 涍
-Renderer.obj : warning LNK4049: 涍
-Renderer.obj : warning LNK4049: 涍
-Renderer.obj : warning LNK4049: 涍
-glew32s.lib(glew.obj) : warning LNK4099: 枹漄摓 PDB乬vc120.pdb乭(巊梡乬glew32s.lib(glew.obj)乭埥嵼乬D:\openGL\demo\GameDemo\Debug\vc120.pdb乭拞
-  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
+﻿  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)
