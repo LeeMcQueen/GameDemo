@@ -84,9 +84,8 @@ GLuint Loader::loadTexture(const char* fileName)
 		exit(-1);
 	}
 
-	cerr << "INFO: [TextureLoader::loadTexture] image:" << image << "!" << endl;
-	cerr << "INFO: [TextureLoader::loadTexture] image:" << width << "!" << endl;
-	cerr << "INFO: [TextureLoader::loadTexture] image:" << height << "!" << endl;
+	cerr << "INFO: [TextureLoader::loadTexture] x:" << width << "!" << endl;
+	cerr << "INFO: [TextureLoader::loadTexture] y:" << height << "!" << endl;
 	cerr << "INFO: [TextureLoader::loadTexture] texture:" << fileName << "!" << endl;
 
 	//check

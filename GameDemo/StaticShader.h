@@ -5,6 +5,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <gtx\transform.hpp>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ public:
 	//FragmentShader file name
 	static const char* FRAGMENT_FILE;
 
-	void loadTransformationMatrix(const float* matrix);
+	void loadTransformationMatrix(glm::mat4 matrix);
 
 protected:
 

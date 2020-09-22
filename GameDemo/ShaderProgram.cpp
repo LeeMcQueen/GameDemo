@@ -1,4 +1,5 @@
 #include "ShaderProgram.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -30,9 +31,9 @@ void ShaderProgram::bindAttribute(GLint attribute, const char* variableName)
 {
 	glBindAttribLocation(programID, attribute, variableName);
 
-	cerr << "1." << programID << endl;
-	cerr << "2." << attribute << endl;
-	cerr << "3." <<variableName << endl;
+	//cerr << "1." << programID << endl;
+	//cerr << "2." << attribute << endl;
+	//cerr << "3." <<variableName << endl;
 }
 
 ShaderProgram::~ShaderProgram()
@@ -61,10 +62,10 @@ void ShaderProgram::loadBoolean(GLuint location, bool value)
 	glUniform1f(location, value ? 1.0 : 0.0);
 }
 
-void ShaderProgram::loadMatrix4(GLuint location, const float * value)
+void ShaderProgram::loadMatrix4(GLuint location, glm::mat4 value)
 {
 	//check
-	glUniformMatrix4fv(location, 1, GL_FALSE, value);
+	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
 }
 
 GLuint ShaderProgram::getUniformLocation(const char* uniformName)

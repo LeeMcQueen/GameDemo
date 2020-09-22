@@ -4,6 +4,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <gtx\transform.hpp>
 
 #include "struct.h"
 
@@ -47,6 +48,6 @@ protected:
 	//load bool into uniform by location
 	void loadBoolean(GLuint location, bool value);
 	//load matrix into unifrom by location
-	void loadMatrix4(GLuint location, const float* value);
+	void loadMatrix4(GLuint location, glm::mat4 value);
 };
 

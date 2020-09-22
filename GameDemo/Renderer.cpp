@@ -28,7 +28,7 @@ void Renderer::Render(Entity entity, StaticShader* shader) {
 	glEnableVertexAttribArray(1);
 
 	//calculate transformation matrix
-	float* transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
+	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
 		entity.getRotation(),
 		entity.getScale());
 

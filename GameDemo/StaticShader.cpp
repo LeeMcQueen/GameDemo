@@ -15,6 +15,7 @@ StaticShader::StaticShader(): ShaderProgram(VERTEX_FILE, FRAGMENT_FILE)
 	glLinkProgram(programID);
 	glValidateProgram(programID);
 
+	//add uniform into vertexShader
 	getAllUniformLocations();
 }
 
@@ -25,7 +26,7 @@ void StaticShader::bindAttributes()
 	bindAttribute(1, "textureCoords");
 }
 
-void StaticShader::loadTransformationMatrix(const float * matrix)
+void StaticShader::loadTransformationMatrix(glm::mat4 matrix)
 {
 	loadMatrix4(Location_tansformationMatrix, matrix);
 }

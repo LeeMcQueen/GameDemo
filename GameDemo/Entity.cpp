@@ -1,6 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(TexturedModel& model, vector3 position, vector3 rotation, float scale)
+#include <iostream>
+
+using namespace std;
+
+Entity::Entity(TexturedModel& model, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	:model_(model),
 	position_(position),
 	rotation_(rotation),
@@ -14,18 +18,22 @@ Entity::~Entity()
 
 }
 
-void Entity::increasePosition(float x_, float y_, float z_)
+void Entity::increasePosition(glm::vec3 position)
 {
-	position_.x += x_;
-	position_.y += y_;
-	position_.z += z_;
+	position_ += position;
+
+	cerr << "1.transformation:" << position_.x << endl;
+	cerr << "2.transformation:" << position_.y << endl;
+	cerr << "3.transformation:" << position_.z << endl;
 }
 
-void Entity::increaseRotation(float pitch_, float yaw_, float roll_)
+void Entity::increaseRotation(glm::vec3 rotation)
 {
-	rotation_.x += pitch_;
-	rotation_.y += yaw_;
-	rotation_.z += roll_;
+	rotation_ += rotation;
+
+	cerr << "4.rotation:" << rotation_.x << endl;
+	cerr << "5.rotation:" << rotation_.y << endl;
+	cerr << "6.rotation:" << rotation_.z << endl;
 }
 
 TexturedModel Entity::GetTexture() const
@@ -33,32 +41,32 @@ TexturedModel Entity::GetTexture() const
 	return model_;
 }
 
-vector3 Entity::getPosition() const
+glm::vec3 Entity::getPosition() const
 {
 	return position_;
 }
 
-vector3 Entity::getRotation() const
+glm::vec3 Entity::getRotation() const
 {
 	return rotation_;
 }
 
-float Entity::getScale() const
+glm::vec3 Entity::getScale() const
 {
 	return scale_;
 }
 
-void Entity::setPosition(vector3 position)
+void Entity::setPosition(glm::vec3 position)
 {
 	position_ = position;
 }
 
-void Entity::setRotation(vector3 rotation)
+void Entity::setRotation(glm::vec3 rotation)
 {
 	rotation_ = rotation;
 }
 
-void Entity::setScale(float scale)
+void Entity::setScale(glm::vec3 scale)
 {
 	scale_ = scale;
 }
