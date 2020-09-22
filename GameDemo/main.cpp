@@ -52,7 +52,7 @@ int main() {
 	RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);
 	ModelTexture texture(myLoader->loadTexture("g"));
 	TexturedModel texturedModel(model, texture);
-	Entity entity(texturedModel, glm::vec3(0,0,0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(-1, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -63,8 +63,8 @@ int main() {
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//entity.increasePosition(0.00000f, 0.0f, 0.0f);
-		//entity.increaseRotation(0.0f, 0.001f, 0.0f);
+		entity.increasePosition(glm::vec3(0.001f, 0.0f, 0.0f));
+		entity.increaseRotation(glm::vec3(0.0f, 0.001f, 0.0f));
 
 		myRenderer->Prepare();
 
