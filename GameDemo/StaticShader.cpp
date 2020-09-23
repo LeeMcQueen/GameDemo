@@ -31,8 +31,20 @@ void StaticShader::loadTransformationMatrix(glm::mat4 matrix)
 	loadMatrix4(Location_tansformationMatrix, matrix);
 }
 
+void StaticShader::loadProjectionMatrix(glm::mat4 matrix)
+{
+	loadMatrix4(Location_projectionMatrix, matrix);
+}
+
+void StaticShader::loadViewMatrix(glm::mat4 matrix)
+{
+	loadMatrix4(Location_viewMatrix, matrix);
+}
+
 //get all uniform location
 void StaticShader::getAllUniformLocations()
 {
 	Location_tansformationMatrix = getUniformLocation("transformationMatrix");
+	Location_projectionMatrix = getUniformLocation("projectionMatrix");
+	Location_viewMatrix = getUniformLocation("viewMatrix");
 }

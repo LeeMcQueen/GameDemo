@@ -6,8 +6,8 @@
 class DisplayManager
 {
 public:
-	int WIDTH = 1280;
-	int HEIGHT = 720;
+	constexpr static int WIDTH = 1280;
+	constexpr static int HEIGHT = 720;
 
 	int CreatManager(GLFWwindow* window);
 

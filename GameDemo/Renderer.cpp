@@ -2,10 +2,19 @@
 #include "RawModel.h"
 #include "TexturedModel.h"
 #include "Maths.h"
+#include "DisplayManager.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+Renderer::Renderer(StaticShader* shader)
+	:projectionMatrix_(getProjectionMatrix())
+{
+	shader->start();
+	shader->loadProjectionMatrix(projectionMatrix_);
+	shader->stop();
+}
 
 void Renderer::Prepare()
 {
@@ -43,5 +52,13 @@ void Renderer::Render(Entity entity, StaticShader* shader) {
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+}
+
+//get&create projectionMatrix
+glm::mat4 Renderer::getProjectionMatrix()
+{
+	return glm::perspective(glm::radians(FOV),
+		(float)DisplayManager::WIDTH / (float)DisplayManager::HEIGHT,
+		NEAR_PLANE, FAR_PLANE);
 }
 

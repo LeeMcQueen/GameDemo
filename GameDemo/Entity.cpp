@@ -22,18 +22,18 @@ void Entity::increasePosition(glm::vec3 position)
 {
 	position_ += position;
 
-	cerr << "1.transformation:" << position_.x << endl;
-	cerr << "2.transformation:" << position_.y << endl;
-	cerr << "3.transformation:" << position_.z << endl;
+	//cerr << "1.transformation:" << position_.x << endl;
+	//cerr << "2.transformation:" << position_.y << endl;
+	//cerr << "3.transformation:" << position_.z << endl;
 }
 
 void Entity::increaseRotation(glm::vec3 rotation)
 {
 	rotation_ += rotation;
 
-	cerr << "4.rotation:" << rotation_.x << endl;
-	cerr << "5.rotation:" << rotation_.y << endl;
-	cerr << "6.rotation:" << rotation_.z << endl;
+	//cerr << "4.rotation:" << rotation_.x << endl;
+	//cerr << "5.rotation:" << rotation_.y << endl;
+	//cerr << "6.rotation:" << rotation_.z << endl;
 }
 
 TexturedModel Entity::GetTexture() const

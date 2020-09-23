@@ -4,6 +4,19 @@
 
 glm::mat4 Maths::createTransformationMatrix(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 {
+	//calculate translation Matrix
+	glm::mat4 transformationMatrix = glm::translate(position);
+
+	//calculate Rotation Matrix
+	glm::mat4 rotationMatrix = glm::rotate(rotation.x, glm::vec3(1, 0, 0))*
+		glm::rotate(rotation.y, glm::vec3(0, 1, 0))*
+		glm::rotate(rotation.z, glm::vec3(0, 0, 1));
+
+	//calculate Scaling Matrix
+	glm::mat4 scaleMatrix = glm::scale(scale);
+
+	return transformationMatrix * rotationMatrix * scaleMatrix;
+
 	////initialize a 4x4 identity matrix
 	//float* res = new float[4 * 4];
 	//for (int i = 0; i < 4; i++)
@@ -24,16 +37,6 @@ glm::mat4 Maths::createTransformationMatrix(glm::vec3 position, glm::vec3 rotati
 	//calculateRotationMatrix(res, rotation);
 
 	//return res;
-
-	glm::mat4 transformationMatrix = glm::translate(position);
-
-	glm::mat4 rotationMatrix = glm::rotate(rotation.x, glm::vec3(1, 0, 0))*
-		glm::rotate(rotation.y, glm::vec3(0, 1, 0))*
-		glm::rotate(rotation.z, glm::vec3(0, 0, 1));
-
-	glm::mat4 scaleMatrix = glm::scale(scale);
-
-	return transformationMatrix * rotationMatrix * scaleMatrix;
 }
 
 ////Calculate A = B*A, where A and B are both 4x4 Matrix 

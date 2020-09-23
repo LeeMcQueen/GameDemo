@@ -8,6 +8,7 @@
 #include "StaticShader.h"
 #include "ModelTexture.h"
 #include "TexturedModel.h"
+#include "camera.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -45,14 +46,18 @@ int main() {
 	DisplayManager* myDisplayManager = new DisplayManager();
 	myDisplayManager->CreatManager(window);
 
-	Loader* myLoader = new Loader();
-	Renderer* myRenderer = new Renderer();
+	Loader* myLoader = new Loader();	
 	StaticShader* myShader = new StaticShader();
+	Renderer* myRenderer = new Renderer(myShader);
+	Camera* myCamera = new Camera();
 
 	RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);
+	//load texture use NAME
 	ModelTexture texture(myLoader->loadTexture("g"));
 	TexturedModel texturedModel(model, texture);
-	Entity entity(texturedModel, glm::vec3(-1, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+
+
+	Entity entity(texturedModel, glm::vec3(0, 0, 0.0), glm::vec3(0, 0, -1), glm::vec3(1, 1, 1));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -63,13 +68,17 @@ int main() {
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		entity.increasePosition(glm::vec3(0.001f, 0.0f, 0.0f));
-		entity.increaseRotation(glm::vec3(0.0f, 0.001f, 0.0f));
+		entity.increasePosition(glm::vec3(-0.0001f, 0.00f, 0.00f));
+		entity.increaseRotation(glm::vec3(0.0f, 1.0f, 0.0f));
+
+		myCamera->move();
 
 		myRenderer->Prepare();
 
 		//Ê¹ÓÃµÄShaderPrograme
 		myShader->start();
+
+		myShader->loadViewMatrix(myCamera->getViewMatrix());
 
 		myRenderer->Render(entity, myShader);
 

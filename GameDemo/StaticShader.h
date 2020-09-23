@@ -21,7 +21,14 @@ public:
 	//FragmentShader file name
 	static const char* FRAGMENT_FILE;
 
+	//load transformationMatrix to shader program
 	void loadTransformationMatrix(glm::mat4 matrix);
+
+	//load projectionMatrix to shader program
+	void loadProjectionMatrix(glm::mat4 matrix);
+
+	//load viewMatrix to shader program
+	void loadViewMatrix(glm::mat4 matrix);
 
 protected:
 
@@ -35,5 +42,11 @@ private:
 
 	//Location of transformation matrix in shader progam
 	GLuint Location_tansformationMatrix;
+
+	//location of projection matrix in shader program
+	GLuint Location_projectionMatrix;
+
+	//location of view matrix in shader program
+	GLuint Location_viewMatrix;
 };
 
