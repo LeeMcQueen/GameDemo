@@ -15,23 +15,77 @@
 #include <GLFW/glfw3.h>
  
 std::vector<float> vertices = {
-	// 第一个三角形
-	-0.5f, 0.5f, 0.0f,  // 右上角
-	-0.5f, -0.5f, 0.0f, // 右下角
-	0.5f, -0.5f, 0.0f,   // 左上角
-	0.5f,0.5f,0.0f
+	-0.5f,0.5f,0,
+	-0.5f,-0.5f,0,
+	0.5f,-0.5f,0,
+	0.5f,0.5f,0,
+
+	-0.5f,0.5f,1,
+	-0.5f,-0.5f,1,
+	0.5f,-0.5f,1,
+	0.5f,0.5f,1,
+
+	0.5f,0.5f,0,
+	0.5f,-0.5f,0,
+	0.5f,-0.5f,1,
+	0.5f,0.5f,1,
+
+	-0.5f,0.5f,0,
+	-0.5f,-0.5f,0,
+	-0.5f,-0.5f,1,
+	-0.5f,0.5f,1,
+
+	-0.5f,0.5f,1,
+	-0.5f,0.5f,0,
+	0.5f,0.5f,0,
+	0.5f,0.5f,1,
+
+	-0.5f,-0.5f,1,
+	-0.5f,-0.5f,0,
+	0.5f,-0.5f,0,
+	0.5f,-0.5f,1
 };
 
 std::vector<int> indices = {
 	0,1,3,
-	3,1,2
+	3,1,2,
+	4,5,7,
+	7,5,6,
+	8,9,11,
+	11,9,10,
+	12,13,15,
+	15,13,14,
+	16,17,19,
+	19,17,18,
+	20,21,23,
+	23,21,22
 };
 
 std::vector<float> textureCoords = {
-	0, 0,
-	0, 1,
-	1, 1,
-	1, 0
+	0,0,
+	0,1,
+	1,1,
+	1,0,
+	0,0,
+	0,1,
+	1,1,
+	1,0,
+	0,0,
+	0,1,
+	1,1,
+	1,0,
+	0,0,
+	0,1,
+	1,1,
+	1,0,
+	0,0,
+	0,1,
+	1,1,
+	1,0,
+	0,0,
+	0,1,
+	1,1,
+	1,0
 };
 
 int main() {
@@ -57,7 +111,7 @@ int main() {
 	TexturedModel texturedModel(model, texture);
 
 
-	Entity entity(texturedModel, glm::vec3(0, 0, 0.0), glm::vec3(0, 0, -1), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(0, 0, 0.0f), glm::vec3(0, 0.5f, 0.5f), glm::vec3(1, 1, 1));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -68,8 +122,8 @@ int main() {
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		entity.increasePosition(glm::vec3(-0.0001f, 0.00f, 0.00f));
-		entity.increaseRotation(glm::vec3(0.0f, 1.0f, 0.0f));
+		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
+		entity.increaseRotation(glm::vec3(0.0f, 0.001f, 0.0f));
 
 		myCamera->move();
 

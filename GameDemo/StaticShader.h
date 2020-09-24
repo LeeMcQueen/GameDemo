@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ShaderProgram.h"
+#include "Camera.h" 
+#include "Maths.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -29,6 +31,7 @@ public:
 
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
+	/*void loadViewMatrix(Camera& camera);*/
 
 protected:
 

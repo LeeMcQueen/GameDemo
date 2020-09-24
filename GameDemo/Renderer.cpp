@@ -18,7 +18,11 @@ Renderer::Renderer(StaticShader* shader)
 
 void Renderer::Prepare()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	//witch triangle is first to build
+	glEnable(GL_DEPTH_TEST);
+
+	//clear COLOR_BUFFER & DEPTH_BUFFER
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glClearColor(1, 0, 0, 1);
 }
 

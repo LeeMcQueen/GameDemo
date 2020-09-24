@@ -15,16 +15,10 @@ public:
 	glm::mat4 getViewMatrix() const;
 
 	//get camera position
-	static glm::vec3 getPosition();
+	glm::vec3 getPosition() const;
 
 	//get camera rotation
-	static glm::vec3 getRotation();
-
-	//set camera position
-	static void setPosition(glm::vec3 _position);
-
-	//set camera rotation
-	static void setRotation(glm::vec3 _rotation);
+	glm::vec3 getRotation() const;
 
 private:
 
@@ -32,6 +26,6 @@ private:
 	glm::vec3 position;
 
 	//camera rotation
-	static glm::vec3 rotation;
+	glm::vec3 rotation;
 };
 

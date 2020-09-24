@@ -39,6 +39,17 @@ glm::mat4 Maths::createTransformationMatrix(glm::vec3 position, glm::vec3 rotati
 	//return res;
 }
 
+glm::mat4 Maths::createViewMatrix(Camera & camera)
+{
+	glm::mat4 view;
+
+	view = glm::rotate(view, glm::radians(camera.getRotation().x), { 1, 0, 0 });
+	view = glm::rotate(view, glm::radians(camera.getRotation().y), { 0, 1, 0 });
+	view = glm::translate(view, -camera.getPosition());
+
+	return view;
+}
+
 ////Calculate A = B*A, where A and B are both 4x4 Matrix 
 //void Maths::leftMultiMatrix(float * A, float * B)
 //{
