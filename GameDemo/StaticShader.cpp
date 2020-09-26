@@ -36,12 +36,6 @@ void StaticShader::loadProjectionMatrix(glm::mat4 matrix)
 	loadMatrix4(Location_projectionMatrix, matrix);
 }
 
-//void StaticShader::loadViewMatrix(Camera & camera)
-//{
-//	glm::mat4 viewMatrix= Maths::createViewMatrix(camera);
-//	loadMatrix4(Location_viewMatrix, viewMatrix);
-//}
-
 void StaticShader::loadViewMatrix(glm::mat4 matrix)
 {
 	loadMatrix4(Location_viewMatrix, matrix);

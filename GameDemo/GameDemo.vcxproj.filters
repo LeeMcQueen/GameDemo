@@ -105,6 +105,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>源文件\entities</Filter>
     </ClCompile>
+    <ClCompile Include="OBJLoader.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>头文件\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJLoader.h">
+      <Filter>头文件\renderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
