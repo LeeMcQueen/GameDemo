@@ -3,6 +3,7 @@
 #include "ShaderProgram.h"
 #include "Camera.h" 
 #include "Maths.h"
+#include "Light.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -31,7 +32,8 @@ public:
 
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
-	/*void loadViewMatrix(Camera& camera);*/
+
+	void loadLight(Light light);
 
 protected:
 
@@ -51,5 +53,11 @@ private:
 
 	//location of view matrix in shader program
 	GLuint Location_viewMatrix;
+
+	//location of lightColor in shader program
+	GLuint Location_lightColor;
+
+	//location of lightPosition in shader program
+	GLuint Location_lightPosition;
 };
 

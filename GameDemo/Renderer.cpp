@@ -37,8 +37,11 @@ void Renderer::Render(Entity entity, StaticShader* shader) {
 	RawModel& rawModel = model.GetRawModel();
 
 	glBindVertexArray(rawModel.getVaoId());
+
+	//activate the attribute list
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	//calculate transformation matrix
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
@@ -56,6 +59,7 @@ void Renderer::Render(Entity entity, StaticShader* shader) {
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 }
 
 //get&create projectionMatrix

@@ -145,6 +145,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Maths.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="TexturedModel.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt" />

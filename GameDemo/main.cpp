@@ -10,84 +10,11 @@
 #include "TexturedModel.h"
 #include "camera.h"
 #include "OBJLoader.h"
+#include "Light.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
- 
-//std::vector<float> vertices = {
-//	-0.5f,0.5f,0,
-//	-0.5f,-0.5f,0,
-//	0.5f,-0.5f,0,
-//	0.5f,0.5f,0,
-//
-//	-0.5f,0.5f,1,
-//	-0.5f,-0.5f,1,
-//	0.5f,-0.5f,1,
-//	0.5f,0.5f,1,
-//
-//	0.5f,0.5f,0,
-//	0.5f,-0.5f,0,
-//	0.5f,-0.5f,1,
-//	0.5f,0.5f,1,
-//
-//	-0.5f,0.5f,0,
-//	-0.5f,-0.5f,0,
-//	-0.5f,-0.5f,1,
-//	-0.5f,0.5f,1,
-//
-//	-0.5f,0.5f,1,
-//	-0.5f,0.5f,0,
-//	0.5f,0.5f,0,
-//	0.5f,0.5f,1,
-//
-//	-0.5f,-0.5f,1,
-//	-0.5f,-0.5f,0,
-//	0.5f,-0.5f,0,
-//	0.5f,-0.5f,1
-//};
-//
-//std::vector<int> indices = {
-//	0,1,3,
-//	3,1,2,
-//	4,5,7,
-//	7,5,6,
-//	8,9,11,
-//	11,9,10,
-//	12,13,15,
-//	15,13,14,
-//	16,17,19,
-//	19,17,18,
-//	20,21,23,
-//	23,21,22
-//};
-//
-//std::vector<float> textureCoords = {
-//	0,0,
-//	0,1,
-//	1,1,
-//	1,0,
-//	0,0,
-//	0,1,
-//	1,1,
-//	1,0,
-//	0,0,
-//	0,1,
-//	1,1,
-//	1,0,
-//	0,0,
-//	0,1,
-//	1,1,
-//	1,0,
-//	0,0,
-//	0,1,
-//	1,1,
-//	1,0,
-//	0,0,
-//	0,1,
-//	1,1,
-//	1,0
-//};
 
 int main() {
 
@@ -98,6 +25,7 @@ int main() {
 
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
 
+	//open window
 	DisplayManager* myDisplayManager = new DisplayManager();
 	myDisplayManager->CreatManager(window);
 
@@ -108,13 +36,13 @@ int main() {
 	OBJLoader* myOBJLoader = new OBJLoader();
 
 	/*RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);*/
-	RawModel model = myOBJLoader->loadOBJ("fern");
+	RawModel model = myOBJLoader->loadModel("stall");
 	//load texture use NAME
-	ModelTexture texture(myLoader->loadTexture("fern"));
+	ModelTexture texture(myLoader->loadTexture("stallTexture"));
 	TexturedModel texturedModel(model, texture);
 
-
-	Entity entity(texturedModel, glm::vec3(0, 0, 0.0f), glm::vec3(0, 0.5f, 0.5f), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(0, 0, 0.0f), glm::vec3(0, 0.0f, 0.0f), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(0, 10, 0), glm::vec3(10, 10, 10));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -135,6 +63,7 @@ int main() {
 		//Ê¹ÓÃµÄShaderPrograme
 		myShader->start();
 
+		myShader->loadLight(light);
 		myShader->loadViewMatrix(myCamera->getViewMatrix());
 
 		myRenderer->Render(entity, myShader);

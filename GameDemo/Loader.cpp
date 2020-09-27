@@ -24,7 +24,8 @@ GLuint Loader::createVAO()
 
 //load information to VAO
 //data 1.vertices position 2.texture position 
-RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float>textureCoords, std::vector<int> indices)
+RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords,
+	std::vector<float> normals, std::vector<int> indices)
 {
 	// create a new VAO
 	GLuint vaoID = createVAO();
@@ -33,9 +34,25 @@ RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float>textur
 	// Store the data in attribute lists
 	storeDataInAttributeList(0, 3, &vertices[0], vertices.size()* sizeof(float));
 	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(float));
+	storeDataInAttributeList(2, 3, &normals[0], normals.size()* sizeof(float));
 	unbindVAO();
 	return RawModel(vaoID, indicesSize);
 }
+
+RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, std::vector<int> indices)
+{
+	// create a new VAO
+	GLuint vaoID = createVAO();
+	int indicesSize = indices.size();
+	bindIndicesBuffer(indices.data(), indicesSize);
+	// Store the data in attribute lists
+	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(float));
+	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(float));
+	unbindVAO();
+	return RawModel(vaoID, indicesSize);
+}
+
+
 
 void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize)
 {

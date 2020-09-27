@@ -1,5 +1,6 @@
 #include <vector>
 #include <GL/glew.h>
+#include <glm.hpp>
 
 #include "RawModel.h"
 
@@ -13,7 +14,10 @@ public:
 	//Create VAO
 	GLuint createVAO();
 
-	RawModel loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords, std::vector<int> indices);
+	RawModel loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords, 
+		std::vector<float> normals , std::vector<int> indices);
+	RawModel loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, 
+		std::vector<int> indices);
 
 	//load texture from file
 	GLuint loadTexture(const char* filename);

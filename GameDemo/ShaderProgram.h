@@ -44,7 +44,7 @@ protected:
 	//load int into uniform by location
 	void loadFloat(GLuint location, float value);
 	//load 3D vector into uniform by location
-	void loadVector3(GLuint location, vector3 vec);
+	void loadVector3(GLuint location, glm::vec3 vec);
 	//load bool into uniform by location
 	void loadBoolean(GLuint location, bool value);
 	//load matrix into unifrom by location

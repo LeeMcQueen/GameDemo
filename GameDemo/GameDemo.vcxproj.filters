@@ -155,6 +155,12 @@
     <ClInclude Include="OBJLoader.h">
       <Filter>头文件\renderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="tiny_obj_loader.h">
+      <Filter>头文件\thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>头文件\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt">

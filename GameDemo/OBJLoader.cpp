@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 
+#define TINYOBJLOADER_IMPLEMENTATION
+#include "tiny_obj_loader.h"
+
 #include "OBJLoader.h"
 
 using namespace std;
@@ -12,7 +15,56 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-RawModel OBJLoader::loadOBJ(const char * fileName)
+//tiny_obj_loader
+RawModel OBJLoader::tinyOBJLoader(const char * fileName)
+{
+	string path = "res/" + string(fileName) + ".obj";
+
+	vector<int> indices;
+	std::vector<glm::vec3> positions;
+	std::vector<glm::vec3> normals;
+	std::vector<glm::vec2> texCoords;
+
+	tinyobj::attrib_t attrib;
+	vector<tinyobj::shape_t> shapes;
+	vector<tinyobj::material_t> materials;
+	string err;
+
+	if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.c_str())) {
+		throw std::runtime_error(err);
+	}
+
+	for (const auto& shape : shapes) {
+		for (const auto& index : shape.mesh.indices) {
+			//positions
+			positions.emplace_back(
+				attrib.vertices[3 * index.vertex_index + 0],
+				attrib.vertices[3 * index.vertex_index + 1],
+				attrib.vertices[3 * index.vertex_index + 2]
+			);
+
+			//texture coordinates
+			texCoords.emplace_back(
+				attrib.texcoords[2 * index.texcoord_index + 0],
+				1.f - attrib.texcoords[2 * index.texcoord_index + 1]
+			);
+
+			//normals
+			normals.emplace_back(
+				attrib.normals[3 * index.normal_index + 0],
+				attrib.normals[3 * index.normal_index + 1],
+				attrib.normals[3 * index.normal_index + 2]
+			);
+
+			indices.push_back(static_cast<unsigned int &&>(indices.size()));
+		}
+	}
+
+	Loader* myloader = new Loader;
+	return myloader->loadToVao(positions, texCoords, indices);
+}
+
+RawModel OBJLoader::loadModel(const char * fileName)
 {
 	//initialization all data
 	verticesArray.clear();
@@ -37,7 +89,7 @@ RawModel OBJLoader::loadOBJ(const char * fileName)
 	string line;
 	while (getline(objData, line))
 	{
-		auto currentLine = split(line, " ");
+		vector<string> currentLine = split(line, " ");
 
 		//OBJFile begin V => vertex
 		if (startsWith(line, "v "))
@@ -76,9 +128,9 @@ RawModel OBJLoader::loadOBJ(const char * fileName)
 		}
 
 		auto current_line = split(line, " ");
-		auto vertex1 = split(current_line.at(1), "/");
-		auto vertex2 = split(current_line.at(2), "/");
-		auto vertex3 = split(current_line.at(3), "/");
+		vector<string> vertex1 = split(current_line.at(1), "/");
+		vector<string> vertex2 = split(current_line.at(2), "/");
+		vector<string> vertex3 = split(current_line.at(3), "/");
 
 		processVertex(vertex1, textures, normals);
 		processVertex(vertex2, textures, normals);
@@ -98,7 +150,7 @@ RawModel OBJLoader::loadOBJ(const char * fileName)
 	}
 
 	Loader* myloader = new Loader;
-	return myloader->loadToVAO(verticesArray, texturesArray, indices);
+	return myloader->loadToVAO(verticesArray, texturesArray, normalsArray, indices);
 }
 
 void OBJLoader::processVertex(const vector<string>& vertexData, vector<glm::vec2>& textures, vector<glm::vec3>& normals)

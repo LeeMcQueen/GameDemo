@@ -13,7 +13,10 @@ class OBJLoader
 public:
 
 	//load an obj file
-	static RawModel loadOBJ(const char* fileName);
+	static RawModel loadModel(const char* fileName);
+
+	//faster OBJLoader function
+	static RawModel tinyOBJLoader(const char* fileName);
 
 private:
 

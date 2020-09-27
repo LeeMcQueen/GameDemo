@@ -6,7 +6,8 @@
 using namespace std;
 
 Camera::Camera()
-	:position(glm::vec3(0, 0, 5))
+	//Camera location
+	:position(glm::vec3(0, 0, 20))
 {}
 
 
@@ -17,24 +18,6 @@ Camera::~Camera()
 
 void Camera::move()
 {
-	//float speed = 0.25f;
-
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-	//	speed *= 10;
-
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
-	//	position.z -= speed;
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
-	//	position.z += speed;
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_A) == GLFW_PRESS)
-	//	position.x -= speed;
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS)
-	//	position.x += speed;
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_UP) == GLFW_PRESS)
-	//	position.y += speed;
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_DOWN) == GLFW_PRESS)
-	//	position.y -= speed;
-
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		position.z -= 0.2;
@@ -72,11 +55,11 @@ void Camera::move()
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		position.y += 1;
+		position.y += 0.11;
 	}
-	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_I) == GLFW_PRESS)
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		position.y -= 1;
+		position.y -= 0.1;
 	}
 
 	cerr << "1.transformation x:" << position.x << endl;
