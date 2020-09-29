@@ -68,6 +68,7 @@ void ShaderProgram::loadMatrix4(GLuint location, glm::mat4 value)
 	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
 }
 
+//uniform function
 GLuint ShaderProgram::getUniformLocation(const char* uniformName)
 {
 	//1.check program 2.location name

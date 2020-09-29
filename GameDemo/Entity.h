@@ -31,7 +31,7 @@ public:
 	void increaseRotation(glm::vec3 rotation);
 
 	//Get model texture
-	TexturedModel GetTexture() const;
+	TexturedModel GetModel() const;
 
 	glm::vec3 getPosition() const;
 

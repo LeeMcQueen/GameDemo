@@ -36,7 +36,7 @@ void Entity::increaseRotation(glm::vec3 rotation)
 	//cerr << "6.rotation:" << rotation_.z << endl;
 }
 
-TexturedModel Entity::GetTexture() const
+TexturedModel Entity::GetModel() const
 {
 	return model_;
 }

@@ -48,6 +48,12 @@ void StaticShader::loadLight(Light light)
 	loadVector3(Location_lightPosition, light.getPosition());
 }
 
+void StaticShader::loadShineVariables(float shineDamper, float reflectivity)
+{
+	loadFloat(Location_shineDamper, shineDamper);
+	loadFloat(Location_reflectivity, reflectivity);
+}
+
 //get all uniform location
 void StaticShader::getAllUniformLocations()
 {
@@ -56,4 +62,6 @@ void StaticShader::getAllUniformLocations()
 	Location_viewMatrix = getUniformLocation("viewMatrix");
 	Location_lightColor = getUniformLocation("lightColor");
 	Location_lightPosition = getUniformLocation("lightPosition");
+	Location_shineDamper = getUniformLocation("shineDamper");
+	Location_reflectivity = getUniformLocation("reflectivity");
 }

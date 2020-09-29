@@ -36,13 +36,16 @@ int main() {
 	OBJLoader* myOBJLoader = new OBJLoader();
 
 	/*RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);*/
-	RawModel model = myOBJLoader->loadModel("stall");
+	RawModel model = myOBJLoader->loadModel("person");
 	//load texture use NAME
-	ModelTexture texture(myLoader->loadTexture("stallTexture"));
+	ModelTexture texture(myLoader->loadTexture("playerTexture"));
 	TexturedModel texturedModel(model, texture);
 
+	//texture.setShineDamer(1.0f);
+	//texture.setReflectivity(1.0f);
+
 	Entity entity(texturedModel, glm::vec3(0, 0, 0.0f), glm::vec3(0, 0.0f, 0.0f), glm::vec3(1, 1, 1));
-	Light light(glm::vec3(0, 10, 0), glm::vec3(10, 10, 10));
+	Light light(glm::vec3(0, 0, 10), glm::vec3(1, 1, 1));
 
 	while (!glfwWindowShouldClose(window))
 	{

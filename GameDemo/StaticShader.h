@@ -33,7 +33,11 @@ public:
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
 
+	//load light to shader program
 	void loadLight(Light light);
+
+	//load ShineDamper reflectivity to program
+	void loadShineVariables(float shineDamper, float reflectivity);
 
 protected:
 
@@ -47,17 +51,17 @@ private:
 
 	//Location of transformation matrix in shader progam
 	GLuint Location_tansformationMatrix;
-
 	//location of projection matrix in shader program
 	GLuint Location_projectionMatrix;
-
 	//location of view matrix in shader program
 	GLuint Location_viewMatrix;
-
 	//location of lightColor in shader program
 	GLuint Location_lightColor;
-
 	//location of lightPosition in shader program
 	GLuint Location_lightPosition;
+	//location of shineDamper;
+	GLuint Location_shineDamper;
+	//Location of reflectivity
+	GLuint Location_reflectivity;
 };
 

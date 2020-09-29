@@ -26,22 +26,21 @@ void Renderer::Prepare()
 	glClearColor(1, 0, 0, 1);
 }
 
-//void Renderer::Render(RawModel model) {
-//void Renderer::Render(TexturedModel texturedModel) {
 void Renderer::Render(Entity entity, StaticShader* shader) {
 
 	//Get textureModel form entity
-	TexturedModel& model = entity.GetTexture();
-
+	TexturedModel& model = entity.GetModel();
 	//Get rawModel from textredModel
 	RawModel& rawModel = model.GetRawModel();
+	//Get texture form ModelTexture
+	ModelTexture texture = model.GetTextureModel();
 
 	glBindVertexArray(rawModel.getVaoId());
 
 	//activate the attribute list
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(0);//vecter
+	glEnableVertexAttribArray(1);//texture
+	glEnableVertexAttribArray(2);//normal
 
 	//calculate transformation matrix
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
@@ -49,6 +48,7 @@ void Renderer::Render(Entity entity, StaticShader* shader) {
 		entity.getScale());
 
 	shader->loadTransformationMatrix(transformationMatrix);
+	shader->loadShineVariables(texture.getShineDamer(), texture.getReflectivity());
 
  	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, model.GetTextureModel().getID());

@@ -84,9 +84,6 @@
     <ClCompile Include="StaticShader.cpp">
       <Filter>源文件\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="ModelTexture.cpp">
-      <Filter>源文件\texture</Filter>
-    </ClCompile>
     <ClCompile Include="RawModel.cpp">
       <Filter>源文件\Model</Filter>
     </ClCompile>
