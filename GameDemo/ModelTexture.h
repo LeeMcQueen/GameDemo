@@ -10,7 +10,7 @@ public:
 	//Constructor
 	ModelTexture(GLuint id) 
 		:textureID_(id) 
-		,shineDamper_(0.0f) 
+		,shineDamper_(1.0f) 
 		,reflectivity_(0.0f)
 	{};
 
@@ -28,7 +28,7 @@ public:
 		return shineDamper_;
 	}
 	//Set shineDamper
-	void setShineDamer(float shineDamer_)
+	void setShineDamer(float shineDamper_)
 	{
 		ModelTexture::shineDamper_ = shineDamper_;
 	}
@@ -38,7 +38,7 @@ public:
 		return reflectivity_;
 	}
 	//set reflectivity
-	void setReflectivity(float reflectivity_) 
+	void setReflectivity(float reflectivity_)
 	{
 		ModelTexture::reflectivity_ = reflectivity_;
 	}

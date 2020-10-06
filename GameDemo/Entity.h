@@ -9,26 +9,21 @@
 class Entity
 {
 public:
-	//constructor
-	//Entity(TexturedModel& model,
-	//	vector3 position = vector3(0, 0, 0), 
-	//	vector3 rotation = vector3(0, 0, 0),
-	//	float scale = 1
-	//);
-	Entity(TexturedModel& model,
-		glm::vec3 position,
-		glm::vec3 rotation,
-		glm::vec3 scale
+
+	Entity(const TexturedModel& model,
+		const glm::vec3 position,
+		const glm::vec3 rotation,
+		const glm::vec3 scale
 	);
 
 	//destructor
 	~Entity();
 
 	//increase position
-	void increasePosition(glm::vec3 position);
+	void increasePosition(const glm::vec3 position);
 
 	//increase rotation
-	void increaseRotation(glm::vec3 rotation);
+	void increaseRotation(const glm::vec3 rotation);
 
 	//Get model texture
 	TexturedModel GetModel() const;
@@ -39,11 +34,11 @@ public:
 
 	glm::vec3 getScale()const;
 
-	void setPosition(glm::vec3 position);
+	void setPosition(const glm::vec3 position);
 
-	void setRotation(glm::vec3 rotation);
+	void setRotation(const glm::vec3 rotation);
 
-	void setScale(glm::vec3 scale);
+	void setScale(const glm::vec3 scale);
 
 private:
 
@@ -58,11 +53,5 @@ private:
 
 	//Entity texture
 	TexturedModel model_;
-
-	//texture position in an atlas
-	//int atlasPosition_;
-	
-	//Entity raw model
-	//RawModel* rawModel_;
 };
 

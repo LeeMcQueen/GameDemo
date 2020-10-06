@@ -3,14 +3,12 @@
 #include "DisplayManager.h"
 #include "RawModel.h"
 #include "Loader.h"
-#include "Renderer.h"
-#include "ShaderProgram.h"
-#include "StaticShader.h"
 #include "ModelTexture.h"
 #include "TexturedModel.h"
 #include "camera.h"
 #include "OBJLoader.h"
 #include "Light.h"
+#include "MasterRenderer.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -30,22 +28,29 @@ int main() {
 	myDisplayManager->CreatManager(window);
 
 	Loader* myLoader = new Loader();	
-	StaticShader* myShader = new StaticShader();
-	Renderer* myRenderer = new Renderer(myShader);
-	Camera* myCamera = new Camera();
+
+	MasterRenderer* myMasterRenderer = new MasterRenderer();
+
+	//camera
+	//Camera* myCamera = new Camera();
+	Camera camera;
+
+	//load ObjModle form objloader function
 	OBJLoader* myOBJLoader = new OBJLoader();
 
+
 	/*RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);*/
-	RawModel model = myOBJLoader->loadModel("person");
+	RawModel model = myOBJLoader->loadModel("stall");
+
 	//load texture use NAME
-	ModelTexture texture(myLoader->loadTexture("playerTexture"));
+	ModelTexture texture(myLoader->loadTexture("stallTexture"));
 	TexturedModel texturedModel(model, texture);
 
-	//texture.setShineDamer(1.0f);
-	//texture.setReflectivity(1.0f);
+	texture.setShineDamer(10.0f);
+	texture.setReflectivity(1.0f);
 
-	Entity entity(texturedModel, glm::vec3(0, 0, 0.0f), glm::vec3(0, 0.0f, 0.0f), glm::vec3(1, 1, 1));
-	Light light(glm::vec3(0, 0, 10), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(0, -5.0f, -5.0f), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -59,20 +64,13 @@ int main() {
 		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
 		entity.increaseRotation(glm::vec3(0.0f, 0.001f, 0.0f));
 
-		myCamera->move();
+		camera.move();
 
-		myRenderer->Prepare();
+		myMasterRenderer->processEntity(entity);
 
-		//Ê¹ÓÃµÄShaderPrograme
-		myShader->start();
+		myMasterRenderer->render(light, camera);
 
-		myShader->loadLight(light);
-		myShader->loadViewMatrix(myCamera->getViewMatrix());
-
-		myRenderer->Render(entity, myShader);
-
-		myShader->stop();
-
+		myMasterRenderer->cleanUp();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

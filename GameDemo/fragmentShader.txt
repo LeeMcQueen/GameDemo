@@ -8,20 +8,24 @@ in vec3 toCameraVector;
 out vec4 out_Colour;
 
 uniform sampler2D textureSampler;
-uniform vec3 lightColor;
-uniform float shineDamper;
-uniform float reflectivity;
+uniform vec3 lightColor;			
+uniform float shineDamper;			//light->shineDemper
+uniform float reflectivity;			//light->reflectivity
 
 void main(void)
 {
+   // Normalize the vectors
    vec3 unitNormal = normalize(surfaceNormal);
    vec3 unitLightVector = normalize(toLightVector);
 
    float nDotl = dot(unitNormal, unitLightVector);
-   float brightness = max(nDotl, 0.0);
+
+   //Min value > 0.2
+   float brightness = max(nDotl, 0.2);
+
    vec3 diffuse = brightness * lightColor;
 
-   //vector GOTO camera
+   //GOTO camera vector 
    vec3 unitVectorToCamera = normalize(toCameraVector);
 
    //where light form
@@ -32,7 +36,9 @@ void main(void)
 
    float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
    specularFactor  = max(specularFactor, 0.0);
+
    float dampedFactor = pow(specularFactor, shineDamper);
+
    vec3 finalSpecular = dampedFactor * reflectivity * lightColor;
 
    out_Colour = vec4(diffuse, 1.0) * texture(textureSampler, pass_textureCoords) + vec4(finalSpecular, 1.0);

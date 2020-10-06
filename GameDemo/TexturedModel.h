@@ -6,11 +6,16 @@
 class TexturedModel
 {
 public:
-	TexturedModel(RawModel& model, ModelTexture& texture);
+	explicit TexturedModel(const RawModel& rawmodel, const ModelTexture& modelTexture);
 	~TexturedModel();
 
 	RawModel GetRawModel() const;
 	ModelTexture GetTextureModel() const;
+
+	bool operator <(const TexturedModel &rhs) const
+	{
+		return (modelTexture_.getID() < rhs.GetTextureModel().getID());
+	}
 
 private:
 

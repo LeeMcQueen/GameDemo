@@ -23,7 +23,7 @@ GLuint Loader::createVAO()
 }
 
 //load information to VAO
-//data 1.vertices position 2.texture position 
+//data 1.vertices position 2.texture position 3.normals
 RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords,
 	std::vector<float> normals, std::vector<int> indices)
 {
@@ -39,7 +39,10 @@ RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textu
 	return RawModel(vaoID, indicesSize);
 }
 
-RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, std::vector<int> indices)
+//load information to VAO
+//data 1.vertices position 2.texture position 
+RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, 
+	std::vector<int> indices)
 {
 	// create a new VAO
 	GLuint vaoID = createVAO();
@@ -112,20 +115,23 @@ GLuint Loader::loadTexture(const char* fileName)
 	glGenTextures(1, texture);
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 
+	//basic
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	////basic
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -1.f);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	//Store the buffer in the list for delet
 	glBindTexture(GL_TEXTURE_2D, 0);
 	textures.push_back(texture[0]);
 
 	free(image);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 	return texture[0];
 }

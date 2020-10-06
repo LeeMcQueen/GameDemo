@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Entity::Entity(TexturedModel& model, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+Entity::Entity(const TexturedModel& model, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale)
 	:model_(model),
 	position_(position),
 	rotation_(rotation),
@@ -18,7 +18,7 @@ Entity::~Entity()
 
 }
 
-void Entity::increasePosition(glm::vec3 position)
+void Entity::increasePosition(const glm::vec3 position)
 {
 	position_ += position;
 
@@ -27,7 +27,7 @@ void Entity::increasePosition(glm::vec3 position)
 	//cerr << "3.transformation:" << position_.z << endl;
 }
 
-void Entity::increaseRotation(glm::vec3 rotation)
+void Entity::increaseRotation(const glm::vec3 rotation)
 {
 	rotation_ += rotation;
 
@@ -56,17 +56,17 @@ glm::vec3 Entity::getScale() const
 	return scale_;
 }
 
-void Entity::setPosition(glm::vec3 position)
+void Entity::setPosition(const glm::vec3 position)
 {
 	position_ = position;
 }
 
-void Entity::setRotation(glm::vec3 rotation)
+void Entity::setRotation(const glm::vec3 rotation)
 {
 	rotation_ = rotation;
 }
 
-void Entity::setScale(glm::vec3 scale)
+void Entity::setScale(const glm::vec3 scale)
 {
 	scale_ = scale;
 }

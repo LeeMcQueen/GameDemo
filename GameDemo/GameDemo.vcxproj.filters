@@ -105,6 +105,9 @@
     <ClCompile Include="OBJLoader.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="MasterRenderer.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>头文件\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterRenderer.h">
+      <Filter>头文件\renderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

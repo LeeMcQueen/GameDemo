@@ -3,9 +3,9 @@
 #include "RawModel.h"
 #include "ModelTexture.h"
 
-TexturedModel::TexturedModel(RawModel& model, ModelTexture& texture)
-	:rawModel_(model)
-	, modelTexture_(texture)
+TexturedModel::TexturedModel(const RawModel& rawmodel, const ModelTexture& modelTexture)
+	:rawModel_(rawmodel)
+	, modelTexture_(modelTexture)
 {}
 
 TexturedModel::~TexturedModel()
@@ -13,11 +13,13 @@ TexturedModel::~TexturedModel()
 
 }
 
+//get RawModel (vao ID , vertex number)
 RawModel TexturedModel::GetRawModel() const
 {
 	return rawModel_;
 }
 
+//get modelTexture (textureID, shineDamper, reflectivity)
 ModelTexture TexturedModel::GetTextureModel() const
 {
 	return	modelTexture_;

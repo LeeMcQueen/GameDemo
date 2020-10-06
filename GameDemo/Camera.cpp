@@ -55,7 +55,7 @@ void Camera::move()
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		position.y += 0.11;
+		position.y += 0.1;
 	}
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
