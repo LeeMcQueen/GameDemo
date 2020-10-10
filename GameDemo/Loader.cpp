@@ -42,15 +42,16 @@ RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textu
 //load information to VAO
 //data 1.vertices position 2.texture position 
 RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, 
-	std::vector<int> indices)
+	std::vector<glm::vec3> normals, std::vector<int> indices)
 {
 	// create a new VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
 	bindIndicesBuffer(indices.data(), indicesSize);
 	// Store the data in attribute lists
-	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(float));
-	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(float));
+	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(glm::vec3));
+	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(glm::vec2));
+	storeDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(glm::vec3));
 	unbindVAO();
 	return RawModel(vaoID, indicesSize);
 }

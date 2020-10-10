@@ -62,9 +62,9 @@ void Camera::move()
 		position.y -= 0.1;
 	}
 
-	cerr << "1.transformation x:" << position.x << endl;
-	cerr << "2.transformation y:" << position.y << endl;
-	cerr << "3.transformation z:" << position.z << endl;
+	//cerr << "1.transformation x:" << position.x << endl;
+	//cerr << "2.transformation y:" << position.y << endl;
+	//cerr << "3.transformation z:" << position.z << endl;
 }
 
 glm::mat4 Camera::getViewMatrix() const

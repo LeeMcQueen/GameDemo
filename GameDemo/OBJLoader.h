@@ -18,10 +18,17 @@ public:
 	//faster OBJLoader function
 	static RawModel tinyOBJLoader(const char* fileName);
 
+	//test2
+	static RawModel LoadObjModel(const std::string& fileName);
+
 private:
 
 	static void processVertex(const vector<string>& vertexData, vector<glm::vec2>& textures, 
 		vector<glm::vec3>& normals);
+
+	//test02
+	static void ProcessVertices(char* vertexData, std::vector<int>& indices, std::vector<glm::vec2>& tempTextures,
+		std::vector<glm::vec2>& textures, std::vector<glm::vec3>& tempNormals, std::vector<glm::vec3>& normals);
 
 	//Function split
 	static std::vector<string> split(const string &phrase, const string&delimiter);

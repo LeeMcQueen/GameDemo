@@ -64,6 +64,12 @@
     <Filter Include="源文件\entities">
       <UniqueIdentifier>{9a8bbdd9-4dc8-47d3-83c1-88e5d6b2655c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Terrain">
+      <UniqueIdentifier>{67f26b65-4737-4134-ab25-4875d5e6684a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Terrain">
+      <UniqueIdentifier>{cea2d92c-5fa5-4acd-a2d5-558e2459cc83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -107,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="MasterRenderer.cpp">
       <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>源文件\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="MasterRenderer.h">
       <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>头文件\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

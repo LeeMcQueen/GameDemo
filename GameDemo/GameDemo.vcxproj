@@ -139,6 +139,7 @@
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StaticShader.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>

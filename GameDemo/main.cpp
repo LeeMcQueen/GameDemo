@@ -39,14 +39,15 @@ int main() {
 	OBJLoader* myOBJLoader = new OBJLoader();
 
 
-	/*RawModel model = myLoader->loadToVAO(vertices, textureCoords, indices);*/
-	RawModel model = myOBJLoader->loadModel("stall");
+	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
+	/*RawModel model = myOBJLoader->loadModel("stall");*/
+	RawModel model = myOBJLoader->LoadObjModel("bunny");
 
 	//load texture use NAME
-	ModelTexture texture(myLoader->loadTexture("stallTexture"));
+	ModelTexture texture(myLoader->loadTexture("white"));
 	TexturedModel texturedModel(model, texture);
 
-	texture.setShineDamer(10.0f);
+	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
 
 	Entity entity(texturedModel, glm::vec3(0, -5.0f, -5.0f), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
@@ -62,7 +63,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
-		entity.increaseRotation(glm::vec3(0.0f, 0.001f, 0.0f));
+		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
 
 		camera.move();
 

@@ -99,8 +99,3 @@ glm::mat4 Renderer::getProjectionMatrix()
 		NEAR_PLANE, FAR_PLANE);
 }
 
-//void Renderer::Render(Entity entity, StaticShader* shader) {
-//	//Draw function (MODEL triangles, Draw how many point, type, indices)
-//	//glDrawElements(GL_TRIANGLES, rawModel.getVertexCount(), GL_UNSIGNED_INT, 0);
-//}
-

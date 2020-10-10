@@ -17,7 +17,7 @@ public:
 	RawModel loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords, 
 		std::vector<float> normals , std::vector<int> indices);
 	RawModel loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, 
-		std::vector<int> indices);
+		std::vector<glm::vec3> normals, std::vector<int> indices);
 
 	//load texture from file
 	GLuint loadTexture(const char* filename);
