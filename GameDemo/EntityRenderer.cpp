@@ -1,0 +1,76 @@
+#include "EntityRenderer.h"
+#include "RawModel.h"
+#include "TexturedModel.h"
+#include "Maths.h"
+#include "DisplayManager.h"
+
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+EntityRenderer::EntityRenderer(StaticShader& shader, glm::mat4& projectionMatrix)
+	:shader_(shader)
+{
+	shader.start();
+	shader.loadProjectionMatrix(projectionMatrix);
+	shader.stop();
+}
+
+void EntityRenderer::render(const std::map<TexturedModel, std::vector<Entity>>& entities)
+{
+	for (const auto& model : entities)
+	{
+		prepareTextureModel(model.first);
+
+		auto batch = model.second;
+		for (const auto &entity : batch)
+		{
+			prepareInstance(entity);
+			//Draw function (MODEL triangles, Draw how many point, type, indices)
+			glDrawElements(GL_TRIANGLES, model.first.GetRawModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
+		}
+
+		unbindTextureModel();
+	}
+}
+
+void EntityRenderer::prepareTextureModel(const TexturedModel & model)
+{
+	//Get rawModel from textredModel
+	RawModel& rawModel = model.GetRawModel();
+	glBindVertexArray(rawModel.getVaoId());
+
+	//activate the attribute list
+	glEnableVertexAttribArray(0);	//vecter
+	glEnableVertexAttribArray(1);	//texture
+	glEnableVertexAttribArray(2);	//normal
+
+	//Get texture form ModelTexture
+	ModelTexture& texture = model.GetTextureModel();
+	//load shine
+	shader_.loadShineVariables(texture.getShineDamer(), texture.getReflectivity());
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, model.GetTextureModel().getID());
+}
+
+void EntityRenderer::prepareInstance(const Entity & entity)
+{
+	//calculate transformation matrix
+	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
+		entity.getRotation(),
+		entity.getScale());
+
+	//shader transformMatrix
+	shader_.loadTransformationMatrix(transformationMatrix);
+}
+
+void EntityRenderer::unbindTextureModel()
+{
+	//unbind textureModel
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glBindVertexArray(0);
+}
+

@@ -84,9 +84,6 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>源文件\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>源文件\renderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="StaticShader.cpp">
       <Filter>源文件\shaders</Filter>
     </ClCompile>
@@ -117,6 +114,15 @@
     <ClCompile Include="Terrain.cpp">
       <Filter>源文件\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="EntityRenderer.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainShader.cpp">
+      <Filter>源文件\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainRenderer.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -127,9 +133,6 @@
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>头文件\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>头文件\renderEngine</Filter>
     </ClInclude>
     <ClInclude Include="StaticShader.h">
       <Filter>头文件\shaders</Filter>
@@ -145,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="TexturedModel.h">
       <Filter>头文件\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>头文件\utils\struct</Filter>
@@ -176,12 +176,27 @@
     <ClInclude Include="Terrain.h">
       <Filter>头文件\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="EntityRenderer.h">
+      <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainShader.h">
+      <Filter>头文件\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainRenderer.h">
+      <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="vertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="terrainVertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="terrainFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
   </ItemGroup>
@@ -192,5 +207,10 @@
     <Image Include="res\g.png">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameDemo.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

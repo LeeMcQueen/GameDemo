@@ -1,3 +1,5 @@
+
+#define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 
 #include "DisplayManager.h"
@@ -27,31 +29,36 @@ int main() {
 	DisplayManager* myDisplayManager = new DisplayManager();
 	myDisplayManager->CreatManager(window);
 
-	Loader* myLoader = new Loader();	
+	//start temporary data
+	Loader loader;
 
 	MasterRenderer* myMasterRenderer = new MasterRenderer();
 
 	//camera
-	//Camera* myCamera = new Camera();
 	Camera camera;
 
 	//load ObjModle form objloader function
 	OBJLoader* myOBJLoader = new OBJLoader();
 
-
+	//load OBJModel 3 function
 	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
 	/*RawModel model = myOBJLoader->loadModel("stall");*/
-	RawModel model = myOBJLoader->LoadObjModel("bunny");
+	/*RawModel model = myOBJLoader->LoadObjModel("stall");*/
 
 	//load texture use NAME
-	ModelTexture texture(myLoader->loadTexture("white"));
-	TexturedModel texturedModel(model, texture);
+	ModelTexture texture(loader.loadTexture("white"));
 
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
 
-	Entity entity(texturedModel, glm::vec3(0, -5.0f, -5.0f), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	/*TexturedModel texturedModel(model, texture);*/
+
+	//model load
+	/*Entity entity(texturedModel, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));*/
+	//light load
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
+	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
+	Terrain terrain2(-1, 0, loader, ModelTexture(loader.loadTexture("grassy3")));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -62,12 +69,30 @@ int main() {
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
-		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
+		for (int i = 0; i < 2; i++)
+		{
+			char tmp[10];
+			sprintf(tmp, "%d", i);
+			std::string tmp2(tmp);
+			RawModel model = myOBJLoader->LoadObjModel(tmp2);
+			TexturedModel texturedModel(model, texture);
+			Entity entity(texturedModel, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+			myMasterRenderer->processEntity(entity);
+		}
+		
+
+		
+
+		//transformation
+		//entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
+		//rotation
+		//entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
 
 		camera.move();
 
-		myMasterRenderer->processEntity(entity);
+		myMasterRenderer->processTerrain(terrain2);
+		myMasterRenderer->processTerrain(terrain);
+		//myMasterRenderer->processEntity(entity);
 
 		myMasterRenderer->render(light, camera);
 

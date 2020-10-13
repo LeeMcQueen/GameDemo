@@ -135,11 +135,13 @@
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="EntityRenderer.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="TerrainRenderer.cpp" />
+    <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,23 +155,29 @@
     <ClInclude Include="Maths.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="OBJLoader.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="EntityRenderer.h" />
     <ClInclude Include="RawModel.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TerrainRenderer.h" />
+    <ClInclude Include="TerrainShader.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt" />
+    <Text Include="terrainFragmentShader.txt" />
+    <Text Include="terrainVertexShader.txt" />
     <Text Include="vertexShader.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="blendMap.png" />
     <Image Include="res\g.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameDemo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

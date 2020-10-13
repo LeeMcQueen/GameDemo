@@ -10,7 +10,10 @@ public:
 	Terrain(int gridX, int gridZ, Loader loader, ModelTexture modeltexture);
 	~Terrain();
 
-	const RawModel &get_modol() const;
+	float GetX();
+	float GetZ();
+	RawModel GetModel();
+	ModelTexture GetTexture();
 
 private:
 	const float SIZE = 800;
@@ -21,10 +24,10 @@ private:
 	float x_;
 	float z_;
 
-	RawModel rawmodel_;
+	RawModel rawModel_;
 	//model use texture,shineDamper,reflectivity
 	ModelTexture modelTexture_;
 	//buile terrain VAO,vertexnumber
-	RawModel generateTerrain(const std::string &fileName);
+	RawModel generateTerrain(Loader& loader);
 };
 
