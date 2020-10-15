@@ -123,6 +123,9 @@
     <ClCompile Include="TerrainRenderer.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>源文件\renderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -185,6 +188,9 @@
     <ClInclude Include="TerrainRenderer.h">
       <Filter>头文件\renderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt">
@@ -212,5 +218,8 @@
     <ResourceCompile Include="GameDemo.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

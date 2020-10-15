@@ -1,2 +1,50 @@
-﻿  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Release\GameDemo.exe
+﻿  Camera.cpp
+Camera.cpp(23): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(27): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(31): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(35): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(58): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(62): warning C4305: “-=”: 从“double”到“float”截断
+  DisplayManager.cpp
+  Entity.cpp
+  Loader.cpp
+  lodepng.cpp
+  main.cpp
+  MasterRenderer.cpp
+  Maths.cpp
+  OBJLoader.cpp
+OBJLoader.cpp(27): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
+  EntityRenderer.cpp
+  RawModel.cpp
+  ShaderProgram.cpp
+ShaderProgram.cpp(51): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
+ShaderProgram.cpp(62): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+  StaticShader.cpp
+  Terrain.cpp
+Terrain.cpp(10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(14): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+Terrain.cpp(41): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(43): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  TerrainRenderer.cpp
+  TerrainShader.cpp
+  TexturedModel.cpp
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+  正在生成代码
+  1338 of 1638 functions (81.7%) were compiled, the rest were copied from previous compilation.
+    1075 functions were new in current compilation
+    65 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenerateMipmap
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenBuffers
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenVertexArrays
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBufferData
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindBuffer
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewVertexAttribPointer
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewDisableVertexAttribArray
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewActiveTexture
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewUseProgram
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewEnableVertexAttribArray
+glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Release\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Release\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Release\GameDemo.pdb (Full PDB)

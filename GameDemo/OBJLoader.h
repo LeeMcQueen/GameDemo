@@ -18,7 +18,7 @@ public:
 	//faster OBJLoader function
 	static RawModel tinyOBJLoader(const char* fileName);
 
-	//test2
+	//best OBJLoader
 	static RawModel LoadObjModel(const std::string& fileName);
 
 private:

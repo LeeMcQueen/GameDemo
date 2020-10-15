@@ -1,22 +1,53 @@
-﻿LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
-LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindBuffer
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBufferData
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenBuffers
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewVertexAttribPointer
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenerateMipmap
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
-EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
-Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenVertexArrays
-EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewActiveTexture
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewActiveTexture
-EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewDisableVertexAttribArray
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewDisableVertexAttribArray
-EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewEnableVertexAttribArray
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewEnableVertexAttribArray
-EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewUseProgram
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewUseProgram
-glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+﻿  TexturedModel.cpp
+  TerrainShader.cpp
+  TerrainRenderer.cpp
+  Terrain.cpp
+d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(14): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(41): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(43): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  StaticShader.cpp
+  ShaderProgram.cpp
+d:\opengl\demo\gamedemo\gamedemo\shaderprogram.cpp(51): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\shaderprogram.cpp(62): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+  RawModel.cpp
+  EntityRenderer.cpp
+  OBJLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\objloader.cpp(27): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
+  Maths.cpp
+  MasterRenderer.cpp
+  main.cpp
+  lodepng.cpp
+  Loader.cpp
+  Entity.cpp
+  DisplayManager.cpp
+  Camera.cpp
+d:\opengl\demo\gamedemo\gamedemo\camera.cpp(23): warning C4305: “-=”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\camera.cpp(27): warning C4305: “+=”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\camera.cpp(31): warning C4305: “-=”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\camera.cpp(35): warning C4305: “+=”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\camera.cpp(58): warning C4305: “+=”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\camera.cpp(62): warning C4305: “-=”: 从“double”到“float”截断
+  正在生成代码...
+LINK : warning LNK4098: 嘁
+LINK : warning LNK4098: 嘁
+Loader.obj : warning LNK4049: 涍
+Loader.obj : warning LNK4049: 涍
+Loader.obj : warning LNK4049: 涍
+Loader.obj : warning LNK4049: 涍
+Loader.obj : warning LNK4049: 涍
+Loader.obj : warning LNK4049: 涍
+EntityRenderer.obj : warning LNK4049: 涍
+TerrainRenderer.obj : warning LNK4049: 涍
+Loader.obj : warning LNK4049: 涍
+EntityRenderer.obj : warning LNK4049: 涍
+TerrainRenderer.obj : warning LNK4049: 涍
+EntityRenderer.obj : warning LNK4049: 涍
+TerrainRenderer.obj : warning LNK4049: 涍
+EntityRenderer.obj : warning LNK4049: 涍
+TerrainRenderer.obj : warning LNK4049: 涍
+EntityRenderer.obj : warning LNK4049: 涍
+TerrainRenderer.obj : warning LNK4049: 涍
+glew32s.lib(glew.obj) : warning LNK4099: 枹漄摓 PDB乬vc120.pdb乭(巊梡乬glew32s.lib(glew.obj)乭埥嵼乬D:\openGL\demo\GameDemo\Debug\vc120.pdb乭拞
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)

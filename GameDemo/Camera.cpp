@@ -69,7 +69,7 @@ void Camera::move()
 
 glm::mat4 Camera::getViewMatrix() const
 {
-	return glm::lookAt(position, position + glm::vec3(0, -2.0f, -5.0f), glm::vec3(0, 1.0f, 0));
+	return glm::lookAt(position, position + glm::vec3(0, -3.0f, -5.0f), glm::vec3(0, 1.0f, 0));
 }
 
 glm::vec3 Camera::getPosition() const
