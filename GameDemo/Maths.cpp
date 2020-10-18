@@ -18,6 +18,7 @@ glm::mat4 Maths::createTransformationMatrix(glm::vec3 position, glm::vec3 rotati
 	return transformationMatrix * rotationMatrix * scaleMatrix;
 }
 
+//Not use
 glm::mat4 Maths::createViewMatrix(Camera & camera)
 {
 	glm::mat4 view;

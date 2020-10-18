@@ -13,10 +13,10 @@ class OBJLoader
 public:
 
 	//load an obj file
-	static RawModel loadModel(const char* fileName);
+	static RawModel loadModel(const std::string& fileName);
 
 	//faster OBJLoader function
-	static RawModel tinyOBJLoader(const char* fileName);
+	static RawModel tinyOBJLoader(const std::string& fileName);
 
 	//best OBJLoader
 	static RawModel LoadObjModel(const std::string& fileName);
@@ -26,7 +26,7 @@ private:
 	static void processVertex(const vector<string>& vertexData, vector<glm::vec2>& textures, 
 		vector<glm::vec3>& normals);
 
-	//test02
+	//best OBJLoader
 	static void ProcessVertices(char* vertexData, std::vector<int>& indices, std::vector<glm::vec2>& tempTextures,
 		std::vector<glm::vec2>& textures, std::vector<glm::vec3>& tempNormals, std::vector<glm::vec3>& normals);
 

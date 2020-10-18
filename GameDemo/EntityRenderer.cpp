@@ -11,9 +11,9 @@
 EntityRenderer::EntityRenderer(StaticShader& shader, glm::mat4& projectionMatrix)
 	:shader_(shader)
 {
-	shader.start();
-	shader.loadProjectionMatrix(projectionMatrix);
-	shader.stop();
+	shader_.start();
+	shader_.loadProjectionMatrix(projectionMatrix);
+	shader_.stop();
 }
 
 void EntityRenderer::render(const std::map<TexturedModel, std::vector<Entity>>& entities)

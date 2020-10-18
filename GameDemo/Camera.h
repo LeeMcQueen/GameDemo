@@ -7,7 +7,6 @@ class Camera
 {
 public:
 	Camera();
-	~Camera();
 
 	//increase position&rotation into view(camera)Matrix
 	void move();
@@ -24,7 +23,6 @@ private:
 
 	//camera position
 	glm::vec3 position;
-
 	//camera rotation
 	glm::vec3 rotation;
 };

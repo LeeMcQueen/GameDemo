@@ -4,7 +4,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <iostream>
-
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -16,9 +15,11 @@ using namespace std;
 GLuint Loader::createVAO() 
 {
 	GLuint vaoID;
+
 	glGenVertexArrays(1, &vaoID);
 	vaos.push_back(std::move(vaoID));
 	glBindVertexArray(vaoID);
+
 	return vaoID;
 }
 
@@ -74,15 +75,16 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 
+//use an EBO for higher efficient rendering (less vertex)
 void Loader::bindIndicesBuffer(int* indices, int& count)
 {
-	GLuint vboID;
+	GLuint EboID;
 	// Generate a buffer and bind it for use
-	glGenBuffers(1, &vboID);
+	glGenBuffers(1, &EboID);
 	// Store the buffer in the list
-	vbos.push_back(vboID);
+	vbos.push_back(EboID);
 	// Bind the buffer to use it
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EboID);
 	// Store the indices in the buffer
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, indices, GL_STATIC_DRAW);
 }
@@ -92,9 +94,6 @@ GLuint Loader::loadTexture(const char* fileName)
 	unsigned error;
 	unsigned char* image;
 	unsigned int width, height;
-
-	/*int numComponents;*/
-	//stbi_uc* image = stbi_load(("res/" + string(filename) + ".png").c_str(), &width, &height, &numComponents, 0);
 
 	//Load image using lodepng
 	error = lodepng_decode32_file(&image, &width, &height, ("res/" + string(fileName) + ".png").c_str());
@@ -117,10 +116,6 @@ GLuint Loader::loadTexture(const char* fileName)
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 
 	//basic
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -1.f);*/
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

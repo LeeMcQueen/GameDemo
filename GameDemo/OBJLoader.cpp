@@ -85,6 +85,7 @@ RawModel OBJLoader::LoadObjModel(const std::string & fileName)
 	fclose(file);
 
 	printf("Load time: %dms\n", clock() - startTime);
+
 	Loader* myloader = new Loader;
 	return myloader->loadToVao(vertices, textures, normals, indices);
 }
@@ -109,7 +110,7 @@ void OBJLoader::ProcessVertices(char * vertexData, std::vector<int>& indices, st
 }
 
 //tiny_obj_loader
-RawModel OBJLoader::tinyOBJLoader(const char * fileName)
+RawModel OBJLoader::tinyOBJLoader(const std::string& fileName)
 {
 	string path = "res/" + string(fileName) + ".obj";
 
@@ -157,7 +158,7 @@ RawModel OBJLoader::tinyOBJLoader(const char * fileName)
 	return myloader->loadToVao(positions, texCoords, normals, indices);
 }
 
-RawModel OBJLoader::loadModel(const char * fileName)
+RawModel OBJLoader::loadModel(const std::string& fileName)
 {
 	//initialization all data
 	verticesArray.clear();

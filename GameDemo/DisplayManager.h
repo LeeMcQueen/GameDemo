@@ -10,9 +10,5 @@ public:
 	constexpr static int HEIGHT = 720;
 
 	int CreatManager(GLFWwindow* window);
-
-private:
-
-
 };
 

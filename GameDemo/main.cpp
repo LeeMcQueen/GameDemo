@@ -57,10 +57,11 @@ int main() {
 	//light load
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
-	Terrain terrain2(-1, 0, loader, ModelTexture(loader.loadTexture("grassy3")));
+	Terrain terrain2(-1, -1, loader, ModelTexture(loader.loadTexture("grassy3")));
 
 	while (!glfwWindowShouldClose(window))
 	{
+		//close window
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(window, true);
 		}

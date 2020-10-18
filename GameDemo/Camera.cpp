@@ -5,16 +5,9 @@
 
 using namespace std;
 
-Camera::Camera()
-	//Camera location
-	:position(glm::vec3(0, 20, 50))
+Camera::Camera()	
+	:position(glm::vec3(0, 20, 50))		//Camera location
 {}
-
-
-Camera::~Camera()
-{
-
-}
 
 void Camera::move()
 {
