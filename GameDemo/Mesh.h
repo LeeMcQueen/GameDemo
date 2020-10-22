@@ -12,8 +12,8 @@
 
 struct Vertex 
 {
-	glm::vec3 vertices;
-	glm::vec2 texCoords;
+	glm::vec3 position;
+	glm::vec2 textCoords;
 	glm::vec3 normals;
 	glm::vec4 boneIds = glm::vec4(0.0f);
 	glm::vec4 boneWeights = glm::vec4(0.0f);
@@ -58,16 +58,19 @@ public:
 	//Constructor
 	Mesh();
 
-	static RawModel AmLoder(std::string fileName);
+	void AmLoder(std::string fileName);
+
+	void loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& verticesOutput,
+		std::vector<unsigned int>& indicesOutput, Bone& skeletonOutput, unsigned int &nBoneCount);
 
 private:
-
 	std::vector<Vertex> vertices;
-	std::vector<int> indices;
-	int boneCount = 0;
+	std::vector< unsigned int> indices;
+	unsigned int boneCount = 0;
 	Animation animation;
 	int vao = 0;
 	Bone skeleton;
 	int diffuseTexture;
+
 };
 
