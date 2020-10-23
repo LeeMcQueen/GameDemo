@@ -6,7 +6,7 @@
 Mesh::Mesh()
 {}
 
-void Mesh::AmLoder(std::string fileName)
+void Mesh::AmLoader(std::string fileName)
 {
 	Assimp::Importer importer;
 
@@ -26,9 +26,11 @@ void Mesh::AmLoder(std::string fileName)
 	loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
 }
 
+//1. 2.all mesh infomation 3.model struct 4. 5. 6.
 void Mesh::loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& verticesOutput, 
 	std::vector<unsigned int>& indicesOutput, Bone& skeletonOutput, unsigned int &nBoneCount)
 {
+	//output list
 	verticesOutput = {};
 	indicesOutput = {};
 
@@ -41,7 +43,7 @@ void Mesh::loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& ve
 		vector.x = mesh->mVertices[i].x;
 		vector.y = mesh->mVertices[i].y;
 		vector.z = mesh->mVertices[i].z;
-		vertex.position = vector;
+		vertex.positions = vector;
 
 		//process normal
 		vector.x = mesh->mNormals[i].x;
@@ -58,7 +60,22 @@ void Mesh::loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& ve
 		vertex.boneIds = glm::ivec4(0);
 		vertex.boneWeights = glm::vec4(0.0f);
 
+		//set position, normals, textureCoords to list
 		verticesOutput.push_back(vertex);
+	}
+
+	//-------------------bone------------------------------------------
+	//load boneData to vertices
+	std::unordered_map<std::string, std::pair<int, glm::mat4>> boneInfo;
+	std::vector<unsigned int>boneCount;
+
+	boneCount.resize(verticesOutput.size(), 0);
+	nBoneCount = mesh->mNumBones;
+
+	for (unsigned int i = 0; i < nBoneCount; i++)
+	{
+		aiBone* bone = mesh->mBones[i];
+
 	}
 }
 

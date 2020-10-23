@@ -12,7 +12,7 @@
 
 struct Vertex 
 {
-	glm::vec3 position;
+	glm::vec3 positions;
 	glm::vec2 textCoords;
 	glm::vec3 normals;
 	glm::vec4 boneIds = glm::vec4(0.0f);
@@ -58,7 +58,7 @@ public:
 	//Constructor
 	Mesh();
 
-	void AmLoder(std::string fileName);
+	void AmLoader(std::string fileName);
 
 	void loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& verticesOutput,
 		std::vector<unsigned int>& indicesOutput, Bone& skeletonOutput, unsigned int &nBoneCount);
