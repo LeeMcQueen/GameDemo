@@ -43,10 +43,10 @@ int main() {
 	//load OBJModel 3 function
 	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
 	/*RawModel model = myOBJLoader->loadModel("stall");*/
-	RawModel model = myOBJLoader->LoadObjModel("stall");
+	RawModel model = myOBJLoader->LoadObjModel("person");
 
 	//load texture use NAME
-	ModelTexture texture(loader.loadTexture("white"));
+	ModelTexture texture(loader.loadTexture("playerTexture"));
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
 
@@ -57,7 +57,7 @@ int main() {
 	//light load
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
-	Terrain terrain2(-1, -1, loader, ModelTexture(loader.loadTexture("grassy3")));
+	Terrain terrain2(100, 100, loader, ModelTexture(loader.loadTexture("grassy3")));
 
 	while (!glfwWindowShouldClose(window))
 	{

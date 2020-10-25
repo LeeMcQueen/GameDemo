@@ -1,6 +1,9 @@
 #pragma once
 
 #include <assimp/scene.h>
+#include <glm.hpp>
+#include <gtc/quaternion.hpp>
+#include <gtx/quaternion.hpp>
 
 struct vector3
 {
@@ -29,4 +32,20 @@ inline glm::mat4 assimpToGlmMatrix(aiMatrix4x4 mat)
 		}
 	}
 	return tempMatrix;
+}
+
+inline glm::vec3 assimpToClmVec3(aiVector3D vec)
+{
+	return glm::vec3(vec.x, vec.y, vec.z);
+}
+
+inline glm::quat assimpToGlmQuat(aiQuaternion quat)
+{
+	glm::quat q;
+	q.x = quat.x;
+	q.y = quat.y;
+	q.z = quat.z;
+	q.w = quat.w;
+
+	return q;
 }

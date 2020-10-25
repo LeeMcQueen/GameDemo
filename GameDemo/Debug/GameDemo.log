@@ -1,3 +1,21 @@
 ﻿  Mesh.cpp
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(83): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(93): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(98): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(103): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(108): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(119): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(137): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(159): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(170): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(189): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(196): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(201): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(205): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(207): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(212): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(215): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(217): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)

@@ -33,9 +33,9 @@ struct BoneTransformTrack
 	std::vector<float> rotationTimestamps;
 	std::vector<float> scaleTimestamps;
 
-	std::vector<glm::vec3> position;
-	//std::vector<glm::quat> rotation;
-	std::vector<glm::vec3> scale;
+	std::vector<glm::vec3> positions;
+	std::vector<glm::quat> rotations;
+	std::vector<glm::vec3> scales;
 };
 
 struct Animation
@@ -62,6 +62,11 @@ public:
 
 	void loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& verticesOutput,
 		std::vector<unsigned int>& indicesOutput, Bone& skeletonOutput, unsigned int &nBoneCount);
+
+	bool readSkeleton(Bone& boneOutput, aiNode* node,
+		std::unordered_map<std::string, std::pair<int, glm::mat4>> & boneInfoTable);
+
+	void loadAnimation(const aiScene* scene, Animation& animation);
 
 private:
 	std::vector<Vertex> vertices;

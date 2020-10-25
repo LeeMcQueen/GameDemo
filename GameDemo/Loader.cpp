@@ -78,13 +78,13 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 //use an EBO for higher efficient rendering (less vertex)
 void Loader::bindIndicesBuffer(int* indices, int& count)
 {
-	GLuint EboID;
+	GLuint eboID;
 	// Generate a buffer and bind it for use
-	glGenBuffers(1, &EboID);
+	glGenBuffers(1, &eboID);
 	// Store the buffer in the list
-	vbos.push_back(EboID);
+	vbos.push_back(eboID);
 	// Bind the buffer to use it
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EboID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
 	// Store the indices in the buffer
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, indices, GL_STATIC_DRAW);
 }
