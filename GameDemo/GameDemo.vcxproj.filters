@@ -205,6 +205,12 @@
     <Text Include="terrainFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
+    <Text Include="animVertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="animFragmentShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="blendMap.png">
