@@ -68,6 +68,9 @@ public:
 
 	void loadAnimation(const aiScene* scene, Animation& animation);
 
+	//need to change to shaderProgram
+	unsigned int createVertexArray(std::vector<Vertex>& vertices, std::vector<unsigned int> indices);
+
 private:
 	std::vector<Vertex> vertices;
 	std::vector< unsigned int> indices;
