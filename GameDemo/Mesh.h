@@ -1,84 +1,18 @@
 #pragma once
 
-#include <glm.hpp>
-#include <string>
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+#include <iostream>
 #include <vector>
-#include <unordered_map>
+#include <string>
 
-#include "RawModel.h"
+#include "glew.h"
+#include "glm.hpp"
 
-struct Vertex 
+#define NUM_BONES_PER_VEREX 4
+using namespace std;
+typedef unsigned int uint;
+
+struct Vertex
 {
-	glm::vec3 positions;
-	glm::vec2 textCoords;
-	glm::vec3 normals;
-	glm::vec4 boneIds = glm::vec4(0.0f);
-	glm::vec4 boneWeights = glm::vec4(0.0f);
-};
-
-struct Bone
-{
-	int id = 0;
-	std::string name = "";
-	glm::mat4 offset = glm::mat4(1.0f);
-	std::vector<Bone> children = {};
-};
-
-struct BoneTransformTrack 
-{
-	std::vector<float> positionTimestamps;
-	std::vector<float> rotationTimestamps;
-	std::vector<float> scaleTimestamps;
-
-	std::vector<glm::vec3> positions;
-	std::vector<glm::quat> rotations;
-	std::vector<glm::vec3> scales;
-};
-
-struct Animation
-{
-	float duration = 0.0f;
-	float ticksPerSecond = 1.0f;
-	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
-};
-
-struct Texture 
-{
-	unsigned int id;
-	std::string type;
-	std::string path;
-};
-
-class Mesh
-{
-public:
-	//Constructor
-	Mesh();
-
-	void AmLoader(std::string fileName);
-
-	void loadModel(const aiScene* scene, aiMesh* mesh, std::vector<Vertex>& verticesOutput,
-		std::vector<unsigned int>& indicesOutput, Bone& skeletonOutput, unsigned int &nBoneCount);
-
-	bool readSkeleton(Bone& boneOutput, aiNode* node,
-		std::unordered_map<std::string, std::pair<int, glm::mat4>> & boneInfoTable);
-
-	void loadAnimation(const aiScene* scene, Animation& animation);
-
-	//need to change to shaderProgram
-	unsigned int createVertexArray(std::vector<Vertex>& vertices, std::vector<unsigned int> indices);
-
-private:
-	std::vector<Vertex> vertices;
-	std::vector< unsigned int> indices;
-	unsigned int boneCount = 0;
-	Animation animation;
-	int vao = 0;
-	Bone skeleton;
-	int diffuseTexture;
+	glm::vec3 position;
 
 };
-

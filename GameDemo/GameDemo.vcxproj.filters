@@ -191,6 +191,9 @@
     <ClInclude Include="Mesh.h">
       <Filter>头文件\renderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="std_image.h">
+      <Filter>头文件\thirdparty</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt">
