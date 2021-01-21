@@ -64,12 +64,16 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 	GLuint vboID;
 	// Create a new buffer
 	glGenBuffers(1, &vboID);
+
 	// Store the buffer in the list
 	vbos.push_back(vboID);
+
 	// Bind the buffer to use it
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
+
 	// Store the data in the buffer
 	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
+
 	// Tell OpenGL how and where to store this VBO in the VAO
 	//1.VBO Number 2.VBO Size
 	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -81,10 +85,13 @@ void Loader::bindIndicesBuffer(int* indices, int& count)
 	GLuint eboID;
 	// Generate a buffer and bind it for use
 	glGenBuffers(1, &eboID);
+
 	// Store the buffer in the list
 	vbos.push_back(eboID);
+
 	// Bind the buffer to use it
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+
 	// Store the indices in the buffer
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, indices, GL_STATIC_DRAW);
 }

@@ -43,7 +43,7 @@ int main() {
 	//load OBJModel 3 function
 	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
 	/*RawModel model = myOBJLoader->loadModel("stall");*/
-	RawModel model = myOBJLoader->LoadObjModel("person");
+	RawModel model = myOBJLoader->loadObjModel("person");
 
 	//load texture use NAME
 	ModelTexture texture(loader.loadTexture("playerTexture"));

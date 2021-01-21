@@ -17,7 +17,7 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-RawModel OBJLoader::LoadObjModel(const std::string & fileName)
+RawModel OBJLoader::loadObjModel(const std::string & fileName)
 {
 	clock_t startTime = clock();
 	// Open the file as read only

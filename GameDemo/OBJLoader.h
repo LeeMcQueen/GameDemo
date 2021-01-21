@@ -19,7 +19,7 @@ public:
 	static RawModel tinyOBJLoader(const std::string& fileName);
 
 	//best OBJLoader
-	static RawModel LoadObjModel(const std::string& fileName);
+	static RawModel loadObjModel(const std::string& fileName);
 
 private:
 

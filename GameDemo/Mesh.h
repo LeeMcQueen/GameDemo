@@ -54,4 +54,22 @@ class Mesh
 public:
 
 	Mesh(vector<Vertex> vertex, vector<GLuint> ind, vector<Texture> texture, vector<VertexBoneData> bonr_id_weights);
+	Mesh() {};
+	~Mesh();
+
+	void Draw(GLuint shaders_program);
+
+private:
+
+	vector<Vertex> vertices;
+	vector<GLuint> indices;
+	vector<Texture> textures;
+	vector<VertexBoneData> bones_id_weight_for_each_vertex;
+
+	GLuint VAO;
+	GLuint VBO_vertices;
+	GLuint VBO_bones;
+	GLuint EBO_indices;
+
+	void SetupMesh();
 };
