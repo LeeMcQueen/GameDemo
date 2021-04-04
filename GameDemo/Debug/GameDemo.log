@@ -1,13 +1,3 @@
 ﻿  main.cpp
-  OBJLoader.cpp
-d:\opengl\demo\gamedemo\gamedemo\objloader.cpp(27): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
-  Mesh.cpp
-d:\opengl\demo\gamedemo\gamedemo\mesh.cpp(40): warning C4018: “<”: 有符号/无符号不匹配
-  MasterRenderer.cpp
-  Loader.cpp
-  正在生成代码...
-  正在跳过...(未检测到相关更改)
-  TerrainRenderer.cpp
-  Terrain.cpp
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)

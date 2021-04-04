@@ -69,12 +69,27 @@ void Mesh::SetupMesh() {
 	//解绑
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	//骨骼(bones) date
+	//骨骼(bones) data
 	glGenBuffers(1, &VBO_bones);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_bones);
 	glBufferData(GL_ARRAY_BUFFER, bones_id_weight_for_each_vertex.size() * sizeof(bones_id_weight_for_each_vertex[0]), &bones_id_weight_for_each_vertex[0], GL_STATIC_DRAW);
 	//解绑
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	//EBO
+	glGenBuffers(1, &EBO_indices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+	//EBO解绑
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	//生成VAO 从buffers得到data给shaders
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
+
+	//顶点位置 vertex position
+	//glEnableVertexAttribArray();
 
 }
 

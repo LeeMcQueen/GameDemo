@@ -1,4 +1,4 @@
-
+﻿
 #define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 
@@ -16,6 +16,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+
+//窗口大小变换监听
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 int main() {
 
 	glfwInit();
@@ -24,6 +31,9 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
+
+	//注册窗口大小监听
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//open window
 	DisplayManager* myDisplayManager = new DisplayManager();
@@ -59,6 +69,7 @@ int main() {
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
 	Terrain terrain2(100, 100, loader, ModelTexture(loader.loadTexture("grassy3")));
 
+	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
 		//close window
@@ -83,10 +94,16 @@ int main() {
 		myMasterRenderer->render(light, camera);
 
 		myMasterRenderer->cleanUp();
+
+		//交换颜色缓冲区
 		glfwSwapBuffers(window);
+
+		//检查是否出发相关事件
 		glfwPollEvents();
 	}
+
+	//销毁GLFW
 	glfwTerminate();
 
-	glViewport(0, 0, 1280, 720);
 }
+
