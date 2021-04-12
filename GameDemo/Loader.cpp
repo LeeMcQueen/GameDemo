@@ -1,4 +1,4 @@
-#include "Loader.h"
+﻿#include "Loader.h"
 #include "ShaderProgram.h"
 #include "lodepng.h"
 #define STB_IMAGE_IMPLEMENTATION
@@ -12,12 +12,14 @@ using namespace std;
 
 //Info : you can check modelLoader.cpp
 
+//生成VAO（顶点数组对象）
 GLuint Loader::createVAO() 
 {
 	GLuint vaoID;
 
 	glGenVertexArrays(1, &vaoID);
 	vaos.push_back(std::move(vaoID));
+	//绑定VAO（顶点数组对象）
 	glBindVertexArray(vaoID);
 
 	return vaoID;
@@ -62,20 +64,20 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec
 void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize)
 {
 	GLuint vboID;
-	// Create a new buffer
+	//创建VBO（顶点缓冲对象）
 	glGenBuffers(1, &vboID);
 
-	// Store the buffer in the list
+	//把VBO储存到表里
 	vbos.push_back(vboID);
 
-	// Bind the buffer to use it
+	//绑定VBO（顶点缓冲对象）
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 
-	// Store the data in the buffer
+	//把数据存储进绑定的缓存里面 1.缓存类型 2.数据大小 3.存储的数据（数组） 4.管理类型（数据不会或几乎不会改变）
 	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
-	// Tell OpenGL how and where to store this VBO in the VAO
-	//1.VBO Number 2.VBO Size
+	//把VBO（顶点缓冲对象）存储进入VAO（顶点数组对象）
+	//1.顶点属性 2.顶点属性的大小 3.数据类型
 	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 

@@ -1,3 +1,36 @@
 ﻿  main.cpp
+  OBJLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\objloader.cpp(27): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
+  Loader.cpp
+  DisplayManager.cpp
+  正在生成代码...
+LINK : warning LNK4098: 默
+LINK : warning LNK4098: 默
+Loader.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+Loader.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+Loader.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+Loader.obj : warning LNK4049: 已
+Loader.obj : warning LNK4049: 已
+Loader.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+EntityRenderer.obj : warning LNK4049: 已
+TerrainRenderer.obj : warning LNK4049: 已
+Loader.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+EntityRenderer.obj : warning LNK4049: 已
+TerrainRenderer.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+Mesh.obj : warning LNK4049: 已
+EntityRenderer.obj : warning LNK4049: 已
+TerrainRenderer.obj : warning LNK4049: 已
+EntityRenderer.obj : warning LNK4049: 已
+TerrainRenderer.obj : warning LNK4049: 已
+EntityRenderer.obj : warning LNK4049: 已
+TerrainRenderer.obj : warning LNK4049: 已
+glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)
