@@ -12,28 +12,24 @@
 using namespace std;
 typedef unsigned int uint;
 
-struct Vertex
-{
+struct Vertex{
 	glm::vec3 position;
 	glm::vec3 normal;
 	glm::vec2 textCoords;
 };
 
-struct Texture
-{
+struct Texture{
 	GLuint id;
 	string type;
 	aiString path;
 };
 
-struct BoneMartrix
-{
+struct BoneMartrix{
 	aiMatrix4x4 offset_matrix;
 	aiMatrix4x4 final_world_transform;
 };
 
-struct VertexBoneData
-{
+struct VertexBoneData{
 	//4 bone id for each vertex
 	uint ids[NUM_BONES_PER_VEREX];
 	//4 weights for each vertex
@@ -49,27 +45,30 @@ struct VertexBoneData
 	void addBoneData(uint bone_id, float weight);
 };
 
-class Mesh
-{
+class Mesh{
 public:
 
-	Mesh(vector<Vertex> vertex, vector<GLuint> ind, vector<Texture> texture, vector<VertexBoneData> bonr_id_weights);
+	Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures);
 	Mesh() {};
 	~Mesh();
 
-	void Draw(GLuint shaders_program);
+	void Draw(GLuint shadersProgram);
 
 private:
 
-	vector<Vertex> vertices;
-	vector<GLuint> indices;
-	vector<Texture> textures;
-	vector<VertexBoneData> bones_id_weight_for_each_vertex;
+	vector<Vertex> vertices_;
+	vector<GLuint> indices_;
+	vector<Texture> textures_;
+	vector<VertexBoneData> bones_id_weight_for_each_vertex_;
 
-	GLuint VAO;
+	//GLuint VAO;
 	GLuint VBO_vertices;
 	GLuint VBO_bones;
 	GLuint EBO_indices;
+
+	unsigned int VAO;
+	unsigned int VBO;
+	unsigned int EBO;
 
 	void SetupMesh();
 };

@@ -59,8 +59,10 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec
 	return RawModel(vaoID, indicesSize);
 }
 
+//assimp专用VAO，VBO导入封装
 
 
+//
 void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize)
 {
 	GLuint vboID;
@@ -77,7 +79,7 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
 	//把VBO（顶点缓冲对象）存储进入VAO（顶点数组对象）
-	//1.顶点属性 2.顶点属性的大小 3.数据类型
+	//1.顶点数据 2.顶点属性的大小 3.数据类型
 	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 

@@ -45,15 +45,16 @@ int main() {
 	//camera
 	Camera camera;
 
-	MasterRenderer* myMasterRenderer = new MasterRenderer();
+	//渲染器
+	MasterRenderer masterRenderer;
 
 	//load ObjModle form objloader function
-	OBJLoader* myOBJLoader = new OBJLoader();
+	OBJLoader objloader;
 
 	//load OBJModel 3 function
 	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
 	/*RawModel model = myOBJLoader->loadModel("stall");*/
-	RawModel model = myOBJLoader->loadObjModel("person");
+	RawModel model = objloader.loadObjModel("person");
 
 	//load texture use NAME
 	ModelTexture texture(loader.loadTexture("playerTexture"));
@@ -87,13 +88,13 @@ int main() {
 
 		camera.move();
 
-		myMasterRenderer->processTerrain(terrain2);
-		myMasterRenderer->processTerrain(terrain);
-		myMasterRenderer->processEntity(entity);
+		masterRenderer.processTerrain(terrain2);
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(entity);
 
-		myMasterRenderer->render(light, camera);
+		masterRenderer.render(light, camera);
 
-		myMasterRenderer->cleanUp();
+		masterRenderer.cleanUp();
 
 		//交换颜色缓冲区
 		glfwSwapBuffers(window);

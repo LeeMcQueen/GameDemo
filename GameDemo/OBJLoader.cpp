@@ -90,8 +90,12 @@ RawModel OBJLoader::loadObjModel(const std::string & fileName)
 	return myloader->loadToVao(vertices, textures, normals, indices);
 }
 
-void OBJLoader::ProcessVertices(char * vertexData, std::vector<int>& indices, std::vector<glm::vec2>& tempTextures, std::vector<glm::vec2>& textures, std::vector<glm::vec3>& tempNormals, std::vector<glm::vec3>& normals)
-{
+void OBJLoader::ProcessVertices(char * vertexData,
+	std::vector<int>& indices,
+	std::vector<glm::vec2>& tempTextures,
+	std::vector<glm::vec2>& textures,
+	std::vector<glm::vec3>& tempNormals,
+	std::vector<glm::vec3>& normals){
 	char *stop;
 	int vertexPointer;
 	for (unsigned int i = 0; i < 3; i++)
