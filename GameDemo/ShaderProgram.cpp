@@ -10,8 +10,7 @@
 
 using namespace std;
 
-ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile)
-{
+ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile){
 	//load vertexShader
 	vertexShaderID = ShaderProgram::loadShader(VertexFile, GL_VERTEX_SHADER);
 	//load fragmentShader
@@ -27,8 +26,7 @@ ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile)
 	glAttachShader(programID, fragmentShaderID);
 }
 
-void ShaderProgram::bindAttribute(GLint attribute, const char* variableName)
-{
+void ShaderProgram::bindAttribute(GLint attribute, const char* variableName){
 	glBindAttribLocation(programID, attribute, variableName);
 
 	//cerr << "1." << programID << endl;
@@ -36,8 +34,7 @@ void ShaderProgram::bindAttribute(GLint attribute, const char* variableName)
 	//cerr << "3." <<variableName << endl;
 }
 
-ShaderProgram::~ShaderProgram()
-{
+ShaderProgram::~ShaderProgram(){
 	stop();
 	glDetachShader(programID, vertexShaderID);
 	glDetachShader(programID, fragmentShaderID);
@@ -46,37 +43,31 @@ ShaderProgram::~ShaderProgram()
 	glDeleteProgram(programID);
 }
 
-void ShaderProgram::loadFloat(GLuint location, float value)
-{
+void ShaderProgram::loadFloat(GLuint location, float value){
 	glUniform1i(location, value);
 }
 
-void ShaderProgram::loadVector3(GLuint location, glm::vec3 vec)
-{
+void ShaderProgram::loadVector3(GLuint location, glm::vec3 vec){
 	glUniform3f(location, vec.x, vec.y, vec.z);
 }
 
-void ShaderProgram::loadBoolean(GLuint location, bool value)
-{
+void ShaderProgram::loadBoolean(GLuint location, bool value){
 	//true = 1 , false = 0
 	glUniform1f(location, value ? 1.0 : 0.0);
 }
 
-void ShaderProgram::loadMatrix4(GLuint location, glm::mat4 value)
-{
+void ShaderProgram::loadMatrix4(GLuint location, glm::mat4 value){
 	//check
 	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
 }
 
 //uniform function
-GLuint ShaderProgram::getUniformLocation(const char* uniformName)
-{
+GLuint ShaderProgram::getUniformLocation(const char* uniformName){
 	//1.check program 2.location name
 	return glGetUniformLocation(programID, uniformName);
 }
 
-GLint ShaderProgram::loadShader(const char* fileName, int type)
-{
+GLint ShaderProgram::loadShader(const char* fileName, int type){
 	//Load shaderSource from file
 	ifstream file(fileName);
 

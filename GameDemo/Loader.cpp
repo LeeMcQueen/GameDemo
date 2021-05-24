@@ -13,8 +13,7 @@ using namespace std;
 //Info : you can check modelLoader.cpp
 
 //生成VAO（顶点数组对象）
-GLuint Loader::createVAO() 
-{
+GLuint Loader::createVAO() {
 	GLuint vaoID;
 
 	glGenVertexArrays(1, &vaoID);
@@ -28,8 +27,7 @@ GLuint Loader::createVAO()
 //load information to VAO
 //data 1.vertices position 2.texture position 3.normals
 RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords,
-	std::vector<float> normals, std::vector<int> indices)
-{
+	std::vector<float> normals, std::vector<int> indices){
 	// create a new VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
@@ -45,8 +43,7 @@ RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textu
 //load information to VAO
 //data 1.vertices position 2.texture position 
 RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, 
-	std::vector<glm::vec3> normals, std::vector<int> indices)
-{
+	std::vector<glm::vec3> normals, std::vector<int> indices){
 	// create a new VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
@@ -59,12 +56,21 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec
 	return RawModel(vaoID, indicesSize);
 }
 
-//assimp专用VAO，VBO导入封装
+//assimp专用VAO，VBO, EBO导入封装
+RawModel Loader::AssimpLoadToVAO(std::vector<glm::vec3> vertices
+								,std::vector<glm::vec3> indices
+								,std::vector<glm::vec2> textCoords) {
+	//
+	GLuint vaoID = createVAO();
+	//
+	unsigned int indicesSize = indices.size();
+	AssimpBindIndicesBuffer(sizeof(unsigned int)* indices.size(), indicesSize);
 
+	return RawModel(vaoID, indicesSize);
+}
 
-//
-void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize)
-{
+//VBO封装
+void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize){
 	GLuint vboID;
 	//创建VBO（顶点缓冲对象）
 	glGenBuffers(1, &vboID);
@@ -84,8 +90,8 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 }
 
 //use an EBO for higher efficient rendering (less vertex)
-void Loader::bindIndicesBuffer(int* indices, int& count)
-{
+//EBO封装
+void Loader::bindIndicesBuffer(int* indices, int& count){
 	GLuint eboID;
 	// Generate a buffer and bind it for use
 	glGenBuffers(1, &eboID);
@@ -100,8 +106,22 @@ void Loader::bindIndicesBuffer(int* indices, int& count)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, indices, GL_STATIC_DRAW);
 }
 
-GLuint Loader::loadTexture(const char* fileName)
-{
+void Loader::AssimpBindIndicesBuffer(unsigned int indices, unsigned int& count) {
+	GLuint eboID;
+	// Generate a buffer and bind it for use
+	glGenBuffers(1, &eboID);
+
+	// Store the buffer in the list
+	vbos.push_back(eboID);
+
+	// Bind the buffer to use it
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+
+	// Store the indices in the buffer
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, &indices, GL_STATIC_DRAW);
+}
+
+GLuint Loader::loadTexture(const char* fileName){
 	unsigned error;
 	unsigned char* image;
 	unsigned int width, height;

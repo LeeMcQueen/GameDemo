@@ -17,8 +17,7 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-RawModel OBJLoader::loadObjModel(const std::string & fileName)
-{
+RawModel OBJLoader::loadObjModel(const std::string & fileName){
 	clock_t startTime = clock();
 	// Open the file as read only
 	FILE* file;
@@ -98,8 +97,7 @@ void OBJLoader::ProcessVertices(char * vertexData,
 	std::vector<glm::vec3>& normals){
 	char *stop;
 	int vertexPointer;
-	for (unsigned int i = 0; i < 3; i++)
-	{
+	for (unsigned int i = 0; i < 3; i++){
 		// Get and store index
 		vertexPointer = strtol(vertexData, &stop, 10) - 1;
 		indices.push_back(vertexPointer);
@@ -114,8 +112,7 @@ void OBJLoader::ProcessVertices(char * vertexData,
 }
 
 //tiny_obj_loader
-RawModel OBJLoader::tinyOBJLoader(const std::string& fileName)
-{
+RawModel OBJLoader::tinyOBJLoader(const std::string& fileName){
 	string path = "res/" + string(fileName) + ".obj";
 
 	vector<int> indices;
@@ -162,8 +159,7 @@ RawModel OBJLoader::tinyOBJLoader(const std::string& fileName)
 	return myloader->loadToVao(positions, texCoords, normals, indices);
 }
 
-RawModel OBJLoader::loadModel(const std::string& fileName)
-{
+RawModel OBJLoader::loadModel(const std::string& fileName){
 	//initialization all data
 	verticesArray.clear();
 	texturesArray.clear();
@@ -251,8 +247,7 @@ RawModel OBJLoader::loadModel(const std::string& fileName)
 	return myloader->loadToVAO(verticesArray, texturesArray, normalsArray, indices);
 }
 
-void OBJLoader::processVertex(const vector<string>& vertexData, vector<glm::vec2>& textures, vector<glm::vec3>& normals)
-{
+void OBJLoader::processVertex(const vector<string>& vertexData, vector<glm::vec2>& textures, vector<glm::vec3>& normals){
 	int current_vertex_pointer = stoi(vertexData.at(0)) - 1;
 	indices.emplace_back(current_vertex_pointer);
 
@@ -269,8 +264,7 @@ void OBJLoader::processVertex(const vector<string>& vertexData, vector<glm::vec2
 
 
 //function split
-std::vector<string> OBJLoader::split(const string & phrase, const string & delimiter)
-{
+std::vector<string> OBJLoader::split(const string & phrase, const string & delimiter){
 	vector<string> list;
 
 	string temp = string(phrase);
@@ -291,7 +285,6 @@ std::vector<string> OBJLoader::split(const string & phrase, const string & delim
 }
 
 //function startsWith
-bool OBJLoader::startsWith(const string & line, const string & pref)
-{
+bool OBJLoader::startsWith(const string & line, const string & pref){
 	return equal(pref.begin(), pref.end(), line.begin());
 }

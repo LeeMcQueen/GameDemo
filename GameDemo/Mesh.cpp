@@ -11,8 +11,7 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> text
 	SetupMesh();
 }
 
-Mesh::~Mesh()
-{
+Mesh::~Mesh(){
 }
 
 void VertexBoneData::addBoneData(uint bone_id, float weight){
