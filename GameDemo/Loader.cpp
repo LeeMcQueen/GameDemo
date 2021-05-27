@@ -56,19 +56,6 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec
 	return RawModel(vaoID, indicesSize);
 }
 
-//assimp专用VAO，VBO, EBO导入封装
-RawModel Loader::AssimpLoadToVAO(std::vector<glm::vec3> vertices
-								,std::vector<glm::vec3> indices
-								,std::vector<glm::vec2> textCoords) {
-	//
-	GLuint vaoID = createVAO();
-	//
-	unsigned int indicesSize = indices.size();
-	AssimpBindIndicesBuffer(sizeof(unsigned int)* indices.size(), indicesSize);
-
-	return RawModel(vaoID, indicesSize);
-}
-
 //VBO封装
 void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize){
 	GLuint vboID;
@@ -104,21 +91,6 @@ void Loader::bindIndicesBuffer(int* indices, int& count){
 
 	// Store the indices in the buffer
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, indices, GL_STATIC_DRAW);
-}
-
-void Loader::AssimpBindIndicesBuffer(unsigned int indices, unsigned int& count) {
-	GLuint eboID;
-	// Generate a buffer and bind it for use
-	glGenBuffers(1, &eboID);
-
-	// Store the buffer in the list
-	vbos.push_back(eboID);
-
-	// Bind the buffer to use it
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-
-	// Store the indices in the buffer
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, &indices, GL_STATIC_DRAW);
 }
 
 GLuint Loader::loadTexture(const char* fileName){

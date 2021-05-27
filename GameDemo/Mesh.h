@@ -48,27 +48,22 @@ struct VertexBoneData{
 class Mesh{
 public:
 
-	Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures);
-	Mesh() {};
+	Mesh(vector<glm::vec3> vertices, vector<glm::vec3> normals, vector<glm::vec2> textures, vector<int> indices);
 	~Mesh();
 
 	void Draw(GLuint shadersProgram);
 
 private:
 
-	vector<Vertex> vertices_;
-	vector<GLuint> indices_;
-	vector<Texture> textures_;
-	vector<VertexBoneData> bones_id_weight_for_each_vertex_;
+	vector<glm::vec3> vertices_;
+	vector<glm::vec3> normals_;
+	vector<glm::vec2> textures_;
+	vector<int> indices_;
 
 	//GLuint VAO;
 	GLuint VBO_vertices;
 	GLuint VBO_bones;
 	GLuint EBO_indices;
-
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int EBO;
 
 	void SetupMesh();
 };
