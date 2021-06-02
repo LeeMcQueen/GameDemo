@@ -1,4 +1,4 @@
-#include <vector>
+﻿#include <vector>
 #include <GL/glew.h>
 #include <glm.hpp>
 
@@ -25,7 +25,9 @@ public:
 	GLuint loadTexture(const char* filename);
 
 private:
+	//顶点数组对象
 	std::vector<GLuint> vaos;
+	//顶点缓存对象
 	std::vector<GLuint> vbos;
 	std::vector<GLuint> textures;
 

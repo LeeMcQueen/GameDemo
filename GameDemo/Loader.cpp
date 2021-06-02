@@ -14,6 +14,7 @@ using namespace std;
 
 //生成VAO（顶点数组对象）
 GLuint Loader::createVAO() {
+
 	GLuint vaoID;
 
 	glGenVertexArrays(1, &vaoID);
@@ -58,6 +59,7 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec
 
 //VBO封装
 void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize){
+
 	GLuint vboID;
 	//创建VBO（顶点缓冲对象）
 	glGenBuffers(1, &vboID);
@@ -79,6 +81,7 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 //use an EBO for higher efficient rendering (less vertex)
 //EBO封装
 void Loader::bindIndicesBuffer(int* indices, int& count){
+
 	GLuint eboID;
 	// Generate a buffer and bind it for use
 	glGenBuffers(1, &eboID);
@@ -94,6 +97,7 @@ void Loader::bindIndicesBuffer(int* indices, int& count){
 }
 
 GLuint Loader::loadTexture(const char* fileName){
+
 	unsigned error;
 	unsigned char* image;
 	unsigned int width, height;
