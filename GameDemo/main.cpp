@@ -16,6 +16,49 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+//------------------------------test------------------------
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include <unordered_map>
+//------------------------------test------------------------
+
+//------------------------------test------------------------
+
+struct Vertex {
+	glm::vec3 position;	//顶点
+	glm::vec3 normal;	//法线
+	glm::vec2 uv;		//图片uv坐标
+	glm::vec4 boneIds;	//骨骼ID(joint关节ID)
+	glm::vec4 boneWeight;	//骨骼权重
+};
+
+struct Bone{
+	int ID = 0;
+	std::string name = "";
+	std::vector<Bone> children = {};
+
+	glm::mat4 offset;	//反矩阵
+};
+
+struct BoneTransformTrack {
+	std::vector<float> positionTimestamps = {};
+	std::vector<float> rotationTimestamps = {};
+	std::vector<float> scaleTimestamps = {};
+
+	std::vector<glm::vec3> positions = {};
+	std::vector<glm::quat> ratations = {};
+	std::vector<glm::vec3> scales = {};
+};
+
+struct Animation {
+	float duration = 0.0f;
+	float ticksPerSecond = 1.0f;
+	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
+};
+
+//------------------------------test------------------------
+
 
 //窗口大小变换监听
 void framebuffer_size_callback(GLFWwindow* window, int width, int height){
@@ -23,6 +66,14 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 }
 
 int main() {
+
+	//------------------------------test------------------------
+
+	//使用assimp加载模型
+	Assimp::Importer importer;
+	const char* filePath = "";
+
+	//------------------------------test------------------------
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -67,11 +118,15 @@ int main() {
 	//light load
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
-	Terrain terrain2(100, 100, loader, ModelTexture(loader.loadTexture("grassy3")));
+	Terrain terrain2(100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
 
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
+		//------------------------------test------------------------
+
+		//------------------------------test------------------------
+
 		//close window
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(window, true);
