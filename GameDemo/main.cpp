@@ -71,7 +71,28 @@ int main() {
 
 	//使用assimp加载模型
 	Assimp::Importer importer;
-	const char* filePath = "";
+	const char* filePath = "res/model.dae";
+	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+
+	//Assimp加载成功判定
+	if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
+		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
+	}
+	aiMesh* mesh = scene->mMeshes[0];
+	//std::cout << "Test :" << mesh << std::endl;
+
+	//变量初始化
+	std::vector<Vertex> vertices = {};	//顶点数组
+	std::vector<Vertex> indices = {};	//顶点顺序变量
+	unsigned int boneCount = 0;
+	Animation animation;	//animation数组实例化
+	unsigned int vao = 0;
+	Bone skeleton;	//Bone骨骼数组实例化
+	unsigned int diffuseTexture;	//图片初始化
+
+	glm::mat4 globaInverseTransform 
+		//globaInverseTransform = scene->mRootNode->mTransformation
+
 
 	//------------------------------test------------------------
 

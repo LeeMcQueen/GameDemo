@@ -1,7 +1,4 @@
-﻿  Terrain.cpp
-d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(14): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(41): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\terrain.cpp(43): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+﻿  main.cpp
+d:\opengl\demo\gamedemo\gamedemo\main.cpp(110): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)
