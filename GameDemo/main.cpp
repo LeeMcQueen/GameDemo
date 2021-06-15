@@ -90,7 +90,10 @@ int main() {
 	Bone skeleton;	//Bone骨骼数组实例化
 	unsigned int diffuseTexture;	//图片初始化
 
-	glm::mat4 globaInverseTransform 
+	glm::mat4 globaInverseTransform = {};
+	aiMatrix4x4 mat = scene->mRootNode->mTransformation;
+	int x, y;
+	globaInverseTransform[x][y] = mat[x][y];
 		//globaInverseTransform = scene->mRootNode->mTransformation
 
 
