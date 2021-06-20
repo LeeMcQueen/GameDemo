@@ -4,13 +4,13 @@
 
 using namespace std;
 
-Entity::Entity(const TexturedModel& model, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale)
+Entity::Entity(const TexturedModel &model, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale)
 	:model_(model),
 	position_(position),
 	rotation_(rotation),
 	scale_(scale)
 {
-	
+
 }
 
 Entity::~Entity()

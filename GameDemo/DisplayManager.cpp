@@ -6,9 +6,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-
-
-int DisplayManager::CreatManager(GLFWwindow* window) {
+int DisplayManager::CreatManager(GLFWwindow *window) {
 
 	glfwMakeContextCurrent(window);
 

@@ -3,7 +3,7 @@
 #include "RawModel.h"
 #include "ModelTexture.h"
 
-TexturedModel::TexturedModel(const RawModel& rawmodel, const ModelTexture& modelTexture)
+TexturedModel::TexturedModel(const RawModel &rawmodel, const ModelTexture &modelTexture)
 	:rawModel_(rawmodel)
 	, modelTexture_(modelTexture)
 {}

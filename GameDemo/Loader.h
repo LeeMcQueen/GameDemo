@@ -31,9 +31,9 @@ private:
 	std::vector<GLuint> vbos;
 	std::vector<GLuint> textures;
 
-	void storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize);
+	void storeDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize);
 
-	void bindIndicesBuffer(int* indices, int& count);
+	void bindIndicesBuffer(int *indices, int &count);
 
 	//unbind VAO
 	inline void unbindVAO() { glBindVertexArray(0); };

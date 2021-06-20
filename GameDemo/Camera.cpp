@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Camera::Camera()	
+Camera::Camera()
 	:position(glm::vec3(0, 20, 50))		//Camera location
 {}
 

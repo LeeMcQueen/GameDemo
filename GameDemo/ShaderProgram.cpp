@@ -1,4 +1,4 @@
-#include "ShaderProgram.h"
+﻿#include "ShaderProgram.h"
 
 #include <iostream>
 #include <fstream>
@@ -10,7 +10,7 @@
 
 using namespace std;
 
-ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile){
+ShaderProgram::ShaderProgram(const char *VertexFile, const char *FragmentFile){
 	//load vertexShader
 	vertexShaderID = ShaderProgram::loadShader(VertexFile, GL_VERTEX_SHADER);
 	//load fragmentShader
@@ -26,7 +26,7 @@ ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile){
 	glAttachShader(programID, fragmentShaderID);
 }
 
-void ShaderProgram::bindAttribute(GLint attribute, const char* variableName){
+void ShaderProgram::bindAttribute(GLint attribute, const char *variableName){
 	glBindAttribLocation(programID, attribute, variableName);
 
 	//cerr << "1." << programID << endl;
@@ -62,12 +62,12 @@ void ShaderProgram::loadMatrix4(GLuint location, glm::mat4 value){
 }
 
 //uniform function
-GLuint ShaderProgram::getUniformLocation(const char* uniformName){
+GLuint ShaderProgram::getUniformLocation(const char *uniformName){
 	//1.check program 2.location name
 	return glGetUniformLocation(programID, uniformName);
 }
 
-GLint ShaderProgram::loadShader(const char* fileName, int type){
+GLint ShaderProgram::loadShader(const char *fileName, int type){
 	//Load shaderSource from file
 	ifstream file(fileName);
 
@@ -88,16 +88,16 @@ GLint ShaderProgram::loadShader(const char* fileName, int type){
 	}
 
 	//Compile shader
-	GLint shaderID = glCreateShader(type);
+	unsigned int shaderID = glCreateShader(type);
 	const char* shaderSourceAdd = shaderSource.c_str();
 	glShaderSource(shaderID, 1, &shaderSourceAdd, NULL);
 	glCompileShader(shaderID);
 
-	//Check comile status
+	//Check compile status
 	GLint status[1];
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, status);
 
-	//ERROR LOG
+	//错位log
 	if (status[0] == GL_FALSE)
 	{
 		GLint logLength[1];
@@ -114,7 +114,8 @@ GLint ShaderProgram::loadShader(const char* fileName, int type){
 		exit(-1);
 	}
 
-	cerr << "shaderSource:" << shaderSource << "End" << endl;
+	//输出shader内容
+	//cerr << "shaderSource:" << shaderSource << "End" << endl;
 
 	return shaderID;
 }

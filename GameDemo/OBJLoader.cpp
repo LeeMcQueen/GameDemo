@@ -17,7 +17,7 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-RawModel OBJLoader::loadObjModel(const std::string & fileName){
+RawModel OBJLoader::loadObjModel(const std::string &fileName){
 	clock_t startTime = clock();
 	// Open the file as read only
 	FILE* file;
@@ -89,7 +89,7 @@ RawModel OBJLoader::loadObjModel(const std::string & fileName){
 	return myloader->loadToVao(vertices, textures, normals, indices);
 }
 
-void OBJLoader::ProcessVertices(char * vertexData,
+void OBJLoader::ProcessVertices(char *vertexData,
 	std::vector<int>& indices,
 	std::vector<glm::vec2>& tempTextures,
 	std::vector<glm::vec2>& textures,
@@ -112,7 +112,7 @@ void OBJLoader::ProcessVertices(char * vertexData,
 }
 
 //tiny_obj_loader
-RawModel OBJLoader::tinyOBJLoader(const std::string& fileName){
+RawModel OBJLoader::tinyOBJLoader(const std::string &fileName){
 	string path = "res/" + string(fileName) + ".obj";
 
 	vector<int> indices;

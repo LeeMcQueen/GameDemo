@@ -28,23 +28,23 @@ GLuint Loader::createVAO() {
 //load information to VAO
 //data 1.vertices position 2.texture position 3.normals
 RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords,
-	std::vector<float> normals, std::vector<int> indices){
+	std::vector<float> normals, std::vector<int> indices) {
 	// create a new VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
 	bindIndicesBuffer(indices.data(), indicesSize);
 	// Store the data in attribute lists
-	storeDataInAttributeList(0, 3, &vertices[0], vertices.size()* sizeof(float));
+	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(float));
 	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(float));
-	storeDataInAttributeList(2, 3, &normals[0], normals.size()* sizeof(float));
+	storeDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(float));
 	unbindVAO();
 	return RawModel(vaoID, indicesSize);
 }
 
 //load information to VAO
 //data 1.vertices position 2.texture position 
-RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords, 
-	std::vector<glm::vec3> normals, std::vector<int> indices){
+RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords,
+	std::vector<glm::vec3> normals, std::vector<int> indices) {
 	// create a new VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
@@ -58,7 +58,7 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec
 }
 
 //VBO封装
-void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize){
+void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize) {
 
 	GLuint vboID;
 	//创建VBO（顶点缓冲对象）
@@ -80,7 +80,7 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void*
 
 //use an EBO for higher efficient rendering (less vertex)
 //EBO封装
-void Loader::bindIndicesBuffer(int* indices, int& count){
+void Loader::bindIndicesBuffer(int *indices, int &count) {
 
 	GLuint eboID;
 	// Generate a buffer and bind it for use
@@ -93,10 +93,10 @@ void Loader::bindIndicesBuffer(int* indices, int& count){
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
 
 	// Store the indices in the buffer
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* count, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) *count, indices, GL_STATIC_DRAW);
 }
 
-GLuint Loader::loadTexture(const char* fileName){
+GLuint Loader::loadTexture(const char *fileName) {
 
 	unsigned error;
 	unsigned char* image;

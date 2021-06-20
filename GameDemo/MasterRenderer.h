@@ -15,10 +15,10 @@ class MasterRenderer
 public:
 	MasterRenderer();
 
-	void render(Light& light, Camera& camera);
+	void render(Light &light, Camera &camera);
 
-	void processEntity(const Entity& entity);
-	void processTerrain(const Terrain& terrain);
+	void processEntity(const Entity &entity);
+	void processTerrain(const Terrain &terrain);
 
 	glm::mat4 getProjectionMatrix();
 

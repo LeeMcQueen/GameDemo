@@ -13,18 +13,18 @@ class EntityRenderer
 {
 public:
 
-	EntityRenderer(StaticShader& shader, glm::mat4& projectionMatrix);
+	EntityRenderer(StaticShader& shader, glm::mat4 &projectionMatrix);
 
 	//void Render(Entity entity, StaticShader* shader);
-	void render(const std::map<TexturedModel, std::vector<Entity>>& entities);
+	void render(const std::map<TexturedModel, std::vector<Entity>> &entities);
 
 private:
 
 	//Get Set Value staticShader
 	StaticShader shader_;
 
-	void prepareTextureModel(const TexturedModel& model);
-	void prepareInstance(const Entity& entity);
+	void prepareTextureModel(const TexturedModel &model);
+	void prepareInstance(const Entity &entity);
 	void unbindTextureModel();
 };
 

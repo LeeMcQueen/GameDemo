@@ -6,7 +6,7 @@
 class TexturedModel
 {
 public:
-	explicit TexturedModel(const RawModel& rawmodel, const ModelTexture& modelTexture);
+	explicit TexturedModel(const RawModel &rawmodel, const ModelTexture &modelTexture);
 	~TexturedModel();
 
 	RawModel GetRawModel() const;

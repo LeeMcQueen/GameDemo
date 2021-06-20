@@ -14,7 +14,7 @@ std::vector<Terrain>  MasterRenderer::terrains;
 MasterRenderer::MasterRenderer()
 	: projectionMatrix_(getProjectionMatrix())
 	, entityRenderer_(EntityRenderer(staticshader, projectionMatrix_))
-	, terrainRenderer_(TerrainRenderer(terrainShader, projectionMatrix_)){
+	, terrainRenderer_(TerrainRenderer(terrainShader, projectionMatrix_)) {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
@@ -25,7 +25,7 @@ MasterRenderer::MasterRenderer()
 	glEnable(GL_MULTISAMPLE);
 }
 
-void MasterRenderer::render(Light & light, Camera & camera){
+void MasterRenderer::render(Light &light, Camera &camera) {
 	Prepare();
 
 	//Entity
@@ -46,7 +46,7 @@ void MasterRenderer::render(Light & light, Camera & camera){
 	entities.clear();
 }
 
-void MasterRenderer::processEntity(const Entity & entity)
+void MasterRenderer::processEntity(const Entity &entity)
 {
 	//Get textureModel form entity
 	TexturedModel& model = entity.GetModel();
@@ -54,7 +54,7 @@ void MasterRenderer::processEntity(const Entity & entity)
 	entities[entity.GetModel()].push_back(entity);
 }
 
-void MasterRenderer::processTerrain(const Terrain & terrain)
+void MasterRenderer::processTerrain(const Terrain &terrain)
 {
 	terrains.push_back(terrain);
 }
