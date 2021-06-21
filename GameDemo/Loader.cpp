@@ -18,6 +18,7 @@ GLuint Loader::createVAO() {
 	GLuint vaoID;
 
 	glGenVertexArrays(1, &vaoID);
+
 	vaos.push_back(std::move(vaoID));
 	//绑定VAO（顶点数组对象）
 	glBindVertexArray(vaoID);

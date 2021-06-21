@@ -214,23 +214,27 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 			track.positionTimestamps.push_back(channel->mPositionKeys[j].mTime);
 			track.positions.push_back(assimpToGlmVec3(channel->mPositionKeys[j].mValue));
 		}
-		for (int j = 0; j < channel->mNumRotationKeys; i++) {
+		for (int j = 0; j < channel->mNumRotationKeys; j++) {
 			track.rotationTimestamps.push_back(channel->mRotationKeys[j].mTime);
 			track.rotations.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
 		}
-
 		//报错
 		for (int j = 0; j < channel->mNumScalingKeys; j++) {
 			track.scaleTimestamps.push_back(channel->mScalingKeys[j].mTime);
 			track.scales.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
 		}
 		animation.boneTransforms[channel->mNodeName.C_Str()] = track;
+		//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 	}
 }
 
 //
 unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsigned int> indices) {
-	unsigned int vao, vbo, ebo;
+	unsigned int vao = 0;
+	unsigned int vbo = 0;
+	unsigned int ebo = 0;
+
+	std::cout << vao << std::endl;
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -314,6 +318,9 @@ int main() {
 
 	vao = createVertexArray(vertices, indices);
 	diffuseTexture = createTexture("res/playerTexture.png");
+
+	std::cout << vao << std::endl;
+	std::cout << diffuseTexture << std::endl;
 
 	//------------------------------skeleton end------------------------
 
