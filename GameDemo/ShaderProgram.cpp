@@ -11,7 +11,7 @@
 using namespace std;
 
 ShaderProgram::ShaderProgram(const char *VertexFile, const char *FragmentFile){
-	//load vertexShader
+	//加载顶点Shader(代码, Shader类型)
 	vertexShaderID = ShaderProgram::loadShader(VertexFile, GL_VERTEX_SHADER);
 	//load fragmentShader
 	fragmentShaderID = ShaderProgram::loadShader(FragmentFile, GL_FRAGMENT_SHADER);
@@ -97,7 +97,7 @@ GLint ShaderProgram::loadShader(const char *fileName, int type){
 	GLint status[1];
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, status);
 
-	//错位log
+	//错误判断(status=false)
 	if (status[0] == GL_FALSE)
 	{
 		GLint logLength[1];
@@ -105,8 +105,8 @@ GLint ShaderProgram::loadShader(const char *fileName, int type){
 		char* shaderInfo = new char[logLength[0] + 1];
 		glGetShaderInfoLog(shaderID, logLength[0], NULL, shaderInfo);
 
-		cerr << "ERROR: [ShaderProgram::loadShader] Cannot compile shader " << fileName << "!" << endl;
-		cerr << shaderInfo << endl;
+		cerr << "ERROR: [ShaderProgram::loadShader] Cannot compile shader : " << fileName << "!" << endl;
+		cerr << "ERROR: [ShaderProgram::loadShader] Error detail : " << shaderInfo << endl;
 
 		delete[] shaderInfo;
 		glDeleteShader(shaderID);

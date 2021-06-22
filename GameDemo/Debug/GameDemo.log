@@ -1,21 +1,2 @@
-﻿  main.cpp
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(65): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(73): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(144): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(148): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(152): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(156): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(200): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(206): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(209): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(213): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(214): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(217): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(218): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(222): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(223): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(350): warning C4101: “objloader”: 未引用的局部变量
-  Loader.cpp
-  正在生成代码...
-  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
+﻿  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)
