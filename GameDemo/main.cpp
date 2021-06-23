@@ -19,6 +19,14 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
+
+#include <glm.hpp>
+#include <gtc/quaternion.hpp>
+#include <gtx/quaternion.hpp>
+#include <gtc/type_ptr.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+
 #include <unordered_map>
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
@@ -225,7 +233,6 @@ void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &vertices
 			default:
 				break;
 			}
-
 		}
 	}
 
@@ -376,6 +383,9 @@ int main() {
 #pragma endregion
 
 	//------------------------------skeleton start------------------------
+	int windowWidth, windowHeight;
+	bool isRunning = true;
+
 	//使用assimp加载模型
 	Assimp::Importer importer;
 	const char* filePath = "res/model.dae";
@@ -414,9 +424,24 @@ int main() {
 	std::vector<glm::mat4> currentPose = {};
 	currentPose.resize(boneCount, identity);
 
+	//加载shader
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
+	//shader变量的设定和链接
+	unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
+	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
+	unsigned int boneMatrixLocation = glGetUniformLocation(shader, "bone_transfiorms");
+	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
 
-	std::cout << shader << std::endl;
+	//投影矩阵(projectionMatrix)
+	glm::mat4 projectionMatrix = glm::perspective(75.0f, (float)windowWidth / windowHeight, 0.01f, 100.0f);
+	//观察矩阵(viewMatrix)
+	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 1, 0));
+	//投影矩阵 + 观察矩阵 TODO
+	glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+
+	glm::mat4 modelMatrix;
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f, 0.2f, 0.2f));
 
 	//------------------------------skeleton end------------------------
 
@@ -457,7 +482,8 @@ int main() {
 	while (!glfwWindowShouldClose(window))
 	{
 		//------------------------------skeleton start------------------------
-
+		float elapsedTime;
+		float dAngle;
 		//------------------------------skeleton end------------------------
 
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
