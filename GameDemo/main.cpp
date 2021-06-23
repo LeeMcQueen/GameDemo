@@ -383,7 +383,7 @@ int main() {
 #pragma endregion
 
 	//------------------------------skeleton start------------------------
-	int windowWidth, windowHeight;
+	int windowWidth = 1280, windowHeight = 720;
 	bool isRunning = true;
 
 	//使用assimp加载模型
@@ -467,7 +467,7 @@ int main() {
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
 
-	//
+	//rawModel()  modelTexture()
 	TexturedModel texturedModel(model, texture);
 
 	//加载模型
