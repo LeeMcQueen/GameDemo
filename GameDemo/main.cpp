@@ -352,6 +352,64 @@ unsigned int createTexture(std::string filepath) {
 	return textureId;
 }
 
+//
+std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &dt) {
+	unsigned int segment = 0;
+
+	while (dt > times[segment])
+		segment++;
+
+	float start = times[segment - 1];
+	float end = times[segment];
+	float frac = (dt - start) / (end - start);
+
+	return{ segment, frac };
+}
+
+//得到当前姿势
+void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
+
+	BoneTransformTrack &btt = animation.boneTransforms[skeleton.name];
+	//余数
+	dt = fmod(dt, animation.duration);
+	std::pair<unsigned int, float>fp;
+
+	//计算顶点插值
+	fp = getTimeFraction(btt.positionTimestamps, dt);
+	glm::vec3 position1 = btt.positions[fp.first - 1];
+	glm::vec3 position2 = btt.positions[fp.first];
+	glm::vec3 position = glm::mix(position1, position2, fp.second);
+
+	//计算旋转插值
+	fp = getTimeFraction(btt.rotationTimestamps, dt);
+	glm::quat rotation1 = btt.rotations[fp.first - 1];
+	glm::quat rotation2 = btt.rotations[fp.first];
+	glm::quat rotation = glm::slerp(rotation1, rotation2, fp.second);
+
+	fp = getTimeFraction(btt.scaleTimestamps, dt);
+	glm::vec3 scale1 = btt.scales[fp.first - 1];
+	glm::vec3 scale2 = btt.scales[fp.first];
+	glm::vec3 scale = glm::mix(scale1, scale2, fp.second);
+
+	glm::mat4 positionMat;
+	glm::mat4 scaleMat;
+
+	//计算本地变换
+	positionMat = glm::translate(positionMat, position);
+	glm::mat4 rotationMat = glm::toMat4(rotation);
+	scaleMat = glm::scale(scaleMat, scale);
+
+	glm::mat4 localTransform = positionMat * rotationMat * scaleMat;
+	glm::mat4 globaTransform = parentTransform * localTransform;
+
+	output[skeleton.ID] = globalInverseTransform * globaTransform * skeleton.offset;
+
+	//更新子骨骼的数组
+	for (Bone &child : skeleton.children) {
+		getPose(animation, child, dt, output, globaTransform, globalInverseTransform);
+	}
+}
+
 //------------------------------skeleton end------------------------
 
 //窗口大小变换监听
@@ -411,14 +469,14 @@ int main() {
 	//图片初始化
 	unsigned int diffuseTexture;
 
-	glm::mat4 globaInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	globaInverseTransform = glm::inverse(globaInverseTransform);
+	glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	globalInverseTransform = glm::inverse(globalInverseTransform);
 
 	loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
 	loadAnimation(scene, animation);
 
 	vao = createVertexArray(vertices, indices);
-	diffuseTexture = createTexture("res/playerTexture.png");
+	diffuseTexture = createTexture("res/diffuse.png");
 
 	glm::mat4 identity;
 	std::vector<glm::mat4> currentPose = {};
@@ -429,13 +487,13 @@ int main() {
 	//shader变量的设定和链接
 	unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
-	unsigned int boneMatrixLocation = glGetUniformLocation(shader, "bone_transfiorms");
+	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
 
 	//投影矩阵(projectionMatrix)
-	glm::mat4 projectionMatrix = glm::perspective(75.0f, (float)windowWidth / windowHeight, 0.01f, 100.0f);
+	glm::mat4 projectionMatrix = glm::perspective(70.0f, (float)windowWidth / windowHeight, 0.1f, 1000.0f);
 	//观察矩阵(viewMatrix)
-	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 1, 0));
+	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, -1, 0));
 	//投影矩阵 + 观察矩阵 TODO
 	glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
@@ -445,19 +503,19 @@ int main() {
 
 	//------------------------------skeleton end------------------------
 
-	//临时数据
+	//实例化加载工具
 	Loader loader;
 
-	//相机
+	//实例化相机
 	Camera camera;
 
-	//渲染器
+	//实例化渲染器
 	MasterRenderer masterRenderer;
 
-	//加载OBJ数据
+	//实例化加载OBJ
 	OBJLoader objloader;
 
-	//load OBJModel 3 function
+	//加载模型顶点信息（3种方法）
 	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
 	/*RawModel model = myOBJLoader->loadModel("stall");*/
 	RawModel model = objloader.loadObjModel("person");
@@ -481,26 +539,46 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		//------------------------------skeleton start------------------------
-		float elapsedTime;
-		float dAngle;
-		//------------------------------skeleton end------------------------
-
 		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//transformation
-		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
+		//entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
 		//rotation
-		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
+		//entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
 
 		camera.move();
 
-		masterRenderer.processTerrain(terrain2);
-		masterRenderer.processTerrain(terrain);
-		masterRenderer.processEntity(entity);
-		masterRenderer.render(light, camera);
-		masterRenderer.cleanUp();
+		//------------------------------skeleton start------------------------
+
+		//取得当前程序运行时间
+		float elapsedTime = glfwGetTime();
+
+		float dAngle = elapsedTime * 0.0002;
+
+		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 1, 0));
+		getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glUseProgram(shader);
+		glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, glm::value_ptr(currentPose[0]));
+
+		glBindVertexArray(vao);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+		glUniform1i(textureLocation, 0);
+
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+		//------------------------------skeleton end------------------------
+
+		//masterRenderer.processTerrain(terrain2);
+		//masterRenderer.processTerrain(terrain);
+		//masterRenderer.processEntity(entity);
+		//masterRenderer.render(light, camera);
+		//masterRenderer.cleanUp();
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

@@ -72,9 +72,7 @@ void MasterRenderer::Prepare()
 //get&create projectionMatrix
 glm::mat4 MasterRenderer::getProjectionMatrix()
 {
-	return glm::perspective(glm::radians(FOV),
-		(float)DisplayManager::WIDTH / (float)DisplayManager::HEIGHT,
-		NEAR_PLANE, FAR_PLANE);
+	return glm::perspective(glm::radians(FOV),(float)DisplayManager::WIDTH / (float)DisplayManager::HEIGHT,NEAR_PLANE, FAR_PLANE);
 }
 
 

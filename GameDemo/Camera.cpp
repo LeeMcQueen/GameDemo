@@ -6,7 +6,7 @@
 using namespace std;
 
 Camera::Camera()
-	:position(glm::vec3(0, 20, 50))		//Camera location
+	:position(glm::vec3(0, 40, 50))		//Camera location
 {}
 
 void Camera::move()
@@ -62,7 +62,7 @@ void Camera::move()
 
 glm::mat4 Camera::getViewMatrix() const
 {
-	return glm::lookAt(position, position + glm::vec3(0, -3.0f, -5.0f), glm::vec3(0, 1.0f, 0));
+	return glm::lookAt(position, position + glm::vec3(0, -3.0f, -3.0f), glm::vec3(0, 1.0f, 0));
 }
 
 glm::vec3 Camera::getPosition() const
