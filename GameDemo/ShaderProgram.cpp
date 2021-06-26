@@ -10,19 +10,20 @@
 
 using namespace std;
 
+//shader的构造函数
 ShaderProgram::ShaderProgram(const char *VertexFile, const char *FragmentFile){
-	//加载顶点Shader(代码, Shader类型)
+	//加载顶点着色器(代码, Shader类型)
 	vertexShaderID = ShaderProgram::loadShader(VertexFile, GL_VERTEX_SHADER);
-	//load fragmentShader
+	//加载片段着色器
 	fragmentShaderID = ShaderProgram::loadShader(FragmentFile, GL_FRAGMENT_SHADER);
 
-	//bulid shaderprogram
+	//创建程序
 	programID = glCreateProgram();
 
-	//vertexShader
+	//顶点着色器
 	glAttachShader(programID, vertexShaderID);
 
-	//fragmentShader
+	//片段着色器
 	glAttachShader(programID, fragmentShaderID);
 }
 

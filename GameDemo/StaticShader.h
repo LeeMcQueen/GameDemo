@@ -59,7 +59,7 @@ private:
 	GLuint Location_lightColor;
 	//location of lightPosition in shader program
 	GLuint Location_lightPosition;
-	//location of shineDamper;
+	//location of shineDamper
 	GLuint Location_shineDamper;
 	//Location of reflectivity
 	GLuint Location_reflectivity;

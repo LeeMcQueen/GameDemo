@@ -1,21 +1,22 @@
-#include "StaticShader.h"
+﻿#include "StaticShader.h"
 
 #include "stdio.h"
 
-//vertexShader&fragmentShader file name
+//顶点着色器GLSL 片段着色器GLSL
 const char* StaticShader::VERTEX_FILE = "vertexShader.txt";
 const char* StaticShader::FRAGMENT_FILE = "fragmentShader.txt";
 
 StaticShader::StaticShader(): ShaderProgram(VERTEX_FILE, FRAGMENT_FILE)
 {
-	//bindAttribute
+	//绑定VAO属性
 	bindAttributes();
 
 	//Bind VAO attributes and link program
+	//绑定VAO属性链接程序
 	glLinkProgram(programID);
 	glValidateProgram(programID);
 
-	//add uniform into vertexShader
+	//加载shader变量
 	getAllUniformLocations();
 }
 

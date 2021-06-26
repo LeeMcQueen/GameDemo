@@ -1,4 +1,4 @@
-#include "EntityRenderer.h"
+﻿#include "EntityRenderer.h"
 #include "RawModel.h"
 #include "TexturedModel.h"
 #include "Maths.h"
@@ -24,7 +24,7 @@ void EntityRenderer::render(const std::map<TexturedModel, std::vector<Entity>> &
 		for (const auto &entity : batch)
 		{
 			prepareInstance(entity);
-			//Draw function (MODEL triangles, Draw how many point, type, indices)
+			//描画功能 (顶点描画模式, 共有多少个顶点, 类型, indices)
 			glDrawElements(GL_TRIANGLES, model.first.GetRawModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
 		}
 
@@ -37,14 +37,14 @@ void EntityRenderer::prepareTextureModel(const TexturedModel &model) {
 	RawModel& rawModel = model.GetRawModel();
 	glBindVertexArray(rawModel.getVaoId());
 
-	//activate the attribute list
-	glEnableVertexAttribArray(0);	//vecter
-	glEnableVertexAttribArray(1);	//texture
-	glEnableVertexAttribArray(2);	//normal
+	//启动顶点属性列表(共16个)
+	glEnableVertexAttribArray(0);	//顶点
+	glEnableVertexAttribArray(1);	//纹理
+	glEnableVertexAttribArray(2);	//法线
 
 	//Get texture form ModelTexture
 	ModelTexture& texture = model.GetTextureModel();
-	//load shine
+	//加载反光
 	shader_.loadShineVariables(texture.getShineDamer(), texture.getReflectivity());
 
 	glActiveTexture(GL_TEXTURE0);
@@ -52,12 +52,12 @@ void EntityRenderer::prepareTextureModel(const TexturedModel &model) {
 }
 
 void EntityRenderer::prepareInstance(const Entity & entity) {
-	//calculate transformation matrix
+	//计算变换举证
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
 		entity.getRotation(),
 		entity.getScale());
 
-	//shader transformMatrix
+	//shader的变换矩阵
 	shader_.loadTransformationMatrix(transformationMatrix);
 }
 

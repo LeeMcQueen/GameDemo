@@ -1,4 +1,4 @@
-#ifndef RENDERENGINE_MASTER_RENDERER_H
+﻿#ifndef RENDERENGINE_MASTER_RENDERER_H
 #define RENDERENGINE_MASTER_RENDERER_H
 
 #include <gtx\transform.hpp>
@@ -61,24 +61,23 @@ void MasterRenderer::processTerrain(const Terrain &terrain)
 
 void MasterRenderer::Prepare()
 {
-	//witch triangle is first to build
+	//启动深度缓存(只会渲染没有遮挡的顶点)
 	glEnable(GL_DEPTH_TEST);
 
-	//clear COLOR_BUFFER & DEPTH_BUFFER
+	//清除 COLOR_BUFFER & DEPTH_BUFFER
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1, 0, 0, 1);
 }
 
-//get&create projectionMatrix
+//返回投影矩阵(getProjectionMatrix)
 glm::mat4 MasterRenderer::getProjectionMatrix()
 {
 	return glm::perspective(glm::radians(FOV),(float)DisplayManager::WIDTH / (float)DisplayManager::HEIGHT,NEAR_PLANE, FAR_PLANE);
 }
 
-
+//清除shader
 void MasterRenderer::cleanUp()
 {
-	/*StaticShader* myshader = new StaticShader();*/
 	staticshader.stop();
 	terrainShader.stop();
 }

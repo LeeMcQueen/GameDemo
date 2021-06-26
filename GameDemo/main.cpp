@@ -574,11 +574,11 @@ int main() {
 
 		//------------------------------skeleton end------------------------
 
-		//masterRenderer.processTerrain(terrain2);
-		//masterRenderer.processTerrain(terrain);
-		//masterRenderer.processEntity(entity);
-		//masterRenderer.render(light, camera);
-		//masterRenderer.cleanUp();
+		masterRenderer.processTerrain(terrain2);
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(entity);
+		masterRenderer.render(light, camera);
+		masterRenderer.cleanUp();
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

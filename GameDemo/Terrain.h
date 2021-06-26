@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "RawModel.h"
 #include "ModelTexture.h"
@@ -25,9 +25,9 @@ private:
 	float z_;
 
 	RawModel rawModel_;
-	//model use texture,shineDamper,reflectivity
+	//模型纹理 纹理,闪光度,反射度
 	ModelTexture modelTexture_;
-	//buile terrain VAO,vertexnumber
+	//返回RawModel结构的数组 VAO的ID 顶点的排序
 	RawModel generateTerrain(Loader& loader);
 };
 
