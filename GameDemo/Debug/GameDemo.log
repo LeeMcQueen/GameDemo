@@ -14,8 +14,8 @@ d:\opengl\demo\gamedemo\gamedemo\main.cpp(289): warning C4018: “<”: 有符�
 d:\opengl\demo\gamedemo\gamedemo\main.cpp(290): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\main.cpp(294): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\main.cpp(295): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(555): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(557): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\main.cpp(516): warning C4101: “objloader”: 未引用的局部变量
+d:\opengl\demo\gamedemo\gamedemo\main.cpp(556): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\main.cpp(558): warning C4305: “初始化”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\main.cpp(514): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Partial PDB)

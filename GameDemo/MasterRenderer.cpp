@@ -26,6 +26,7 @@ MasterRenderer::MasterRenderer()
 }
 
 void MasterRenderer::render(Light &light, Camera &camera) {
+
 	Prepare();
 
 	//Entity
@@ -66,7 +67,8 @@ void MasterRenderer::Prepare()
 
 	//清除 COLOR_BUFFER & DEPTH_BUFFER
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(1, 0, 0, 1);
+	//添加背景颜色
+	glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
 }
 
 //返回投影矩阵(getProjectionMatrix)

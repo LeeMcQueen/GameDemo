@@ -420,7 +420,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 int main() {
 
 #pragma region 创建窗口
-
 	//初始化glfw
 	glfwInit();
 	//大版本3
@@ -437,7 +436,6 @@ int main() {
 	DisplayManager* myDisplayManager = new DisplayManager();
 	//使用DisplayManager下的CreatManager
 	myDisplayManager->CreatManager(window);
-
 #pragma endregion
 
 	//------------------------------skeleton start------------------------
@@ -539,32 +537,33 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		//transformation
-		//entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
+		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
 		//rotation
-		//entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
+		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
 
-		camera.move();
+		masterRenderer.processTerrain(terrain2);
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(entity);
+		masterRenderer.render(light, camera);
+		masterRenderer.cleanUp();	
 
 		//------------------------------skeleton start------------------------
+		camera.move();
 
 		//取得当前程序运行时间
 		float elapsedTime = glfwGetTime();
 
-		float dAngle = elapsedTime * 0.0002;
+		float dAngle = 0.0002;
+		
+		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
-		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 1, 0));
 		getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, glm::value_ptr(currentPose[0]));
-
 		glBindVertexArray(vao);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
@@ -573,12 +572,6 @@ int main() {
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
 		//------------------------------skeleton end------------------------
-
-		masterRenderer.processTerrain(terrain2);
-		masterRenderer.processTerrain(terrain);
-		masterRenderer.processEntity(entity);
-		masterRenderer.render(light, camera);
-		masterRenderer.cleanUp();
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
