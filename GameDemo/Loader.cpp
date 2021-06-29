@@ -26,7 +26,7 @@ GLuint Loader::createVAO() {
 	return vaoID;
 }
 
-//load information to VAO
+//模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
 RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords,
 	std::vector<float> normals, std::vector<int> indices) {

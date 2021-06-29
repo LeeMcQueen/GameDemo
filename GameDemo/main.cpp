@@ -514,8 +514,6 @@ int main() {
 	OBJLoader objloader;
 
 	//加载模型顶点信息（3种方法）
-	/*RawModel model = myOBJLoader->tinyOBJLoader("stall");*/
-	/*RawModel model = myOBJLoader->loadModel("stall");*/
 	RawModel model = objloader.loadObjModel("person");
 
 	//使用纹理文件名加载纹理
