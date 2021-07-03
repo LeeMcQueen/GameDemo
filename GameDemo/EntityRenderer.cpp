@@ -51,7 +51,7 @@ void EntityRenderer::prepareTextureModel(const TexturedModel &model) {
 	glBindTexture(GL_TEXTURE_2D, model.GetTextureModel().getID());
 }
 
-void EntityRenderer::prepareInstance(const Entity & entity) {
+void EntityRenderer::prepareInstance(const Entity &entity) {
 	//计算变换举证
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
 		entity.getRotation(),

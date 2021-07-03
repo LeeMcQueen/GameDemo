@@ -11,7 +11,7 @@ class RawModel;
 class Loader
 {
 public:
-	//Create VAO
+	//创建VAO
 	GLuint createVAO();
 
 	RawModel loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords, 
@@ -35,7 +35,7 @@ private:
 
 	void bindIndicesBuffer(int *indices, int &count);
 
-	//unbind VAO
+	//解绑VAO
 	inline void unbindVAO() { glBindVertexArray(0); };
 };
 

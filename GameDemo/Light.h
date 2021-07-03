@@ -12,8 +12,8 @@ public:
 	const glm::vec3& getPosition() const { return position_; }
 	const glm::vec3& getColor() const { return color_; }
 
-	void setColor(const glm::vec3 & color) { color_ = color; }
-	void setPosition(const glm::vec3& position) { position_ = position; }
+	void setColor(const glm::vec3 &color) { color_ = color; }
+	void setPosition(const glm::vec3 &position) { position_ = position; }
 
 private:
 

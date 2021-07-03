@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DisplayManager.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -154,8 +155,10 @@
     <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Entity.h" />
@@ -177,6 +180,7 @@
     <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="TerrainShader.h" />
     <ClInclude Include="TexturedModel.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="animFragmentShader.txt" />

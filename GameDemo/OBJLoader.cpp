@@ -4,6 +4,8 @@
 #include <time.h>
 #include <stdio.h>
 
+#include "Vertex.h"
+#include "Bone.h"
 #include "OBJLoader.h"
 
 using namespace std;
@@ -14,9 +16,9 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-RawModel loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
-
-}
+//RawModel loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
+//
+//}
 
 RawModel OBJLoader::loadObjModel(const std::string &fileName){
 	clock_t startTime = clock();
