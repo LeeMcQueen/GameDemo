@@ -155,11 +155,12 @@ bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string
 
 void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
 	//list初始化
-	//verticesOutput = {};
+	verticesOutput = {};
 	indicesOutput = {};
 
 	//取得模型坐标用变量
 	Vertex vertex;
+	//空的顶点
 	glm::vec3 vector;
 
 	//加载顶点，法线，uv坐标
@@ -170,101 +171,99 @@ void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &vertices
 		vector.z = mesh->mVertices[i].z;
 		vertex.setPosition(vector);
 
-		glm::vec3 test = vertex.getPosition();
-
-
 		vector.x = mesh->mNormals[i].x;
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
-		vertex.normal = vector;
+		vertex.setPosition(vector);
 
 		//注意这里就只有一个纹理，需要的话需要动态设定
 		vector.x = mesh->mTextureCoords[0][i].x;
 		vector.y = mesh->mTextureCoords[0][i].y;
-		vertex.uv = vector;
+		vertex.setTexture(vector);
 
-		vertex.boneIds = glm::ivec4(0);
-		vertex.boneWeights = glm::vec4(0.0f);
+		//初始化骨骼ID
+		vertex.setBoneIds(glm::ivec4(0));
+		vertex.setBoneWeights(glm::vec4(0.0f));
 
 		verticesOutput.push_back(vertex);
 	}
 
-	////加载骨骼数据到顶点数组
-	////boneInfo的结构是 谷歌名<string> 矩阵pair
-	//std::unordered_map<std::string, std::pair<int, glm::mat4>> boneInfo = {};
-	//std::vector<unsigned int> boneCounts;
-	////verticesOutput数据相同长度的boneCounts数据内容都是0
-	//boneCounts.resize(verticesOutput.size(), 0);
-	////得到模型的总骨骼数
-	//nBoneCount = mesh->mNumBones;
+	//加载骨骼数据到顶点数组
+	//boneInfo的结构是 谷歌名<string> 矩阵pair
+	std::unordered_map<std::string, std::pair<int, glm::mat4>> boneInfo = {};
+	std::vector<unsigned int> boneCounts;
+	//verticesOutput数据相同长度的boneCounts数据内容都是0
+	boneCounts.resize(verticesOutput.size(), 0);
+	//得到模型的总骨骼数
+	nBoneCount = mesh->mNumBones;
 
-	////循环骨骼数量得到？？？
-	//for (unsigned int i = 0; i < nBoneCount; i++) {
-	//	//得到每个骨头
-	//	aiBone *bone = mesh->mBones[i];
-	//	//从Assimp格式转换成glm
-	//	glm::mat4 matrix = assimpToGlmMatrix(bone->mOffsetMatrix);
-	//	//按照骨骼名称(string形式)往里面注入map, map的形式是(i, matrix)
-	//	boneInfo[bone->mName.C_Str()] = { i, matrix };
+	//循环骨骼数量得到？？？
+	for (unsigned int i = 0; i < nBoneCount; i++) {
+		//得到每个骨头
+		aiBone *bone = mesh->mBones[i];
+		//从Assimp格式转换成glm
+		glm::mat4 matrix = assimpToGlmMatrix(bone->mOffsetMatrix);
+		//按照骨骼名称(string形式)往里面注入map, map的形式是(i, matrix)
+		boneInfo[bone->mName.C_Str()] = { i, matrix };
 
-	//	//循环骨骼里面的顶点(通过总权重数就知道有多少个顶点)
-	//	for (unsigned int j = 0; j < bone->mNumWeights; j++) {
-	//		//当前骨骼的顶点ID
-	//		unsigned int id = bone->mWeights[j].mVertexId;
-	//		//当前骨骼的顶点的权重值
-	//		float weight = bone->mWeights[j].mWeight;
-	//		boneCounts[id]++;
+		//循环骨骼里面的顶点(通过总权重数就知道有多少个顶点)
+		for (unsigned int j = 0; j < bone->mNumWeights; j++) {
+			//当前骨骼的顶点ID
+			unsigned int id = bone->mWeights[j].mVertexId;
+			//当前骨骼的顶点的权重值
+			float weight = bone->mWeights[j].mWeight;
+			boneCounts[id]++;
 
-	//		//根据
-	//		switch (boneCounts[id])
-	//		{
-	//		case 1:
-	//			verticesOutput[id].boneIds.x = i;
-	//			verticesOutput[id].boneWeights.x = weight;
-	//			break;
-	//		case 2:
-	//			verticesOutput[id].boneIds.y = i;
-	//			verticesOutput[id].boneWeights.y = weight;
-	//			break;
-	//		case 3:
-	//			verticesOutput[id].boneIds.z = i;
-	//			verticesOutput[id].boneWeights.z = weight;
-	//			break;
-	//		case 4:
-	//			verticesOutput[id].boneIds.w = i;
-	//			verticesOutput[id].boneWeights.w = weight;
-	//			break;
+			//根据
+			switch (boneCounts[id])
+			{
+			case 1:
+				verticesOutput[id].setBoneIds_x(i);
+				verticesOutput[id].setBoneWeights_x(weight);
+				break;
+			case 2:
+				verticesOutput[id].setBoneIds_y(i);
+				verticesOutput[id].setBoneWeights_y(weight);
+				break;
+			case 3:
+				verticesOutput[id].setBoneIds_z(i);
+				verticesOutput[id].setBoneWeights_z(weight);
+				break;
+			case 4:
+				verticesOutput[id].setBoneIds_w(i);
+				verticesOutput[id].setBoneWeights_w(weight);
+				break;
 
-	//		default:
-	//			break;
-	//		}
-	//	}
-	//}
+			default:
+				break;
+			}
+		}
+	}
 
-	////让所有权重的和为1
-	//for (unsigned int i = 0; i < verticesOutput.size(); i++) {
-	//	//取得所有顶点数组里面的骨骼权重
-	//	glm::vec4 &boneWeight = verticesOutput[i].boneWeights;
+	//让所有权重的和为1
+	for (unsigned int i = 0; i < verticesOutput.size(); i++) {
+		//取得所有顶点数组里面的骨骼权重
+		glm::vec4 &boneWeight = verticesOutput[i].getBoneWieghts();
 
-	//	float totalWeight = boneWeight.x + boneWeight.y + boneWeight.z + boneWeight.w;
-	//	if (totalWeight > 0.0f) {
-	//		verticesOutput[i].boneWeights = glm::vec4(
-	//			boneWeight.x / totalWeight,
-	//			boneWeight.y / totalWeight,
-	//			boneWeight.z / totalWeight,
-	//			boneWeight.w / totalWeight
-	//		);
-	//	}
-	//}
+		float totalWeight = boneWeight.x + boneWeight.y + boneWeight.z + boneWeight.w;
+		if (totalWeight > 0.0f) {
+			verticesOutput[i].setBoneWeights(glm::vec4(
+				boneWeight.x / totalWeight,
+				boneWeight.y / totalWeight,
+				boneWeight.z / totalWeight,
+				boneWeight.w / totalWeight)
+			);
+		}
+	}
 
-	//for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-	//	aiFace &face = mesh->mFaces[i];
-	//	for (unsigned int j = 0; j < face.mNumIndices; j++) {
-	//		indicesOutput.push_back(face.mIndices[j]);
-	//	}
-	//}
-	////
-	//readSkeleton(skeletonOutput, scene->mRootNode, boneInfo);
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
+		aiFace &face = mesh->mFaces[i];
+		for (unsigned int j = 0; j < face.mNumIndices; j++) {
+			indicesOutput.push_back(face.mIndices[j]);
+		}
+	}
+	//
+	readSkeleton(skeletonOutput, scene->mRootNode, boneInfo);
 }
 
 //加载动画信息
@@ -311,8 +310,6 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 	unsigned int vbo = 0;
 	unsigned int ebo = 0;
 
-	std::cout << vao << std::endl;
-
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);
@@ -320,16 +317,17 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) *vertices.size(), &vertices[0], GL_STATIC_DRAW);
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
-	//glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
-	//glEnableVertexAttribArray(2);
-	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
-	//glEnableVertexAttribArray(3);
-	//glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneIds));
-	//glEnableVertexAttribArray(4);
-	//glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneWeights));
+	glEnableVertexAttribArray(0);
+	//VAO的通道号码(0~15) 三个长度为一个单位 是否需要正规化到正负1之间 下一个坐标要跳过多少 下一个信息的偏移量
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position_));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal_));
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texture_));
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneIds_));
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneWeights_));
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);

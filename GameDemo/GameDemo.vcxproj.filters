@@ -126,9 +126,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>源文件\entities</Filter>
-    </ClCompile>
     <ClCompile Include="Bone.cpp">
       <Filter>源文件\entities</Filter>
     </ClCompile>
