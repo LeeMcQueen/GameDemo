@@ -200,6 +200,9 @@
     <ClInclude Include="Bone.h">
       <Filter>头文件\entities</Filter>
     </ClInclude>
+    <ClInclude Include="BoneTransformTrack.h">
+      <Filter>头文件\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt">

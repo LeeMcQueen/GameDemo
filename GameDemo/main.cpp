@@ -10,7 +10,9 @@
 #include "OBJLoader.h"
 #include "Light.h"
 #include "MasterRenderer.h"
+
 #include "Vertex.h"
+#include "Bone.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -36,7 +38,7 @@ const char* vertexShaderSource = R"(
 	#version 440 core
 	layout (location = 0) in vec3 position; 
 	layout (location = 1) in vec3 normal;
-	layout (location = 2) in vec2 uv;
+	layout (location = 2) in vec2 texture;
 	layout (location = 3) in vec4 boneIds;
 	layout (location = 4) in vec4 boneWeights;
 
@@ -67,7 +69,7 @@ const char* vertexShaderSource = R"(
 
 		v_pos = vec3(model_matrix * boneTransform * pos);
 
-		tex_cord = uv;
+		tex_cord = texture;
 
 		v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
 
@@ -105,13 +107,13 @@ const char* fragmentShaderSource = R"(
 //	glm::vec4 boneWeights;	//骨骼权重
 //};
 
-struct Bone {
-	int ID = 0;
-	std::string name = "";
-	std::vector<Bone> children = {};
-
-	glm::mat4 offset;	//反矩阵
-};
+//struct Bone {
+//	int ID = 0;
+//	std::string name = "";
+//	std::vector<Bone> children = {};
+//
+//	glm::mat4 offset;	//反矩阵
+//};
 
 struct BoneTransformTrack {
 	std::vector<float> positionTimestamps = {};
@@ -132,14 +134,15 @@ struct Animation {
 bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
-		boneOutput.name = node->mName.C_Str();
-		boneOutput.ID = boneInfoTable[boneOutput.name].first;
-		boneOutput.offset = boneInfoTable[boneOutput.name].second;
+		boneOutput.setName(node->mName.C_Str());
+		boneOutput.setId(boneInfoTable[boneOutput.getName()].first);
+		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
 
 		for (int i = 0; i < node->mNumChildren; i++) {
 			Bone child;
 			readSkeleton(child, node->mChildren[i], boneInfoTable);
-			boneOutput.children.push_back(child);
+			//boneOutput.children.push_back(child);
+			boneOutput.children_.push_back(child);
 		}
 		return true;
 	}
@@ -158,13 +161,14 @@ void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &vertices
 	verticesOutput = {};
 	indicesOutput = {};
 
-	//取得模型坐标用变量
-	Vertex vertex;
-	//空的顶点
-	glm::vec3 vector;
-
 	//加载顶点，法线，uv坐标
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
+
+		//取得模型坐标用变量
+		Vertex vertex;
+		//空的顶点
+		glm::vec3 vector;
+
 		//取得顶点
 		vector.x = mesh->mVertices[i].x;
 		vector.y = mesh->mVertices[i].y;
@@ -174,12 +178,14 @@ void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &vertices
 		vector.x = mesh->mNormals[i].x;
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
-		vertex.setPosition(vector);
+		vertex.setNormal(vector);
+
+		glm::vec2 vec;
 
 		//注意这里就只有一个纹理，需要的话需要动态设定
-		vector.x = mesh->mTextureCoords[0][i].x;
-		vector.y = mesh->mTextureCoords[0][i].y;
-		vertex.setTexture(vector);
+		vec.x = mesh->mTextureCoords[0][i].x;
+		vec.y = mesh->mTextureCoords[0][i].y;
+		vertex.setTexture(vec);
 
 		//初始化骨骼ID
 		vertex.setBoneIds(glm::ivec4(0));
@@ -372,7 +378,7 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &
 //得到当前姿势
 void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
 
-	BoneTransformTrack &btt = animation.boneTransforms[skeleton.name];
+	BoneTransformTrack &btt = animation.boneTransforms[skeleton.getName()];
 	//余数
 	dt = fmod(dt, animation.duration);
 	std::pair<unsigned int, float>fp;
@@ -405,10 +411,10 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	glm::mat4 localTransform = positionMat * rotationMat * scaleMat;
 	glm::mat4 globaTransform = parentTransform * localTransform;
 
-	output[skeleton.ID] = globalInverseTransform * globaTransform * skeleton.offset;
+	output[skeleton.getId()] = globalInverseTransform * globaTransform * skeleton.getOffset();
 
 	//更新子骨骼的数组
-	for (Bone &child : skeleton.children) {
+	for (Bone &child : skeleton.getChildren()) {
 		getPose(animation, child, dt, output, globaTransform, globalInverseTransform);
 	}
 }
@@ -487,6 +493,10 @@ int main() {
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
 	//shader变量的设定和链接
 	unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
+
+	//create camera
+	unsigned int viewMatrixLocation = glGetUniformLocation(shader, "view_Matrix");
+
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
