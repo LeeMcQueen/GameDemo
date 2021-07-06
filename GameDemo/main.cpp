@@ -47,8 +47,10 @@ const char* vertexShaderSource = R"(
 	out vec3 v_pos;
 	out vec4 bw;
 
-	uniform mat4 bone_transforms[50];	//jointTransForms[MAX_JOINTS]
-	uniform mat4 view_projection_matrix;
+	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]测试
+	//uniform mat4 view_projection_matrix;
+	uniform mat4 view_Matrix;
+	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
 
 	void main()
@@ -65,7 +67,7 @@ const char* vertexShaderSource = R"(
 
 		vec4 pos =boneTransform * vec4(position, 1.0);
 
-		gl_Position = view_projection_matrix * model_matrix * pos;
+		gl_Position = projection_Matrix * view_Matrix * model_matrix * pos;
 
 		v_pos = vec3(model_matrix * boneTransform * pos);
 
@@ -492,10 +494,11 @@ int main() {
 	//加载shader
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
 	//shader变量的设定和链接
-	unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
+	//unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
 
 	//create camera
 	unsigned int viewMatrixLocation = glGetUniformLocation(shader, "view_Matrix");
+	unsigned int projectionMatrixLocation = glGetUniformLocation(shader, "projection_Matrix");
 
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
@@ -504,13 +507,13 @@ int main() {
 	//投影矩阵(projectionMatrix)
 	glm::mat4 projectionMatrix = glm::perspective(70.0f, (float)windowWidth / windowHeight, 0.1f, 1000.0f);
 	//观察矩阵(viewMatrix)
-	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, -1, 0));
+	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 1, 0));
 	//投影矩阵 + 观察矩阵 TODO
-	glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+	//glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
 	glm::mat4 modelMatrix;
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 1.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f, 0.2f, 0.2f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
 
 	//------------------------------skeleton end------------------------
 
@@ -559,9 +562,9 @@ int main() {
 		masterRenderer.processEntity(entity);
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();	
-
-		//------------------------------skeleton start------------------------
 		camera.move();
+		//------------------------------skeleton start------------------------
+		
 
 		//取得当前程序运行时间
 		float elapsedTime = glfwGetTime();
@@ -572,7 +575,10 @@ int main() {
 
 		getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
 		glUseProgram(shader);
-		glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
+		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
+
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, glm::value_ptr(currentPose[0]));
 		glBindVertexArray(vao);
@@ -581,6 +587,8 @@ int main() {
 		glUniform1i(textureLocation, 0);
 
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+		
 
 		//------------------------------skeleton end------------------------
 
