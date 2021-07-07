@@ -90,7 +90,7 @@ const char* fragmentShaderSource = R"(
 
 	uniform sampler2D diff_texture;
 
-	vec3 lightPos = vec3(0.2, 1.0, -3.0);
+	vec3 lightPos = vec3(5.2, 5.0, 13.0);
 	
 	void main()
 	{
@@ -505,15 +505,16 @@ int main() {
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
 
 	//投影矩阵(projectionMatrix)
-	glm::mat4 projectionMatrix = glm::perspective(70.0f, (float)windowWidth / windowHeight, 0.1f, 1000.0f);
+	//glm::mat4 projectionMatrix = glm::perspective(70.0f, (float)windowWidth / windowHeight, 0.1f, 1000.0f);
 	//观察矩阵(viewMatrix)
-	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 1, 0));
+	//glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 1, 0));
 	//投影矩阵 + 观察矩阵 TODO
 	//glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
 	glm::mat4 modelMatrix;
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 1.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, 10.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
 
 	//------------------------------skeleton end------------------------
 
@@ -541,7 +542,7 @@ int main() {
 	TexturedModel texturedModel(model, texture);
 
 	//加载模型
-	Entity entity(texturedModel, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	//加载地面
@@ -553,7 +554,7 @@ int main() {
 	{
 
 		//transformation
-		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.00f));
+		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.0f));
 		//rotation
 		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
 
