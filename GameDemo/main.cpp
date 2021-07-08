@@ -530,6 +530,9 @@ int main() {
 	//实例化加载OBJ
 	OBJLoader objloader;
 
+	objloader.loadAssimpScene("res/model.dae");
+
+
 	//加载模型顶点信息（3种方法）
 	RawModel model = objloader.loadObjModel("person");
 

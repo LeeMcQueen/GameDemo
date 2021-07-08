@@ -33,8 +33,10 @@ public:
 
 	//OBJ模型加载方法
 	static RawModel loadObjModel(const std::string& fileName);
-	//Assimp加载模型
-	static RawModel loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount);
+	//通过Assimp文件得到scene和mesh
+	void loadAssimpScene(const char *filePath);
+	//通过scene和mesh得到模型的参数
+	static RawModel loadAssimpModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount);
 
 private:
 	//best OBJLoader
@@ -49,6 +51,9 @@ private:
 	static vector<float> normalsArray;
 	//OBJ模型加载 数据顺序信息
 	static vector<int> indices;
-
+	//Assimp组件
+	const aiScene* scene;
+	//Assimp网格
+	aiMesh* mesh;
 };
 
