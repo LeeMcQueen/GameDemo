@@ -94,7 +94,7 @@ RawModel OBJLoader::loadObjModel(const std::string &fileName){
 	return myloader->loadToVao(vertices, textures, normals, indices);
 }
 
-void OBJLoader::loadAssimpScene(const char * filePath)
+void OBJLoader::loadAssimpScene(const char* filePath)
 {
 	Assimp::Importer importer;
 
@@ -106,7 +106,7 @@ void OBJLoader::loadAssimpScene(const char * filePath)
 	mesh = scene->mMeshes[0];
 }
 
-void OBJLoader::ProcessVertices(char *vertexData,
+void OBJLoader::ProcessVertices(char* vertexData,
 	std::vector<int>& indices,
 	std::vector<glm::vec2>& tempTextures,
 	std::vector<glm::vec2>& textures,

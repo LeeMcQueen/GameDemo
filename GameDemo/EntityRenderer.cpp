@@ -8,14 +8,14 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-EntityRenderer::EntityRenderer(StaticShader &shader, glm::mat4 &projectionMatrix)
+EntityRenderer::EntityRenderer(StaticShader& shader, glm::mat4& projectionMatrix)
 	:shader_(shader) {
 	shader_.start();
 	shader_.loadProjectionMatrix(projectionMatrix);
 	shader_.stop();
 }
 
-void EntityRenderer::render(const std::map<TexturedModel, std::vector<Entity>> &entities) {
+void EntityRenderer::render(const std::map<TexturedModel, std::vector<Entity>>& entities) {
 	for (const auto& model : entities)
 	{
 		prepareTextureModel(model.first);
@@ -32,7 +32,7 @@ void EntityRenderer::render(const std::map<TexturedModel, std::vector<Entity>> &
 	}
 }
 
-void EntityRenderer::prepareTextureModel(const TexturedModel &model) {
+void EntityRenderer::prepareTextureModel(const TexturedModel& model) {
 	//Get rawModel from textredModel
 	RawModel& rawModel = model.GetRawModel();
 	glBindVertexArray(rawModel.getVaoId());
@@ -51,7 +51,7 @@ void EntityRenderer::prepareTextureModel(const TexturedModel &model) {
 	glBindTexture(GL_TEXTURE_2D, model.GetTextureModel().getID());
 }
 
-void EntityRenderer::prepareInstance(const Entity &entity) {
+void EntityRenderer::prepareInstance(const Entity& entity) {
 	//计算变换举证
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(entity.getPosition(),
 		entity.getRotation(),

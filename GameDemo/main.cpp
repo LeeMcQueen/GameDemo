@@ -133,7 +133,7 @@ struct Animation {
 	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
 };
 
-bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
+bool readSkeleton(Bone& boneOutput, aiNode* node, std::unordered_map<std::string, std::pair<int, glm::mat4>>& boneInfoTable) {
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
 		boneOutput.setName(node->mName.C_Str());

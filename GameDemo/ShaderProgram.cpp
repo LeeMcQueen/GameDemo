@@ -11,7 +11,7 @@
 using namespace std;
 
 //shader的构造函数
-ShaderProgram::ShaderProgram(const char *VertexFile, const char *FragmentFile){
+ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile){
 	//加载顶点着色器(代码, Shader类型)
 	vertexShaderID = ShaderProgram::loadShader(VertexFile, GL_VERTEX_SHADER);
 	//加载片段着色器
@@ -63,12 +63,12 @@ void ShaderProgram::loadMatrix4(GLuint location, glm::mat4 value){
 }
 
 //uniform function
-GLuint ShaderProgram::getUniformLocation(const char *uniformName){
+GLuint ShaderProgram::getUniformLocation(const char* uniformName){
 	//1.check program 2.location name
 	return glGetUniformLocation(programID, uniformName);
 }
 
-GLint ShaderProgram::loadShader(const char *fileName, int type){
+GLint ShaderProgram::loadShader(const char* fileName, int type){
 	//Load shaderSource from file
 	ifstream file(fileName);
 

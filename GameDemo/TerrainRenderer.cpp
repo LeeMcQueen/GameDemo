@@ -1,6 +1,6 @@
 #include "TerrainRenderer.h"
 
-TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projectionMatrix)
+TerrainRenderer::TerrainRenderer(TerrainShader& terrainShader, glm::mat4& projectionMatrix)
 	:terrainShader_(terrainShader)
 {
 	terrainShader_.start();
@@ -8,7 +8,7 @@ TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projec
 	terrainShader_.stop();
 }
 
-void TerrainRenderer::render(std::vector<Terrain> &terrains)
+void TerrainRenderer::render(std::vector<Terrain>& terrains)
 {
 	for (Terrain& terrain : terrains)
 	{
@@ -19,7 +19,7 @@ void TerrainRenderer::render(std::vector<Terrain> &terrains)
 	}
 }
 
-void TerrainRenderer::prepareTerrain(Terrain &terrain)
+void TerrainRenderer::prepareTerrain(Terrain& terrain)
 {
 	//Get rawModel from textredModel
 	RawModel& rawModel = terrain.GetModel();
@@ -40,7 +40,7 @@ void TerrainRenderer::prepareTerrain(Terrain &terrain)
 	glBindTexture(GL_TEXTURE_2D, terrain.GetTexture().getID());
 }
 
-void TerrainRenderer::prepareInstance(Terrain &terrain)
+void TerrainRenderer::prepareInstance(Terrain& terrain)
 {
 	//calculate transformation matrix
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(
