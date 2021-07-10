@@ -16,11 +16,11 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-RawModel loadAssimpModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
-
-	//
-	verticesOutput = {};
-}
+//RawModel loadAssimpModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
+//
+//	//
+//	verticesOutput = {};
+//}
 
 RawModel OBJLoader::loadObjModel(const std::string &fileName){
 	clock_t startTime = clock();

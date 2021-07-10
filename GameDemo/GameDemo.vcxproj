@@ -145,7 +145,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="Maths.cpp" />
-    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="EntityRenderer.cpp" />
     <ClCompile Include="RawModel.cpp" />
@@ -167,7 +166,6 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="Maths.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="EntityRenderer.h" />

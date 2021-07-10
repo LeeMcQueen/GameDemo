@@ -123,9 +123,6 @@
     <ClCompile Include="TerrainRenderer.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>源文件\renderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Bone.cpp">
       <Filter>源文件\entities</Filter>
     </ClCompile>
@@ -186,9 +183,6 @@
       <Filter>头文件\shaders</Filter>
     </ClInclude>
     <ClInclude Include="TerrainRenderer.h">
-      <Filter>头文件\renderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
       <Filter>头文件\renderEngine</Filter>
     </ClInclude>
     <ClInclude Include="std_image.h">
