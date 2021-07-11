@@ -2,11 +2,11 @@
 
 #include <glm.hpp>
 
-class Light
-{
+class Light{
+
 public:
 
-	Light(const glm::vec3& position, const glm::vec3& color)
+	Light(const glm::vec3 &position, const glm::vec3 &color)
 		:position_(position), color_(color) {}
 
 	const glm::vec3& getPosition() const { return position_; }

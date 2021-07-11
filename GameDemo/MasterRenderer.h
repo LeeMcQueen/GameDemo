@@ -10,8 +10,8 @@
 #include <map>
 #include <vector>
 
-class MasterRenderer
-{
+class MasterRenderer{
+
 public:
 	MasterRenderer();
 

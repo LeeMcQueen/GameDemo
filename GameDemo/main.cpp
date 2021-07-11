@@ -10,15 +10,18 @@
 #include "OBJLoader.h"
 #include "Light.h"
 #include "MasterRenderer.h"
-
-#include "Vertex.h"
-#include "Bone.h"
+#include "AnimaLoader.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 //------------------------------skeleton start------------------------
+#include "Vertex.h"
+#include "Bone.h"
+#include "BoneTransformTrack.h"
+#include "Animation.h"
+
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
@@ -117,21 +120,22 @@ const char* fragmentShaderSource = R"(
 //	glm::mat4 offset;	//反矩阵
 //};
 
-struct BoneTransformTrack {
-	std::vector<float> positionTimestamps = {};
-	std::vector<float> rotationTimestamps = {};
-	std::vector<float> scaleTimestamps = {};
+//struct BoneTransformTrack {
+//	std::vector<float> positionTimestamps = {};
+//	std::vector<float> rotationTimestamps = {};
+//	std::vector<float> scaleTimestamps = {};
+//
+//	std::vector<glm::vec3> positions = {};
+//	std::vector<glm::quat> rotations = {};
+//	std::vector<glm::vec3> scales = {};
+//};
 
-	std::vector<glm::vec3> positions = {};
-	std::vector<glm::quat> rotations = {};
-	std::vector<glm::vec3> scales = {};
-};
-
-struct Animation {
-	float duration = 0.0f;
-	float ticksPerSecond = 1.0f;
-	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
-};
+//struct Animation {
+//	
+//	float duration = 0.0f;
+//	float ticksPerSecond = 1.0f;
+//	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
+//};
 
 bool readSkeleton(Bone& boneOutput, aiNode* node, std::unordered_map<std::string, std::pair<int, glm::mat4>>& boneInfoTable) {
 
@@ -275,39 +279,39 @@ void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &vertices
 }
 
 //加载动画信息
-void loadAnimation(const aiScene *scene, Animation &animation) {
+void loadAnimation(const aiScene *scene, Animation& animation) {
 
 	//加载第一个动画,多个动画加载需要修改
 	aiAnimation *anim = scene->mAnimations[0];
 
 	if (anim->mTicksPerSecond != 0.0f) {
-		animation.ticksPerSecond = anim->mTicksPerSecond;
+		animation.ticksPerSecond_ = anim->mTicksPerSecond;
 	}
 	else {
-		animation.ticksPerSecond = 1;
+		animation.ticksPerSecond_ = 1;
 	}
 
-	animation.duration = anim->mDuration * anim->mTicksPerSecond;
-	animation.boneTransforms = {};
+	animation.duration_ = anim->mDuration * anim->mTicksPerSecond;
+	animation.boneTransforms_ = {};
 
 	for (int i = 0; i < anim->mNumChannels; i++) {
 		aiNodeAnim *channel = anim->mChannels[i];
 		BoneTransformTrack track;
 
 		for (int j = 0; j < channel->mNumPositionKeys; j++) {
-			track.positionTimestamps.push_back(channel->mPositionKeys[j].mTime);
-			track.positions.push_back(assimpToGlmVec3(channel->mPositionKeys[j].mValue));
+			track.positionTimestamps_.push_back(channel->mPositionKeys[j].mTime);
+			track.positions_.push_back(assimpToGlmVec3(channel->mPositionKeys[j].mValue));
 		}
 		for (int j = 0; j < channel->mNumRotationKeys; j++) {
-			track.rotationTimestamps.push_back(channel->mRotationKeys[j].mTime);
-			track.rotations.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
+			track.rotationTimestamps_.push_back(channel->mRotationKeys[j].mTime);
+			track.rotations_.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
 		}
 		//报错
 		for (int j = 0; j < channel->mNumScalingKeys; j++) {
-			track.scaleTimestamps.push_back(channel->mScalingKeys[j].mTime);
-			track.scales.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
+			track.scaleTimestamps_.push_back(channel->mScalingKeys[j].mTime);
+			track.scales_.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
 		}
-		animation.boneTransforms[channel->mNodeName.C_Str()] = track;
+		animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
 		//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 	}
 }
@@ -380,26 +384,27 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &
 //得到当前姿势
 void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
 
-	BoneTransformTrack &btt = animation.boneTransforms[skeleton.getName()];
+	BoneTransformTrack &boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 	//余数
-	dt = fmod(dt, animation.duration);
+	dt = fmod(dt, animation.duration_);
 	std::pair<unsigned int, float>fp;
 
-	//计算顶点插值
-	fp = getTimeFraction(btt.positionTimestamps, dt);
-	glm::vec3 position1 = btt.positions[fp.first - 1];
-	glm::vec3 position2 = btt.positions[fp.first];
+	//实时顶点位置
+	fp = getTimeFraction(boneTransformTrack.positionTimestamps_, dt);
+	glm::vec3 position1 = boneTransformTrack.positions_[fp.first - 1];
+	glm::vec3 position2 = boneTransformTrack.positions_[fp.first];
 	glm::vec3 position = glm::mix(position1, position2, fp.second);
 
-	//计算旋转插值
-	fp = getTimeFraction(btt.rotationTimestamps, dt);
-	glm::quat rotation1 = btt.rotations[fp.first - 1];
-	glm::quat rotation2 = btt.rotations[fp.first];
+	//实时顶点旋转
+	fp = getTimeFraction(boneTransformTrack.rotationTimestamps_, dt);
+	glm::quat rotation1 = boneTransformTrack.rotations_[fp.first - 1];
+	glm::quat rotation2 = boneTransformTrack.rotations_[fp.first];
 	glm::quat rotation = glm::slerp(rotation1, rotation2, fp.second);
 
-	fp = getTimeFraction(btt.scaleTimestamps, dt);
-	glm::vec3 scale1 = btt.scales[fp.first - 1];
-	glm::vec3 scale2 = btt.scales[fp.first];
+	//实时顶点缩放
+	fp = getTimeFraction(boneTransformTrack.scaleTimestamps_, dt);
+	glm::vec3 scale1 = boneTransformTrack.scales_[fp.first - 1];
+	glm::vec3 scale2 = boneTransformTrack.scales_[fp.first];
 	glm::vec3 scale = glm::mix(scale1, scale2, fp.second);
 
 	glm::mat4 positionMat;
@@ -410,7 +415,9 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	glm::mat4 rotationMat = glm::toMat4(rotation);
 	scaleMat = glm::scale(scaleMat, scale);
 
+	//模型本体(local)变换
 	glm::mat4 localTransform = positionMat * rotationMat * scaleMat;
+	//模型整体变换 复矩阵
 	glm::mat4 globaTransform = parentTransform * localTransform;
 
 	output[skeleton.getId()] = globalInverseTransform * globaTransform * skeleton.getOffset();
@@ -450,19 +457,23 @@ int main() {
 #pragma endregion
 
 	//------------------------------skeleton start------------------------
-	int windowWidth = 1280, windowHeight = 720;
+
+	//int windowWidth = 1280, windowHeight = 720;
 	bool isRunning = true;
+	//实例化加载Assimp
+	AnimaLoader animaLoader;
 
+	animaLoader.loadAssimpScene("res/model.dae");
 	//使用assimp加载模型
-	Assimp::Importer importer;
-	const char* filePath = "res/model.dae";
-	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+	//Assimp::Importer importer;
+	//const char* filePath = "res/model.dae";
+	//const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
 
-	//Assimp加载成功判定
-	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
-	}
-	aiMesh* mesh = scene->mMeshes[0];
+	////Assimp加载成功判定
+	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+	//	std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
+	//}
+	//aiMesh* mesh = scene->mMeshes[0];
 
 	//顶点数组
 	std::vector<Vertex> vertices = {};
@@ -471,21 +482,23 @@ int main() {
 	unsigned int boneCount = 0;
 	//animation数组实例化
 	Animation animation;
-	//vao
-	unsigned int vao = 0;
 	//Bone骨骼数组实例化
 	Bone skeleton;
+	Vertex vertex;
+
+	//glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	//globalInverseTransform = glm::inverse(globalInverseTransform);
+
+	//loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
+	//loadAnimation(scene, animation);
+
+	//vao
+	unsigned int vao = 0;
 	//图片初始化
 	unsigned int diffuseTexture;
-
-	glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	globalInverseTransform = glm::inverse(globalInverseTransform);
-
-	loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
-	loadAnimation(scene, animation);
-
-	vao = createVertexArray(vertices, indices);
 	diffuseTexture = createTexture("res/diffuse.png");
+	vao = createVertexArray(vertices, indices);
+	
 
 	glm::mat4 identity;
 	std::vector<glm::mat4> currentPose = {};
@@ -493,13 +506,13 @@ int main() {
 
 	//加载shader
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
+
 	//shader变量的设定和链接
 	//unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
-
 	//create camera
 	unsigned int viewMatrixLocation = glGetUniformLocation(shader, "view_Matrix");
 	unsigned int projectionMatrixLocation = glGetUniformLocation(shader, "projection_Matrix");
-
+	//modelMatrix变换
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
@@ -520,17 +533,13 @@ int main() {
 
 	//实例化加载工具
 	Loader loader;
-
 	//实例化相机
 	Camera camera;
-
 	//实例化渲染器
 	MasterRenderer masterRenderer;
-
 	//实例化加载OBJ
 	OBJLoader objloader;
 
-	objloader.loadAssimpScene("res/model.dae");
 
 
 	//加载模型顶点信息（3种方法）
@@ -577,7 +586,7 @@ int main() {
 		
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
-		getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
+		getPose(animation, skeleton, elapsedTime, currentPose, identity, vertex.globalInverseTransform_);
 		glUseProgram(shader);
 		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
@@ -591,8 +600,6 @@ int main() {
 		glUniform1i(textureLocation, 0);
 
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-
-		
 
 		//------------------------------skeleton end------------------------
 

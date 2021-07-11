@@ -5,16 +5,14 @@
 #include <string>
 
 #pragma once
-class DisplayManager
-{
+class DisplayManager{
+
 public:
 	constexpr static int WIDTH = 1280;
 	constexpr static int HEIGHT = 720;
 
 	//创建窗口函数
 	static int CreatManager(GLFWwindow *window);
-
-private:
 
 };
 

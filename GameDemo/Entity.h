@@ -6,8 +6,8 @@
 #include "TexturedModel.h"
 #include "RawModel.h"
 
-class Entity
-{
+class Entity{
+
 public:
 
 	//构造函数
@@ -22,13 +22,11 @@ public:
 
 	//位置移动
 	void increasePosition(const glm::vec3 position);
-
 	//旋转移动
 	void increaseRotation(const glm::vec3 rotation);
 
 	//得到OBJ模型和纹理
 	TexturedModel GetModel() const;
-
 	//get和set
 	glm::vec3 getPosition() const;
 	glm::vec3 getRotation() const;

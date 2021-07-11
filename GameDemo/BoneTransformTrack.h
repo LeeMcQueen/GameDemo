@@ -23,13 +23,12 @@ public:
 	std::vector<glm::quat> getRotations() const { return rotations_; }
 	std::vector<glm::vec3> getScales() const { return scales_; }
 
-private:
-
 	std::vector<float> positionTimestamps_;
 	std::vector<float> rotationTimestamps_;
 	std::vector<float> scaleTimestamps_;
-
 	std::vector<glm::vec3> positions_;
 	std::vector<glm::quat> rotations_;
 	std::vector<glm::vec3> scales_;
+
+	glm::mat4 globalInverseTransform_;
 };

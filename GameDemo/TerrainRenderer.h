@@ -3,8 +3,8 @@
 #include "Terrain.h"
 #include "TerrainShader.h"
 
-class TerrainRenderer
-{
+class TerrainRenderer{
+
 public:
 	
 	TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projectionMatrix);

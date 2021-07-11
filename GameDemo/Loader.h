@@ -8,8 +8,8 @@
 
 class RawModel;
 
-class Loader
-{
+class Loader{
+
 public:
 	//创建VAO
 	GLuint createVAO();

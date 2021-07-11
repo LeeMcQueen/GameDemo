@@ -3,8 +3,8 @@
 #include <iostream>
 #include <gtx\transform.hpp>
 
-class Camera
-{
+class Camera{
+
 public:
 	Camera();
 
@@ -12,10 +12,8 @@ public:
 	void move();
 
 	glm::mat4 getViewMatrix() const;
-
 	//get camera position
 	glm::vec3 getPosition() const;
-
 	//get camera rotation
 	glm::vec3 getRotation() const;
 

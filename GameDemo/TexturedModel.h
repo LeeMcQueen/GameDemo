@@ -3,8 +3,8 @@
 #include "RawModel.h"
 #include "ModelTexture.h"
 
-class TexturedModel
-{
+class TexturedModel{
+
 public:
 	explicit TexturedModel(const RawModel &rawmodel, const ModelTexture &modelTexture);
 	~TexturedModel();

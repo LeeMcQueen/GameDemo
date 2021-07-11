@@ -123,8 +123,8 @@
     <ClCompile Include="TerrainRenderer.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Bone.cpp">
-      <Filter>源文件\entities</Filter>
+    <ClCompile Include="AnimaLoader.cpp">
+      <Filter>源文件\renderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="BoneTransformTrack.h">
       <Filter>头文件\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>头文件\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimaLoader.h">
+      <Filter>头文件\renderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,12 +16,6 @@ vector<float> OBJLoader::texturesArray;
 vector<float> OBJLoader::normalsArray;
 vector<int> OBJLoader::indices;
 
-//RawModel loadAssimpModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
-//
-//	//
-//	verticesOutput = {};
-//}
-
 RawModel OBJLoader::loadObjModel(const std::string &fileName){
 	clock_t startTime = clock();
 	// Open the file as read only
@@ -92,18 +86,6 @@ RawModel OBJLoader::loadObjModel(const std::string &fileName){
 
 	Loader* myloader = new Loader;
 	return myloader->loadToVao(vertices, textures, normals, indices);
-}
-
-void OBJLoader::loadAssimpScene(const char* filePath)
-{
-	Assimp::Importer importer;
-
-	scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
-	//Assimp加载成功判定
-	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
-	}
-	mesh = scene->mMeshes[0];
 }
 
 void OBJLoader::ProcessVertices(char* vertexData,

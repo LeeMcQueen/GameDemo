@@ -1,8 +1,8 @@
 #pragma once
 #include <GL/glew.h>
 
-class RawModel
-{
+class RawModel{
+
 public:
 	//Constructor
 	RawModel(GLuint vaoId, GLuint vertexCount);
@@ -18,5 +18,6 @@ private:
 	GLuint vertexCount_;
 	GLuint* vboId_;
 	int vboCount_;
+
 };
 

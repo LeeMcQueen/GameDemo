@@ -9,11 +9,11 @@
 #include "Entity.h"
 #include "StaticShader.h"
 
-class EntityRenderer
-{
+class EntityRenderer{
+
 public:
 
-	EntityRenderer(StaticShader& shader, glm::mat4 &projectionMatrix);
+	EntityRenderer(StaticShader &shader, glm::mat4 &projectionMatrix);
 
 	//void Render(Entity entity, StaticShader* shader);
 	void render(const std::map<TexturedModel, std::vector<Entity>> &entities);

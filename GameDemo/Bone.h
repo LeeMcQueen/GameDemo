@@ -3,8 +3,8 @@
 #include <vector>
 #include <gtx\transform.hpp>
 
-class Bone
-{
+class Bone{
+
 public:
 
 	Bone() {};
@@ -19,13 +19,13 @@ public:
 	std::vector<Bone> getChildren() const { return children_; };
 	glm::mat4 getOffset() const { return offset_; };
 
+	//qœé
 	std::vector<Bone> children_;
 
 private:
 
 	unsigned int Id_;
 	std::string name_;
-	//std::vector<Bone> children_;
 
 	glm::mat4 offset_;
 };

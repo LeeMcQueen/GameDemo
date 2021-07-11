@@ -10,8 +10,6 @@
 
 using namespace std;
 
-//Info : you can check modelLoader.cpp
-
 //生成VAO（顶点数组对象）
 GLuint Loader::createVAO() {
 
@@ -28,13 +26,15 @@ GLuint Loader::createVAO() {
 
 //模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
-RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords,
-	std::vector<float> normals, std::vector<int> indices) {
-	// create a new VAO
+RawModel Loader::loadToVAO(std::vector<float> vertices, 
+	std::vector<float> textureCoords,
+	std::vector<float> normals, 
+	std::vector<int> indices) {
+	// 创建一个新的VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
 	bindIndicesBuffer(indices.data(), indicesSize);
-	// Store the data in attribute lists
+	// 绑定数据到AttributeList
 	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(float));
 	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(float));
 	storeDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(float));
@@ -44,13 +44,15 @@ RawModel Loader::loadToVAO(std::vector<float> vertices, std::vector<float> textu
 
 //load information to VAO
 //data 1.vertices position 2.texture position 
-RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textureCoords,
-	std::vector<glm::vec3> normals, std::vector<int> indices) {
-	// create a new VAO
+RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, 
+	std::vector<glm::vec2> textureCoords,
+	std::vector<glm::vec3> normals, 
+	std::vector<int> indices) {
+	// 创建一个新的VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();
 	bindIndicesBuffer(indices.data(), indicesSize);
-	// Store the data in attribute lists
+	// 绑定数据到AttributeList
 	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(glm::vec3));
 	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(glm::vec2));
 	storeDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(glm::vec3));
@@ -64,16 +66,12 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void 
 	GLuint vboID;
 	//创建VBO（顶点缓冲对象）
 	glGenBuffers(1, &vboID);
-
 	//把VBO储存到表里
 	vbos.push_back(vboID);
-
 	//绑定VBO（顶点缓冲对象）
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
-
 	//把数据存储进绑定的缓存里面 1.缓存类型 2.数据大小 3.存储的数据（数组） 4.管理类型（数据不会或几乎不会改变）
 	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
-
 	//把VBO（顶点缓冲对象）存储进入VAO（顶点数组对象）
 	//1.顶点数据 2.顶点属性的大小 3.数据类型
 	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -84,16 +82,13 @@ void Loader::storeDataInAttributeList(GLuint attribNumber, int attribSize, void 
 void Loader::bindIndicesBuffer(int *indices, int &count) {
 
 	GLuint eboID;
-	// Generate a buffer and bind it for use
+	// 创建一个buffer用来装EBO
 	glGenBuffers(1, &eboID);
-
-	// Store the buffer in the list
+	// 加载到VBO的表里面
 	vbos.push_back(eboID);
-
-	// Bind the buffer to use it
+	// 绑定eboID
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-
-	// Store the indices in the buffer
+	// 使用数据 indices
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) *count, indices, GL_STATIC_DRAW);
 }
 
@@ -106,8 +101,7 @@ GLuint Loader::loadTexture(const char *fileName) {
 	//Load image using lodepng
 	error = lodepng_decode32_file(&image, &width, &height, ("res/" + string(fileName) + ".png").c_str());
 	//check load image
-	if (error)
-	{
+	if (error){
 		cerr << "ERROR: [TextureLoader::loadTexture] Cannot load texture" << fileName << "!" << endl;
 		exit(-1);
 	}
