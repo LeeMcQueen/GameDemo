@@ -279,7 +279,7 @@ void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &vertices
 }
 
 //加载动画信息
-void loadAnimation(const aiScene *scene, Animation& animation) {
+void loadAnimation(const aiScene *scene, Animation &animation) {
 
 	//加载第一个动画,多个动画加载需要修改
 	aiAnimation *anim = scene->mAnimations[0];
@@ -383,7 +383,6 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &
 
 //得到当前姿势
 void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
-
 	BoneTransformTrack &boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 	//余数
 	dt = fmod(dt, animation.duration_);
@@ -420,7 +419,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	//模型整体变换 复矩阵
 	glm::mat4 globaTransform = parentTransform * localTransform;
 
-	output[skeleton.getId()] = globalInverseTransform * globaTransform * skeleton.getOffset();
+	output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
 
 	//更新子骨骼的数组
 	for (Bone &child : skeleton.getChildren()) {
@@ -461,18 +460,16 @@ int main() {
 	//int windowWidth = 1280, windowHeight = 720;
 	bool isRunning = true;
 
-	
-
 	////使用assimp加载模型
-	Assimp::Importer importer;
-	const char* filePath = "res/model.dae";
-	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+	//Assimp::Importer importer;
+	//const char *filePath = "res/model.dae";
+	//const aiScene *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
 
-	//Assimp加载成功判定
-	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
-	}
-	aiMesh* mesh = scene->mMeshes[0];
+	////Assimp加载成功判定
+	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+	//	std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
+	//}
+	//aiMesh* mesh = scene->mMeshes[0];
 
 	//顶点数组
 	std::vector<Vertex> vertices = {};
@@ -489,11 +486,11 @@ int main() {
 	AnimaModelLoader animaModelLoader;
 	animaModelLoader.loadAssimpScene("res/model.dae");
 
-	glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	globalInverseTransform = glm::inverse(globalInverseTransform);
+	//glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	//globalInverseTransform = glm::inverse(globalInverseTransform);
 
 	//loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
-	loadAnimation(scene, animation);
+	//loadAnimation(scene, animation);
 
 	//vao
 	unsigned int vao = 0;
@@ -505,7 +502,7 @@ int main() {
 
 	glm::mat4 identity;
 	std::vector<glm::mat4> currentPose = {};
-	currentPose.resize(boneCount, identity);
+	currentPose.resize(animaModelLoader.getbBoneCount(), identity);
 
 	//加载shader
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
@@ -542,8 +539,6 @@ int main() {
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
 	OBJLoader objloader;
-
-
 
 	//加载模型顶点信息（3种方法）
 	RawModel model = objloader.loadObjModel("person");
@@ -589,7 +584,7 @@ int main() {
 		
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
-		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, globalInverseTransform);
+		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		glUseProgram(shader);
 		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
@@ -602,7 +597,9 @@ int main() {
 		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
 		glUniform1i(textureLocation, 0);
 
-		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
+
+		std::cout << "tets" << std::endl;
 
 		//------------------------------animation end------------------------
 

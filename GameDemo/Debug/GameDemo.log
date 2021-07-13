@@ -1,2 +1,41 @@
-﻿  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
+﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
+  AnimaModelLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(169): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(177): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(193): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(199): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(206): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(207): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(211): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(215): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(216): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+  main.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+main.cpp(53): warning C4566: 由通用字符名称“\u6D4B”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(53): warning C4566: 由通用字符名称“\u8BD5”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(147): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(156): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(288): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(294): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(297): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(301): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(302): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(305): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(306): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(310): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(311): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(581): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+main.cpp(583): warning C4305: “初始化”: 从“double”到“float”截断
+main.cpp(541): warning C4101: “objloader”: 未引用的局部变量
+  正在生成代码...
+  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

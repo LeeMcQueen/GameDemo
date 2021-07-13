@@ -23,8 +23,8 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 	//Scene里的Mesh
 	aiMesh* mesh = scene->mMeshes[0];
 
-	//globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	//setGlobaInverseTransform(glm::inverse(globalInverseTransform_));
+	globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	setGlobaInverseTransform(glm::inverse(globalInverseTransform_));
 
 	loadAssimpModel(scene, mesh, vertices, indices, skeleton, boneCount);
 
@@ -32,6 +32,7 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 	vertices_ = vertices;
 	indices_ = indices;
 	skeleton_ = skeleton;
+	bBoneCount_ = boneCount;
 
 };
 
@@ -180,4 +181,42 @@ bool AnimaModelLoader::readSkeleton(Bone &boneOutput, aiNode *node, std::unorder
 		}
 	}
 	return false;
+}
+
+//加载动画信息
+void AnimaModelLoader::loadAnimation(const aiScene *scene, Animation &animation){
+
+	//加载第一个动画,多个动画加载需要修改
+	aiAnimation *anim = scene->mAnimations[0];
+
+	if (anim->mTicksPerSecond != 0.0f) {
+		animation.ticksPerSecond_ = anim->mTicksPerSecond;
+	}
+	else {
+		animation.ticksPerSecond_ = 1;
+	}
+
+	animation.duration_ = anim->mDuration * anim->mTicksPerSecond;
+	animation.boneTransforms_ = {};
+
+	for (int i = 0; i < anim->mNumChannels; i++) {
+		aiNodeAnim *channel = anim->mChannels[i];
+		BoneTransformTrack track;
+
+		for (int j = 0; j < channel->mNumPositionKeys; j++) {
+			track.positionTimestamps_.push_back(channel->mPositionKeys[j].mTime);
+			track.positions_.push_back(assimpToGlmVec3(channel->mPositionKeys[j].mValue));
+		}
+		for (int j = 0; j < channel->mNumRotationKeys; j++) {
+			track.rotationTimestamps_.push_back(channel->mRotationKeys[j].mTime);
+			track.rotations_.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
+		}
+		//报错
+		for (int j = 0; j < channel->mNumScalingKeys; j++) {
+			track.scaleTimestamps_.push_back(channel->mScalingKeys[j].mTime);
+			track.scales_.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
+		}
+		animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
+		//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+	}
 };

@@ -16,6 +16,8 @@ public:
 private:
 	GLuint vaoId_;
 	GLuint vertexCount_;
+	GLuint* vboId_;
+	int vboCount_;
 
 };
 

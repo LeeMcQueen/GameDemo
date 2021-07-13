@@ -18,14 +18,17 @@ public:
 	std::string getName() const { return name_; };
 	std::vector<Bone> getChildren() const { return children_; };
 	glm::mat4 getOffset() const { return offset_; };
+	
+	unsigned int Id_;
 
+	std::string name_;
 	//qœé
 	std::vector<Bone> children_;
 
+	glm::mat4 offset_;
+
 private:
 
-	unsigned int Id_;
-	std::string name_;
 
-	glm::mat4 offset_;
+
 };
