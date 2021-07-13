@@ -10,13 +10,13 @@
 #include "OBJLoader.h"
 #include "Light.h"
 #include "MasterRenderer.h"
-#include "AnimaLoader.h"
+#include "AnimaModelLoader.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-//------------------------------skeleton start------------------------
+//------------------------------animation start------------------------
 #include "Vertex.h"
 #include "Bone.h"
 #include "BoneTransformTrack.h"
@@ -137,7 +137,7 @@ const char* fragmentShaderSource = R"(
 //	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
 //};
 
-bool readSkeleton(Bone& boneOutput, aiNode* node, std::unordered_map<std::string, std::pair<int, glm::mat4>>& boneInfoTable) {
+bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
 		boneOutput.setName(node->mName.C_Str());
@@ -428,7 +428,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	}
 }
 
-//------------------------------skeleton end------------------------
+//------------------------------animation end------------------------
 
 //窗口大小变换监听
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -446,34 +446,33 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	//使用Opengl核心模式
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
 	//注册窗口大小监听
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//实例化DisplayManager
-	DisplayManager* myDisplayManager = new DisplayManager();
+	DisplayManager *myDisplayManager = new DisplayManager();
 	//使用DisplayManager下的CreatManager
 	myDisplayManager->CreatManager(window);
 #pragma endregion
 
-	//------------------------------skeleton start------------------------
+	//------------------------------animation start------------------------
 
 	//int windowWidth = 1280, windowHeight = 720;
 	bool isRunning = true;
-	//实例化加载Assimp
-	AnimaLoader animaLoader;
 
-	animaLoader.loadAssimpScene("res/model.dae");
-	//使用assimp加载模型
-	//Assimp::Importer importer;
-	//const char* filePath = "res/model.dae";
-	//const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+	
 
-	////Assimp加载成功判定
-	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-	//	std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
-	//}
-	//aiMesh* mesh = scene->mMeshes[0];
+	////使用assimp加载模型
+	Assimp::Importer importer;
+	const char* filePath = "res/model.dae";
+	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+
+	//Assimp加载成功判定
+	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
+	}
+	aiMesh* mesh = scene->mMeshes[0];
 
 	//顶点数组
 	std::vector<Vertex> vertices = {};
@@ -486,18 +485,22 @@ int main() {
 	Bone skeleton;
 	Vertex vertex;
 
-	//glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	//globalInverseTransform = glm::inverse(globalInverseTransform);
+	//实例化加载Assimp
+	AnimaModelLoader animaModelLoader;
+	animaModelLoader.loadAssimpScene("res/model.dae");
+
+	glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	globalInverseTransform = glm::inverse(globalInverseTransform);
 
 	//loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
-	//loadAnimation(scene, animation);
+	loadAnimation(scene, animation);
 
 	//vao
 	unsigned int vao = 0;
 	//图片初始化
 	unsigned int diffuseTexture;
 	diffuseTexture = createTexture("res/diffuse.png");
-	vao = createVertexArray(vertices, indices);
+	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
 	
 
 	glm::mat4 identity;
@@ -529,7 +532,7 @@ int main() {
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
 
-	//------------------------------skeleton end------------------------
+	//------------------------------animation end------------------------
 
 	//实例化加载工具
 	Loader loader;
@@ -576,7 +579,7 @@ int main() {
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();	
 		camera.move();
-		//------------------------------skeleton start------------------------
+		//------------------------------animation start------------------------
 		
 
 		//取得当前程序运行时间
@@ -586,7 +589,7 @@ int main() {
 		
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
-		getPose(animation, skeleton, elapsedTime, currentPose, identity, vertex.globalInverseTransform_);
+		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, globalInverseTransform);
 		glUseProgram(shader);
 		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
@@ -601,7 +604,7 @@ int main() {
 
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
-		//------------------------------skeleton end------------------------
+		//------------------------------animation end------------------------
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

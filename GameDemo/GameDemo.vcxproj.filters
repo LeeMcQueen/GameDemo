@@ -123,7 +123,7 @@
     <ClCompile Include="TerrainRenderer.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="AnimaLoader.cpp">
+    <ClCompile Include="AnimaModelLoader.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,7 +200,7 @@
     <ClInclude Include="Animation.h">
       <Filter>头文件\entities</Filter>
     </ClInclude>
-    <ClInclude Include="AnimaLoader.h">
+    <ClInclude Include="AnimaModelLoader.h">
       <Filter>头文件\renderEngine</Filter>
     </ClInclude>
   </ItemGroup>

@@ -26,13 +26,11 @@ public:
 	void setBoneWeights_y(float boneWeights_y) { boneWeights_.y = boneWeights_y; }
 	void setBoneWeights_z(float boneWeights_z) { boneWeights_.z = boneWeights_z; }
 	void setBoneWeights_w(float boneWeights_w) { boneWeights_.w = boneWeights_w; }
-	void setGlobaInverseTransform(const glm::mat4 globalInverseTransform) { globalInverseTransform_ = globalInverseTransform; }
 	glm::vec3 getPosition() const { return position_; }
 	glm::vec3 getNormal() const { return normal_; }
 	glm::vec2 getTexture() const { return texture_; }
 	glm::vec4 getBoneIds() const { return boneIds_; }
 	glm::vec4 getBoneWieghts() const { return boneWeights_; }
-	glm::mat4 getGlobalInverseTransform() const { return globalInverseTransform_; }
 
 	//顶点坐标
 	glm::vec3 position_;
@@ -44,6 +42,5 @@ public:
 	glm::vec4 boneIds_;
 	//骨骼权重
 	glm::vec4 boneWeights_;
-	
-	glm::mat4 globalInverseTransform_;
+
 };

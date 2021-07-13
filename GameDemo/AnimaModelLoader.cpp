@@ -1,6 +1,6 @@
-﻿#include "AnimaLoader.h"
+﻿#include "AnimaModelLoader.h"
 
-void AnimaLoader::loadAssimpScene(const char *filePath){
+void AnimaModelLoader::loadAssimpScene(const char *filePath){
 
 	//导入assimp加载模组
 	Assimp::Importer importer;
@@ -23,15 +23,19 @@ void AnimaLoader::loadAssimpScene(const char *filePath){
 	//Scene里的Mesh
 	aiMesh* mesh = scene->mMeshes[0];
 
-	//------------------------------------------------------------------------------
-	vertex.globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	vertex.setGlobaInverseTransform(glm::inverse(vertex.globalInverseTransform_));
-	//------------------------------------------------------------------------------
+	//globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	//setGlobaInverseTransform(glm::inverse(globalInverseTransform_));
 
 	loadAssimpModel(scene, mesh, vertices, indices, skeleton, boneCount);
+
+	//数据封装进入容器内
+	vertices_ = vertices;
+	indices_ = indices;
+	skeleton_ = skeleton;
+
 };
 
-void AnimaLoader::loadAssimpModel(const aiScene *scene, 
+void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	aiMesh *mesh, 
 	std::vector<Vertex> &verticesOutput, 
 	std::vector<unsigned int> &indicesOutput, 
@@ -41,11 +45,11 @@ void AnimaLoader::loadAssimpModel(const aiScene *scene,
 	verticesOutput = {};
 	indicesOutput = {};
 
+	//取得模型坐标用变量
+	Vertex vertex;
 	//加载顶点，法线，uv坐标
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 
-		//取得模型坐标用变量
-		Vertex vertex;
 		//空的顶点
 		glm::vec3 vector;
 
@@ -148,14 +152,13 @@ void AnimaLoader::loadAssimpModel(const aiScene *scene,
 			indicesOutput.push_back(face.mIndices[j]);
 		}
 	}
-	//
-	readSkeleton(skeletonOutput, scene->mRootNode, boneInfo);
 
+	readSkeleton(skeletonOutput, scene->mRootNode, boneInfo);
 
 }
 
 //a recursive function to read all bones and form skeleton
-bool AnimaLoader::readSkeleton(Bone & boneOutput, aiNode * node, std::unordered_map<std::string, std::pair<int, glm::mat4>>& boneInfoTable){
+bool AnimaModelLoader::readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable){
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
 		boneOutput.setName(node->mName.C_Str());

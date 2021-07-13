@@ -30,5 +30,4 @@ public:
 	std::vector<glm::quat> rotations_;
 	std::vector<glm::vec3> scales_;
 
-	glm::mat4 globalInverseTransform_;
 };

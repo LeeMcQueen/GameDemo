@@ -22,7 +22,7 @@ public:
 						, std::vector<int> indices);
 
 	//load texture from file
-	GLuint loadTexture(const char* filename);
+	GLuint loadTexture(const char *filename);
 
 private:
 	//顶点数组对象
