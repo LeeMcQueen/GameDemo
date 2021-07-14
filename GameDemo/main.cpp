@@ -467,15 +467,15 @@ int main() {
 
 	////Assimp加载成功判定
 	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-	//	std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
+		//std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
 	//}
 	//aiMesh* mesh = scene->mMeshes[0];
 
 	//顶点数组
-	std::vector<Vertex> vertices = {};
+	//std::vector<Vertex> vertices = {};
 	//顶点顺序变量
-	std::vector<unsigned int> indices = {};
-	unsigned int boneCount = 0;
+	//std::vector<unsigned int> indices = {};
+	//unsigned int boneCount = 0;
 	//animation数组实例化
 	Animation animation;
 	//Bone骨骼数组实例化
@@ -489,8 +489,10 @@ int main() {
 	//glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
 	//globalInverseTransform = glm::inverse(globalInverseTransform);
 
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile("res/model.dae", aiProcess_Triangulate);
 	//loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
-	//loadAnimation(scene, animation);
+	loadAnimation(scene, animation);
 
 	//vao
 	unsigned int vao = 0;
@@ -498,11 +500,12 @@ int main() {
 	unsigned int diffuseTexture;
 	diffuseTexture = createTexture("res/diffuse.png");
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
-	
+	//vao = createVertexArray(vertices, indices);
 
 	glm::mat4 identity;
 	std::vector<glm::mat4> currentPose = {};
 	currentPose.resize(animaModelLoader.getbBoneCount(), identity);
+	//currentPose.resize(boneCount, identity);
 
 	//加载shader
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
@@ -584,22 +587,22 @@ int main() {
 		
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
-		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		getPose(animation, animaModelLoader.skeleton_, elapsedTime, currentPose, identity, animaModelLoader.globalInverseTransform_);
+		//getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
 		glUseProgram(shader);
 		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
 
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, glm::value_ptr(currentPose[0]));
+		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.bBoneCount_, GL_FALSE, glm::value_ptr(currentPose[0]));
 		glBindVertexArray(vao);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
 		glUniform1i(textureLocation, 0);
 
-		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
-
-		std::cout << "tets" << std::endl;
+		glDrawElements(GL_TRIANGLES, animaModelLoader.indices_.size(), GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
 		//------------------------------animation end------------------------
 

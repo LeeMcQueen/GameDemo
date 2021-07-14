@@ -43,8 +43,7 @@ public:
 	//全局反向变换
 	glm::mat4 getGlobalInverseTransform() const { return globalInverseTransform_; }
 
-private:
-
+	
 	//顶点数据输出容器
 	std::vector<Vertex> vertices_;
 	std::vector<unsigned int> indices_;
@@ -53,5 +52,9 @@ private:
 	unsigned int bBoneCount_;
 
 	glm::mat4 globalInverseTransform_;
+
+private:
+
+
 
 };
