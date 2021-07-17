@@ -587,7 +587,7 @@ int main() {
 		
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
-		getPose(animation, animaModelLoader.skeleton_, elapsedTime, currentPose, identity, animaModelLoader.globalInverseTransform_);
+		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		//getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
 		glUseProgram(shader);
 		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
@@ -595,13 +595,13 @@ int main() {
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
 
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.bBoneCount_, GL_FALSE, glm::value_ptr(currentPose[0]));
+		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
 		glBindVertexArray(vao);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
 		glUniform1i(textureLocation, 0);
 
-		glDrawElements(GL_TRIANGLES, animaModelLoader.indices_.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 		//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
 		//------------------------------animation end------------------------
