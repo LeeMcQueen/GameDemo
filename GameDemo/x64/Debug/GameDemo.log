@@ -1,0 +1,174 @@
+﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
+  AnimaModelLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(169): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(177): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(193): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(199): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(206): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(207): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(211): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(215): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(216): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+  Camera.cpp
+Camera.cpp(16): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(20): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(24): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(28): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(51): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(55): warning C4305: “-=”: 从“double”到“float”截断
+  DisplayManager.cpp
+  Entity.cpp
+  Loader.cpp
+Loader.cpp(35): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(38): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(39): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(40): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(53): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(56): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(57): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+Loader.cpp(58): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  lodepng.cpp
+lodepng.cpp(798): warning C4334: “<<”: 32 位移位的结果被隐式转换为 64 位(是否希望进行 64 位移位?)
+lodepng.cpp(1460): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+lodepng.cpp(1464): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+lodepng.cpp(1536): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+lodepng.cpp(3480): warning C4334: “<<”: 32 位移位的结果被隐式转换为 64 位(是否希望进行 64 位移位?)
+lodepng.cpp(3494): warning C4267: “参数”: 从“size_t”转换到“unsigned int”，可能丢失数据
+lodepng.cpp(4334): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+lodepng.cpp(4382): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+lodepng.cpp(4462): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+lodepng.cpp(5405): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
+  main.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+main.cpp(53): warning C4566: 由通用字符名称“\u6D4B”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(53): warning C4566: 由通用字符名称“\u8BD5”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(147): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(156): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(288): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(294): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(297): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(301): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(302): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(305): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(306): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(310): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(311): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(584): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+main.cpp(586): warning C4305: “初始化”: 从“double”到“float”截断
+main.cpp(604): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(544): warning C4101: “objloader”: 未引用的局部变量
+  MasterRenderer.cpp
+  Maths.cpp
+  OBJLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+OBJLoader.cpp(25): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
+  EntityRenderer.cpp
+  RawModel.cpp
+  ShaderProgram.cpp
+ShaderProgram.cpp(48): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
+ShaderProgram.cpp(57): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+  StaticShader.cpp
+  Terrain.cpp
+Terrain.cpp(10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(14): warning C4244: “参数”: 从“float”转换到“unsigned __int64”，可能丢失数据
+Terrain.cpp(41): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(43): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  TerrainRenderer.cpp
+  TerrainShader.cpp
+  TexturedModel.cpp
+  正在生成代码...
+Camera.obj : error LNK2019: 无法解析的外部符号 glfwGetKey，该符号在函数 "public: void __cdecl Camera::move(void)" (?move@Camera@@QEAAXXZ) 中被引用
+main.obj : error LNK2001: 无法解析的外部符号 glfwGetKey
+Camera.obj : error LNK2019: 无法解析的外部符号 glfwGetCurrentContext，该符号在函数 "public: void __cdecl Camera::move(void)" (?move@Camera@@QEAAXXZ) 中被引用
+DisplayManager.obj : error LNK2019: 无法解析的外部符号 glewInit，该符号在函数 "public: static int __cdecl DisplayManager::CreatManager(struct GLFWwindow *)" (?CreatManager@DisplayManager@@SAHPEAUGLFWwindow@@@Z) 中被引用
+DisplayManager.obj : error LNK2019: 无法解析的外部符号 glfwTerminate，该符号在函数 "public: static int __cdecl DisplayManager::CreatManager(struct GLFWwindow *)" (?CreatManager@DisplayManager@@SAHPEAUGLFWwindow@@@Z) 中被引用
+main.obj : error LNK2001: 无法解析的外部符号 glfwTerminate
+DisplayManager.obj : error LNK2019: 无法解析的外部符号 glfwMakeContextCurrent，该符号在函数 "public: static int __cdecl DisplayManager::CreatManager(struct GLFWwindow *)" (?CreatManager@DisplayManager@@SAHPEAUGLFWwindow@@@Z) 中被引用
+DisplayManager.obj : error LNK2001: 无法解析的外部符号 glewExperimental
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewBindBuffer
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewBufferData
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewGenBuffers
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewVertexAttribPointer
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewGenerateMipmap
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewBindVertexArray
+EntityRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewBindVertexArray
+TerrainRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewBindVertexArray
+Loader.obj : error LNK2001: 无法解析的外部符号 __imp___glewGenVertexArrays
+main.obj : error LNK2019: 无法解析的外部符号 glfwInit，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwWindowHint，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwCreateWindow，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwWindowShouldClose，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwSetWindowShouldClose，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwSetFramebufferSizeCallback，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwPollEvents，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwGetTime，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 glfwSwapBuffers，该符号在函数 main 中被引用
+main.obj : error LNK2001: 无法解析的外部符号 __glewActiveTexture
+main.obj : error LNK2001: 无法解析的外部符号 __glewBindBuffer
+main.obj : error LNK2001: 无法解析的外部符号 __glewBufferData
+main.obj : error LNK2001: 无法解析的外部符号 __glewGenBuffers
+main.obj : error LNK2001: 无法解析的外部符号 __glewAttachShader
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewAttachShader
+main.obj : error LNK2001: 无法解析的外部符号 __glewCompileShader
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewCompileShader
+main.obj : error LNK2001: 无法解析的外部符号 __glewCreateProgram
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewCreateProgram
+main.obj : error LNK2001: 无法解析的外部符号 __glewCreateShader
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewCreateShader
+main.obj : error LNK2001: 无法解析的外部符号 __glewDeleteShader
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewDeleteShader
+main.obj : error LNK2001: 无法解析的外部符号 __glewDetachShader
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewDetachShader
+main.obj : error LNK2001: 无法解析的外部符号 __glewEnableVertexAttribArray
+main.obj : error LNK2001: 无法解析的外部符号 __glewGetProgramInfoLog
+main.obj : error LNK2001: 无法解析的外部符号 __glewGetProgramiv
+main.obj : error LNK2001: 无法解析的外部符号 __glewGetShaderInfoLog
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewGetShaderInfoLog
+main.obj : error LNK2001: 无法解析的外部符号 __glewGetShaderiv
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewGetShaderiv
+main.obj : error LNK2001: 无法解析的外部符号 __glewGetUniformLocation
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewGetUniformLocation
+main.obj : error LNK2001: 无法解析的外部符号 __glewLinkProgram
+StaticShader.obj : error LNK2001: 无法解析的外部符号 __glewLinkProgram
+TerrainShader.obj : error LNK2001: 无法解析的外部符号 __glewLinkProgram
+main.obj : error LNK2001: 无法解析的外部符号 __glewShaderSource
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewShaderSource
+main.obj : error LNK2001: 无法解析的外部符号 __glewUniform1i
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewUniform1i
+main.obj : error LNK2001: 无法解析的外部符号 __glewUniformMatrix4fv
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewUniformMatrix4fv
+main.obj : error LNK2001: 无法解析的外部符号 __glewUseProgram
+MasterRenderer.obj : error LNK2001: 无法解析的外部符号 __glewUseProgram
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewUseProgram
+main.obj : error LNK2001: 无法解析的外部符号 __glewVertexAttribPointer
+main.obj : error LNK2001: 无法解析的外部符号 __glewBindVertexArray
+main.obj : error LNK2001: 无法解析的外部符号 __glewGenVertexArrays
+EntityRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewActiveTexture
+TerrainRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewActiveTexture
+EntityRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewDisableVertexAttribArray
+TerrainRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewDisableVertexAttribArray
+EntityRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewEnableVertexAttribArray
+TerrainRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewEnableVertexAttribArray
+EntityRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewUseProgram
+TerrainRenderer.obj : error LNK2001: 无法解析的外部符号 __imp___glewUseProgram
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewBindAttribLocation
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewDeleteProgram
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewUniform1f
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 __glewUniform3f
+StaticShader.obj : error LNK2001: 无法解析的外部符号 __glewValidateProgram
+TerrainShader.obj : error LNK2001: 无法解析的外部符号 __glewValidateProgram
+D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015\glfw3.lib : warning LNK4272: 库计算机类型“X86”与目标计算机类型“x64”冲突
+D:\OpenGL安装包\glew-2.1.0\lib\Release\Win32\glew32s.lib : warning LNK4272: 库计算机类型“X86”与目标计算机类型“x64”冲突
+D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe : fatal error LNK1120: 55 个无法解析的外部命令

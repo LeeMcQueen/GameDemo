@@ -25,7 +25,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
-
+//------------------------------animation start------------------------
 #include <glm.hpp>
 #include <gtc/quaternion.hpp>
 #include <gtx/quaternion.hpp>
@@ -136,6 +136,19 @@ const char* fragmentShaderSource = R"(
 //	float ticksPerSecond = 1.0f;
 //	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
 //};
+
+/** 弹簧模拟变数 **/
+//空气吹动力
+int windBlowing = 0;
+//空气力大小
+int windForceScale = 15;
+glm::vec3 windStartPos;
+glm::vec3 windDir;
+glm::vec3 wind;
+//布料
+glm::vec3 clothPos(-3, -7.5, -2);
+glm::vec2 clothSize(4, 4);
+
 
 bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
 
