@@ -21,6 +21,10 @@
 #include "Bone.h"
 #include "BoneTransformTrack.h"
 #include "Animation.h"
+//#include "Cloth.h"  //Points
+//#include "Rigid.h"
+//#include "Program.h"
+//#include "Display.h"
 
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -36,6 +40,7 @@
 #include <unordered_map>
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
+
 
 const char* vertexShaderSource = R"(
 	#version 440 core

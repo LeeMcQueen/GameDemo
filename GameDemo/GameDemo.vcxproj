@@ -161,6 +161,8 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoneTransformTrack.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cloth.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Light.h" />
@@ -171,8 +173,12 @@
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="EntityRenderer.h" />
+    <ClInclude Include="Points.h" />
+    <ClInclude Include="Program.h" />
     <ClInclude Include="RawModel.h" />
+    <ClInclude Include="Rigid.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Spring.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="std_image.h" />
     <ClInclude Include="struct.h" />
@@ -180,6 +186,7 @@
     <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="TerrainShader.h" />
     <ClInclude Include="TexturedModel.h" />
+    <ClInclude Include="Vectors.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>

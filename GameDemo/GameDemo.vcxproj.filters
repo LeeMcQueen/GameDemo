@@ -70,6 +70,9 @@
     <Filter Include="头文件\Terrain">
       <UniqueIdentifier>{cea2d92c-5fa5-4acd-a2d5-558e2459cc83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\MassSpringSim">
+      <UniqueIdentifier>{b9d232b7-62f7-4897-a33f-b0c42c9cc7c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -202,6 +205,27 @@
     </ClInclude>
     <ClInclude Include="AnimaModelLoader.h">
       <Filter>头文件\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloth.h">
+      <Filter>头文件\MassSpringSim</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>头文件\MassSpringSim</Filter>
+    </ClInclude>
+    <ClInclude Include="Points.h">
+      <Filter>头文件\MassSpringSim</Filter>
+    </ClInclude>
+    <ClInclude Include="Program.h">
+      <Filter>头文件\MassSpringSim</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigid.h">
+      <Filter>头文件\MassSpringSim</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring.h">
+      <Filter>头文件\MassSpringSim</Filter>
+    </ClInclude>
+    <ClInclude Include="Vectors.h">
+      <Filter>头文件\MassSpringSim</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
