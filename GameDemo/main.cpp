@@ -1,5 +1,27 @@
-﻿#define _CRT_SECURE_NO_DEPRECATE
+﻿
+//#define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
+
+
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+//------------------------------animation start------------------------
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+//------------------------------animation start------------------------
+#include <glm.hpp>
+#include <gtc/quaternion.hpp>
+#include <gtx/quaternion.hpp>
+#include <gtc/type_ptr.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+#include <unordered_map>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "std_image.h"
 
 #include "DisplayManager.h"
 #include "RawModel.h"
@@ -12,35 +34,14 @@
 #include "MasterRenderer.h"
 #include "AnimaModelLoader.h"
 
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-//------------------------------animation start------------------------
 #include "Vertex.h"
 #include "Bone.h"
 #include "BoneTransformTrack.h"
 #include "Animation.h"
-//#include "Cloth.h"  //Points
-//#include "Rigid.h"
-//#include "Program.h"
-//#include "Display.h"
-
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <assimp/Importer.hpp>
-//------------------------------animation start------------------------
-#include <glm.hpp>
-#include <gtc/quaternion.hpp>
-#include <gtx/quaternion.hpp>
-#include <gtc/type_ptr.hpp>
-#include <gtc/matrix_transform.hpp>
-#include <gtc/type_ptr.hpp>
-
-#include <unordered_map>
-#define STB_IMAGE_IMPLEMENTATION
-#include "std_image.h"
-
+#include "Cloth.h"  //Points
+#include "Rigid.h"
+#include "Program.h"
+#include "Display.h"
 
 const char* vertexShaderSource = R"(
 	#version 440 core

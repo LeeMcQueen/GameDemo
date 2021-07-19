@@ -2,18 +2,18 @@
 
 #include "Vectors.h"
 
-struct Vertex
+struct ClothVertex
 {
 public:
     Vec3 position;
     Vec3 normal;
     
-    Vertex() {}
-    Vertex(Vec3 pos)
+	ClothVertex() {}
+	ClothVertex(Vec3 pos)
     {
         position = pos;
     }
-    ~Vertex() {}
+    ~ClothVertex() {}
 };
 
 class Node

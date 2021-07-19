@@ -1,44 +1,118 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
+  AnimaModelLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(169): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(177): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(193): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(199): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(206): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(207): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(211): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(215): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(216): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+  Camera.cpp
+Camera.cpp(16): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(20): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(24): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(28): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(51): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(55): warning C4305: “-=”: 从“double”到“float”截断
+  DisplayManager.cpp
+  Entity.cpp
+  Loader.cpp
+  lodepng.cpp
   main.cpp
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-main.cpp(58): warning C4566: 由通用字符名称“\u6D4B”表示的字符不能在当前代码页(932)中表示出来
-main.cpp(58): warning C4566: 由通用字符名称“\u8BD5”表示的字符不能在当前代码页(932)中表示出来
-main.cpp(165): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(174): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(306): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(312): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(315): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(319): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(320): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(323): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(324): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(328): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(329): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(602): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-main.cpp(604): warning C4305: “初始化”: 从“double”到“float”截断
-main.cpp(562): warning C4101: “objloader”: 未引用的局部变量
-LINK : warning LNK4098: 默
-LINK : warning LNK4098: 默
-Loader.obj : warning LNK4049: 已
-Loader.obj : warning LNK4049: 已
-Loader.obj : warning LNK4049: 已
-Loader.obj : warning LNK4049: 已
-Loader.obj : warning LNK4049: 已
-Loader.obj : warning LNK4049: 已
-EntityRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Loader.obj : warning LNK4049: 已
-EntityRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-EntityRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-EntityRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-EntityRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(22): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(30): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(42): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(76): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(101): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(106): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(117): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(39): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(40): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(45): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(62): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(63): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(69): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(137): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(141): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(154): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(161): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(170): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(175): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(184): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(195): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
+main.cpp(60): warning C4566: 由通用字符名称“\u6D4B”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(60): warning C4566: 由通用字符名称“\u8BD5”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(167): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(176): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(308): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(314): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(317): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(321): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(322): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(325): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(326): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(330): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(331): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(604): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+main.cpp(606): warning C4305: “初始化”: 从“double”到“float”截断
+main.cpp(564): warning C4101: “objloader”: 未引用的局部变量
+  MasterRenderer.cpp
+  Maths.cpp
+  OBJLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+OBJLoader.cpp(25): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
+  EntityRenderer.cpp
+  RawModel.cpp
+  ShaderProgram.cpp
+ShaderProgram.cpp(48): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
+ShaderProgram.cpp(57): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+  StaticShader.cpp
+  Terrain.cpp
+Terrain.cpp(10): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(14): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+Terrain.cpp(41): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(43): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  TerrainRenderer.cpp
+  TerrainShader.cpp
+  TexturedModel.cpp
+  正在生成代码...
+LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindBuffer
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBufferData
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenBuffers
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewVertexAttribPointer
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenerateMipmap
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
+TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewBindVertexArray
+Loader.obj : warning LNK4049: 已导入本地定义的符号 ___glewGenVertexArrays
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewActiveTexture
+TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewActiveTexture
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewDisableVertexAttribArray
+TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewDisableVertexAttribArray
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewEnableVertexAttribArray
+TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewEnableVertexAttribArray
+EntityRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewUseProgram
+TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 ___glewUseProgram
+glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

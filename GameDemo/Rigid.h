@@ -14,8 +14,8 @@ struct Ground
     glm::vec4 color;
     const double friction = 0.9;
     
-    std::vector<Vertex*> vertexes;
-    std::vector<Vertex*> faces;
+    std::vector<ClothVertex*> vertexes;
+    std::vector<ClothVertex*> faces;
     
     Ground(Vec3 pos, Vec2 size, glm::vec4 c) {
         position = pos;
@@ -34,10 +34,10 @@ struct Ground
     
     void init()
     {
-        vertexes.push_back(new Vertex(Vec3(0.0, 0.0, 0.0)));
-        vertexes.push_back(new Vertex(Vec3(width, 0.0, 0.0)));
-        vertexes.push_back(new Vertex(Vec3(0.0, 0.0, -height)));
-        vertexes.push_back(new Vertex(Vec3(width, 0.0, -height)));
+        vertexes.push_back(new ClothVertex(Vec3(0.0, 0.0, 0.0)));
+        vertexes.push_back(new ClothVertex(Vec3(width, 0.0, 0.0)));
+        vertexes.push_back(new ClothVertex(Vec3(0.0, 0.0, -height)));
+        vertexes.push_back(new ClothVertex(Vec3(width, 0.0, -height)));
         
         for (int i = 0; i < vertexes.size(); i ++) {
             vertexes[i]->normal = Vec3(0.0, 1.0, 0.0); // It's not neccessery to normalize here
@@ -63,8 +63,8 @@ public:
     
     int radius;
     
-    std::vector<Vertex*> vertexes;
-    std::vector<Vertex*> faces;
+    std::vector<ClothVertex*> vertexes;
+    std::vector<ClothVertex*> faces;
     
     Sphere(int r)
     {
@@ -78,8 +78,8 @@ public:
         faces.clear();
     }
     
-    Vertex* getTop() { return vertexes[0]; }
-    Vertex* getVertex(int x, int y)
+	ClothVertex* getTop() { return vertexes[0]; }
+	ClothVertex* getVertex(int x, int y)
     {
         if (x < 0 || x >= parallelNum || y < 0 || y >= meridianNum) {
             printf("Vertex Index Out of Range.\n");
@@ -88,9 +88,9 @@ public:
             return vertexes[1+x*meridianNum+y];
         }
     }
-    Vertex* getBottom() { return vertexes[vertexes.size()-1]; }
+	ClothVertex* getBottom() { return vertexes[vertexes.size()-1]; }
     
-    Vec3 computeFaceNormal(Vertex* v1, Vertex* v2, Vertex* v3)
+    Vec3 computeFaceNormal(ClothVertex* v1, ClothVertex* v2, ClothVertex* v3)
     {
         return Vec3::cross(v2->position - v1->position, v3->position - v1->position);
     }
@@ -104,9 +104,9 @@ public:
         
         // The normal of all faces of the first and last cycle should be calculated specially!
         for (int i = 0; i < faces.size()/3; i ++) {
-            Vertex* v1 = faces[i*3+0];
-            Vertex* v2 = faces[i*3+1];
-            Vertex* v3 = faces[i*3+2];
+			ClothVertex* v1 = faces[i*3+0];
+			ClothVertex* v2 = faces[i*3+1];
+			ClothVertex* v3 = faces[i*3+2];
             
             normal = computeFaceNormal(v1, v3, v2);
             v1->normal += normal;
@@ -128,7 +128,7 @@ public:
         
         
         Vec3 pos(0.0, radius, 0.0);
-        vertexes.push_back(new Vertex(pos)); // Top vertex
+        vertexes.push_back(new ClothVertex(pos)); // Top vertex
         
         for (int i = 0; i < parallelNum; i ++) {
             pos.y -= cycleInterval;
@@ -138,11 +138,11 @@ public:
                 
                 pos.x = xzLen * sin(xRadian);
                 pos.z = xzLen * cos(xRadian);
-                vertexes.push_back(new Vertex(pos));
+                vertexes.push_back(new ClothVertex(pos));
             }
         }
         pos = Vec3(0.0, -radius, 0.0);
-        vertexes.push_back(new Vertex(pos)); // Bottom vertex
+        vertexes.push_back(new ClothVertex(pos)); // Bottom vertex
         
         /** Slice faces **/
         // Top cycle
