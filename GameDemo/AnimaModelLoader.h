@@ -22,7 +22,7 @@ public:
 	void loadAssimpScene(const char *filePath);
 	//通过Scene得到模型数据
 	void loadAssimpModel(const aiScene *scene,
-		aiMesh *mesh, 
+		aiMesh *mesh,
 		std::vector<Vertex> &verticesOutput,
 		std::vector<unsigned int> &indicesOutput,
 		Bone &skeletonOutput,
@@ -34,12 +34,15 @@ public:
 	//输出容器getset
 	void setGlobaInverseTransform(const glm::mat4 globalInverseTransform) { globalInverseTransform_ = globalInverseTransform; }
 	void setScene(const aiScene *scene) { scene_ = scene; }
-
+	void setVertices(const std::vector<Vertex> vertices) { vertices_ = vertices; }
+	void setIndices(const std::vector<unsigned int> indices) { indices_ = indices; }
+	void setSkeleton(const Bone skeleton) { skeleton_ = skeleton; }
+	void setBoneCount(const unsigned int boneCount) { boneCount_ = boneCount; }
 	std::vector<Vertex> getVertices() { return vertices_; }
 	std::vector<unsigned int> getIndices() { return indices_; }
 	const aiScene* getScene() { return scene_; }
 	Bone getSkeleton() { return skeleton_; }
-	unsigned int getbBoneCount() { return bBoneCount_; }
+	unsigned int getbBoneCount() { return boneCount_; }
 	//全局反向变换
 	glm::mat4 getGlobalInverseTransform() const { return globalInverseTransform_; }
 
@@ -50,7 +53,7 @@ private:
 	std::vector<unsigned int> indices_;
 	const aiScene *scene_;
 	Bone skeleton_;
-	unsigned int bBoneCount_;
+	unsigned int boneCount_;
 
 	glm::mat4 globalInverseTransform_;
 

@@ -12,7 +12,7 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 	unsigned int boneCount;
 	//Bone骨骼类
 	Bone skeleton;
-	//
+	//顶点类
 	Vertex vertex;
 	//通过ReadFile函数得到Scene
 	const aiScene *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
@@ -25,14 +25,14 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 
 	globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
 	setGlobaInverseTransform(glm::inverse(globalInverseTransform_));
-
+	//加载骨骼动画模型
 	loadAssimpModel(scene, mesh, vertices, indices, skeleton, boneCount);
 
 	//数据封装进入容器内
-	vertices_ = vertices;
-	indices_ = indices;
-	skeleton_ = skeleton;
-	bBoneCount_ = boneCount;
+	setVertices(vertices);
+	setIndices(indices);
+	setSkeleton(skeleton);
+	setBoneCount(boneCount);
 
 };
 
