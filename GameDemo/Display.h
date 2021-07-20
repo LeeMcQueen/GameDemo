@@ -13,7 +13,7 @@
 #include "Program.h"
 #include "std_image.h"
 
-struct Camera
+struct ClothCamera
 {
     const float speed = 0.05f;
     const float frustumRatio = 1.0f;
@@ -25,7 +25,7 @@ struct Camera
     glm::mat4 uniProjMatrix;
     glm::mat4 uniViewMatrix;
     
-    Camera()
+	ClothCamera()
     {
         /** Projection matrix : The frustum that camera observes **/
         uniProjMatrix = glm::mat4(1.0f);
@@ -34,14 +34,14 @@ struct Camera
         uniViewMatrix = glm::mat4(1.0f);
     }
 };
-Camera cam;
+ClothCamera cam;
 
-struct Light
+struct ClothLight
 {
     glm::vec3 pos = glm::vec3(-5.0f, 7.0f, 6.0f);
     glm::vec3 color = glm::vec3(0.7f, 0.7f, 1.0f);
 };
-Light sun;
+ClothLight sun;
 
 struct ClothRender // Texture & Lighting
 {

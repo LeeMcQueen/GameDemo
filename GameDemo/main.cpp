@@ -41,7 +41,7 @@
 #include "Cloth.h"  //Points
 #include "Rigid.h"
 #include "Program.h"
-//#include "Display.h"
+#include "Display.h"
 
 const char* vertexShaderSource = R"(
 	#version 440 core
