@@ -43,6 +43,9 @@
 #include "Program.h"
 #include "Display.h"
 
+#define AIR_FRICTION 0.02
+#define TIME_STEP 0.01
+
 const char* vertexShaderSource = R"(
 	#version 440 core
 	layout (location = 0) in vec3 position; 
@@ -143,7 +146,7 @@ const char* fragmentShaderSource = R"(
 //	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
 //};
 
-/** 弹簧模拟变数 **/
+/* 弹簧模拟变数 */
 //空气吹动力
 int windBlowing = 0;
 //空气力大小
@@ -151,9 +154,16 @@ int windForceScale = 15;
 Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
-//布料
-Vec3 clothPos(-3, -7.5, -2);
+//布料变数
+Vec3 clothPos(-0, -0, -1);
 Vec2 clothSize(4, 4);
+Cloth cloth(clothPos, clothSize);
+//地面变数
+//球变数
+
+//重力
+Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
+
 
 
 bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
@@ -475,8 +485,6 @@ int main() {
 #pragma endregion
 
 	//------------------------------animation start------------------------
-
-	//int windowWidth = 1280, windowHeight = 720;
 	bool isRunning = true;
 
 	////使用assimp加载模型
@@ -495,12 +503,12 @@ int main() {
 	//顶点顺序变量
 	//std::vector<unsigned int> indices = {};
 	//unsigned int boneCount = 0;
+
 	//animation数组实例化
 	Animation animation;
 	//Bone骨骼数组实例化
 	Bone skeleton;
 	Vertex vertex;
-
 	//实例化加载Assimp
 	AnimaModelLoader animaModelLoader;
 	animaModelLoader.loadAssimpScene("res/model.dae");
@@ -546,6 +554,7 @@ int main() {
 	//投影矩阵 + 观察矩阵 TODO
 	//glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
+	/** 骨骼模型位置，旋转，大小 **/
 	glm::mat4 modelMatrix;
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, 10.0f));
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -553,6 +562,15 @@ int main() {
 
 	//------------------------------animation end------------------------
 
+	/* 布料模拟 */
+	//布料绘制
+	ClothRender clothRender(&cloth);
+	ClothSpringRender clothSpringRender(&cloth);
+	Vec3 initForce(10.0, 40.0, 20.0);
+	Vec3 testForce(0.0, 0.0, 0.2);
+	cloth.addForce(initForce);
+
+	/* 模型&地面 */
 	//实例化加载工具
 	Loader loader;
 	//实例化相机
@@ -561,18 +579,14 @@ int main() {
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
 	OBJLoader objloader;
-
 	//加载模型顶点信息（3种方法）
 	RawModel model = objloader.loadObjModel("person");
-
 	//使用纹理文件名加载纹理
 	ModelTexture texture(loader.loadTexture("playerTexture"));
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
-
-	//rawModel()  modelTexture()
+	//rawModel  modelTexture
 	TexturedModel texturedModel(model, texture);
-
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	//加载灯光
@@ -594,16 +608,24 @@ int main() {
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
 		masterRenderer.render(light, camera);
-		masterRenderer.cleanUp();	
+		masterRenderer.cleanUp();
 		camera.move();
-		//------------------------------animation start------------------------
 		
+		/* 布料 */
+		for (int i = 0; i < cloth.iterationFreq; i++) {
+			cloth.computeForce(TIME_STEP, gravity);
+			cloth.integrate(AIR_FRICTION, TIME_STEP);
+			cloth.addForce(testForce);
+		}
+		cloth.computeNormal();
+		clothRender.flush();
 
+		//------------------------------animation start------------------------
 		//取得当前程序运行时间
 		float elapsedTime = glfwGetTime();
 
 		float dAngle = 0.0002;
-		
+
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());

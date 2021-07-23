@@ -10,8 +10,8 @@ public:
 	//Constructor
 	ModelTexture(GLuint id) 
 		:textureID_(id) 
-		,shineDamper_(1.0f) 
-		,reflectivity_(0.0f)
+		,shineDamper_(100.0f) 
+		,reflectivity_(1.0f)
 	{};
 
 	//Destructor

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "StaticShader.h"
 #include "EntityRenderer.h"
@@ -28,12 +28,12 @@ public:
 
 private:
 
-	//Set number into projectionMatrix
+	//设置头晕矩阵基本变量
 	const float FOV = 70.0f;
 	const float NEAR_PLANE = 0.1f;
 	const float FAR_PLANE = 1000.0f;
 
-	//Get Set Value projectionMatrix
+	//投影矩阵
 	glm::mat4 projectionMatrix_;
 
 	StaticShader staticshader;

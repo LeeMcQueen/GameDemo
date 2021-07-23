@@ -8,10 +8,14 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 #include <unordered_map>
+
 #include "Cloth.h"
 #include "Rigid.h"
 #include "Program.h"
 #include "std_image.h"
+
+#include "camera.h"
+#include "masterRenderer.h"
 
 struct ClothCamera
 {
@@ -146,7 +150,9 @@ struct ClothRender // Texture & Lighting
         
         /** Projection matrix : The frustum that camera observes **/
         // Since projection matrix rarely changes, set it outside the rendering loop for only onec time
-        glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, &cam.uniProjMatrix[0][0]);
+        //glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, &cam.uniProjMatrix[0][0]);
+		MasterRenderer masterRenderer;
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
         
         /** Model Matrix : Put cloth into the world **/
         glm::mat4 uniModelMatrix = glm::mat4(1.0f);
@@ -206,7 +212,9 @@ struct ClothRender // Texture & Lighting
         glBindTexture(GL_TEXTURE_2D, texID);
         
         /** View Matrix : The camera **/
-        cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
+		Camera camera;
+        //cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
+		cam.uniViewMatrix = camera.getViewMatrix();
         glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
         
         glEnable(GL_BLEND);

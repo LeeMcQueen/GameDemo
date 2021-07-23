@@ -9,7 +9,6 @@ public:
 
 	//get VAO id
 	GLuint getVaoId() const;
-
 	//get vertex number
 	GLuint getVertexCount() const;
 
