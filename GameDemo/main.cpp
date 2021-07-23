@@ -148,12 +148,12 @@ const char* fragmentShaderSource = R"(
 int windBlowing = 0;
 //空气力大小
 int windForceScale = 15;
-glm::vec3 windStartPos;
-glm::vec3 windDir;
-glm::vec3 wind;
+Vec3 windStartPos;
+Vec3 windDir;
+Vec3 wind;
 //布料
-glm::vec3 clothPos(-3, -7.5, -2);
-glm::vec2 clothSize(4, 4);
+Vec3 clothPos(-3, -7.5, -2);
+Vec2 clothSize(4, 4);
 
 
 bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
