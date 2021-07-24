@@ -155,12 +155,11 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(-0, -0, -1);
+Vec3 clothPos(2, 8, -5);
 Vec2 clothSize(4, 4);
 Cloth cloth(clothPos, clothSize);
 //地面变数
 //球变数
-
 //重力
 Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
 
@@ -487,23 +486,6 @@ int main() {
 	//------------------------------animation start------------------------
 	bool isRunning = true;
 
-	////使用assimp加载模型
-	//Assimp::Importer importer;
-	//const char *filePath = "res/model.dae";
-	//const aiScene *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
-
-	////Assimp加载成功判定
-	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-		//std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
-	//}
-	//aiMesh* mesh = scene->mMeshes[0];
-
-	//顶点数组
-	//std::vector<Vertex> vertices = {};
-	//顶点顺序变量
-	//std::vector<unsigned int> indices = {};
-	//unsigned int boneCount = 0;
-
 	//animation数组实例化
 	Animation animation;
 	//Bone骨骼数组实例化
@@ -513,12 +495,8 @@ int main() {
 	AnimaModelLoader animaModelLoader;
 	animaModelLoader.loadAssimpScene("res/model.dae");
 
-	//glm::mat4 globalInverseTransform = assimpToGlmMatrix(scene->mRootNode->mTransformation);
-	//globalInverseTransform = glm::inverse(globalInverseTransform);
-
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("res/model.dae", aiProcess_Triangulate);
-	//loadModel(scene, mesh, vertices, indices, skeleton, boneCount);
 	loadAnimation(scene, animation);
 
 	//vao
@@ -527,18 +505,15 @@ int main() {
 	unsigned int diffuseTexture;
 	diffuseTexture = createTexture("res/diffuse.png");
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
-	//vao = createVertexArray(vertices, indices);
 
 	glm::mat4 identity;
 	std::vector<glm::mat4> currentPose = {};
 	currentPose.resize(animaModelLoader.getbBoneCount(), identity);
-	//currentPose.resize(boneCount, identity);
 
 	//加载shader
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
 
 	//shader变量的设定和链接
-	//unsigned int viewProjectionMatrixLocation = glGetUniformLocation(shader, "view_projection_matrix");
 	//create camera
 	unsigned int viewMatrixLocation = glGetUniformLocation(shader, "view_Matrix");
 	unsigned int projectionMatrixLocation = glGetUniformLocation(shader, "projection_Matrix");
@@ -565,7 +540,6 @@ int main() {
 	/* 布料模拟 */
 	//布料绘制
 	ClothRender clothRender(&cloth);
-	ClothSpringRender clothSpringRender(&cloth);
 	Vec3 initForce(10.0, 40.0, 20.0);
 	Vec3 testForce(0.0, 0.0, 0.2);
 	cloth.addForce(initForce);
@@ -610,7 +584,9 @@ int main() {
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
 		camera.move();
-		
+
+		//glClearColor(0.2, 0.2, 0.3, 1.0);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		/* 布料 */
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
@@ -629,9 +605,7 @@ int main() {
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
 
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
-		//getPose(animation, skeleton, elapsedTime, currentPose, identity, globalInverseTransform);
 		glUseProgram(shader);
-		//glUniformMatrix4fv(viewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
 
@@ -643,7 +617,6 @@ int main() {
 		glUniform1i(textureLocation, 0);
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
-		//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
 		//------------------------------animation end------------------------
 
