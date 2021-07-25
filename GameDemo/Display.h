@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <glm.hpp>
@@ -52,9 +52,9 @@ struct ClothRender // Texture & Lighting
     const Cloth* cloth;
     int nodeCount; // Number of all nodes in faces
     
-    glm::vec3 *vboPos; // Position
-    glm::vec2 *vboTex; // Texture
-    glm::vec3 *vboNor; // Normal
+    glm::vec3 *vboPos; // 顶点
+    glm::vec2 *vboTex; // 纹理
+    glm::vec3 *vboNor; // 法线
 
     GLuint programID;
     GLuint vaoID;
@@ -101,11 +101,11 @@ struct ClothRender // Texture & Lighting
         // Bind VAO
         glBindVertexArray(vaoID);
         
-        // Position buffer
+        // vbo顶点buffer
         glBindBuffer(GL_ARRAY_BUFFER, vboIDs[0]);
         glVertexAttribPointer(aPtrPos, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
         glBufferData(GL_ARRAY_BUFFER, nodeCount*sizeof(glm::vec3), vboPos, GL_DYNAMIC_DRAW);
-        // Texture buffer
+        // vbo纹理buffer
         glBindBuffer(GL_ARRAY_BUFFER, vboIDs[1]);
         glVertexAttribPointer(aPtrTex, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
         glBufferData(GL_ARRAY_BUFFER, nodeCount*sizeof(glm::vec2), vboTex, GL_DYNAMIC_DRAW);
@@ -132,7 +132,7 @@ struct ClothRender // Texture & Lighting
         /** Load image and configure texture **/
         stbi_set_flip_vertically_on_load(true);
         int texW, texH, colorChannels; // After loading the image, stb_image will fill them
-        unsigned char *data = stbi_load("res/tex1.jpg", &texW, &texH, &colorChannels, 0);
+        unsigned char *data = stbi_load("res/back.png", &texW, &texH, &colorChannels, 0);
         if (data) {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texW, texH, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
             // Automatically generate all the required mipmaps for the currently bound texture.
@@ -145,22 +145,23 @@ struct ClothRender // Texture & Lighting
         
         /** Set uniform **/
         glUseProgram(programID); // Active shader before set uniform
-        // Set texture sampler
+        // 加载纹理
         glUniform1i(glGetUniformLocation(programID, "uniTex"), 0);
         
-        /** Projection matrix : The frustum that camera observes **/
+        /** 投影矩阵 : 矩形的投影矩阵 **/
         // Since projection matrix rarely changes, set it outside the rendering loop for only onec time
         glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, &cam.uniProjMatrix[0][0]);
 		//MasterRenderer masterRenderer;
 		//glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
         
-        /** Model Matrix : Put cloth into the world **/
+        /** 模型矩阵 : 布料模型矩阵 **/
         glm::mat4 uniModelMatrix = glm::mat4(1.0f);
         uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
 		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
         glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
         
-        /** Light **/
+        /** 光线 **/
         glUniform3fv(glGetUniformLocation(programID, "uniLightPos"), 1, &(sun.pos[0]));
         glUniform3fv(glGetUniformLocation(programID, "uniLightColor"), 1, &(sun.color[0]));
 

@@ -319,8 +319,19 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 		animation.ticksPerSecond_ = 1;
 	}
 
+	//动画间隔时间
 	animation.duration_ = anim->mDuration * anim->mTicksPerSecond;
+	//ticksPerSecond 时间单位
 	animation.boneTransforms_ = {};
+
+	/* 多重动画修复 */
+	//是否为FBX模型
+	bool checkAssimpFbx = false;
+	//储存AssimpFbx动画的名称
+	string assimpFbxStr;
+	//存储AssimpFbx的动画序列
+	vector<BoneTransformTrack> assimpFbxVector;
+	/* 多重动画修复 */
 
 	for (int i = 0; i < anim->mNumChannels; i++) {
 		aiNodeAnim *channel = anim->mChannels[i];
@@ -339,12 +350,48 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 			track.scaleTimestamps_.push_back(channel->mScalingKeys[j].mTime);
 			track.scales_.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
 		}
-		animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
-		//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+		
+
+		/* 多重动画修复 */
+		string nName(channel->mNodeName.C_Str());
+		string::size_type ret = nName.find("_$AssimpFbx$_");
+		if (ret != string::npos)
+		{
+			checkAssimpFbx = true;
+			assimpFbxStr = nName.substr(0, ret);
+			assimpFbxVector.push_back(track);
+		}
+		else {
+			if (checkAssimpFbx) 
+			{
+				checkAssimpFbx = false;
+				BoneTransformTrack outTrack;
+				for (int i = 0; i < assimpFbxVector.size(); i++) {
+					BoneTransformTrack item = assimpFbxVector[i];
+					if (item.getPositions().size() > 1) {
+						outTrack.setPositionTimestamps(item.getPositionTimestamps());
+						outTrack.setPosition(item.getPositions());
+					}
+					if (item.getRotations().size() > 1) {
+						outTrack.setRotationTimestamps(item.getRotationTimestamps());
+						outTrack.setRotation(item.getRotations());
+					}
+					if (item.getScales().size() > 1) {
+						outTrack.setScaleTimestamps(item.getScaleTimetamps());
+						outTrack.setScale(item.getScales());
+					}
+				}
+				std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
+				animation.boneTransforms_[assimpFbxStr] = outTrack;
+			}
+			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
+			/* 多重动画修复 */
+			std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+		}
 	}
 }
 
-//
+//渲染
 unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsigned int> indices) {
 	unsigned int vao = 0;
 	unsigned int vbo = 0;
@@ -399,8 +446,13 @@ unsigned int createTexture(std::string filepath) {
 std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &dt) {
 	unsigned int segment = 0;
 
-	while (dt > times[segment])
+	while (dt > times[segment]) {
 		segment++;
+		if (segment >= times.size()) {
+			segment--;
+			break;
+		}
+	}
 
 	float start = times[segment - 1];
 	float end = times[segment];
@@ -412,6 +464,13 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &
 //得到当前姿势
 void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
 	BoneTransformTrack &boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
+
+	/* 多重动画修复 */
+	if (boneTransformTrack.getPositions().size() == 0 || boneTransformTrack.getRotations().size() == 0 || boneTransformTrack.getScales().size() == 0)
+		return;
+	std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
+	/* 多重动画修复 */
+
 	//余数
 	dt = fmod(dt, animation.duration_);
 	std::pair<unsigned int, float>fp;
@@ -493,17 +552,19 @@ int main() {
 	Vertex vertex;
 	//实例化加载Assimp
 	AnimaModelLoader animaModelLoader;
-	animaModelLoader.loadAssimpScene("res/model.dae");
+	animaModelLoader.loadAssimpScene("res/boss_lan.FBX");
+	//animaModelLoader.loadAssimpScene("res/model.dae");
 
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile("res/model.dae", aiProcess_Triangulate);
+	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
+	//const aiScene* scene = importer.ReadFile("res/model.dae", aiProcess_Triangulate);
 	loadAnimation(scene, animation);
 
 	//vao
 	unsigned int vao = 0;
 	//图片初始化
 	unsigned int diffuseTexture;
-	diffuseTexture = createTexture("res/diffuse.png");
+	diffuseTexture = createTexture("res/boss_lan.jpg");
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
 
 	glm::mat4 identity;
@@ -531,9 +592,9 @@ int main() {
 
 	/** 骨骼模型位置，旋转，大小 **/
 	glm::mat4 modelMatrix;
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, 10.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 10.0f, 10.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
 
 	//------------------------------animation end------------------------
 
@@ -585,8 +646,6 @@ int main() {
 		masterRenderer.cleanUp();
 		camera.move();
 
-		//glClearColor(0.2, 0.2, 0.3, 1.0);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		/* 布料 */
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
@@ -598,12 +657,14 @@ int main() {
 
 		//------------------------------animation start------------------------
 		//取得当前程序运行时间
-		float elapsedTime = glfwGetTime();
+		float elapsedTime = glfwGetTime() * 30;
 
-		float dAngle = 0.0002;
+		float dAngle = 0.1;
 
-		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0.0001, 0));
+		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
+		elapsedTime = (int)elapsedTime % (32010 / 30);
+		elapsedTime = elapsedTime < 1.0f ? 1.0f : elapsedTime;
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));

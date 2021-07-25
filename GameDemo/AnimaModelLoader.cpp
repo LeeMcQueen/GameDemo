@@ -21,7 +21,7 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
 	}
 	//Scene里的Mesh
-	aiMesh* mesh = scene->mMeshes[0];
+	aiMesh *mesh = scene->mMeshes[0];
 
 	globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
 	setGlobaInverseTransform(glm::inverse(globalInverseTransform_));
