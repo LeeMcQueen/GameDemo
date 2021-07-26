@@ -384,9 +384,9 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 				std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
 				animation.boneTransforms_[assimpFbxStr] = outTrack;
 			}
-			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
-			/* 多重动画修复 */
+			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;			
 			std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+			/* 多重动画修复 */
 		}
 	}
 }
@@ -657,15 +657,26 @@ int main() {
 
 		//------------------------------animation start------------------------
 		//取得当前程序运行时间
-		float elapsedTime = glfwGetTime() * 30;
+		float elapsedTime = glfwGetTime() * 50 + 0;
 
 		float dAngle = 0.1;
 
-		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
+		//modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
-		elapsedTime = (int)elapsedTime % (32010 / 30);
-		elapsedTime = elapsedTime < 1.0f ? 1.0f : elapsedTime;
+		//(32010 / 30)
+		//elapsedTime = (int)elapsedTime + 760 % (32010 / 30);
+		//std::cout << "Time: " << elapsedTime << std::endl;
+		//elapsedTime = elapsedTime < 1.0f ? 1.0f + 760.0f : elapsedTime;
+		//std::cout << "Time: " << elapsedTime << std::endl;
+
+		elapsedTime = elapsedTime+700;
+		if (elapsedTime > 800)
+			elapsedTime = 34;
+		std::cout << "Time: " << elapsedTime << std::endl;
+
+
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
