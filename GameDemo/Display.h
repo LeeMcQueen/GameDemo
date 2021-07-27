@@ -65,7 +65,7 @@ struct ClothRender // Texture & Lighting
     GLint aPtrTex;
     GLint aPtrNor;
     
-    ClothRender(Cloth* cloth)
+    ClothRender(Cloth *cloth, MasterRenderer &masterRenderer)
     {
         nodeCount = (int)(cloth->faces.size());
         if (nodeCount <= 0) {
@@ -150,15 +150,13 @@ struct ClothRender // Texture & Lighting
         
         /** 投影矩阵 : 矩形的投影矩阵 **/
         // Since projection matrix rarely changes, set it outside the rendering loop for only onec time
-        glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, &cam.uniProjMatrix[0][0]);
-		//MasterRenderer masterRenderer;
-		//glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
         
         /** 模型矩阵 : 布料模型矩阵 **/
         glm::mat4 uniModelMatrix = glm::mat4(1.0f);
         uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
 		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
         glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
         
         /** 光线 **/
@@ -189,7 +187,7 @@ struct ClothRender // Texture & Lighting
         }
     }
     
-    void flush()
+    void flush(Camera &camera)
     {
         // Update all the positions of nodes
         for (int i = 0; i < nodeCount; i ++) { // Tex coordinate dose not change
@@ -213,11 +211,10 @@ struct ClothRender // Texture & Lighting
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texID);
         
-        /** View Matrix : The camera **/
-		//Camera camera;
-        cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
-		//cam.uniViewMatrix = camera.getViewMatrix();
-        glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
+        /** View Matrix : The camera **/	
+        //cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
+		//glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
         
         glEnable(GL_BLEND);
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

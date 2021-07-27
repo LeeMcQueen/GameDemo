@@ -121,7 +121,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(2, 8, -5);
+Vec3 clothPos(20.0f, 30.0f, 0.0f);
 Vec2 clothSize(4, 4);
 Cloth cloth(clothPos, clothSize);
 //地面变数
@@ -414,13 +414,6 @@ int main() {
 
 	//------------------------------animation end------------------------
 
-	/* 布料模拟 */
-	//布料绘制
-	ClothRender clothRender(&cloth);
-	Vec3 initForce(10.0, 40.0, 20.0);
-	Vec3 testForce(0.0, 0.0, 0.2);
-	cloth.addForce(initForce);
-
 	/* 模型&地面 */
 	//实例化加载工具
 	Loader loader;
@@ -444,7 +437,14 @@ int main() {
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	//加载地面
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
-	Terrain terrain2(100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
+	Terrain terrain2(-100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
+
+	/* 布料模拟 */
+	//布料绘制
+	Vec3 initForce(10.0, 40.0, 20.0);
+	Vec3 testForce(0.1, 0.0, 0.0);
+	ClothRender clothRender(&cloth, masterRenderer);
+	cloth.addForce(initForce);
 
 	int elapsedTime = 865;
 	//渲染循环
@@ -470,7 +470,7 @@ int main() {
 			cloth.addForce(testForce);
 		}
 		cloth.computeNormal();
-		clothRender.flush();
+		clothRender.flush(camera);
 
 		//------------------------------animation start------------------------
 
@@ -489,7 +489,7 @@ int main() {
 		elapsedTime = elapsedTime + 1;
 		if (elapsedTime > 888)
 			elapsedTime = 865;
-		std::cout << elapsedTime << std::endl;
+		//std::cout << elapsedTime << std::endl;
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 
 		glUseProgram(shader);

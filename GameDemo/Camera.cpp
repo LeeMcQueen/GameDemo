@@ -13,19 +13,19 @@ void Camera::move()
 {
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 	{
-		position.z -= 0.2;
+		position.z -= 1.2;
 	}
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS)
 	{
-		position.x += 0.2;
+		position.x += 1.2;
 	}
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_A) == GLFW_PRESS)
 	{
-		position.x -= 0.2;
+		position.x -= 1.2;
 	}
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
 	{
-		position.z += 0.2;
+		position.z += 1.2;
 	}
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT) == GLFW_PRESS)
@@ -48,11 +48,11 @@ void Camera::move()
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		position.y += 0.1;
+		position.y += 1.1;
 	}
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		position.y -= 0.1;
+		position.y -= 1.1;
 	}
 }
 
