@@ -376,11 +376,9 @@ int main() {
 	//实例化加载Assimp
 	AnimaModelLoader animaModelLoader;
 	animaModelLoader.loadAssimpScene("res/boss_lan.FBX");
-	//animaModelLoader.loadAssimpScene("res/model.dae");
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
-	//const aiScene* scene = importer.ReadFile("res/model.dae", aiProcess_Triangulate);
 	loadAnimation(scene, animation);
 
 	//vao
@@ -429,10 +427,14 @@ int main() {
 	ModelTexture texture(loader.loadTexture("playerTexture"));
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
+
 	//rawModel  modelTexture
 	TexturedModel texturedModel(model, texture);
+	TexturedModel grassModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern")));
+
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity grass(grassModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(2, 2, 2));
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	//加载地面
@@ -456,9 +458,11 @@ int main() {
 		//rotation
 		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
 
+		//加载
 		masterRenderer.processTerrain(terrain2);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
+		masterRenderer.processEntity(grass);
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
 		camera.move();

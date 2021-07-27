@@ -64,7 +64,6 @@ void MasterRenderer::Prepare()
 {
 	//启动深度缓存(只会渲染没有遮挡的顶点)
 	glEnable(GL_DEPTH_TEST);
-
 	//清除 COLOR_BUFFER & DEPTH_BUFFER
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//添加背景颜色
