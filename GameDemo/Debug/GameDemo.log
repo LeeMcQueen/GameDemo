@@ -28,22 +28,19 @@ d:\opengl\demo\gamedemo\gamedemo\Cloth.h(175): warning C4018: “<”: 有符号
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(184): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(195): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
-main.cpp(62): warning C4566: 由通用字符名称“\u6D4B”表示的字符不能在当前代码页(932)中表示出来
-main.cpp(62): warning C4566: 由通用字符名称“\u8BD5”表示的字符不能在当前代码页(932)中表示出来
-main.cpp(175): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(184): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(316): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(323): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(336): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(340): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(341): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(344): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(345): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(349): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(350): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(369): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(660): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-main.cpp(662): warning C4305: “初始化”: 从“double”到“float”截断
-main.cpp(616): warning C4101: “objloader”: 未引用的局部变量
+main.cpp(61): warning C4566: 由通用字符名称“\u6D4B”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(61): warning C4566: 由通用字符名称“\u8BD5”表示的字符不能在当前代码页(932)中表示出来
+main.cpp(139): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(146): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(159): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(163): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(164): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(167): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(168): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(172): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(173): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(192): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(493): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+main.cpp(432): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

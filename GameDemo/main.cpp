@@ -1,7 +1,6 @@
 ﻿
-//#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
-
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -113,39 +112,6 @@ const char* fragmentShaderSource = R"(
 	}
 	)";
 
-//struct Vertex {
-//	glm::vec3 position;	//顶点
-//	glm::vec3 normal;	//法线
-//	glm::vec2 uv;		//图片uv坐标
-//	glm::vec4 boneIds;	//骨骼ID(joint关节ID)
-//	glm::vec4 boneWeights;	//骨骼权重
-//};
-
-//struct Bone {
-//	int ID = 0;
-//	std::string name = "";
-//	std::vector<Bone> children = {};
-//
-//	glm::mat4 offset;	//反矩阵
-//};
-
-//struct BoneTransformTrack {
-//	std::vector<float> positionTimestamps = {};
-//	std::vector<float> rotationTimestamps = {};
-//	std::vector<float> scaleTimestamps = {};
-//
-//	std::vector<glm::vec3> positions = {};
-//	std::vector<glm::quat> rotations = {};
-//	std::vector<glm::vec3> scales = {};
-//};
-
-//struct Animation {
-//	
-//	float duration = 0.0f;
-//	float ticksPerSecond = 1.0f;
-//	std::unordered_map<std::string, BoneTransformTrack> boneTransforms = {};
-//};
-
 /* 弹簧模拟变数 */
 //空气吹动力
 int windBlowing = 0;
@@ -162,149 +128,6 @@ Cloth cloth(clothPos, clothSize);
 //球变数
 //重力
 Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
-
-
-
-bool readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable) {
-
-	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
-		boneOutput.setName(node->mName.C_Str());
-		boneOutput.setId(boneInfoTable[boneOutput.getName()].first);
-		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
-
-		for (int i = 0; i < node->mNumChildren; i++) {
-			Bone child;
-			readSkeleton(child, node->mChildren[i], boneInfoTable);
-			//boneOutput.children.push_back(child);
-			boneOutput.children_.push_back(child);
-		}
-		return true;
-	}
-	else {
-		for (int i = 0; i < node->mNumChildren; i++) {
-			if (readSkeleton(boneOutput, node->mChildren[i], boneInfoTable)) {
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-void loadModel(const aiScene *scene, aiMesh *mesh, std::vector<Vertex> &verticesOutput, std::vector<unsigned int> &indicesOutput, Bone &skeletonOutput, unsigned int &nBoneCount) {
-	//list初始化
-	verticesOutput = {};
-	indicesOutput = {};
-
-	//加载顶点，法线，uv坐标
-	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-
-		//取得模型坐标用变量
-		Vertex vertex;
-		//空的顶点
-		glm::vec3 vector;
-
-		//取得顶点
-		vector.x = mesh->mVertices[i].x;
-		vector.y = mesh->mVertices[i].y;
-		vector.z = mesh->mVertices[i].z;
-		vertex.setPosition(vector);
-
-		vector.x = mesh->mNormals[i].x;
-		vector.y = mesh->mNormals[i].y;
-		vector.z = mesh->mNormals[i].z;
-		vertex.setNormal(vector);
-
-		glm::vec2 vec;
-
-		//注意这里就只有一个纹理，需要的话需要动态设定
-		vec.x = mesh->mTextureCoords[0][i].x;
-		vec.y = mesh->mTextureCoords[0][i].y;
-		vertex.setTexture(vec);
-
-		//初始化骨骼ID
-		vertex.setBoneIds(glm::ivec4(0));
-		vertex.setBoneWeights(glm::vec4(0.0f));
-
-		verticesOutput.push_back(vertex);
-	}
-
-	//加载骨骼数据到顶点数组
-	//boneInfo的结构是 谷歌名<string> 矩阵pair
-	std::unordered_map<std::string, std::pair<int, glm::mat4>> boneInfo = {};
-	std::vector<unsigned int> boneCounts;
-	//verticesOutput数据相同长度的boneCounts数据内容都是0
-	boneCounts.resize(verticesOutput.size(), 0);
-	//得到模型的总骨骼数
-	nBoneCount = mesh->mNumBones;
-
-	//循环骨骼数量得到？？？
-	for (unsigned int i = 0; i < nBoneCount; i++) {
-		//得到每个骨头
-		aiBone *bone = mesh->mBones[i];
-		//从Assimp格式转换成glm
-		glm::mat4 matrix = assimpToGlmMatrix(bone->mOffsetMatrix);
-		//按照骨骼名称(string形式)往里面注入map, map的形式是(i, matrix)
-		boneInfo[bone->mName.C_Str()] = { i, matrix };
-
-		//循环骨骼里面的顶点(通过总权重数就知道有多少个顶点)
-		for (unsigned int j = 0; j < bone->mNumWeights; j++) {
-			//当前骨骼的顶点ID
-			unsigned int id = bone->mWeights[j].mVertexId;
-			//当前骨骼的顶点的权重值
-			float weight = bone->mWeights[j].mWeight;
-			boneCounts[id]++;
-
-			//根据
-			switch (boneCounts[id])
-			{
-			case 1:
-				verticesOutput[id].setBoneIds_x(i);
-				verticesOutput[id].setBoneWeights_x(weight);
-				break;
-			case 2:
-				verticesOutput[id].setBoneIds_y(i);
-				verticesOutput[id].setBoneWeights_y(weight);
-				break;
-			case 3:
-				verticesOutput[id].setBoneIds_z(i);
-				verticesOutput[id].setBoneWeights_z(weight);
-				break;
-			case 4:
-				verticesOutput[id].setBoneIds_w(i);
-				verticesOutput[id].setBoneWeights_w(weight);
-				break;
-
-			default:
-				break;
-			}
-		}
-	}
-
-	//让所有权重的和为1
-	for (unsigned int i = 0; i < verticesOutput.size(); i++) {
-		//取得所有顶点数组里面的骨骼权重
-		glm::vec4 &boneWeight = verticesOutput[i].getBoneWieghts();
-
-		float totalWeight = boneWeight.x + boneWeight.y + boneWeight.z + boneWeight.w;
-		if (totalWeight > 0.0f) {
-			verticesOutput[i].setBoneWeights(glm::vec4(
-				boneWeight.x / totalWeight,
-				boneWeight.y / totalWeight,
-				boneWeight.z / totalWeight,
-				boneWeight.w / totalWeight)
-			);
-		}
-	}
-
-	for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-		aiFace &face = mesh->mFaces[i];
-		for (unsigned int j = 0; j < face.mNumIndices; j++) {
-			indicesOutput.push_back(face.mIndices[j]);
-		}
-	}
-	//
-	readSkeleton(skeletonOutput, scene->mRootNode, boneInfo);
-}
 
 //加载动画信息
 void loadAnimation(const aiScene *scene, Animation &animation) {
@@ -381,11 +204,11 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 						outTrack.setScale(item.getScales());
 					}
 				}
-				std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
+				//std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
 				animation.boneTransforms_[assimpFbxStr] = outTrack;
 			}
 			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;			
-			std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+			//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 			/* 多重动画修复 */
 		}
 	}
@@ -468,7 +291,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	/* 多重动画修复 */
 	if (boneTransformTrack.getPositions().size() == 0 || boneTransformTrack.getRotations().size() == 0 || boneTransformTrack.getScales().size() == 0)
 		return;
-	std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
+	//std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
 	/* 多重动画修复 */
 
 	//余数
@@ -583,13 +406,6 @@ int main() {
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
 
-	//投影矩阵(projectionMatrix)
-	//glm::mat4 projectionMatrix = glm::perspective(70.0f, (float)windowWidth / windowHeight, 0.1f, 1000.0f);
-	//观察矩阵(viewMatrix)
-	//glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.2f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 1, 0));
-	//投影矩阵 + 观察矩阵 TODO
-	//glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
-
 	/** 骨骼模型位置，旋转，大小 **/
 	glm::mat4 modelMatrix;
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 10.0f, 10.0f));
@@ -630,6 +446,7 @@ int main() {
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
 	Terrain terrain2(100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
 
+	int elapsedTime = 865;
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -656,25 +473,23 @@ int main() {
 		clothRender.flush();
 
 		//------------------------------animation start------------------------
-		//取得当前程序运行时间
-		float elapsedTime = glfwGetTime() * 50 + 0;
 
-		float dAngle = 0.1;
+		/* 骨骼模型控制 */
+		float dAngle = 0.1f;
 
-		//modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
+		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
 		//(32010 / 30)
-		//elapsedTime = (int)elapsedTime + 760 % (32010 / 30);
+		//elapsedTime = (int)elapsedTime % (32010 / 30);
+		//elapsedTime = elapsedTime < 1.0f ?  750.0f : elapsedTime;
 		//std::cout << "Time: " << elapsedTime << std::endl;
-		//elapsedTime = elapsedTime < 1.0f ? 1.0f + 760.0f : elapsedTime;
-		//std::cout << "Time: " << elapsedTime << std::endl;
 
-		elapsedTime = elapsedTime+700;
-		if (elapsedTime > 800)
-			elapsedTime = 34;
-		std::cout << "Time: " << elapsedTime << std::endl;
-
-
+		//取得当前程序运行时间
+		//float elapsedTime = glfwGetTime() * 100;
+		elapsedTime = elapsedTime + 1;
+		if (elapsedTime > 888)
+			elapsedTime = 865;
+		std::cout << elapsedTime << std::endl;
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 
 		glUseProgram(shader);
