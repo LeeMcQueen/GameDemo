@@ -449,6 +449,8 @@ int main() {
 	cloth.addForce(initForce);
 
 	int elapsedTime = 865;
+	long lastFrameTime = 0;
+	float delta = 0.0f;
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -489,11 +491,23 @@ int main() {
 		//std::cout << "Time: " << elapsedTime << std::endl;
 
 		//取得当前程序运行时间
-		//float elapsedTime = glfwGetTime() * 100;
+		//float lastFrameTime = glfwGetTime() * 30;
+		//lastFrameTime = (int)lastFrameTime % 100;
+		//lastFrameTime = lastFrameTime < 1.0f ? 10.0f : lastFrameTime;
+
+		//std::cout << lastFrameTime << std::endl;
+
+		//long currentFrameTime = glfwGetTime();
+		//delta = currentFrameTime - lastFrameTime;
+		//lastFrameTime = currentFrameTime;
+
+		//std::cout << currentFrameTime << std::endl;
+		//std::cout << lastFrameTime << std::endl;
+
 		elapsedTime = elapsedTime + 1;
 		if (elapsedTime > 888)
 			elapsedTime = 865;
-		//std::cout << elapsedTime << std::endl;
+		std::cout << elapsedTime << std::endl;
 		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 
 		glUseProgram(shader);
