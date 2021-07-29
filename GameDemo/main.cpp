@@ -448,9 +448,9 @@ int main() {
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
-	int elapsedTime = 865;
-	long lastFrameTime = 0;
-	float delta = 0.0f;
+	float RUNelapsedTime = 865.0f;
+	float lastFrameTime = 0.0f;
+	float deltaTime = 0.0f;
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -486,29 +486,16 @@ int main() {
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
 		//(32010 / 30)
-		//elapsedTime = (int)elapsedTime % (32010 / 30);
-		//elapsedTime = elapsedTime < 1.0f ?  750.0f : elapsedTime;
-		//std::cout << "Time: " << elapsedTime << std::endl;
 
-		//取得当前程序运行时间
-		//float lastFrameTime = glfwGetTime() * 30;
-		//lastFrameTime = (int)lastFrameTime % 100;
-		//lastFrameTime = lastFrameTime < 1.0f ? 10.0f : lastFrameTime;
+		float currentFrameTime = glfwGetTime();
+		deltaTime = (currentFrameTime - lastFrameTime) * 30;
+		lastFrameTime = currentFrameTime;
 
-		//std::cout << lastFrameTime << std::endl;
-
-		//long currentFrameTime = glfwGetTime();
-		//delta = currentFrameTime - lastFrameTime;
-		//lastFrameTime = currentFrameTime;
-
-		//std::cout << currentFrameTime << std::endl;
-		//std::cout << lastFrameTime << std::endl;
-
-		elapsedTime = elapsedTime + 1;
-		if (elapsedTime > 888)
-			elapsedTime = 865;
-		std::cout << elapsedTime << std::endl;
-		getPose(animation, animaModelLoader.getSkeleton(), elapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		RUNelapsedTime = RUNelapsedTime + deltaTime;
+		if (RUNelapsedTime > 888.0f)
+			RUNelapsedTime = 865.0f;
+		std::cout << RUNelapsedTime << std::endl;
+		getPose(animation, animaModelLoader.getSkeleton(), RUNelapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
