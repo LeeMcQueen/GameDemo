@@ -156,7 +156,7 @@ struct ClothRender // Texture & Lighting
         glm::mat4 uniModelMatrix = glm::mat4(1.0f);
         uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
 		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(5.0f, 10.0f, 5.0f));
         glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
         
         /** 光线 **/
@@ -189,6 +189,7 @@ struct ClothRender // Texture & Lighting
     
     void flush(Camera &camera)
     {
+		glDisable(GL_CULL_FACE);
         // Update all the positions of nodes
         for (int i = 0; i < nodeCount; i ++) { // Tex coordinate dose not change
             Node* n = cloth->faces[i];
@@ -233,6 +234,7 @@ struct ClothRender // Texture & Lighting
         }
         
         // End flushing
+		glEnable(GL_CULL_FACE);
         glDisable(GL_BLEND);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);

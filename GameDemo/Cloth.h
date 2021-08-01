@@ -50,7 +50,9 @@ public:
 	}
  
 public:
+	//ª˜
     Node* getNode(int x, int y) { return nodes[y*nodesPerRow+x]; }
+
     Vec3 computeFaceNormal(Node* n1, Node* n2, Node* n3)
     {
         return Vec3::cross(n2->position - n1->position, n3->position - n1->position);
@@ -83,6 +85,7 @@ public:
         for (int i = 0; i < nodesPerRow; i ++) {
             for (int j = 0; j < nodesPerCol; j ++) {
                 /** Create node by position **/
+				//No 4
                 Node* node = new Node(Vec3((double)j/nodesDensity, -((double)i/nodesDensity), 0));
                 /** Set texture coordinates **/
                 node->texCoord.x = (double)j/(nodesPerRow-1);

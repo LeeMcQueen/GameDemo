@@ -121,7 +121,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(20.0f, 30.0f, 0.0f);
+Vec3 clothPos(20.0f, 50.0f, 0.0f);
 Vec2 clothSize(4, 4);
 Cloth cloth(clothPos, clothSize);
 //地面变数
@@ -444,7 +444,7 @@ int main() {
 	/* 布料模拟 */
 	//布料绘制
 	Vec3 initForce(10.0, 40.0, 20.0);
-	Vec3 testForce(0.1, 0.0, 0.0);
+	Vec3 normalForce(0.2, 0.0, 0.0);
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
@@ -469,15 +469,15 @@ int main() {
 		masterRenderer.cleanUp();
 		camera.move();
 
-		/* 布料 */
+		/* 布料 */		
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
-			cloth.addForce(testForce);
+			cloth.addForce(normalForce);
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
-
+	
 		//------------------------------animation start------------------------
 
 		/* 骨骼模型控制 */
@@ -486,7 +486,6 @@ int main() {
 		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
 		//(32010 / 30)
-
 		float currentFrameTime = glfwGetTime();
 		deltaTime = (currentFrameTime - lastFrameTime) * 30;
 		lastFrameTime = currentFrameTime;
@@ -494,7 +493,8 @@ int main() {
 		RUNelapsedTime = RUNelapsedTime + deltaTime;
 		if (RUNelapsedTime > 888.0f)
 			RUNelapsedTime = 865.0f;
-		std::cout << RUNelapsedTime << std::endl;
+		//std::cout << RUNelapsedTime << std::endl;
+
 		getPose(animation, animaModelLoader.getSkeleton(), RUNelapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 
 		glUseProgram(shader);

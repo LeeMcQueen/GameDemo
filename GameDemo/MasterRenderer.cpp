@@ -15,13 +15,14 @@ MasterRenderer::MasterRenderer()
 	: projectionMatrix_(getProjectionMatrix())
 	, entityRenderer_(EntityRenderer(staticshader, projectionMatrix_))
 	, terrainRenderer_(TerrainRenderer(terrainShader, projectionMatrix_)) {
+	//背面剔除
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	// Enable alpha blend
+	// 开启混合通道(Enable alpha blend)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	// Enable Antialiasing
+	// 开启抗锯齿(Enable Antialiasing)
 	glEnable(GL_MULTISAMPLE);
 }
 
