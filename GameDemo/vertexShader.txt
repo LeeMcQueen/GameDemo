@@ -14,20 +14,20 @@ uniform mat4 projectionMatrix;		//deep Matrix
 uniform mat4 viewMatrix;			//camera Matrix
 uniform vec3 lightPosition;			//light position
 
+
+
 void main(void)
 {
    //position * transformationMatrix
    vec4 worldPosition = transformationMatrix * vec4(position, 1.0);
-
-   gl_Position = projectionMatrix * viewMatrix * worldPosition;
-      
+   gl_Position = projectionMatrix * viewMatrix * worldPosition; 
    pass_textureCoords = textureCoords;
 
-   surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
 
+
+   surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
    //GOTO light vector
    toLightVector = lightPosition - worldPosition.xyz;
-
    //GOTO camera vector ( O ---->  >[] )
    toCameraVector = (inverse(viewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
 }

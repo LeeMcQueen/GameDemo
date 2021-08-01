@@ -39,6 +39,9 @@ public:
 	//load ShineDamper reflectivity to program
 	void loadShineVariables(float shineDamper, float reflectivity);
 
+	//shader“Ig—p˜ïŒõŒ¹ÚŒû
+	void loadUserFakeLighting(bool useFake);
+
 protected:
 
 	//bind VAO attribules
@@ -63,5 +66,7 @@ private:
 	GLuint Location_shineDamper;
 	//Location of reflectivity
 	GLuint Location_reflectivity;
+	//˜ïŒõŒ¹
+	GLuint Location_useFakeLighting;
 };
 

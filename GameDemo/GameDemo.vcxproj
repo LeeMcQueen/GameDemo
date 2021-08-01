@@ -190,8 +190,6 @@
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="animFragmentShader.txt" />
-    <Text Include="animVertexShader.txt" />
     <Text Include="fragmentShader.txt" />
     <Text Include="terrainFragmentShader.txt" />
     <Text Include="terrainVertexShader.txt" />

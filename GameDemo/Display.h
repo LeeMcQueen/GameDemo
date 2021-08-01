@@ -188,8 +188,7 @@ struct ClothRender // Texture & Lighting
     }
     
     void flush(Camera &camera)
-    {
-		glDisable(GL_CULL_FACE);
+    {	
         // Update all the positions of nodes
         for (int i = 0; i < nodeCount; i ++) { // Tex coordinate dose not change
             Node* n = cloth->faces[i];
@@ -217,7 +216,8 @@ struct ClothRender // Texture & Lighting
 		//glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
         
-        glEnable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+		glEnable(GL_BLEND);
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         /** Draw **/
@@ -235,6 +235,7 @@ struct ClothRender // Texture & Lighting
         
         // End flushing
 		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
         glDisable(GL_BLEND);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);

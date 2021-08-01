@@ -16,15 +16,12 @@ public:
 	MasterRenderer();
 
 	void render(Light &light, Camera &camera);
-
 	void processEntity(const Entity &entity);
 	void processTerrain(const Terrain &terrain);
+	void prepare();
+	void cleanUp();
 
 	glm::mat4 getProjectionMatrix();
-
-	void Prepare();
-
-	void cleanUp();
 
 private:
 

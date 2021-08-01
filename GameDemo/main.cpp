@@ -101,7 +101,7 @@ const char* fragmentShaderSource = R"(
 
 	uniform sampler2D diff_texture;
 
-	vec3 lightPos = vec3(5.2, 5.0, 13.0);
+	vec3 lightPos = vec3(5.2, 55.0, 13.0);
 	
 	void main()
 	{
@@ -430,11 +430,12 @@ int main() {
 
 	//rawModel  modelTexture
 	TexturedModel texturedModel(model, texture);
-	TexturedModel grassModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern")));
+	TexturedModel fernModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern"), true, true));
 
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Entity grass(grassModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(2, 2, 2));
+	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(2, 2, 2));
+
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	//加载地面
@@ -464,7 +465,7 @@ int main() {
 		masterRenderer.processTerrain(terrain2);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
-		masterRenderer.processEntity(grass);
+		masterRenderer.processEntity(fern);
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
 		camera.move();

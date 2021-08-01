@@ -3,6 +3,7 @@
 #include "TexturedModel.h"
 #include "Maths.h"
 #include "DisplayManager.h"
+#include "MasterRenderer.h"
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -42,8 +43,14 @@ void EntityRenderer::prepareTextureModel(const TexturedModel &model) {
 	glEnableVertexAttribArray(1);	//纹理
 	glEnableVertexAttribArray(2);	//法线
 
-	//Get texture form ModelTexture
+	//启动ModelTexture类
 	ModelTexture& texture = model.GetTextureModel();
+	//如何透明属性是否，关闭背面剔除
+	if (texture.getTransparency()) {
+		glDisable(GL_CULL_FACE);
+	}
+	shader_.loadUserFakeLighting(texture.getFakeLighting());
+
 	//加载反光
 	shader_.loadShineVariables(texture.getShineDamer(), texture.getReflectivity());
 
@@ -62,7 +69,10 @@ void EntityRenderer::prepareInstance(const Entity &entity) {
 }
 
 void EntityRenderer::unbindTextureModel() {
-	//unbind textureModel
+	//启动背面剔除
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	//解绑
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);

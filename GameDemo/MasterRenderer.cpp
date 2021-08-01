@@ -18,7 +18,6 @@ MasterRenderer::MasterRenderer()
 	//背面剔除
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-
 	// 开启混合通道(Enable alpha blend)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -28,7 +27,7 @@ MasterRenderer::MasterRenderer()
 
 void MasterRenderer::render(Light &light, Camera &camera) {
 
-	Prepare();
+	prepare();
 
 	//Entity
 	staticshader.start();
@@ -61,7 +60,7 @@ void MasterRenderer::processTerrain(const Terrain &terrain)
 	terrains.push_back(terrain);
 }
 
-void MasterRenderer::Prepare()
+void MasterRenderer::prepare()
 {
 	//启动深度缓存(只会渲染没有遮挡的顶点)
 	glEnable(GL_DEPTH_TEST);
