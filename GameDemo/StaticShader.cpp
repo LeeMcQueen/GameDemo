@@ -60,6 +60,11 @@ void StaticShader::loadUserFakeLighting(bool useFake)
 	loadBoolean(Location_useFakeLighting, useFake);
 }
 
+void StaticShader::loadSkyColour(float r, float g, float b)
+{
+	loadVector3(Location_skyColour, glm::vec3(r, g, b));
+}
+
 //get all uniform location
 void StaticShader::getAllUniformLocations()
 {
@@ -71,4 +76,5 @@ void StaticShader::getAllUniformLocations()
 	Location_shineDamper = getUniformLocation("shineDamper");
 	Location_reflectivity = getUniformLocation("reflectivity");
 	Location_useFakeLighting = getUniformLocation("useFakeLighting");
+	Location_skyColour = getUniformLocation("skyColour");
 }

@@ -31,6 +31,7 @@ void MasterRenderer::render(Light &light, Camera &camera) {
 
 	//Entity
 	staticshader.start();
+	staticshader.loadSkyColour(0.5f, 0.1f, 0.2f);
 	staticshader.loadLight(light);
 	staticshader.loadViewMatrix(camera.getViewMatrix());
 	entityRenderer_.render(entities);

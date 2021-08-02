@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ShaderProgram.h"
 #include "Camera.h" 
@@ -39,8 +39,11 @@ public:
 	//load ShineDamper reflectivity to program
 	void loadShineVariables(float shineDamper, float reflectivity);
 
-	//shader“Ig—p˜ïŒõŒ¹ÚŒû
+	//shaderçš„ä½¿ç”¨å‡å…‰æºæ¥å£
 	void loadUserFakeLighting(bool useFake);
+
+	//shaderå¤©ç©ºé¢œè‰²æ¥å£
+	void loadSkyColour(float r, float g, float b);
 
 protected:
 
@@ -66,7 +69,9 @@ private:
 	GLuint Location_shineDamper;
 	//Location of reflectivity
 	GLuint Location_reflectivity;
-	//˜ïŒõŒ¹
+	//å‡å…‰æº
 	GLuint Location_useFakeLighting;
+	//å¤©ç©ºé¢œè‰²
+	GLuint Location_skyColour;
 };
 

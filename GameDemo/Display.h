@@ -156,7 +156,7 @@ struct ClothRender // Texture & Lighting
         glm::mat4 uniModelMatrix = glm::mat4(1.0f);
         uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
 		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(5.0f, 10.0f, 5.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
         glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
         
         /** 光线 **/
@@ -212,8 +212,6 @@ struct ClothRender // Texture & Lighting
         glBindTexture(GL_TEXTURE_2D, texID);
         
         /** View Matrix : The camera **/	
-        //cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
-		//glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
         
 		glDisable(GL_CULL_FACE);

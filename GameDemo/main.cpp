@@ -430,7 +430,7 @@ int main() {
 
 	//rawModel  modelTexture
 	TexturedModel texturedModel(model, texture);
-	TexturedModel fernModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern"), true, true));
+	TexturedModel fernModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern"), true, false));
 
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
@@ -484,7 +484,7 @@ int main() {
 		/* 骨骼模型控制 */
 		float dAngle = 0.1f;
 
-		modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
+		//modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
 		//(32010 / 30)
 		float currentFrameTime = glfwGetTime();
