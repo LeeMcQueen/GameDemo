@@ -8,38 +8,48 @@ in vec3 toCameraVector;
 out vec4 out_Colour;
 
 uniform sampler2D textureSampler;
+//uniform sampler2D backgroundTexture;
+//uniform sampler2D rTexture;
+//uniform sampler2D gTexture;
+//uniform sampler2D bTexture;
+//uniform sampler2D blendMap;
+
 uniform vec3 lightColor;			
 uniform float shineDamper;			//light->shineDemper
 uniform float reflectivity;			//light->reflectivity
 
 void main(void)
 {
-   // Normalize the vectors
-   vec3 unitNormal = normalize(surfaceNormal);
-   vec3 unitLightVector = normalize(toLightVector);
+	//use blendMap texture to know the Coords
+	//vec4 blendMapColour = texture(blendMap, pass_textureCoords);
+	//float backTextureAmount 
 
-   float nDotl = dot(unitNormal, unitLightVector);
+	// Normalize the vectors
+	vec3 unitNormal = normalize(surfaceNormal);
+	vec3 unitLightVector = normalize(toLightVector);
 
-   //Min value > 0.2
-   float brightness = max(nDotl, 0.2);
+	float nDotl = dot(unitNormal, unitLightVector);
 
-   vec3 diffuse = brightness * lightColor;
+	//Min value > 0.2
+	float brightness = max(nDotl, 0.2);
 
-   //GOTO camera vector 
-   vec3 unitVectorToCamera = normalize(toCameraVector);
+	vec3 diffuse = brightness * lightColor;
 
-   //where light form
-   vec3 lightDirection = -unitLightVector;
+	//GOTO camera vector 
+	vec3 unitVectorToCamera = normalize(toCameraVector);
 
-   //Opengl reflection function
-   vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
+	//where light form
+	vec3 lightDirection = -unitLightVector;
 
-   float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
-   specularFactor  = max(specularFactor, 0.0);
+	//Opengl reflection function
+	vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
 
-   float dampedFactor = pow(specularFactor, shineDamper);
+	float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
+	specularFactor  = max(specularFactor, 0.0);
 
-   vec3 finalSpecular = max(dampedFactor * reflectivity * lightColor, 0.0);
+	float dampedFactor = pow(specularFactor, shineDamper);
 
-   out_Colour = vec4(diffuse, 1.0) * texture(textureSampler, pass_textureCoords) + vec4(finalSpecular, 1.0);
+	vec3 finalSpecular = max(dampedFactor * reflectivity * lightColor, 0.0);
+
+	out_Colour = vec4(diffuse, 1.0) * texture(textureSampler, pass_textureCoords) + vec4(finalSpecular, 1.0);
 }

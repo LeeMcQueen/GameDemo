@@ -173,7 +173,7 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 			track.scaleTimestamps_.push_back(channel->mScalingKeys[j].mTime);
 			track.scales_.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
 		}
-		
+
 
 		/* 多重动画修复 */
 		string nName(channel->mNodeName.C_Str());
@@ -185,7 +185,7 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 			assimpFbxVector.push_back(track);
 		}
 		else {
-			if (checkAssimpFbx) 
+			if (checkAssimpFbx)
 			{
 				checkAssimpFbx = false;
 				BoneTransformTrack outTrack;
@@ -207,7 +207,7 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 				//std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
 				animation.boneTransforms_[assimpFbxStr] = outTrack;
 			}
-			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;			
+			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
 			//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 			/* 多重动画修复 */
 		}
@@ -459,7 +459,7 @@ int main() {
 		//transformation
 		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.0f));
 		//rotation
-		entity.increaseRotation(glm::vec3(0.0f, 0.0001f, 0.0f));
+		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//加载
 		masterRenderer.processTerrain(terrain2);
@@ -470,7 +470,7 @@ int main() {
 		masterRenderer.cleanUp();
 		camera.move();
 
-		/* 布料 */		
+		/* 布料 */
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
@@ -478,7 +478,7 @@ int main() {
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
-	
+
 		//------------------------------animation start------------------------
 
 		/* 骨骼模型控制 */
