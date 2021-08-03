@@ -121,8 +121,8 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(20.0f, 50.0f, 0.0f);
-Vec2 clothSize(4, 4);
+Vec3 clothPos(-30.0f, 20.0f, 0.0f);
+Vec2 clothSize(4, 6);
 Cloth cloth(clothPos, clothSize);
 //地面变数
 //球变数
@@ -440,12 +440,12 @@ int main() {
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 	//加载地面
 	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
-	Terrain terrain2(-100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
+	Terrain terrain2(100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
 
 	/* 布料模拟 */
 	//布料绘制
 	Vec3 initForce(10.0, 40.0, 20.0);
-	Vec3 normalForce(0.2, 0.0, 0.0);
+	Vec3 normalForce(0.0, 0.0, -0.2);
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 

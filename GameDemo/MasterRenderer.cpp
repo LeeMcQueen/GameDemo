@@ -39,7 +39,7 @@ void MasterRenderer::render(Light &light, Camera &camera) {
 
 	//terrain
 	terrainShader.start();
-	staticshader.loadLight(light);
+	terrainShader.loadLight(light);
 	terrainShader.loadViewMatrix(camera.getViewMatrix());
 	terrainRenderer_.render(terrains);
 	terrainShader.stop();

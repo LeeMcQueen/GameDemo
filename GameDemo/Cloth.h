@@ -82,11 +82,11 @@ public:
         
         /** Add nodes **/
         printf("Init cloth with %d nodes\n", nodesPerRow*nodesPerCol);
-        for (int i = 0; i < nodesPerRow; i ++) {
-            for (int j = 0; j < nodesPerCol; j ++) {
+        for (int j = 0; j < nodesPerCol; j ++) {
+            for (int i = 0; i < nodesPerRow; i ++) {
                 /** Create node by position **/
 				//No 4
-                Node* node = new Node(Vec3((double)j/nodesDensity, -((double)i/nodesDensity), 0));
+                Node* node = new Node(Vec3((double)i/nodesDensity, -((double)j/nodesDensity), 0));
                 /** Set texture coordinates **/
                 node->texCoord.x = (double)j/(nodesPerRow-1);
                 node->texCoord.y = (double)i/(1-nodesPerCol);
@@ -119,8 +119,8 @@ public:
         pin(pin2, Vec3(-1.0, 0.0, 0.0));
         
 		/** Triangle faces **/
-        for (int i = 0; i < nodesPerRow-1; i ++) {
-            for (int j = 0; j < nodesPerCol-1; j ++) {
+        for (int j = 0; j < nodesPerCol -1; j ++) {
+            for (int i = 0; i < nodesPerRow -1; i ++) {
                 // Left upper triangle
                 faces.push_back(getNode(i+1, j));
                 faces.push_back(getNode(i, j));

@@ -42,7 +42,7 @@ ClothCamera cam;
 
 struct ClothLight
 {
-    glm::vec3 pos = glm::vec3(-5.0f, 7.0f, 6.0f);
+    glm::vec3 pos = glm::vec3(-5.0f, 17.0f, 6.0f);
     glm::vec3 color = glm::vec3(0.7f, 0.7f, 1.0f);
 };
 ClothLight sun;
