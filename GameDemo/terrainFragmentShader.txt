@@ -8,11 +8,11 @@ in vec3 toCameraVector;
 out vec4 out_Colour;
 
 uniform sampler2D textureSampler;
-//uniform sampler2D backgroundTexture;
-//uniform sampler2D rTexture;
-//uniform sampler2D gTexture;
-//uniform sampler2D bTexture;
-//uniform sampler2D blendMap;
+uniform sampler2D backgroundTexture;
+uniform sampler2D rTexture;
+uniform sampler2D gTexture;
+uniform sampler2D bTexture;
+uniform sampler2D blendMap;
 
 uniform vec3 lightColor;			
 uniform float shineDamper;			//light->shineDemper
@@ -21,7 +21,7 @@ uniform float reflectivity;			//light->reflectivity
 void main(void)
 {
 	//use blendMap texture to know the Coords
-	//vec4 blendMapColour = texture(blendMap, pass_textureCoords);
+	vec4 blendMapColour = texture(blendMap, pass_textureCoords);
 	//float backTextureAmount 
 
 	// Normalize the vectors
