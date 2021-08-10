@@ -115,8 +115,8 @@ public:
 			}
 		}
 
-		pin(pin1, Vec3(1.0, 0.0, 0.0));
-		pin(pin2, Vec3(-1.0, 0.0, 0.0));
+		pin(pin1, Vec3(0.2, 0.0, 0.0));
+		pin(pin2, Vec3(-0.2, 0.0, 0.0));
 
 		/** Triangle faces **/
 		for (int j = 0; j < nodesPerCol - 1; j++) {

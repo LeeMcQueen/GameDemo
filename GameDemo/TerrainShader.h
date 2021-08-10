@@ -28,6 +28,8 @@ public:
 	//load projectionMatrix to shader program
 	void loadProjectionMatrix(glm::mat4 matrix);
 
+	void loadconnectTextureUnits();
+
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
 
@@ -61,5 +63,16 @@ private:
 	GLuint Location_shineDamper;
 	//Location of reflectivity
 	GLuint Location_reflectivity;
+	//Location of backgroundTexture
+	GLuint Location_backgroundTexture;
+	//Location of r
+	GLuint Location_rTexture;
+	//Location of g
+	GLuint Location_gTexture;
+	//Location of b
+	GLuint Location_bTexture;
+	//Location of blendMap
+	GLuint Location_blendMap;
+
 };
 

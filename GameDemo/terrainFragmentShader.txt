@@ -1,6 +1,6 @@
 #version 330 core
 
-in vec2 pass_textureCoords;
+in vec2 pass_textureCoords;			//UV position
 in vec3 surfaceNormal;
 in vec3 toLightVector;
 in vec3 toCameraVector;
@@ -22,7 +22,17 @@ void main(void)
 {
 	//use blendMap texture to know the Coords
 	vec4 blendMapColour = texture(blendMap, pass_textureCoords);
-	//float backTextureAmount 
+
+	//blendMap is black
+	float backTextureAmount = 1 - (blendMapColour.r + blendMapColour.g + blendMapColour.b);
+
+	//UVposition * 40
+	vec2 tiledCoords = pass_textureCoords * 40.0;
+	vec4 backgroundTextureColour = texture(backgroundTexture, tiledCoords) * backTextureAmount;
+	vec4 rTextureColour = texture(rTexture, tiledCoords) * blendMapColour.r;
+	vec4 gTextureColour = texture(gTexture, tiledCoords) * blendMapColour.g;
+	vec4 bTextureColour = texture(bTexture, tiledCoords) * blendMapColour.b;
+	vec4 totalColour = backgroundTextureColour + rTextureColour + gTextureColour + bTextureColour;
 
 	// Normalize the vectors
 	vec3 unitNormal = normalize(surfaceNormal);
@@ -46,10 +56,7 @@ void main(void)
 
 	float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
 	specularFactor  = max(specularFactor, 0.0);
-
 	float dampedFactor = pow(specularFactor, shineDamper);
-
 	vec3 finalSpecular = max(dampedFactor * reflectivity * lightColor, 0.0);
-
-	out_Colour = vec4(diffuse, 1.0) * texture(textureSampler, pass_textureCoords) + vec4(finalSpecular, 1.0);
+	out_Colour = vec4(diffuse, 1.0) * totalColour + vec4(finalSpecular, 1.0);
 }

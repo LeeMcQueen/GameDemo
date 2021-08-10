@@ -185,6 +185,8 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="TerrainShader.h" />
+    <ClInclude Include="TerrainTexture.h" />
+    <ClInclude Include="TerrainTexturePack.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Vectors.h" />
     <ClInclude Include="Vertex.h" />

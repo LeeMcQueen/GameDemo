@@ -1,9 +1,9 @@
 ﻿#include "Terrain.h"
 
-Terrain::Terrain(int gridX, int gridZ, Loader loader, ModelTexture modeltexture)
-	:modelTexture_(modeltexture)
-	,rawModel_(generateTerrain(loader))
-{}
+Terrain::Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap)
+	:terrainTexturePack_(terrainTexturePack),
+	blendMap_(blendMap),
+	rawModel_(generateTerrain(loader)){}
 
 RawModel Terrain::generateTerrain(Loader& loader)
 {
@@ -72,7 +72,12 @@ RawModel Terrain::GetModel()
 	return rawModel_;
 }
 
-ModelTexture Terrain::GetTexture()
+TerrainTexturePack Terrain::getTerrainTexturePack()
 {
-	return modelTexture_;
+	return terrainTexturePack_;
+}
+
+TerrainTexture Terrain::getTerrainTexture()
+{
+	return blendMap_;
 }

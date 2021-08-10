@@ -4,10 +4,10 @@ in vec3 position;
 in vec2 textureCoords;
 in vec3 normal;
 
-out vec2 pass_textureCoords;
-out vec3 surfaceNormal;
-out vec3 toLightVector;
-out vec3 toCameraVector;
+out vec2 pass_textureCoords;		//UV position
+out vec3 surfaceNormal;				//normal
+out vec3 toLightVector;				//light position
+out vec3 toCameraVector;			//cam position
 
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;		//deep Matrix

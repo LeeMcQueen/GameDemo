@@ -32,12 +32,14 @@
 #include "Light.h"
 #include "MasterRenderer.h"
 #include "AnimaModelLoader.h"
+#include "TerrainTexture.h"
+#include "TerrainTexturePack.h"
 
 #include "Vertex.h"
 #include "Bone.h"
 #include "BoneTransformTrack.h"
 #include "Animation.h"
-#include "Cloth.h"  //Points
+#include "Cloth.h" 
 #include "Rigid.h"
 #include "Program.h"
 #include "Display.h"
@@ -122,7 +124,7 @@ Vec3 windDir;
 Vec3 wind;
 //布料变数
 Vec3 clothPos(-30.0f, 20.0f, 0.0f);
-Vec2 clothSize(4, 6);
+Vec2 clothSize(3, 7);
 Cloth cloth(clothPos, clothSize);
 //地面变数
 //球变数
@@ -438,14 +440,23 @@ int main() {
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
+
 	//加载地面
-	Terrain terrain(0, 0, loader, ModelTexture(loader.loadTexture("grassy2")));
-	Terrain terrain2(100, 10, loader, ModelTexture(loader.loadTexture("grassy3")));
+	TerrainTexture backgroundTexture = TerrainTexture(loader.loadTexture("grassy"));
+	TerrainTexture rTexture = TerrainTexture(loader.loadTexture("dirt"));
+	TerrainTexture gTexture = TerrainTexture(loader.loadTexture("pinkFlowers"));
+	TerrainTexture bTexture = TerrainTexture(loader.loadTexture("path"));
+	TerrainTexturePack terrainTexturePack = TerrainTexturePack(
+		backgroundTexture, rTexture, gTexture, bTexture);
+	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
+
+	Terrain terrain = Terrain(0, -1, loader, terrainTexturePack, blendMap);
+	Terrain terrain2 = Terrain(-1, -1, loader, terrainTexturePack, blendMap);
 
 	/* 布料模拟 */
 	//布料绘制
 	Vec3 initForce(10.0, 40.0, 20.0);
-	Vec3 normalForce(0.0, 0.0, -0.2);
+	Vec3 normalForce(0.0, 0.0, 0.5);
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 

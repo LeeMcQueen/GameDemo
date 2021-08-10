@@ -1,19 +1,23 @@
 ﻿#pragma once
 
 #include "RawModel.h"
-#include "ModelTexture.h"
 #include "Loader.h"
+#include "TerrainTexturePack.h"
+#include "TerrainTexture.h"
+
+//#include "ModelTexture.h"
 
 class Terrain
 {
 public:
-	Terrain(int gridX, int gridZ, Loader loader, ModelTexture modeltexture);
+	Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap);
 	~Terrain();
 
 	float GetX();
 	float GetZ();
 	RawModel GetModel();
-	ModelTexture GetTexture();
+	TerrainTexturePack getTerrainTexturePack();
+	TerrainTexture getTerrainTexture();
 
 private:
 	const float SIZE = 800;
@@ -25,8 +29,8 @@ private:
 	float z_;
 
 	RawModel rawModel_;
-	//模型纹理 纹理,闪光度,反射度
-	ModelTexture modelTexture_;
+	TerrainTexturePack terrainTexturePack_;
+	TerrainTexture blendMap_;
 	//返回RawModel结构的数组 VAO的ID 顶点的排序
 	RawModel generateTerrain(Loader& loader);
 };

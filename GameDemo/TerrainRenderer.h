@@ -18,6 +18,7 @@ private:
 
 	void prepareTerrain(Terrain &terrain);
 	void prepareInstance(Terrain &terrain);
+	void bindTexture(Terrain &terrain);
 	void unbindTextureModel();
 };
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 
 #define GLEW_STATIC
@@ -41,8 +41,10 @@ protected:
 	//interface. bind VAO attributes
 	virtual void bindAttributes() = 0;
 
-	//load int into uniform by location
+	//load float into uniform by location
 	void loadFloat(GLuint location, float value);
+	//加载正数(int)的uniform
+	void loadInt(GLuint location, int value);
 	//load 3D vector into uniform by location
 	void loadVector3(GLuint location, glm::vec3 vec);
 	//load bool into uniform by location

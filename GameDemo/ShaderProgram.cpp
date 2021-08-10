@@ -45,6 +45,11 @@ ShaderProgram::~ShaderProgram(){
 }
 
 void ShaderProgram::loadFloat(GLuint location, float value){
+	glUniform1f(location, value);
+}
+
+void ShaderProgram::loadInt(GLuint location, int value)
+{
 	glUniform1i(location, value);
 }
 

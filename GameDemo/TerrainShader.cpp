@@ -1,4 +1,4 @@
-#include "TerrainShader.h"
+﻿#include "TerrainShader.h"
 
 //vertexShader&fragmentShader file name
 const char* TerrainShader::VERTEX_FILE = "terrainVertexShader.txt";
@@ -34,6 +34,20 @@ void TerrainShader::loadProjectionMatrix(glm::mat4 matrix)
 	loadMatrix4(Location_projectionMatrix, matrix);
 }
 
+void TerrainShader::loadconnectTextureUnits()
+{
+	//通道0的背景纹理
+	loadFloat(Location_backgroundTexture, 0);
+	//通道1的r纹理
+	loadFloat(Location_rTexture, 1);
+	//通道2的g纹理
+	loadFloat(Location_gTexture, 2);
+	//通道3的b纹理
+	loadFloat(Location_bTexture, 3);
+	//通道4的混合纹理
+	loadFloat(Location_blendMap, 4);
+}
+
 void TerrainShader::loadViewMatrix(glm::mat4 matrix)
 {
 	loadMatrix4(Location_viewMatrix, matrix);
@@ -60,4 +74,9 @@ void TerrainShader::getAllUniformLocations()
 	Location_lightPosition = getUniformLocation("lightPosition");
 	Location_shineDamper = getUniformLocation("shineDamper");
 	Location_reflectivity = getUniformLocation("reflectivity");
+	Location_backgroundTexture = getUniformLocation("backgroundTexture");
+	Location_rTexture = getUniformLocation("rTexture");
+	Location_gTexture = getUniformLocation("gTexture");
+	Location_bTexture = getUniformLocation("bTexture");
+	Location_blendMap = getUniformLocation("blendMap");
 }

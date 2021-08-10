@@ -227,6 +227,12 @@
     <ClInclude Include="Vectors.h">
       <Filter>头文件\MassSpringSim</Filter>
     </ClInclude>
+    <ClInclude Include="TerrainTexture.h">
+      <Filter>头文件\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTexturePack.h">
+      <Filter>头文件\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexShader.txt">

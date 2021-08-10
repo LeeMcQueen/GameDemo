@@ -1,10 +1,11 @@
-#include "TerrainRenderer.h"
+﻿#include "TerrainRenderer.h"
 
 TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projectionMatrix)
 	:terrainShader_(terrainShader)
 {
 	terrainShader_.start();
 	terrainShader_.loadProjectionMatrix(projectionMatrix);
+	terrainShader_.loadconnectTextureUnits();
 	terrainShader_.stop();
 }
 
@@ -30,14 +31,27 @@ void TerrainRenderer::prepareTerrain(Terrain &terrain)
 	glEnableVertexAttribArray(1);	//texture
 	glEnableVertexAttribArray(2);	//normal
 
-	//Get texture form ModelTexture
-	ModelTexture& texture = terrain.GetTexture();
+	//load shine 
+	//getShineDamer getReflectivity
+	terrainShader_.loadShineVariables(1.0f, 0.0f);
 
-	//load shine
-	terrainShader_.loadShineVariables(texture.getShineDamer(), texture.getReflectivity());
+}
 
+void TerrainRenderer::bindTexture(Terrain & terrain)
+{
+	auto terrainTexturePack = terrain.getTerrainTexturePack();
+
+	//启动纹理通道
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, terrain.GetTexture().getID());
+	glBindTexture(GL_TEXTURE_2D, terrainTexturePack.getBackgroundTexture().textureID_);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, terrainTexturePack.getRTexture().textureID_);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, terrainTexturePack.getGTexture().textureID_);
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, terrainTexturePack.getBTexture().textureID_);
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, terrain.getTerrainTexture().textureID_);
 }
 
 void TerrainRenderer::prepareInstance(Terrain &terrain)
