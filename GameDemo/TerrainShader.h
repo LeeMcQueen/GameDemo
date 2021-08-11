@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "ShaderProgram.h"
 #include "Camera.h" 
@@ -28,6 +28,7 @@ public:
 	//load projectionMatrix to shader program
 	void loadProjectionMatrix(glm::mat4 matrix);
 
+	//加载纹理集合
 	void loadconnectTextureUnits();
 
 	//load viewMatrix to shader program

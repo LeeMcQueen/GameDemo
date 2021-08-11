@@ -31,13 +31,15 @@ void TerrainRenderer::prepareTerrain(Terrain &terrain)
 	glEnableVertexAttribArray(1);	//texture
 	glEnableVertexAttribArray(2);	//normal
 
+	bindTexture(terrain);
+
 	//load shine 
 	//getShineDamer getReflectivity
 	terrainShader_.loadShineVariables(1.0f, 0.0f);
 
 }
 
-void TerrainRenderer::bindTexture(Terrain & terrain)
+void TerrainRenderer::bindTexture(Terrain &terrain)
 {
 	auto terrainTexturePack = terrain.getTerrainTexturePack();
 

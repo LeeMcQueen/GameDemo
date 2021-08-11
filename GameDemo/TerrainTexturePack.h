@@ -4,10 +4,10 @@
 class TerrainTexturePack {
 
 public:
-	TerrainTexturePack(const TerrainTexture &backgroundTexture
-		, const TerrainTexture &rTexture
-		, const TerrainTexture &gTexture
-		, const TerrainTexture &bTexture) :
+	TerrainTexturePack(const TerrainTexture backgroundTexture
+		, const TerrainTexture rTexture
+		, const TerrainTexture gTexture
+		, const TerrainTexture bTexture) :
 		backGroundTexture_(backgroundTexture),
 		rTexture_(rTexture),
 		gTexture_(gTexture),

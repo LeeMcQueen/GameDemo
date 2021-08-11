@@ -442,7 +442,7 @@ int main() {
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 
 	//加载地面
-	TerrainTexture backgroundTexture = TerrainTexture(loader.loadTexture("grassy"));
+	TerrainTexture backgroundTexture = TerrainTexture(loader.loadTexture("grassy2"));
 	TerrainTexture rTexture = TerrainTexture(loader.loadTexture("dirt"));
 	TerrainTexture gTexture = TerrainTexture(loader.loadTexture("pinkFlowers"));
 	TerrainTexture bTexture = TerrainTexture(loader.loadTexture("path"));
@@ -450,7 +450,7 @@ int main() {
 		backgroundTexture, rTexture, gTexture, bTexture);
 	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
 
-	Terrain terrain = Terrain(0, -1, loader, terrainTexturePack, blendMap);
+	Terrain terrain = Terrain(0, 1, loader, terrainTexturePack, blendMap);
 	Terrain terrain2 = Terrain(-1, -1, loader, terrainTexturePack, blendMap);
 
 	/* 布料模拟 */

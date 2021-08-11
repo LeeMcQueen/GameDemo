@@ -31,9 +31,6 @@
     <Filter Include="头文件\thirdparty">
       <UniqueIdentifier>{f49e7758-4dea-4715-aa85-4c5c86a52cf7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\texture">
-      <UniqueIdentifier>{24d14c50-b385-4c73-9fb9-54c5659337e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\texture">
       <UniqueIdentifier>{d0f5cb4c-3dc3-44d2-bb36-d1f0bd86d7da}</UniqueIdentifier>
     </Filter>
@@ -238,27 +235,14 @@
     <Text Include="vertexShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
-    <Text Include="terrainVertexShader.txt">
+    <Text Include="terrainFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
-    <Text Include="terrainFragmentShader.txt">
+    <Text Include="terrainVertexShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="fragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="blendMap.png">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="res\g.png">
-      <Filter>资源文件</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GameDemo.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

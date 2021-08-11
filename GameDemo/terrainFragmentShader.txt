@@ -7,7 +7,6 @@ in vec3 toCameraVector;
 
 out vec4 out_Colour;
 
-uniform sampler2D textureSampler;
 uniform sampler2D backgroundTexture;
 uniform sampler2D rTexture;
 uniform sampler2D gTexture;
@@ -20,19 +19,20 @@ uniform float reflectivity;			//light->reflectivity
 
 void main(void)
 {
-	//use blendMap texture to know the Coords
+	//get colour of blendmap to find out how much of each texture should be rendered
 	vec4 blendMapColour = texture(blendMap, pass_textureCoords);
 
-	//blendMap is black
+	//blendMap amount
 	float backTextureAmount = 1 - (blendMapColour.r + blendMapColour.g + blendMapColour.b);
 
-	//UVposition * 40
+	// all textureCoords
 	vec2 tiledCoords = pass_textureCoords * 40.0;
+	//calculate colours of each texture
 	vec4 backgroundTextureColour = texture(backgroundTexture, tiledCoords) * backTextureAmount;
 	vec4 rTextureColour = texture(rTexture, tiledCoords) * blendMapColour.r;
 	vec4 gTextureColour = texture(gTexture, tiledCoords) * blendMapColour.g;
 	vec4 bTextureColour = texture(bTexture, tiledCoords) * blendMapColour.b;
-	vec4 totalColour = backgroundTextureColour + rTextureColour + gTextureColour + bTextureColour;
+	vec4 totalColour =  backgroundTextureColour + rTextureColour + gTextureColour + bTextureColour;
 
 	// Normalize the vectors
 	vec3 unitNormal = normalize(surfaceNormal);
@@ -58,5 +58,6 @@ void main(void)
 	specularFactor  = max(specularFactor, 0.0);
 	float dampedFactor = pow(specularFactor, shineDamper);
 	vec3 finalSpecular = max(dampedFactor * reflectivity * lightColor, 0.0);
+
 	out_Colour = vec4(diffuse, 1.0) * totalColour + vec4(finalSpecular, 1.0);
 }

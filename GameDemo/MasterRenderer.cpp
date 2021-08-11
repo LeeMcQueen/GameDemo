@@ -31,7 +31,7 @@ void MasterRenderer::render(Light &light, Camera &camera) {
 
 	//Entity
 	staticshader.start();
-	staticshader.loadSkyColour(0.5f, 0.1f, 0.2f);
+	staticshader.loadSkyColour(0.6f, 0.6f, 0.6f);
 	staticshader.loadLight(light);
 	staticshader.loadViewMatrix(camera.getViewMatrix());
 	entityRenderer_.render(entities);
@@ -68,7 +68,7 @@ void MasterRenderer::prepare()
 	//清除 COLOR_BUFFER & DEPTH_BUFFER
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//添加背景颜色
-	glClearColor(0.5f, 0.1f, 0.2f, 1.0f);
+	glClearColor(0.5f, 0.6f, 0.6f, 1.0f);
 }
 
 //返回投影矩阵(getProjectionMatrix)

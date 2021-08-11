@@ -197,13 +197,6 @@
     <Text Include="terrainVertexShader.txt" />
     <Text Include="vertexShader.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="blendMap.png" />
-    <Image Include="res\g.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GameDemo.rc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
