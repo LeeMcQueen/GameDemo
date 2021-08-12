@@ -5,12 +5,11 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
-//------------------------------animation start------------------------
+//------------------------------skeleton animation start------------------------
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
-//------------------------------animation start------------------------
+//------------------------------skeleton animation start------------------------
 #include <glm.hpp>
 #include <gtc/quaternion.hpp>
 #include <gtx/quaternion.hpp>
@@ -34,6 +33,7 @@
 #include "AnimaModelLoader.h"
 #include "TerrainTexture.h"
 #include "TerrainTexturePack.h"
+#include "Player.h"
 
 #include "Vertex.h"
 #include "Bone.h"
@@ -48,7 +48,7 @@
 #define TIME_STEP 0.01
 
 const char* vertexShaderSource = R"(
-	#version 440 core
+	#version 330 core
 	layout (location = 0) in vec3 position; 
 	layout (location = 1) in vec3 normal;
 	layout (location = 2) in vec2 texture;
@@ -93,7 +93,7 @@ const char* vertexShaderSource = R"(
 
 	)";
 const char* fragmentShaderSource = R"(
-	#version 440 core
+	#version 330 core
 
 	in vec2 tex_cord;
 	in vec3 v_normal;
@@ -339,7 +339,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	}
 }
 
-//------------------------------animation end------------------------
+//------------------------------skeleton animation end------------------------
 
 //窗口大小变换监听
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -367,7 +367,7 @@ int main() {
 	displayManager.CreatManager(window);
 #pragma endregion
 
-	//------------------------------animation start------------------------
+	//------------------------------skeleton animation start------------------------
 	bool isRunning = true;
 
 	//animation数组实例化
@@ -405,14 +405,7 @@ int main() {
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
-
-	/** 骨骼模型位置，旋转，大小 **/
-	glm::mat4 modelMatrix;
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 10.0f, 10.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
-
-	//------------------------------animation end------------------------
+	//------------------------------skeleton animation end------------------------
 
 	/* 模型&地面 */
 	//实例化加载工具
@@ -422,8 +415,10 @@ int main() {
 	//实例化渲染器
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
-	OBJLoader objloader;
-	//加载模型顶点信息（3种方法）
+	OBJLoader objloader;	
+	//主角控制
+	Player player(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	//加载模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
 	//使用纹理文件名加载纹理
 	ModelTexture texture(loader.loadTexture("playerTexture"));
@@ -460,7 +455,12 @@ int main() {
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
+	/** 骨骼模型开始时间 **/
 	float RUNelapsedTime = 865.0f;
+	/** 骨骼模型位置，旋转，大小 **/
+	glm::mat4 modelMatrix;
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
+
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -478,6 +478,7 @@ int main() {
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
 		camera.move();
+		player.move();
 
 		/* 布料 */
 		for (int i = 0; i < cloth.iterationFreq; i++) {
@@ -488,12 +489,20 @@ int main() {
 		cloth.computeNormal();
 		clothRender.flush(camera);
 
-		//------------------------------animation start------------------------
-
+		//------------------------------skeleton animation start------------------------
 		/* 骨骼模型控制 */
 		float dAngle = 0.1f;
 
-		//modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
+		modelMatrix = glm::translate(modelMatrix, player.getPosition());
+		//modelMatrix = glm::scale(modelMatrix, player.getScale());
+
+		//modelMatrix = glm::translate(modelMatrix, player.getPosition());
+		//modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
+		//
+		//std::cout << player.getPosition().x << std::endl;
+		//std::cout << player.getPosition().y << std::endl;
+		//std::cout << player.getPosition().z << std::endl;
 
 		//(32010 / 30)
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
@@ -518,8 +527,7 @@ int main() {
 		glUniform1i(textureLocation, 0);
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
-
-		//------------------------------animation end------------------------
+		//------------------------------skeleton animation end------------------------
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

@@ -5,7 +5,7 @@
 #include <string>
 
 #pragma once
-class DisplayManager{
+class DisplayManager {
 
 public:
 	constexpr static int WIDTH = 1280;
