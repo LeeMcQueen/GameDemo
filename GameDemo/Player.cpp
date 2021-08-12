@@ -1,9 +1,12 @@
+ï»¿#include <iostream>
 #include "Player.h"
 
 const float RUN_SPEED = 0.5f;
 const float TURN_SPEED = 0.5f;
 
 void Player::move() {
+
+	//é”®ç›˜æŽ§åˆ¶
 	checkInputs();
 
 	DisplayManager displayManager;
@@ -12,14 +15,15 @@ void Player::move() {
 	rotate(0.0f, currentTurnSpeed_, 0.0f);
 
 	/*
-	sin(ƒÆ) = x/distance 
-	cos(ƒÆ) = z/distance 
+	sin(Î¸) = x/distance 
+	cos(Î¸) = z/distance 
 	*/
 	float distance = currentSpeed_ * RUN_SPEED;
+	
 	float deltaX = distance * std::sin(glm::radians(getRotation().y));
 	float deltaY = distance * std::cos(glm::radians(getRotation().y));
 
-	translate(deltaX, 0.0f, deltaY);
+	translate(deltaX, deltaY, 0.0f);
 }
 
 void Player::checkInputs(){
@@ -32,10 +36,10 @@ void Player::checkInputs(){
 	}
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_L) == GLFW_PRESS) {
-		currentTurnSpeed_ = -currentTurnSpeed_;
+		currentTurnSpeed_ = -TURN_SPEED;
 	}
 	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_J) == GLFW_PRESS) {
-		currentTurnSpeed_ = currentTurnSpeed_;
+		currentTurnSpeed_ = TURN_SPEED;
 	}else {
 		currentTurnSpeed_ = 0.0f;
 	}

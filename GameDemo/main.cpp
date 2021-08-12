@@ -456,10 +456,17 @@ int main() {
 	cloth.addForce(initForce);
 
 	/** 骨骼模型开始时间 **/
-	float RUNelapsedTime = 865.0f;
+	float RunStartTime = 865.0f;
+	float RunEndTime = 888.0f;
+	float idleStartTime = 0.1f;
+	float idleEndTime = 0.0f;
 	/** 骨骼模型位置，旋转，大小 **/
 	glm::mat4 modelMatrix;
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
+	
 
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
@@ -499,21 +506,27 @@ int main() {
 		//modelMatrix = glm::translate(modelMatrix, player.getPosition());
 		//modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		//modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
-		//
-		//std::cout << player.getPosition().x << std::endl;
-		//std::cout << player.getPosition().y << std::endl;
-		//std::cout << player.getPosition().z << std::endl;
 
 		//(32010 / 30)
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
 		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
-		RUNelapsedTime = RUNelapsedTime + displayManager.getDeltaTime();
-		if (RUNelapsedTime > 888.0f)
-			RUNelapsedTime = 865.0f;
-		//std::cout << RUNelapsedTime << std::endl;
+		
+		idleStartTime = idleStartTime + displayManager.getDeltaTime();
 
-		getPose(animation, animaModelLoader.getSkeleton(), RUNelapsedTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_T) == GLFW_PRESS) {
+			RunStartTime = RunStartTime + displayManager.getDeltaTime();
+			if (RunStartTime > RunEndTime)
+				RunStartTime = 865.0f;
+			//std::cout << RUNelapsedTime << std::endl;
+			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		}else {
+			if (idleStartTime > 30.0f)
+				idleStartTime = 0.1f;
+			//std::cout << RUNelapsedTime << std::endl;
+			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		}
 
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));

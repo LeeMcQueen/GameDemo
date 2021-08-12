@@ -30,7 +30,7 @@ public:
 	//get和set
 	glm::vec3 getPosition() const;
 	glm::vec3 getRotation() const;
-	glm::vec3 getScale()const;
+	glm::vec3 getScale() const;
 	void setPosition(const glm::vec3 position);
 	void setRotation(const glm::vec3 rotation);
 	void setScale(const glm::vec3 scale);
