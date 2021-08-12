@@ -126,6 +126,9 @@
     <ClCompile Include="AnimaModelLoader.cpp">
       <Filter>源文件\renderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>源文件\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="TerrainTexturePack.h">
       <Filter>头文件\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>头文件\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

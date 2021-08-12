@@ -1,7 +1,6 @@
 #include "Camera.h"
 
-#include <GLFW\glfw3.h>
-#include <gtx\transform.hpp>
+
 
 using namespace std;
 

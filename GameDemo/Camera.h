@@ -1,9 +1,9 @@
 #pragma once
 
-#include <iostream>
+#include <GLFW\glfw3.h>
 #include <gtx\transform.hpp>
 
-class Camera{
+class Camera {
 
 public:
 	Camera();

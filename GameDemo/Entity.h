@@ -6,7 +6,7 @@
 #include "TexturedModel.h"
 #include "RawModel.h"
 
-class Entity{
+class Entity {
 
 public:
 

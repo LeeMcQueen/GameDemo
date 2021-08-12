@@ -147,6 +147,7 @@
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="EntityRenderer.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StaticShader.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="ModelTexture.h" />
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="EntityRenderer.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Points.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="RawModel.h" />

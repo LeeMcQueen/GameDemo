@@ -362,9 +362,9 @@ int main() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//实例化DisplayManager
-	DisplayManager *myDisplayManager = new DisplayManager();
+	DisplayManager displayManager;
 	//使用DisplayManager下的CreatManager
-	myDisplayManager->CreatManager(window);
+	displayManager.CreatManager(window);
 #pragma endregion
 
 	//------------------------------animation start------------------------
@@ -461,8 +461,6 @@ int main() {
 	cloth.addForce(initForce);
 
 	float RUNelapsedTime = 865.0f;
-	float lastFrameTime = 0.0f;
-	float deltaTime = 0.0f;
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -498,11 +496,10 @@ int main() {
 		//modelMatrix = glm::rotate(modelMatrix, dAngle, glm::vec3(0, 0, 1));
 
 		//(32010 / 30)
-		float currentFrameTime = glfwGetTime();
-		deltaTime = (currentFrameTime - lastFrameTime) * 30;
-		lastFrameTime = currentFrameTime;
+		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
+		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
-		RUNelapsedTime = RUNelapsedTime + deltaTime;
+		RUNelapsedTime = RUNelapsedTime + displayManager.getDeltaTime();
 		if (RUNelapsedTime > 888.0f)
 			RUNelapsedTime = 865.0f;
 		//std::cout << RUNelapsedTime << std::endl;
@@ -533,9 +530,6 @@ int main() {
 		//检查是否出发相关事件
 		glfwPollEvents();
 	}
-
-	//销毁New对象
-	delete myDisplayManager;
 
 	//销毁GLFW
 	glfwTerminate();
