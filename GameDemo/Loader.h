@@ -1,5 +1,4 @@
 ﻿#include <vector>
-#include <GL/glew.h>
 #include <glm.hpp>
 
 #include "RawModel.h"

@@ -12,9 +12,10 @@ public:
 	void move();
 	void checkInputs();
 	void translate(float dx, float dy, float dz);
+	void rotation(float rx, float ry, float rz);
 
 	glm::vec3 getPosition() { return position_; }
-	float getRotation() { return rotation_; }
+	glm::vec3 getRotation() { return rotation_; }
 	glm::vec3 getScale() { return scale_; }
 
 private:
@@ -23,7 +24,7 @@ private:
 	glm::vec3 position_;
 
 	//角色旋转
-	float rotation_;
+	glm::vec3 rotation_;
 
 	//大小缩放
 	glm::vec3 scale_;

@@ -1,10 +1,10 @@
-﻿#include "DisplayManager.h"
-
-#include <iostream>
+﻿#include <iostream>
 
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include "DisplayManager.h"
 
 int DisplayManager::CreatManager(GLFWwindow *window) {
 

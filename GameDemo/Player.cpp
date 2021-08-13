@@ -12,26 +12,25 @@ void Player::move() {
 	DisplayManager displayManager;
 	float deltaTime = displayManager.getCurrentFrameTime();
 
-	rotation_ = currentTurnSpeed_;
+	rotation_.z = currentTurnSpeed_;
+	rotation(0.0f, 0.0f, rotation_.z);
 
-	/*
-	sin(θ) = x/distance 
-	cos(θ) = z/distance 
-	*/
+	//sin(θ) = x/distance cos(θ) = z/distance 
 	float distance = currentSpeed_ * RUN_SPEED;
-	
 	float deltaX = distance * std::sin(glm::radians(currentTurnSpeed_));
 	float deltaY = distance * std::cos(glm::radians(currentTurnSpeed_));
 
 	translate(deltaX, deltaY, 0.0f);
 }
 
-void Player::checkInputs(){
+void Player::checkInputs() {
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_I) == GLFW_PRESS) {
 		currentSpeed_ = -RUN_SPEED;
-	}else if(glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_K) == GLFW_PRESS){
+	}
+	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_K) == GLFW_PRESS) {
 		currentSpeed_ = RUN_SPEED;
-	}else {
+	}
+	else {
 		currentSpeed_ = 0.0f;
 	}
 
@@ -40,15 +39,20 @@ void Player::checkInputs(){
 	}
 	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_J) == GLFW_PRESS) {
 		currentTurnSpeed_ = TURN_SPEED;
-	}else {
+	}
+	else {
 		currentTurnSpeed_ = 0.0f;
 	}
 }
 
-void Player::translate(float dx, float dy, float dz){
+void Player::translate(float dx, float dy, float dz) {
 	position_.x = dx;
 	position_.y = dy;
 	position_.z = dz;
+}
+
+void Player::rotation(float rx, float ry, float rz) {
+
 }
 
 

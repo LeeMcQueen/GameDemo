@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <gtx\transform.hpp>
 
@@ -7,7 +7,7 @@
 class Camera {
 
 public:
-	Camera();
+	Camera(Player player);
 
 	//increase position&rotation into view(camera)Matrix
 	void move();
@@ -20,10 +20,18 @@ public:
 
 private:
 
-	Player player;
+	//主角类(主角位置，旋转，缩放)
+	Player player_;
 	//camera position
-	glm::vec3 position;
+	glm::vec3 position_;
 	//camera rotation
-	glm::vec3 rotation;
+	glm::vec3 rotation_;
+	//相机和主角的距离
+	float distanceFromPlayer_;
+	//相机围绕主角的角度
+	float angleAroundPlayer_;
+
+	void calclateZoom();
+
 };
 

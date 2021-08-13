@@ -53,18 +53,15 @@ const char* vertexShaderSource = R"(
 	layout (location = 2) in vec2 texture;
 	layout (location = 3) in vec4 boneIds;
 	layout (location = 4) in vec4 boneWeights;
-
 	out vec2 tex_cord;
 	out vec3 v_normal;
 	out vec3 v_pos;
 	out vec4 bw;
-
 	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]测试
 	//uniform mat4 view_projection_matrix;
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
-
 	void main()
 	{
 		bw = vec4(0);
@@ -76,32 +73,22 @@ const char* vertexShaderSource = R"(
 		boneTransform  +=    bone_transforms[int(boneIds.y)] * boneWeights.y;
 		boneTransform  +=    bone_transforms[int(boneIds.z)] * boneWeights.z;
 		boneTransform  +=    bone_transforms[int(boneIds.w)] * boneWeights.w;
-
 		vec4 pos =boneTransform * vec4(position, 1.0);
-
 		gl_Position = projection_Matrix * view_Matrix * model_matrix * pos;
-
 		v_pos = vec3(model_matrix * boneTransform * pos);
-
 		tex_cord = texture;
-
 		v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
-
 		v_normal = normalize(v_normal);
 	}
-
 	)";
 const char* fragmentShaderSource = R"(
 	#version 330 core
-
 	in vec2 tex_cord;
 	in vec3 v_normal;
 	in vec3 v_pos;
 	in vec4 bw;
 	out vec4 color;
-
 	uniform sampler2D diff_texture;
-
 	vec3 lightPos = vec3(5.2, 55.0, 13.0);
 	
 	void main()
@@ -409,14 +396,15 @@ int main() {
 	/* 模型&地面 */
 	//实例化加载工具
 	Loader loader;
+	//主角控制
+	Player player;
 	//实例化相机
-	Camera camera;
+	Camera camera(player);
 	//实例化渲染器
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
-	OBJLoader objloader;	
-	//主角控制
-	Player player;
+	OBJLoader objloader;
+
 	//加载模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
 	//使用纹理文件名加载纹理
@@ -464,7 +452,7 @@ int main() {
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
-	
+
 
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
@@ -501,7 +489,7 @@ int main() {
 		//移动
 		modelMatrix = glm::translate(modelMatrix, player.getPosition());
 		//Z轴旋转
-		modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
 		//modelMatrix = glm::translate(modelMatrix, player.getPosition());
 		//modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		//modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
@@ -510,7 +498,7 @@ int main() {
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
 		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
-		
+
 		idleStartTime = idleStartTime + displayManager.getDeltaTime();
 
 		//骨骼动画控制
@@ -520,7 +508,8 @@ int main() {
 				RunStartTime = 865.0f;
 			//std::cout << RUNelapsedTime << std::endl;
 			getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
-		}else {
+		}
+		else {
 			if (idleStartTime > 30.0f)
 				idleStartTime = 0.1f;
 			//std::cout << RUNelapsedTime << std::endl;
