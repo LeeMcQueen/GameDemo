@@ -1,5 +1,4 @@
-﻿
-#define _CRT_SECURE_NO_DEPRECATE
+﻿#define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 
 #define GLEW_STATIC
@@ -417,7 +416,7 @@ int main() {
 	//实例化加载OBJ
 	OBJLoader objloader;	
 	//主角控制
-	Player player(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	Player player;
 	//加载模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
 	//使用纹理文件名加载纹理
@@ -464,7 +463,6 @@ int main() {
 	glm::mat4 modelMatrix;
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
 	
 
@@ -472,9 +470,9 @@ int main() {
 	while (!glfwWindowShouldClose(window))
 	{
 
-		//transformation
+		//OBJ模型的移动
 		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.0f));
-		//rotation
+		//OBJ模型的旋转
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//加载
@@ -500,9 +498,10 @@ int main() {
 		/* 骨骼模型控制 */
 		float dAngle = 0.1f;
 
+		//移动
 		modelMatrix = glm::translate(modelMatrix, player.getPosition());
-		//modelMatrix = glm::scale(modelMatrix, player.getScale());
-
+		//Z轴旋转
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation()), glm::vec3(0.0f, 0.0f, 1.0f));
 		//modelMatrix = glm::translate(modelMatrix, player.getPosition());
 		//modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		//modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
@@ -514,13 +513,13 @@ int main() {
 		
 		idleStartTime = idleStartTime + displayManager.getDeltaTime();
 
-
-		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_T) == GLFW_PRESS) {
+		//骨骼动画控制
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_I) == GLFW_PRESS) {
 			RunStartTime = RunStartTime + displayManager.getDeltaTime();
 			if (RunStartTime > RunEndTime)
 				RunStartTime = 865.0f;
 			//std::cout << RUNelapsedTime << std::endl;
-			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+			getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		}else {
 			if (idleStartTime > 30.0f)
 				idleStartTime = 0.1f;

@@ -1,14 +1,14 @@
 ﻿#pragma once
 
+#include <map>
+#include <vector>
+
 #include "StaticShader.h"
 #include "EntityRenderer.h"
 #include "TerrainRenderer.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Camera.h"
-
-#include <map>
-#include <vector>
 
 class MasterRenderer{
 

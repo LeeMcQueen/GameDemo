@@ -1,12 +1,12 @@
-﻿#include "Loader.h"
-#include "ShaderProgram.h"
-#include "lodepng.h"
-#define STB_IMAGE_IMPLEMENTATION
-
-#include <iostream>
+﻿#include <iostream>
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include "Loader.h"
+#include "ShaderProgram.h"
+#include "lodepng.h"
+#define STB_IMAGE_IMPLEMENTATION
 
 using namespace std;
 

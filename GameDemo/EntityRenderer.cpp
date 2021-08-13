@@ -1,13 +1,13 @@
-﻿#include "EntityRenderer.h"
+﻿#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include "EntityRenderer.h"
 #include "RawModel.h"
 #include "TexturedModel.h"
 #include "Maths.h"
 #include "DisplayManager.h"
 #include "MasterRenderer.h"
-
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 EntityRenderer::EntityRenderer(StaticShader &shader, glm::mat4 &projectionMatrix)
 	:shader_(shader) {

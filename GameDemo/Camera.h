@@ -1,7 +1,8 @@
 #pragma once
 
-#include <GLFW\glfw3.h>
 #include <gtx\transform.hpp>
+
+#include "Player.h"
 
 class Camera {
 
@@ -19,6 +20,7 @@ public:
 
 private:
 
+	Player player;
 	//camera position
 	glm::vec3 position;
 	//camera rotation

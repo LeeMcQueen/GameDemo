@@ -1,14 +1,14 @@
 ﻿#pragma once
 
-#include "ShaderProgram.h"
-#include "Camera.h" 
-#include "Maths.h"
-#include "Light.h"
-
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <gtx\transform.hpp>
+
+#include "ShaderProgram.h"
+#include "Camera.h" 
+#include "Maths.h"
+#include "Light.h"
 
 class TerrainShader : public ShaderProgram
 {
