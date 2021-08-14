@@ -19,15 +19,3 @@ glm::mat4 Maths::createTransformationMatrix(glm::vec3 position, glm::vec3 rotati
 	//把位移，旋转，缩放合并成modelMatrix然后传给vertexShader
 	return transformationMatrix * rotationMatrix * scaleMatrix;
 }
-
-//观察矩阵
-glm::mat4 Maths::createViewMatrix(Camera & camera)
-{
-	glm::mat4 view;
-
-	view = glm::rotate(view, glm::radians(camera.getRotation().x), { 1, 0, 0 });
-	view = glm::rotate(view, glm::radians(camera.getRotation().y), { 0, 1, 0 });
-	view = glm::translate(view, -camera.getPosition());
-
-	return view;
-}

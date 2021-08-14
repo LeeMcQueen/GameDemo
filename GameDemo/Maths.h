@@ -11,7 +11,4 @@ class Maths
 public:
 
 	static glm::mat4 createTransformationMatrix(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
-
-	//Not use
-	static glm::mat4 createViewMatrix(Camera& camera);
 };

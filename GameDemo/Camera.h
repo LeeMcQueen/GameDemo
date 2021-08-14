@@ -12,8 +12,9 @@ public:
 	//increase position&rotation into view(camera)Matrix
 	void move();
 
+	//观察矩阵函数
 	glm::mat4 getViewMatrix() const;
-	//get camera position
+	//相机位置的get函数
 	glm::vec3 getPosition() const;
 	//get camera rotation
 	glm::vec3 getRotation() const;
@@ -34,7 +35,9 @@ private:
 
 	//相机到主角远近移动函数
 	void calclateZoom();
-	//相机围绕主角旋转函数
+	//相机高低调整函数
 	void calculatePitch();
+	//相机围绕主角函数
+	void calculateAngleAoundPlayer();
 };
 
