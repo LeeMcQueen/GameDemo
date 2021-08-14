@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+
 #include "Player.h"
 
 const float RUN_SPEED = 0.5f;
@@ -24,20 +25,20 @@ void Player::move() {
 }
 
 void Player::checkInputs() {
-	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_I) == GLFW_PRESS) {
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS) {
 		currentSpeed_ = -RUN_SPEED;
 	}
-	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_K) == GLFW_PRESS) {
+	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
 		currentSpeed_ = RUN_SPEED;
 	}
 	else {
 		currentSpeed_ = 0.0f;
 	}
 
-	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_L) == GLFW_PRESS) {
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_A) == GLFW_PRESS) {
 		currentTurnSpeed_ = -TURN_SPEED;
 	}
-	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_J) == GLFW_PRESS) {
+	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS) {
 		currentTurnSpeed_ = TURN_SPEED;
 	}
 	else {
@@ -52,7 +53,9 @@ void Player::translate(float dx, float dy, float dz) {
 }
 
 void Player::rotation(float rx, float ry, float rz) {
-
+	rotation_.x = rx;
+	rotation_.y = ry;
+	rotation_.z = rz;
 }
 
 

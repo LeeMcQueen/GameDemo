@@ -1,21 +1,13 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
   Camera.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-Camera.cpp(17): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(21): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(25): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(29): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(52): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(56): warning C4305: “-=”: 从“double”到“float”截断
-  DisplayManager.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+Camera.cpp(54): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(58): warning C4305: “-=”: 从“double”到“float”截断
   EntityRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   MasterRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   Maths.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  Player.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   StaticShader.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据

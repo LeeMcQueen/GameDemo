@@ -433,7 +433,6 @@ int main() {
 	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
 
 	Terrain terrain = Terrain(0, 1, loader, terrainTexturePack, blendMap);
-	Terrain terrain2 = Terrain(-1, -1, loader, terrainTexturePack, blendMap);
 
 	/* 布料模拟 */
 	//布料绘制
@@ -464,7 +463,6 @@ int main() {
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//加载
-		masterRenderer.processTerrain(terrain2);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
@@ -473,6 +471,7 @@ int main() {
 		camera.move();
 		player.move();
 
+		//------------------------------cloth sim start------------------------
 		/* 布料 */
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
@@ -481,18 +480,14 @@ int main() {
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
+		//------------------------------cloth sim end--------------------------
 
 		//------------------------------skeleton animation start------------------------
-		/* 骨骼模型控制 */
-		float dAngle = 0.1f;
 
 		//移动
 		modelMatrix = glm::translate(modelMatrix, player.getPosition());
 		//Z轴旋转
 		modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
-		//modelMatrix = glm::translate(modelMatrix, player.getPosition());
-		//modelMatrix = glm::rotate(modelMatrix, glm::radians(270.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		//modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
 
 		//(32010 / 30)
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
@@ -502,7 +497,7 @@ int main() {
 		idleStartTime = idleStartTime + displayManager.getDeltaTime();
 
 		//骨骼动画控制
-		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_I) == GLFW_PRESS) {
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS) {
 			RunStartTime = RunStartTime + displayManager.getDeltaTime();
 			if (RunStartTime > RunEndTime)
 				RunStartTime = 865.0f;

@@ -22,16 +22,19 @@ private:
 
 	//主角类(主角位置，旋转，缩放)
 	Player player_;
-	//camera position
+	//相机位置
 	glm::vec3 position_;
-	//camera rotation
+	//相机旋转
 	glm::vec3 rotation_;
 	//相机和主角的距离
 	float distanceFromPlayer_;
 	//相机围绕主角的角度
 	float angleAroundPlayer_;
 
-	void calclateZoom();
 
+	//相机到主角远近移动函数
+	void calclateZoom();
+	//相机围绕主角旋转函数
+	void calculatePitch();
 };
 
