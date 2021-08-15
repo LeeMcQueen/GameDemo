@@ -10,7 +10,7 @@ public:
 	Camera(Player &player);
 
 	//increase position&rotation into view(camera)Matrix
-	void move();
+	void move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 	//观察矩阵函数
 	glm::mat4 getViewMatrix() const;
@@ -18,6 +18,8 @@ public:
 	glm::vec3 getPosition() const;
 	//相机旋转的get函数
 	glm::vec3 getRotation() const;
+	//设定相机position
+	void setPosition(glm::vec3 position) { position_ = position; }
 
 private:
 
@@ -44,7 +46,7 @@ private:
 	//主角相机高度距离
 	float calculateVerticalDistance();
 	//相机位置
-	void calculateCameraPosition(float horizDistance, float verticDistance);
+	void calculateCameraPosition(float horizDistance, float verticDistance, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 };
 

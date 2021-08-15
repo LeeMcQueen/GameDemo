@@ -11,15 +11,14 @@ float UPDOWN_SPEED = 1.0f;
 float TURN_SPEED = 5.0f;
 
 Camera::Camera(Player &player)
-	:position_(glm::vec3(0, 20, 50)),
+	:position_(glm::vec3(0.0f, 20.0f, 70.0f)),
 	rotation_(glm::vec3(45.0f, 0.0f, 0.0f)),
 	player_(player),
 	distanceFromPlayer_(50.0f),
 	angleAroundPlayer_(0.0f) {}
 
-void Camera::move()
+void Camera::move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 {
-
 	calclateZoom();
 	calculatePitch();
 	calculateAngleAoundPlayer();
@@ -27,7 +26,7 @@ void Camera::move()
 	float horizontaDistance = calculateHorizontaDistance();
 	float verticalDistance = calculateVerticalDistance();
 
-	calculateCameraPosition(horizontaDistance, verticalDistance);
+	calculateCameraPosition(horizontaDistance, verticalDistance, position, rotation, scale);
 	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 	//{
 	//	position_.z -= 1.2;
@@ -119,35 +118,43 @@ float Camera::calculateVerticalDistance(){
 	return distanceFromPlayer_ * std::sin(glm::radians(rotation_.x));
 }
 
-void Camera::calculateCameraPosition(float horizDistance, float verticDistance){
+void Camera::calculateCameraPosition(float horizDistance, float verticDistance, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale){
 
 	float theta = player_.getRotation().z + rotation_.y;
 
 	float xOffset = horizDistance * std::sin(glm::radians(theta));
 	float zOffset = horizDistance * std::cos(glm::radians(theta));
 
-	//position_.x = player_.getPosition().x - xOffset;
-	//position_.y = player_.getPosition().y - zOffset;
-	//position_.z = player_.getPosition().y + verticDistance + 5.0f;
+	//position.x = position.x - xOffset;
+	//position.y = position.y - zOffset;
+	//position.z = position.y + verticDistance + 5.0f;
 
-	std::cout << "player.x" << player_.getPosition().x << std::endl;
-	std::cout << "player.y" << player_.getPosition().y << std::endl;
-	std::cout << "player.z" << player_.getPosition().z << std::endl;
+	setPosition(position);
+
+	//std::cout << "player.x" << position.x << std::endl;
+	//std::cout << "player.y" << position.y << std::endl;
+	//std::cout << "player.z" << position.z << std::endl;
+
+	//std::cout << "camera.x" << position_.x << std::endl;
+	//std::cout << "camera.y" << position_.y << std::endl;
+	//std::cout << "camera.z" << position_.z << std::endl;
 }
 
 //观察矩阵函数
 glm::mat4 Camera::getViewMatrix() const {
 
-	///*方案2 相机函数*/
-	glm::mat4 view;
+	/*方案2 相机函数*/
+	//glm::mat4 view;
 
-	view = glm::rotate(view, glm::radians(rotation_.x), { 1, 0, 0 });
-	view = glm::rotate(view, glm::radians(rotation_.y), { 0, 1, 0 });
-	view = glm::translate(view, -position_);
+	//view = glm::rotate(view, glm::radians(rotation_.x), { 1, 0, 0 });
+	//view = glm::rotate(view, glm::radians(rotation_.y), { 0, 1, 0 });
+	//view = glm::translate(view, -position_);
 
-	return view;
+	//return view;
+
 	/*方案1 相机函数*/
-	//return glm::lookAt(position_, position_ + glm::vec3(0, -3.0f, -3.0f), glm::vec3(0, 1.0f, 0));
+	//相机位置 目标位置 相机上方向
+	return glm::lookAt(position_ + glm::vec3(0.0f, 30.0f, 40.0f), position_, glm::vec3(0, 1.0f, 0));
 }
 
 glm::vec3 Camera::getPosition() const {

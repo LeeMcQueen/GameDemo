@@ -95,7 +95,7 @@ void Loader::bindIndicesBuffer(int *indices, int &count) {
 GLuint Loader::loadTexture(const char *fileName) {
 
 	unsigned error;
-	unsigned char* image;
+	unsigned char *image;
 	unsigned int width, height;
 
 	//Load image using lodepng
@@ -119,7 +119,9 @@ GLuint Loader::loadTexture(const char *fileName) {
 
 	//basic
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	//opengl的minimap，远处的物体的纹理质量低
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.1f);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 

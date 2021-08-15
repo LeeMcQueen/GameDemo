@@ -110,8 +110,8 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(30.0f, 40.0f, 30.0f);
-Vec2 clothSize(3, 7);
+Vec3 clothPos(30.0f, 15.0f, 30.0f);
+Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
 //地面变数
@@ -425,7 +425,7 @@ int main() {
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 
-	//加载地面
+	//加载地面 混合纹理
 	TerrainTexture backgroundTexture = TerrainTexture(loader.loadTexture("grassy2"));
 	TerrainTexture rTexture = TerrainTexture(loader.loadTexture("dirt"));
 	TerrainTexture gTexture = TerrainTexture(loader.loadTexture("pinkFlowers"));
@@ -434,6 +434,7 @@ int main() {
 		backgroundTexture, rTexture, gTexture, bTexture);
 	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
 
+	//地面类初始化
 	Terrain terrain = Terrain(0, 1, loader, terrainTexturePack, blendMap);
 
 	/* 布料模拟 */
@@ -467,9 +468,9 @@ int main() {
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
 		player.move();
+		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 		//刷新主角位置
-		Camera camera(player);
-		camera.move();
+
 
 		//------------------------------cloth sim start------------------------
 		/* 布料 */
@@ -486,13 +487,7 @@ int main() {
 		//移动
 		modelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
-		//Z轴旋转adddda
-		//modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
-		//std::cout << "getRotation.x" << player.getRotation().x << std::endl;
-		//std::cout << "getRotation.y" << player.getRotation().y << std::endl;
-		//std::cout << "getRotation.z" << player.getRotation().z << std::endl;
-
-		//(32010 / 30)
+		//得到游戏每循坏一次所需时间(32010 / 30)
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
 		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
@@ -513,6 +508,7 @@ int main() {
 			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		}
 
+		//骨骼动画shader传值
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));

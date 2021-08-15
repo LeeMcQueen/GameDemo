@@ -3,10 +3,23 @@
 Terrain::Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap)
 	:terrainTexturePack_(terrainTexturePack),
 	blendMap_(blendMap),
-	rawModel_(generateTerrain(loader)){}
+	rawModel_(generateTerrain(loader, "heightmap")){}
 
-RawModel Terrain::generateTerrain(Loader& loader)
+RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 {
+	unsigned error;
+	unsigned char *image;
+	unsigned int width, height;
+	error = lodepng_decode32_file(&image, &width, &height, ("res/" + heightMap + ".png").c_str());
+	if (error) {
+		std::cout << "ERROR: [TextureLoader::loadTexture] Cannot load texture" << heightMap << "!" << std::endl;
+		exit(-1);
+	}
+
+	std::cout << "INFO: [TextureLoader::loadTexture] x:" << width << "!" << std::endl;
+	std::cout << "INFO: [TextureLoader::loadTexture] y:" << height << "!" << std::endl;
+	std::cout << "INFO: [TextureLoader::loadTexture] texture:" << heightMap << "!" << std::endl;
+
 	int count = VERTEX_COUNT * VERTEX_COUNT;
 
 	std::vector<glm::vec3> vertices(count), normals(count);
@@ -51,6 +64,10 @@ RawModel Terrain::generateTerrain(Loader& loader)
 		}
 	}
 	return loader.loadToVao(vertices, textureCoords, normals, indices);
+}
+
+void Terrain::getHeight(int x, int z, char * image)
+{
 }
 
 Terrain::~Terrain()
