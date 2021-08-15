@@ -2,26 +2,29 @@
 
 #include "Player.h"
 
-const float RUN_SPEED = 0.5f;
+const float RUN_SPEED = 1.0f;
 const float TURN_SPEED = 5.0f;
+
+Player::Player(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
+	position_(position),
+	rotation_(rotation),
+	scale_(scale) {};
 
 void Player::move() {
 
 	//键盘控制
 	checkInputs();
+	
+	//TODO调用真正游戏运行时间
+	rotation(0.0f, 0.0f, -currentTurnSpeed_ * 0.5f);
+	
+	//sin(θ) = x/distance cos(θ) = z/distance
+	//TODO调用真正游戏运行时间
+	float distance = currentSpeed_ * 0.5f;
+	float deltaX = distance * std::sin(glm::radians(getRotation().z));
+	float deltaZ = distance * std::cos(glm::radians(getRotation().z));
 
-	DisplayManager displayManager;
-	float deltaTime = displayManager.getCurrentFrameTime();
-
-	rotation_.z = currentTurnSpeed_;
-	rotation(0.0f, 0.0f, rotation_.z);
-
-	//sin(θ) = x/distance cos(θ) = z/distance 
-	float distance = currentSpeed_ * RUN_SPEED;
-	float deltaX = distance * std::sin(glm::radians(currentTurnSpeed_));
-	float deltaY = distance * std::cos(glm::radians(currentTurnSpeed_));
-
-	translate(deltaX, deltaY, 0.0f);
+	translate(-deltaX, 0.0f, -deltaZ);
 }
 
 void Player::checkInputs() {
@@ -47,15 +50,15 @@ void Player::checkInputs() {
 }
 
 void Player::translate(float dx, float dy, float dz) {
-	position_.x = dx;
-	position_.y = dy;
-	position_.z = dz;
+	position_.x += dx;
+	position_.y += dy;
+	position_.z += dz;
 }
 
 void Player::rotation(float rx, float ry, float rz) {
-	rotation_.x = rx;
-	rotation_.y = ry;
-	rotation_.z = rz;
+	rotation_.x += rx;
+	rotation_.y += ry;
+	rotation_.z += rz;
 }
 
 

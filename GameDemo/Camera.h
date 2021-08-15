@@ -7,7 +7,7 @@
 class Camera {
 
 public:
-	Camera(Player player);
+	Camera(Player &player);
 
 	//increase position&rotation into view(camera)Matrix
 	void move();
@@ -16,7 +16,7 @@ public:
 	glm::mat4 getViewMatrix() const;
 	//相机位置的get函数
 	glm::vec3 getPosition() const;
-	//get camera rotation
+	//相机旋转的get函数
 	glm::vec3 getRotation() const;
 
 private:
@@ -39,5 +39,12 @@ private:
 	void calculatePitch();
 	//相机围绕主角函数
 	void calculateAngleAoundPlayer();
+	//主角相机水平距离
+	float calculateHorizontaDistance();
+	//主角相机高度距离
+	float calculateVerticalDistance();
+	//相机位置
+	void calculateCameraPosition(float horizDistance, float verticDistance);
+
 };
 

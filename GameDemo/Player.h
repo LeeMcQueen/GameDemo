@@ -7,7 +7,7 @@
 class Player {
 
 public:
-	Player() {};
+	Player(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 	void move();
 	void checkInputs();
@@ -22,10 +22,8 @@ private:
 
 	//角色位置
 	glm::vec3 position_;
-
 	//角色旋转
 	glm::vec3 rotation_;
-
 	//大小缩放
 	glm::vec3 scale_;
 

@@ -33,6 +33,7 @@
 #include "TerrainTexture.h"
 #include "TerrainTexturePack.h"
 #include "Player.h"
+#include "Maths.h"
 
 #include "Vertex.h"
 #include "Bone.h"
@@ -109,9 +110,10 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(-30.0f, 20.0f, 0.0f);
+Vec3 clothPos(30.0f, 40.0f, 30.0f);
 Vec2 clothSize(3, 7);
 Cloth cloth(clothPos, clothSize);
+//TODO
 //地面变数
 //球变数
 //重力
@@ -397,7 +399,7 @@ int main() {
 	//实例化加载工具
 	Loader loader;
 	//主角控制
-	Player player;
+	Player player(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
 	//实例化相机
 	Camera camera(player);
 	//实例化渲染器
@@ -448,10 +450,6 @@ int main() {
 	float idleEndTime = 0.0f;
 	/** 骨骼模型位置，旋转，大小 **/
 	glm::mat4 modelMatrix;
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
-
 
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
@@ -468,8 +466,10 @@ int main() {
 		masterRenderer.processEntity(fern);
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
-		camera.move();
 		player.move();
+		//刷新主角位置
+		Camera camera(player);
+		camera.move();
 
 		//------------------------------cloth sim start------------------------
 		/* 布料 */
@@ -483,19 +483,21 @@ int main() {
 		//------------------------------cloth sim end--------------------------
 
 		//------------------------------skeleton animation start------------------------
-
 		//移动
-		modelMatrix = glm::translate(modelMatrix, player.getPosition());
-		//Z轴旋转
-		modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
+
+		//Z轴旋转adddda
+		//modelMatrix = glm::rotate(modelMatrix, glm::radians(player.getRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
+		//std::cout << "getRotation.x" << player.getRotation().x << std::endl;
+		//std::cout << "getRotation.y" << player.getRotation().y << std::endl;
+		//std::cout << "getRotation.z" << player.getRotation().z << std::endl;
 
 		//(32010 / 30)
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
 		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
-
 		idleStartTime = idleStartTime + displayManager.getDeltaTime();
-
+		
 		//骨骼动画控制
 		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS) {
 			RunStartTime = RunStartTime + displayManager.getDeltaTime();
