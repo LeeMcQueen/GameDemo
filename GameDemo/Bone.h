@@ -20,7 +20,7 @@ public:
 	glm::mat4 getOffset() const { return offset_; }
 	
 	unsigned int Id_;
-
+	//œé–¼Ì
 	std::string name_;
 	//qœé
 	std::vector<Bone> children_;

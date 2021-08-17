@@ -15,7 +15,7 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 	//顶点类
 	Vertex vertex;
 	//通过ReadFile函数得到Scene
-	const aiScene *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+	const aiScene *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	//Assimp加载成功判定
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
@@ -87,6 +87,8 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	boneCounts.resize(verticesOutput.size(), 0);
 	//得到模型的总骨骼数
 	nBoneCount = mesh->mNumBones;
+
+	std::cout << "loadModel() nBoneCount" << nBoneCount << std::endl;
 
 	//循环骨骼数量得到()
 	for (unsigned int i = 0; i < nBoneCount; i++) {
@@ -166,6 +168,8 @@ bool AnimaModelLoader::readSkeleton(Bone &boneOutput, aiNode *node, std::unorder
 		boneOutput.setId(boneInfoTable[boneOutput.getName()].first);
 		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
 
+		std::cout << "readSkeleton() bone = " << boneOutput.name_ << std::endl;
+
 		for (int i = 0; i < node->mNumChildren; i++) {
 			Bone child;
 			readSkeleton(child, node->mChildren[i], boneInfoTable);
@@ -217,6 +221,6 @@ void AnimaModelLoader::loadAnimation(const aiScene *scene, Animation &animation)
 			track.scales_.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
 		}
 		animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
-		//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+		std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 	}
 };

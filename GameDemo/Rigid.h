@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <math.h>
 
@@ -177,20 +177,27 @@ public:
 
 struct Ball
 {
-    Vec3 center;
-    int radius;
-    glm::vec4 color;
-    const double friction = 0.8;
-    
-    Sphere* sphere;
-    
-    Ball(Vec3 cen, int r, glm::vec4 c)
-    {
-        center = cen;
-        radius = r;
-        color = c;
-        
-        sphere = new Sphere(radius);
-    }
-    ~Ball() {}
+	//球的中心点
+	Vec3 center;
+	//球的半径
+	int radius;
+	//球的颜色
+	glm::vec4 color;
+	//球的阻力
+	const double friction = 0.8;
+
+	//球体类的实例化
+	Sphere* sphere;
+
+	//球类的构造函数
+	Ball(Vec3 cen, int r, glm::vec4 c)
+	{
+		center = cen;
+		radius = r;
+		color = c;
+
+		//球体类 参数是半径
+		sphere = new Sphere(radius);
+	}
+	~Ball() {}
 };

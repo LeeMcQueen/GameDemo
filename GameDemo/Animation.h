@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <unordered_map>
 
@@ -18,7 +18,10 @@ public:
 	float getTicksPerSecond() const { return ticksPerSecond_; }
 	std::unordered_map<std::string, BoneTransformTrack> getTicksperSecond() const { return boneTransforms_; }
 
+	//动画时间
 	float duration_;
+	//时间单位
 	float ticksPerSecond_ = 1.0f;
+	//动画序列map
 	std::unordered_map<std::string, BoneTransformTrack> boneTransforms_;
 };

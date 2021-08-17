@@ -39,13 +39,10 @@ private:
 
 	//Entity position
 	glm::vec3 position_;
-
 	//Entity rotation
 	glm::vec3 rotation_;
-
 	//scale value
 	glm::vec3 scale_;
-
 	//Entity texture
 	TexturedModel model_;
 };

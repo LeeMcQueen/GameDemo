@@ -194,11 +194,11 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 						outTrack.setScale(item.getScales());
 					}
 				}
-				//std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
+				std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
 				animation.boneTransforms_[assimpFbxStr] = outTrack;
 			}
 			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
-			//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+			std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 			/* 多重动画修复 */
 		}
 	}
@@ -399,7 +399,7 @@ int main() {
 	//实例化加载工具
 	Loader loader;
 	//主角控制
-	Player player(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
+	Player player(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(4.0f, 4.0f, 4.0f));
 	//实例化相机
 	Camera camera(player);
 	//实例化渲染器

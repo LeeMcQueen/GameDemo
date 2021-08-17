@@ -29,7 +29,6 @@ private:
 
 	//现在速度
 	float currentSpeed_;
-
 	//现在转向速度
 	float currentTurnSpeed_;
 };

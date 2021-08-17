@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 
@@ -50,7 +50,7 @@ public:
 	}
 
 public:
-	//����
+	//根据
 	Node* getNode(int x, int y) { return nodes[y*nodesPerRow + x]; }
 
 	Vec3 computeFaceNormal(Node* n1, Node* n2, Node* n3)
@@ -93,7 +93,7 @@ public:
 				/** Add node to cloth **/
 				nodes.push_back(node);
 
-				printf("\t[%d, %d] (%f, %f, %f) - (%f, %f)\n", i, j, node->position.x, node->position.y, node->position.z, node->texCoord.x, node->texCoord.y);
+				//printf("\t[%d, %d] (%f, %f, %f) - (%f, %f)\n", i, j, node->position.x, node->position.y, node->position.z, node->texCoord.x, node->texCoord.y);
 			}
 			std::cout << std::endl;
 		}
@@ -195,20 +195,27 @@ public:
 
 	void collisionResponse(Ground* ground, Ball* ball)
 	{
+		//循环布料的全部节点List
 		for (int i = 0; i < nodes.size(); i++)
 		{
-			/** Ground collision **/
+			/** 地面碰撞 **/
+			//节点的高度小于地面的高度就抬高
 			if (getWorldPos(nodes[i]).y < ground->position.y) {
 				nodes[i]->position.y = ground->position.y - clothPos.y + 0.01;
+				//节点的速度 = 节点的速度 * 地面的阻力
 				nodes[i]->velocity = nodes[i]->velocity * ground->friction;
 			}
 
-			/** Ball collision **/
+			/** 球体碰撞 **/
+			//节点到球体的距离
 			Vec3 distVec = getWorldPos(nodes[i]) - ball->center;
+			//计算距离
 			double distLen = distVec.length();
+			//最小安全距离（是球半径的1.05倍）
 			double safeDist = ball->radius*1.05;
 			if (distLen < safeDist) {
 				distVec.normalize();
+				//超过安全距离的节点进行位置set
 				setWorldPos(nodes[i], distVec*safeDist + ball->center);
 				nodes[i]->velocity = nodes[i]->velocity*ball->friction;
 			}
