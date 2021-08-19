@@ -101,7 +101,7 @@ GLuint Loader::loadTexture(const char *fileName) {
 	//Load image using lodepng
 	error = lodepng_decode32_file(&image, &width, &height, ("res/" + string(fileName) + ".png").c_str());
 	//check load image
-	if (error){
+	if (error) {
 		cerr << "ERROR: [TextureLoader::loadTexture] Cannot load texture" << fileName << "!" << endl;
 		exit(-1);
 	}
@@ -110,25 +110,27 @@ GLuint Loader::loadTexture(const char *fileName) {
 	cerr << "INFO: [TextureLoader::loadTexture] y:" << height << "!" << endl;
 	cerr << "INFO: [TextureLoader::loadTexture] texture:" << fileName << "!" << endl;
 
-	//check
-	//Generate texture
+	//纹理贴图标识
 	GLuint texture[1];
-	//Generate and bind a OpenGL texture
+	//生成纹理 指定纹理数量是1和纹理标识
 	glGenTextures(1, texture);
+	//绑定纹理对象 指定2D纹理和纹理标识
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 
-	//basic
+	//设置纹理贴图收缩和扩展的过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	//opengl的minimap，远处的物体的纹理质量低
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.1f);
+	//设置S，T坐标上的纹理表现形式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	//生成Mip层
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	//Store the buffer in the list for delet
+	//绑定的纹理对象进行清零
 	glBindTexture(GL_TEXTURE_2D, 0);
 	textures.push_back(texture[0]);
 
