@@ -3,22 +3,14 @@
 Terrain::Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap)
 	:terrainTexturePack_(terrainTexturePack),
 	blendMap_(blendMap),
-	rawModel_(generateTerrain(loader, "heightmap")){}
+	rawModel_(generateTerrain(loader, "heightmap")) {}
 
 RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 {
-	unsigned error;
-	unsigned char *image;
-	unsigned int width, height;
-	error = lodepng_decode32_file(&image, &width, &height, ("res/" + heightMap + ".png").c_str());
-	if (error) {
-		std::cout << "ERROR: [TextureLoader::loadTexture] Cannot load texture" << heightMap << "!" << std::endl;
-		exit(-1);
-	}
+	//_image = stbi_load(("res/" + heightMap + ".png").c_str(), &_width, &_height, &_colorChannels, 0);
+	_image = stbi_load("res/heightmap.png", &_width, &_height, &_colorChannels, 0);
 
-	std::cout << "INFO: [TextureLoader::loadTexture] x:" << width << "!" << std::endl;
-	std::cout << "INFO: [TextureLoader::loadTexture] y:" << height << "!" << std::endl;
-	std::cout << "INFO: [TextureLoader::loadTexture] texture:" << heightMap << "!" << std::endl;
+	VERTEX_COUNT = _height;
 
 	int count = VERTEX_COUNT * VERTEX_COUNT;
 
@@ -66,12 +58,30 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 	return loader.loadToVao(vertices, textureCoords, normals, indices);
 }
 
-void Terrain::getHeight(int x, int z, char * image)
-{
+Terrain::~Terrain() {
+
 }
 
-Terrain::~Terrain()
+float Terrain::getHeight(int x, int z, char *data) {
+	if (x < 0 || x > _height || z < 0 || z > _height) {
+		return 0;
+	}
+
+	float height = getRGBSum(x, z);
+	height /= (MAX_PIXEL_COLOUR / 2);
+	height -= 1.0;
+	height *= MAX_HEIGHT;
+
+	return height;
+}
+
+std::int32_t Terrain::getRGBSum(int x, int y)
 {
+	int addr = (y * _width + x) * _colorChannels;
+	std::int32_t r = _image[addr];
+	std::int32_t g = _image[addr + 1];
+	std::int32_t b = _image[addr + 2];
+	return (r << 16) + (g << 8) + b;
 }
 
 float Terrain::GetX()

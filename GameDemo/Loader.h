@@ -31,7 +31,6 @@ private:
 	std::vector<GLuint> textures;
 
 	void storeDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize);
-
 	void bindIndicesBuffer(int *indices, int &count);
 
 	//解绑VAO

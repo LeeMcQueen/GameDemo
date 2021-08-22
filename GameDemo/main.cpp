@@ -238,7 +238,7 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 unsigned int createTexture(std::string filepath) {
 	unsigned int textureId = 0;
 	int width, height, nrChannels;
-	byte* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 4);
+	byte *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 4);
 	glGenTextures(1, &textureId);
 	glBindTexture(GL_TEXTURE_2D, textureId);
 

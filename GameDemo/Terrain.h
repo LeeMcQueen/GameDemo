@@ -5,7 +5,7 @@
 #include "Loader.h"
 #include "TerrainTexturePack.h"
 #include "TerrainTexture.h"
-#include "lodepng.h"
+#include "std_image.h"
 
 class Terrain
 {
@@ -21,10 +21,14 @@ public:
 
 private:
 	const float SIZE = 800;
-	const float VERTEX_COUNT = 128;
+	float VERTEX_COUNT = 128;
 	const float MAX_HEIGHT = 40.0f;
 	const float MIN_HEIGHT = -40.0f;
 	const float MAX_PIXEL_COLOUR = 256 * 256 * 256;
+
+	//图片的宽，高，通道
+	int _width, _height, _colorChannels;
+	unsigned char *_image;
 
 	float x_;
 	float z_;
@@ -34,6 +38,7 @@ private:
 	TerrainTexture blendMap_;
 	//返回RawModel结构的数组 VAO的ID 顶点的排序
 	RawModel generateTerrain(Loader& loader, std::string heightMap);
-	void getHeight(int x, int z, char *image);
+	float getHeight(int x, int z, char *image);
+	std::int32_t getRGBSum(int x, int y);
 };
 
