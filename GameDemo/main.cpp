@@ -90,7 +90,7 @@ const char* fragmentShaderSource = R"(
 	in vec4 bw;
 	out vec4 color;
 	uniform sampler2D diff_texture;
-	vec3 lightPos = vec3(5.2, 55.0, 13.0);
+	vec3 lightPos = vec3(20.0, 55.0, 13.0);
 	
 	void main()
 	{
@@ -365,7 +365,7 @@ int main() {
 	Vertex vertex;
 	//实例化加载Assimp
 	AnimaModelLoader animaModelLoader;
-	animaModelLoader.loadAssimpScene("res/boss_lan.FBX");
+	animaModelLoader.loadAssimpScene("res/warhummer.FBX");
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
@@ -399,7 +399,7 @@ int main() {
 	//实例化加载工具
 	Loader loader;
 	//主角控制
-	Player player(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(4.0f, 4.0f, 4.0f));
+	Player player(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
 	Camera camera(player);
 	//实例化渲染器
@@ -420,7 +420,7 @@ int main() {
 
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(2, 2, 2));
+	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -447,8 +447,8 @@ int main() {
 	/** 骨骼模型开始时间 **/
 	float RunStartTime = 865.0f;
 	float RunEndTime = 888.0f;
-	float idleStartTime = 0.1f;
-	float idleEndTime = 0.0f;
+	float idleStartTime = 805.0f;
+	float idleEndTime = 856.0f;
 	/** 骨骼模型位置，旋转，大小 **/
 	glm::mat4 modelMatrix;
 
@@ -502,8 +502,8 @@ int main() {
 			getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		}
 		else {
-			if (idleStartTime > 30.0f)
-				idleStartTime = 0.1f;
+			if (idleStartTime > idleEndTime)
+				idleStartTime = 805.0f;
 			//std::cout << RUNelapsedTime << std::endl;
 			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		}
