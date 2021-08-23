@@ -25,7 +25,7 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 		{
 			vertices[vertexPointer] = glm::vec3(
 				(float)j / ((float)VERTEX_COUNT - 1) * SIZE,
-				0,
+				getHeight(j, i, _image),
 				(float)i / ((float)VERTEX_COUNT - 1) * SIZE);
 
 			normals[vertexPointer] = glm::vec3(0, 1, 0);
@@ -62,7 +62,7 @@ Terrain::~Terrain() {
 
 }
 
-float Terrain::getHeight(int x, int z, char *data) {
+float Terrain::getHeight(int x, int z, unsigned char *data) {
 	if (x < 0 || x > _height || z < 0 || z > _height) {
 		return 0;
 	}
