@@ -28,7 +28,7 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 				getHeight(j, i, _image),
 				(float)i / ((float)VERTEX_COUNT - 1) * SIZE);
 
-			normals[vertexPointer] = glm::vec3(0, 1, 0);
+			normals[vertexPointer] = calculateNormal(j, i, _image);
 
 			textureCoords[vertexPointer] = glm::vec2(
 				(float)j / ((float)VERTEX_COUNT - 1),
@@ -73,6 +73,22 @@ float Terrain::getHeight(int x, int z, unsigned char *data) {
 	height *= MAX_HEIGHT;
 
 	return height;
+}
+
+glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image)
+{
+	float heightL = getHeight(x - 1, z, image);
+	float heightR = getHeight(x + 1, z, image);
+	float heightD = getHeight(x, z - 1, image);
+	float heightU = getHeight(x, z + 1, image);
+	glm::vec3 normal = {
+		heightL - heightR,
+		2.f,
+		heightD - heightU
+	};
+
+	normal = glm::normalize(normal);
+	return normal;
 }
 
 std::int32_t Terrain::getRGBSum(int x, int y)

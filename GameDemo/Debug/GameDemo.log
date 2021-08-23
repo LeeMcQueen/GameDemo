@@ -1,4 +1,17 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
+  EntityRenderer.cpp
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  MasterRenderer.cpp
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  Terrain.cpp
+Terrain.cpp(13): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+Terrain.cpp(15): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(19): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+Terrain.cpp(46): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(48): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(70): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+  TerrainRenderer.cpp
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   main.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
@@ -42,5 +55,6 @@ main.cpp(162): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(163): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(182): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(408): warning C4101: “objloader”: 未引用的局部变量
+  正在生成代码...
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

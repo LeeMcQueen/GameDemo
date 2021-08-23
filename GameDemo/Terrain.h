@@ -39,6 +39,7 @@ private:
 	//返回RawModel结构的数组 VAO的ID 顶点的排序
 	RawModel generateTerrain(Loader& loader, std::string heightMap);
 	float getHeight(int x, int z, unsigned char *image);
+	glm::vec3 calculateNormal(int x, int z, unsigned char *image);
 	std::int32_t getRGBSum(int x, int y);
 };
 
