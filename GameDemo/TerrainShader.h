@@ -10,8 +10,8 @@
 #include "Maths.h"
 #include "Light.h"
 
-class TerrainShader : public ShaderProgram
-{
+class TerrainShader : public ShaderProgram{
+
 public:
 
 	TerrainShader();
