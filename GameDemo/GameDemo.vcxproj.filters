@@ -70,6 +70,12 @@
     <Filter Include="头文件\MassSpringSim">
       <UniqueIdentifier>{b9d232b7-62f7-4897-a33f-b0c42c9cc7c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\water">
+      <UniqueIdentifier>{57a795f3-527c-48a1-85e0-b13a0678176d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\water">
+      <UniqueIdentifier>{cb23092d-bc32-4528-bb2e-4359ef27181b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -128,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>源文件\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterRenderer.cpp">
+      <Filter>源文件\water</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterShader.cpp">
+      <Filter>源文件\water</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +247,12 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>头文件\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterRenderer.h">
+      <Filter>头文件\water</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterShader.h">
+      <Filter>头文件\water</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

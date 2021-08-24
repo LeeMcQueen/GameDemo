@@ -26,22 +26,16 @@ public:
 
 	//load transformationMatrix to shader program
 	void loadTransformationMatrix(glm::mat4 matrix);
-
 	//load projectionMatrix to shader program
 	void loadProjectionMatrix(glm::mat4 matrix);
-
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
-
 	//load light to shader program
 	void loadLight(Light light);
-
 	//load ShineDamper reflectivity to program
 	void loadShineVariables(float shineDamper, float reflectivity);
-
 	//shader的使用假光源接口
 	void loadUserFakeLighting(bool useFake);
-
 	//shader天空颜色接口
 	void loadSkyColour(float r, float g, float b);
 
@@ -49,7 +43,6 @@ protected:
 
 	//bind VAO attribules
 	void bindAttributes() override;
-
 	//get all uniform locations
 	void getAllUniformLocations() override;
 

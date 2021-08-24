@@ -17,26 +17,21 @@ public:
 	TerrainShader();
 
 	//VertexShader file name
-	static const char* VERTEX_FILE;
+	static const char *VERTEX_FILE;
 
 	//FragmentShader file name
-	static const char* FRAGMENT_FILE;
+	static const char *FRAGMENT_FILE;
 
 	//load transformationMatrix to shader program
 	void loadTransformationMatrix(glm::mat4 matrix);
-
 	//load projectionMatrix to shader program
 	void loadProjectionMatrix(glm::mat4 matrix);
-
 	//加载纹理集合
 	void loadconnectTextureUnits();
-
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
-
 	//load light to shader program
 	void loadLight(Light light);
-
 	//load ShineDamper reflectivity to program
 	void loadShineVariables(float shineDamper, float reflectivity);
 
@@ -44,7 +39,6 @@ protected:
 
 	//bind VAO attribules
 	void bindAttributes() override;
-
 	//get all uniform locations
 	void getAllUniformLocations() override;
 

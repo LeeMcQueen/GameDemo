@@ -35,12 +35,10 @@ protected:
 	GLuint getUniformLocation(const char* uniformName);
 	//interface get all uniform location
 	virtual void getAllUniformLocations() = 0;
-
 	//bind VAO attribute id to shader variable name
 	void bindAttribute(GLint attribute, const char* variableName);
 	//interface. bind VAO attributes
 	virtual void bindAttributes() = 0;
-
 	//load float into uniform by location
 	void loadFloat(GLuint location, float value);
 	//加载正数(int)的uniform

@@ -155,6 +155,8 @@
     <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
+    <ClCompile Include="WaterRenderer.cpp" />
+    <ClCompile Include="WaterShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimaModelLoader.h" />
@@ -192,6 +194,8 @@
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Vectors.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="WaterRenderer.h" />
+    <ClInclude Include="WaterShader.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt" />
