@@ -254,6 +254,9 @@
     <ClInclude Include="WaterShader.h">
       <Filter>头文件\water</Filter>
     </ClInclude>
+    <ClInclude Include="WaterTile.h">
+      <Filter>头文件\water</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexShader.txt">
@@ -266,6 +269,12 @@
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="fragmentShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="waterFragmentShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="waterVertexShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
   </ItemGroup>

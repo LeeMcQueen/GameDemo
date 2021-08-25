@@ -58,7 +58,7 @@ const char* vertexShaderSource = R"(
 	out vec3 v_normal;
 	out vec3 v_pos;
 	out vec4 bw;
-	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]测试
+	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]
 	//uniform mat4 view_projection_matrix;
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
@@ -494,7 +494,7 @@ int main() {
 		idleStartTime = idleStartTime + displayManager.getDeltaTime();
 		
 		//骨骼动画控制
-		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS) {
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
 			RunStartTime = RunStartTime + displayManager.getDeltaTime();
 			if (RunStartTime > RunEndTime)
 				RunStartTime = 865.0f;

@@ -13,12 +13,12 @@ public:
 
 private:
 
-	//Get shader information
-	TerrainShader terrainShader_;
-
 	void prepareTerrain(Terrain &terrain);
 	void prepareInstance(Terrain &terrain);
 	void bindTexture(Terrain &terrain);
 	void unbindTextureModel();
+
+	//Get shader information
+	TerrainShader terrainShader_;
 };
 

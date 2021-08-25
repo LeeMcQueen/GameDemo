@@ -196,12 +196,15 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WaterRenderer.h" />
     <ClInclude Include="WaterShader.h" />
+    <ClInclude Include="WaterTile.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragmentShader.txt" />
     <Text Include="terrainFragmentShader.txt" />
     <Text Include="terrainVertexShader.txt" />
+    <Text Include="waterFragmentShader.txt" />
     <Text Include="vertexShader.txt" />
+    <Text Include="waterVertexShader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
