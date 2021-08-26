@@ -100,17 +100,17 @@ std::int32_t Terrain::getRGBSum(int x, int y)
 	return (r << 16) + (g << 8) + b;
 }
 
-float Terrain::GetX()
+float Terrain::getX()
 {
 	return x_;
 }
 
-float Terrain::GetZ()
+float Terrain::getZ()
 {
 	return z_;
 }
 
-RawModel Terrain::GetModel()
+RawModel Terrain::getModel()
 {
 	return rawModel_;
 }

@@ -15,7 +15,7 @@ void TerrainRenderer::render(std::vector<Terrain> &terrains)
 	{
 		prepareTerrain(terrain);
 		prepareInstance(terrain);
-		glDrawElements(GL_TRIANGLES, terrain.GetModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, terrain.getModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
 		unbindTextureModel();
 	}
 }
@@ -23,7 +23,7 @@ void TerrainRenderer::render(std::vector<Terrain> &terrains)
 void TerrainRenderer::prepareTerrain(Terrain &terrain)
 {
 	//Get rawModel from textredModel
-	RawModel& rawModel = terrain.GetModel();
+	RawModel &rawModel = terrain.getModel();
 	glBindVertexArray(rawModel.getVaoId());
 
 	//activate the attribute list
@@ -60,7 +60,7 @@ void TerrainRenderer::prepareInstance(Terrain &terrain)
 {
 	//calculate transformation matrix
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(
-		glm::vec3(terrain.GetX(), 1.0f, terrain.GetZ()),
+		glm::vec3(terrain.getX(), 1.0f, terrain.getZ()),
 		glm::vec3(0, 0, 0),
 		glm::vec3(1, 1, 1));
 

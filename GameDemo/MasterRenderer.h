@@ -33,10 +33,11 @@ private:
 	//投影矩阵
 	glm::mat4 projectionMatrix_;
 
+	//shader
 	StaticShader staticshader;
 	TerrainShader terrainShader;
 
-	//entityRenderer
+	//Renderer
 	EntityRenderer entityRenderer_;
 	TerrainRenderer terrainRenderer_;
 

@@ -4,8 +4,10 @@
 class RawModel{
 
 public:
+
+	RawModel() = default;
 	//Constructor
-	RawModel(GLuint vaoId, GLuint vertexCount);
+	explicit RawModel(GLuint vaoId, GLuint vertexCount);
 
 	//get VAO id
 	GLuint getVaoId() const;

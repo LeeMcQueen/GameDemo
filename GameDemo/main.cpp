@@ -492,7 +492,7 @@ int main() {
 		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
 		idleStartTime = idleStartTime + displayManager.getDeltaTime();
-		
+
 		//骨骼动画控制
 		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
 			RunStartTime = RunStartTime + displayManager.getDeltaTime();

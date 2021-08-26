@@ -15,8 +15,10 @@ GLuint Loader::createVAO() {
 
 	GLuint vaoID;
 
+	//创建新的vertexarray
 	glGenVertexArrays(1, &vaoID);
 
+	//把创建好的VAO加入VAOS列表里面
 	vaos.push_back(std::move(vaoID));
 	//绑定VAO（顶点数组对象）
 	glBindVertexArray(vaoID);
@@ -26,18 +28,13 @@ GLuint Loader::createVAO() {
 
 //模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
-RawModel Loader::loadToVAO(std::vector<float> vertices, 
-	std::vector<float> textureCoords,
-	std::vector<float> normals, 
-	std::vector<int> indices) {
-	// 创建一个新的VAO
+RawModel Loader::loadToVAO(std::vector<float> &position, int dimensions) {
+
+	//创建一个新的VAO
 	GLuint vaoID = createVAO();
-	int indicesSize = indices.size();
-	bindIndicesBuffer(indices.data(), indicesSize);
-	// 绑定数据到AttributeList
-	storeDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(float));
-	storeDataInAttributeList(1, 2, &textureCoords[0], textureCoords.size() * sizeof(float));
-	storeDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(float));
+	int indicesSize = static_cast<unsigned int>(position.size() / dimensions);
+	//绑定数据到AttributeList
+	storeDataInAttributeList(0, dimensions, &position, position.size() * sizeof(std::vector<float>));
 	unbindVAO();
 	return RawModel(vaoID, indicesSize);
 }
@@ -48,6 +45,7 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices,
 	std::vector<glm::vec2> textureCoords,
 	std::vector<glm::vec3> normals, 
 	std::vector<int> indices) {
+
 	// 创建一个新的VAO
 	GLuint vaoID = createVAO();
 	int indicesSize = indices.size();

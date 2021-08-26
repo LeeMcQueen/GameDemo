@@ -13,9 +13,9 @@ public:
 	Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap);
 	~Terrain();
 
-	float GetX();
-	float GetZ();
-	RawModel GetModel();
+	float getX();
+	float getZ();
+	RawModel getModel();
 	TerrainTexturePack getTerrainTexturePack();
 	TerrainTexture getTerrainTexture();
 

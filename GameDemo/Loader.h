@@ -13,8 +13,9 @@ public:
 	//创建VAO
 	GLuint createVAO();
 
-	RawModel loadToVAO(std::vector<float> vertices, std::vector<float> textureCoords, 
-		std::vector<float> normals , std::vector<int> indices);
+	//VAO水面加载
+	RawModel loadToVAO(std::vector<float> &position, int dimensions);
+
 	RawModel loadToVao(std::vector<glm::vec3> vertices
 						, std::vector<glm::vec2> textureCoords
 						, std::vector<glm::vec3> normals
