@@ -1,62 +1,19 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  EntityRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  MasterRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  TerrainRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  WaterRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  WaterShader.cpp
-  main.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  AnimaModelLoader.cpp
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(22): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(30): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(42): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(76): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(101): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(106): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(117): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(39): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(40): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(45): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(64): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(71): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(140): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(144): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(157): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(164): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(173): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(178): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(187): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(199): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
-main.cpp(129): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(136): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(149): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(153): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(154): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(157): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(158): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(162): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(163): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(182): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(408): warning C4101: “objloader”: 未引用的局部变量
-  正在生成代码...
-LINK : warning LNK4098: 默
-LINK : warning LNK4098: 默
-TerrainRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中
+AnimaModelLoader.cpp(177): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(185): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(201): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(207): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(214): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(215): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(218): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(219): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(223): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(224): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

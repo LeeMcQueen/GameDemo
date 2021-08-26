@@ -1,6 +1,6 @@
 ﻿#include "AnimaModelLoader.h"
 
-void AnimaModelLoader::loadAssimpScene(const char *filePath){
+void AnimaModelLoader::loadAssimpScene(const char *filePath) {
 
 	//导入assimp加载模组
 	Assimp::Importer importer;
@@ -22,8 +22,9 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 	}
 	//Scene里的Mesh
 	aiMesh *mesh = scene->mMeshes[0];
-
+	//骨骼根节点的变换矩阵
 	globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
+	//变换矩阵进行反矩阵变换
 	setGlobaInverseTransform(glm::inverse(globalInverseTransform_));
 	//加载骨骼动画模型
 	loadAssimpModel(scene, mesh, vertices, indices, skeleton, boneCount);
@@ -33,7 +34,6 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath){
 	setIndices(indices);
 	setSkeleton(skeleton);
 	setBoneCount(boneCount);
-
 };
 
 void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
@@ -42,16 +42,17 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	std::vector<unsigned int> &indicesOutput, 
 	Bone &skeletonOutput, 
 	unsigned int &nBoneCount){
-	//list初始化
+
+	//返回参数list初始化
 	verticesOutput = {};
 	indicesOutput = {};
 
-	//取得模型坐标用变量
+	//顶点类的实例化
 	Vertex vertex;
 	//加载顶点，法线，uv坐标
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 
-		//空的顶点
+		//空的Vec3的变量
 		glm::vec3 vector;
 
 		//取得顶点
@@ -60,11 +61,13 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 		vector.z = mesh->mVertices[i].z;
 		vertex.setPosition(vector);
 
+		//取得法线
 		vector.x = mesh->mNormals[i].x;
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
 		vertex.setNormal(vector);
 
+		//空的Vec2的变量
 		glm::vec2 vec;
 
 		//注意这里就只有一个纹理，需要的话需要动态设定
@@ -72,7 +75,7 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 		vec.y = mesh->mTextureCoords[0][i].y;
 		vertex.setTexture(vec);
 
-		//初始化骨骼ID
+		//初始化骨骼ID 一共创建顶点的数量个
 		vertex.setBoneIds(glm::ivec4(0));
 		vertex.setBoneWeights(glm::vec4(0.0f));
 
@@ -80,10 +83,10 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	}
 
 	//加载骨骼数据到顶点数组
-	//boneInfo的结构是 谷歌名<string> 矩阵pair
+	//boneInfo的结构是 骨骼名<string> 矩阵pair
 	std::unordered_map<std::string, std::pair<int, glm::mat4>> boneInfo = {};
 	std::vector<unsigned int> boneCounts;
-	//verticesOutput数据相同长度的boneCounts数据内容都是0
+	//命名感觉不是很准确 顶点数同样数量的list
 	boneCounts.resize(verticesOutput.size(), 0);
 	//得到模型的总骨骼数
 	nBoneCount = mesh->mNumBones;
@@ -92,9 +95,10 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 
 	//循环骨骼数量得到()
 	for (unsigned int i = 0; i < nBoneCount; i++) {
-		//得到每个骨头
+
+		//导入aiMesh对象中的顶点骨骼数据
 		aiBone *bone = mesh->mBones[i];
-		//从Assimp格式转换成glm
+		//从Assimp格式转换成glm格式
 		glm::mat4 matrix = assimpToGlmMatrix(bone->mOffsetMatrix);
 		//按照骨骼名称(string形式)往里面注入map, map的形式是(i, matrix)
 		boneInfo[bone->mName.C_Str()] = { i, matrix };
