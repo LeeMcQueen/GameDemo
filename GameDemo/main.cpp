@@ -436,6 +436,9 @@ int main() {
 
 	//地面类初始化
 	Terrain terrain = Terrain(0, 1, loader, terrainTexturePack, blendMap);
+	//水面
+	WaterTile waterTile = WaterTile(0.0f, 1.0f, 0.0f);
+	
 
 	/* 布料模拟 */
 	//布料绘制
@@ -462,9 +465,10 @@ int main() {
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//加载
-		masterRenderer.processTerrain(terrain);
+		//masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
+		masterRenderer.processWater(waterTile);
 		masterRenderer.render(light, camera);
 		masterRenderer.cleanUp();
 		player.move();

@@ -58,7 +58,7 @@ void TerrainRenderer::bindTexture(Terrain &terrain)
 
 void TerrainRenderer::prepareInstance(Terrain &terrain)
 {
-	//calculate transformation matrix
+	//变换矩阵
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(
 		glm::vec3(terrain.getX(), 1.0f, terrain.getZ()),
 		glm::vec3(0, 0, 0),

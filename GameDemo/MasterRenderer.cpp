@@ -8,13 +8,16 @@
 #include "EntityRenderer.h"
 #include "DisplayManager.h"
 
-std::map<TexturedModel, std::vector<Entity>> MasterRenderer::entities;
-std::vector<Terrain>  MasterRenderer::terrains;
+std::map<TexturedModel, std::vector<Entity>> MasterRenderer::entities_;
+std::vector<Terrain>  MasterRenderer::terrains_;
+std::vector<WaterTile> MasterRenderer::waterTiles_;
 
 MasterRenderer::MasterRenderer()
 	: projectionMatrix_(getProjectionMatrix())
-	, entityRenderer_(EntityRenderer(staticshader, projectionMatrix_))
-	, terrainRenderer_(TerrainRenderer(terrainShader, projectionMatrix_)) {
+	, entityRenderer_(EntityRenderer(staticshader_, projectionMatrix_))
+	, terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_))
+	, waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_)){
+
 	//背面剔除
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -30,35 +33,48 @@ void MasterRenderer::render(Light &light, Camera &camera) {
 	prepare();
 
 	//Entity
-	staticshader.start();
-	staticshader.loadSkyColour(0.6f, 0.6f, 0.6f);
-	staticshader.loadLight(light);
-	staticshader.loadViewMatrix(camera.getViewMatrix());
-	entityRenderer_.render(entities);
-	staticshader.stop();
+	staticshader_.start();
+	staticshader_.loadSkyColour(0.6f, 0.6f, 0.6f);
+	staticshader_.loadLight(light);
+	staticshader_.loadViewMatrix(camera.getViewMatrix());
+	entityRenderer_.render(entities_);
+	staticshader_.stop();
 
 	//terrain
-	terrainShader.start();
-	terrainShader.loadLight(light);
-	terrainShader.loadViewMatrix(camera.getViewMatrix());
-	terrainRenderer_.render(terrains);
-	terrainShader.stop();
+	terrainShader_.start();
+	terrainShader_.loadLight(light);
+	terrainShader_.loadViewMatrix(camera.getViewMatrix());
+	terrainRenderer_.render(terrains_);
+	terrainShader_.stop();
 
-	terrains.clear();
-	entities.clear();
+	//water
+	waterShader_.start();
+	waterShader_.loadLight(light);
+	waterShader_.loadViewMatrix(camera.getViewMatrix());
+	waterRenderer_.render(waterTiles_);
+	waterShader_.stop();
+
+	terrains_.clear();
+	entities_.clear();
+	waterTiles_.clear();
 }
 
-void MasterRenderer::processEntity(const Entity &entity)
-{
+//主要模型 往主要模型list里注入对象
+void MasterRenderer::processEntity(const Entity &entity){
 	//Get textureModel form entity
 	TexturedModel& model = entity.GetModel();
 
-	entities[entity.GetModel()].push_back(entity);
+	entities_[entity.GetModel()].push_back(entity);
 }
+//地面 往地面list里注入对象
+void MasterRenderer::processTerrain(const Terrain &terrain){
 
-void MasterRenderer::processTerrain(const Terrain &terrain)
-{
-	terrains.push_back(terrain);
+	terrains_.push_back(terrain);
+}
+//水面 往水面list里注入对象
+void MasterRenderer::processWater(const WaterTile & waterTile){
+
+	waterTiles_.push_back(waterTile);
 }
 
 void MasterRenderer::prepare()
@@ -80,8 +96,9 @@ glm::mat4 MasterRenderer::getProjectionMatrix()
 //清除shader
 void MasterRenderer::cleanUp()
 {
-	staticshader.stop();
-	terrainShader.stop();
+	staticshader_.stop();
+	terrainShader_.stop();
+	
 }
 
 #endif RENDERENGINE_MASTER_RENDERER_H

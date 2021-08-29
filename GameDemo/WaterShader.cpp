@@ -3,11 +3,13 @@
 const char* WaterShader::WATER_VERTEX_FILE = "waterVertexShader.txt";
 const char* WaterShader::WATER_FRAGMENT_FILE = "waterFragmentShader.txt";
 
-WaterShader::WaterShader()
-	: ShaderProgram(WATER_VERTEX_FILE, WATER_FRAGMENT_FILE)
-{
+WaterShader::WaterShader() : ShaderProgram(WATER_VERTEX_FILE, WATER_FRAGMENT_FILE){
 	//给传入shader的VBO进行命名
 	bindAttributes();
+
+	//Bind VAO attributes and link program
+	glLinkProgram(programID);
+	glValidateProgram(programID);
 
 	//加载uniform到顶点shader
 	getAllUniformLocations();
@@ -37,8 +39,6 @@ void WaterShader::loadLight(Light light) {
 void WaterShader::bindAttributes() {
 
 	bindAttribute(0, "position");
-	bindAttribute(1, "textureCoords");
-	bindAttribute(2, "normal");
 }
 
 void WaterShader::getAllUniformLocations() {
@@ -46,6 +46,6 @@ void WaterShader::getAllUniformLocations() {
 	Location_transformtionMatrix = getUniformLocation("transformationMatrix");
 	Location_projectionMatrix = getUniformLocation("projectionMatrix");
 	Location_viewMatrix = getUniformLocation("viewMatrix");
-	Location_lightColor = getUniformLocation("lightColor");
-	Location_lightPosition = getUniformLocation("lightPosition");
+	//Location_lightColor = getUniformLocation("lightColor");
+	//Location_lightPosition = getUniformLocation("lightPosition");
 }

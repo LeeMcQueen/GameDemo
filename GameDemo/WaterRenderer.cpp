@@ -1,28 +1,26 @@
 #include "WaterRenderer.h"
 
-WaterRenderer::WaterRenderer(const WaterShader &waterShader, const glm::mat4 &projectionMatrix):
+WaterRenderer::WaterRenderer(Loader &loader, WaterShader &waterShader, glm::mat4 &projectionMatrix):
 	waterShader_(waterShader){
 
-	initVertices();
-	Loader loader;
-	quad_ = loader.loadToVAO(vectices_, 2);
+	initVertices(loader);
 
 	waterShader_.start();
 	waterShader_.loadProjectionMatrix(projectionMatrix);
 	waterShader_.stop();
 }
 
-void WaterRenderer::Render(std::vector<WaterTile> &waterTile, const Camera & camera, const Light &light){
+void WaterRenderer::render(std::vector<WaterTile> &waterTile, Camera &camera){
 
 	for(WaterTile tile : waterTile) {
-		prepareTerrain(tile);
+		prepareWater(tile);
 		prepareInstance(tile);
 		glDrawArrays(GL_TRIANGLES, 0, quad_.getVertexCount());
 	}
 
 }
 
-void WaterRenderer::prepareTerrain(WaterTile & waterTile){
+void WaterRenderer::prepareWater(WaterTile & waterTile){
 
 	glBindVertexArray(quad_.getVaoId());
 	glEnableVertexAttribArray(0);
@@ -36,7 +34,8 @@ void WaterRenderer::prepareInstance(WaterTile & waterTile){
 		glm::vec3(waterTile.getTileSize(), waterTile.getTileSize(), waterTile.getTileSize()));
 }
 
-void WaterRenderer::initVertices(){
+void WaterRenderer::initVertices(Loader &loader){
 
+	quad_ = loader.loadToVAO(vectices_, 2);
 	vectices_ = { -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1 };
 }

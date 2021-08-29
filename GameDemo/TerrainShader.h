@@ -18,7 +18,6 @@ public:
 
 	//VertexShader file name
 	static const char *VERTEX_FILE;
-
 	//FragmentShader file name
 	static const char *FRAGMENT_FILE;
 

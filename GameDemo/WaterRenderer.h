@@ -9,14 +9,14 @@
 #include "Loader.h"
 #include "Maths.h"
 
-class WaterRenderer {
+class WaterRenderer{
 
 public:
 
-	WaterRenderer(const WaterShader &waterShader, const glm::mat4 &projectionMatrix);
+	WaterRenderer(Loader &loader ,WaterShader &waterShader, glm::mat4 &projectionMatrix);
 
-	void Render(std::vector<WaterTile> &waterTile, const Camera &camera, const Light &light);
-	void prepareTerrain(WaterTile &waterTile);
+	void render(std::vector<WaterTile> &waterTile, Camera &camera);
+	void prepareWater(WaterTile &waterTile);
 	void prepareInstance(WaterTile &waterTile);
 
 private:
@@ -25,5 +25,5 @@ private:
 	std::vector<float> vectices_;
 	RawModel quad_;
 	//加载水面顶点
-	void initVertices();
+	void initVertices(Loader &loader);
 };

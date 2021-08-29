@@ -6,18 +6,22 @@
 #include "StaticShader.h"
 #include "EntityRenderer.h"
 #include "TerrainRenderer.h"
+#include "WaterRenderer.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Camera.h"
+#include "WaterTIle.h"
 
 class MasterRenderer{
 
 public:
+
 	MasterRenderer();
 
 	void render(Light &light, Camera &camera);
 	void processEntity(const Entity &entity);
 	void processTerrain(const Terrain &terrain);
+	void processWater(const WaterTile &waterTile);
 	void prepare();
 	void cleanUp();
 
@@ -34,14 +38,17 @@ private:
 	glm::mat4 projectionMatrix_;
 
 	//shader
-	StaticShader staticshader;
-	TerrainShader terrainShader;
+	StaticShader staticshader_;
+	TerrainShader terrainShader_;
+	WaterShader waterShader_;
 
 	//Renderer
 	EntityRenderer entityRenderer_;
 	TerrainRenderer terrainRenderer_;
+	WaterRenderer waterRenderer_;
 
-	static std::vector<Terrain> terrains;
-	static std::map<TexturedModel, std::vector<Entity>> entities;
+	static std::vector<Terrain> terrains_;
+	static std::map<TexturedModel, std::vector<Entity>> entities_;
+	static std::vector<WaterTile> waterTiles_;
 };
 

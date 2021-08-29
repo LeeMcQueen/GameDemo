@@ -3,8 +3,6 @@
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   MasterRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  TerrainRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   WaterRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   main.cpp
