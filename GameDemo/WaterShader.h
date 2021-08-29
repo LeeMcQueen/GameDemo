@@ -34,8 +34,8 @@ private:
 	GLuint Location_projectionMatrix;
 	//观察矩阵传递参数
 	GLuint Location_viewMatrix;
-	//光线颜色传递参数
-	GLuint Location_lightColor;
-	//光线位置传递参数
-	GLuint Location_lightPosition;
+	////光线颜色传递参数
+	//GLuint Location_lightColor;
+	////光线位置传递参数
+	//GLuint Location_lightPosition;
 };

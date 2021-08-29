@@ -32,11 +32,10 @@ RawModel Loader::loadToVAO(std::vector<float> &position, int dimensions) {
 
 	//创建一个新的VAO
 	GLuint vaoID = createVAO();
-	int indicesSize = static_cast<unsigned int>(position.size() / dimensions);
 	//绑定数据到AttributeList
-	storeDataInAttributeList(0, dimensions, &position, position.size() * sizeof(std::vector<float>));
+	storeDataInAttributeList(0, dimensions, &position, position.size() * sizeof(float));
 	unbindVAO();
-	return RawModel(vaoID, indicesSize);
+	return RawModel(vaoID, static_cast<unsigned int>(position.size() / dimensions));
 }
 
 //load information to VAO

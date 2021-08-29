@@ -32,10 +32,12 @@ void WaterRenderer::prepareInstance(WaterTile & waterTile){
 		glm::vec3(waterTile.getX(), waterTile.getHeight(), waterTile.getZ()),
 		glm::vec3(0, 0, 0),
 		glm::vec3(waterTile.getTileSize(), waterTile.getTileSize(), waterTile.getTileSize()));
+
+	waterShader_.loadTransformationMatrix(transformationMatrix);
 }
 
 void WaterRenderer::initVertices(Loader &loader){
 
-	quad_ = loader.loadToVAO(vectices_, 2);
 	vectices_ = { -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1 };
+	quad_ = loader.loadToVAO(vectices_, 2);
 }

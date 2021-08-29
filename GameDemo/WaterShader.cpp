@@ -30,11 +30,11 @@ void WaterShader::loadViewMatrix(glm::mat4 matrix) {
 	loadMatrix4(Location_viewMatrix, matrix);
 }
 
-void WaterShader::loadLight(Light light) {
-
-	loadVector3(Location_lightColor, light.getColor());
-	loadVector3(Location_lightPosition, light.getPosition());
-}
+//void WaterShader::loadLight(Light light) {
+//
+//	loadVector3(Location_lightColor, light.getColor());
+//	loadVector3(Location_lightPosition, light.getPosition());
+//}
 
 void WaterShader::bindAttributes() {
 

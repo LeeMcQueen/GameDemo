@@ -40,15 +40,15 @@ private:
 	//shader
 	StaticShader staticshader_;
 	TerrainShader terrainShader_;
-	WaterShader waterShader_;
+	//WaterShader waterShader_;
 
 	//Renderer
 	EntityRenderer entityRenderer_;
 	TerrainRenderer terrainRenderer_;
-	WaterRenderer waterRenderer_;
+	//WaterRenderer waterRenderer_;
 
 	static std::vector<Terrain> terrains_;
 	static std::map<TexturedModel, std::vector<Entity>> entities_;
-	static std::vector<WaterTile> waterTiles_;
+	//static std::vector<WaterTile> waterTiles_;
 };
 

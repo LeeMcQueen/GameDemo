@@ -437,7 +437,11 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(0, 1, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(0.0f, 1.0f, 0.0f);
+	WaterShader waterShader;
+	WaterRenderer waterRenderer(loader, waterShader, masterRenderer.getProjectionMatrix());
+	std::vector<WaterTile> waterTiles;
+	WaterTile waterTile = WaterTile(1.0f, 1.0f, 0.0f);
+	waterTiles.push_back(waterTile);
 	
 
 	/* 布料模拟 */
@@ -468,8 +472,9 @@ int main() {
 		//masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
-		masterRenderer.processWater(waterTile);
+		//masterRenderer.processWater(waterTile);
 		masterRenderer.render(light, camera);
+		waterRenderer.render(waterTiles, camera);
 		masterRenderer.cleanUp();
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
