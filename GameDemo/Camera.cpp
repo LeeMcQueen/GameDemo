@@ -62,14 +62,14 @@ void Camera::move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 		rotation_.x += 5;
 	}
 
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
-	//{
-	//	position_.y += 1.1;
-	//}
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-	//{
-	//	position_.y -= 1.1;
-	//}
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		position_.y += 1.1;
+	}
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	{
+		position_.y -= 1.1;
+	}
 }
 
 //相机到主角远近移动函数

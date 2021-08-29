@@ -10,22 +10,6 @@
 
 using namespace std;
 
-//生成VAO（顶点数组对象）
-GLuint Loader::createVAO() {
-
-	GLuint vaoID;
-
-	//创建新的vertexarray
-	glGenVertexArrays(1, &vaoID);
-
-	//把创建好的VAO加入VAOS列表里面
-	vaos.push_back(std::move(vaoID));
-	//绑定VAO（顶点数组对象）
-	glBindVertexArray(vaoID);
-
-	return vaoID;
-}
-
 //模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
 RawModel Loader::loadToVAO(std::vector<float> &position, int dimensions) {
@@ -33,9 +17,9 @@ RawModel Loader::loadToVAO(std::vector<float> &position, int dimensions) {
 	//创建一个新的VAO
 	GLuint vaoID = createVAO();
 	//绑定数据到AttributeList
-	storeDataInAttributeList(0, dimensions, &position, position.size() * sizeof(float));
+	storeDataInAttributeList(0, dimensions, &position[0], position.size() * sizeof(GLfloat));
 	unbindVAO();
-	return RawModel(vaoID, static_cast<unsigned int>(position.size() / dimensions));
+	return RawModel(vaoID, position.size() / dimensions);
 }
 
 //load information to VAO
@@ -55,6 +39,22 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices,
 	storeDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(glm::vec3));
 	unbindVAO();
 	return RawModel(vaoID, indicesSize);
+}
+
+//生成VAO（顶点数组对象）
+GLuint Loader::createVAO() {
+
+	GLuint vaoID;
+
+	//创建新的vertexarray
+	glGenVertexArrays(1, &vaoID);
+
+	//把创建好的VAO加入VAOS列表里面
+	vaos.push_back(std::move(vaoID));
+	//绑定VAO（顶点数组对象）
+	glBindVertexArray(vaoID);
+
+	return vaoID;
 }
 
 //VBO封装
