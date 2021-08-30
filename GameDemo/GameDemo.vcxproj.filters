@@ -141,6 +141,9 @@
     <ClCompile Include="WaterShader.cpp">
       <Filter>源文件\water</Filter>
     </ClCompile>
+    <ClCompile Include="WaterTile.cpp">
+      <Filter>源文件\water</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">

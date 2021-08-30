@@ -158,7 +158,6 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 			track.rotationTimestamps_.push_back(channel->mRotationKeys[j].mTime);
 			track.rotations_.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
 		}
-		//报错
 		for (int j = 0; j < channel->mNumScalingKeys; j++) {
 			track.scaleTimestamps_.push_back(channel->mScalingKeys[j].mTime);
 			track.scales_.push_back(assimpToGlmVec3(channel->mScalingKeys[j].mValue));
@@ -435,12 +434,12 @@ int main() {
 	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
 
 	//地面类初始化
-	Terrain terrain = Terrain(0, 1, loader, terrainTexturePack, blendMap);
+	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
 	WaterShader waterShader;
 	WaterRenderer waterRenderer(loader, waterShader, masterRenderer.getProjectionMatrix());
 	std::vector<WaterTile> waterTiles;
-	WaterTile waterTile = WaterTile(1.0f, 1.0f, 0.0f);
+	WaterTile waterTile = WaterTile(0.0f, 0.0f, 0.0f);
 	waterTiles.push_back(waterTile);
 	
 
@@ -469,10 +468,9 @@ int main() {
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//加载
-		//masterRenderer.processTerrain(terrain);
+		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
-		//masterRenderer.processWater(waterTile);
 		masterRenderer.render(light, camera);
 		waterRenderer.render(waterTiles, camera);
 		masterRenderer.cleanUp();

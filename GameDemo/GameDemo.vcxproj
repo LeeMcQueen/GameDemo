@@ -157,6 +157,7 @@
     <ClCompile Include="TexturedModel.cpp" />
     <ClCompile Include="WaterRenderer.cpp" />
     <ClCompile Include="WaterShader.cpp" />
+    <ClCompile Include="WaterTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimaModelLoader.h" />

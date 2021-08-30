@@ -1,7 +1,9 @@
 ﻿#include "Terrain.h"
 
 Terrain::Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap)
-	:terrainTexturePack_(terrainTexturePack),
+	:x_(gridX),
+	z_(gridZ),
+	terrainTexturePack_(terrainTexturePack),
 	blendMap_(blendMap),
 	rawModel_(generateTerrain(loader, "heightmap")) {}
 

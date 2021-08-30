@@ -1,8 +1,7 @@
 ﻿#include "TerrainRenderer.h"
 
 TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projectionMatrix)
-	:terrainShader_(terrainShader)
-{
+	:terrainShader_(terrainShader){
 	terrainShader_.start();
 	terrainShader_.loadProjectionMatrix(projectionMatrix);
 	terrainShader_.loadconnectTextureUnits();

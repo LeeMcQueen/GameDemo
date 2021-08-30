@@ -17,7 +17,7 @@ MasterRenderer::MasterRenderer()
 	, entityRenderer_(EntityRenderer(staticshader_, projectionMatrix_))
 	, terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_)){
 
-	//, waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_))
+	//waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_))
 	//背面剔除
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);

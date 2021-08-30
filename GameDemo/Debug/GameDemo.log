@@ -1,7 +1,11 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  Camera.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-Camera.cpp(67): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(71): warning C4305: “-=”: 从“double”到“float”截断
+  Terrain.cpp
+Terrain.cpp(8): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+Terrain.cpp(15): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+Terrain.cpp(17): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(21): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+Terrain.cpp(48): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(50): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(72): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)
