@@ -7,6 +7,10 @@ Terrain::Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrain
 	blendMap_(blendMap),
 	rawModel_(generateTerrain(loader, "heightmap")) {}
 
+Terrain::~Terrain() {
+
+}
+
 RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 {
 	//_image = stbi_load(("res/" + heightMap + ".png").c_str(), &_width, &_height, &_colorChannels, 0);
@@ -58,10 +62,6 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap)
 		}
 	}
 	return loader.loadToVao(vertices, textureCoords, normals, indices);
-}
-
-Terrain::~Terrain() {
-
 }
 
 float Terrain::getHeight(int x, int z, unsigned char *data) {

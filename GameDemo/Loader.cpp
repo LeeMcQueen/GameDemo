@@ -9,34 +9,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 using namespace std;
-std::vector<unsigned int> Loader::_vbos;
-
-//overload of method above
-RawModel Loader::FUCKvao(std::vector<float> &positions, int dimensions) {
-	auto vaoID = createVAO();
-	storeData(0, dimensions, positions);
-	unbindVAO();
-	return RawModel(vaoID, static_cast<unsigned int>(positions.size() / dimensions));
-}
-unsigned int Loader::createVBO() {
-	unsigned int vboID;
-	//create a vbo and store its ID in vboID
-	glGenBuffers(1, &vboID);
-
-	return vboID;
-}
-
 
 //模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
-RawModel Loader::loadToVAO(std::vector<float> &position, int dimensions) {
-
-	//创建一个新的VAO
-	GLuint vaoID = createVAO();
-	//绑定数据到AttributeList
-	storeDataInAttributeList(0, dimensions, &position[0], position.size() * sizeof(float));
+RawModel Loader::loadToVAO(std::vector<GLfloat> const &positions, int dimensions) {
+	GLuint vaoId = createVAO();
+	storeFloatDataInAttributeList(0, dimensions, positions);
 	unbindVAO();
-	return RawModel(vaoID, position.size() / dimensions);
+	return RawModel(vaoId, positions.size() / dimensions);
 }
 
 //load information to VAO
@@ -72,6 +52,16 @@ GLuint Loader::createVAO() {
 	glBindVertexArray(vaoID);
 
 	return vaoID;
+}
+
+void Loader::storeFloatDataInAttributeList(int attributeNumber, int coordinateSize, std::vector<GLfloat> const& data) {
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	vbos.push_back(std::move(vbo));
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(GLfloat), data.data(), GL_STATIC_DRAW);
+	glVertexAttribPointer(attributeNumber, coordinateSize, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 //VBO封装

@@ -25,6 +25,6 @@ private:
 	std::vector<float> vectices_;
 	RawModel quad_;
 	//加载水面顶点
-	void initVertices(Loader &loader);
+	void initVertices();
 	void prepareWater(Camera &camera);
 };

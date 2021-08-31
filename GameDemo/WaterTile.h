@@ -1,13 +1,14 @@
 #pragma once
 
+#include "Loader.h"
+#include "RawModel.h"
+
 class WaterTile {
 
 public:
 
-	WaterTile(float centerX, float centerZ, float height) :
-		x_(centerX),
-		z_(centerZ),
-		height_(height) {};
+	WaterTile(float centerX, float centerZ, float height);
+	~WaterTile();
 
 	float getX() const {
 		return x_;
@@ -26,6 +27,9 @@ public:
 	}
 private:
 
+	RawModel generateWater(Loader &loader);
+
+	RawModel rawModel_;
 	const float TILE_SIZE = 125.0f;
 	float x_;
 	float z_;

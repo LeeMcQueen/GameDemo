@@ -435,12 +435,15 @@ int main() {
 
 	//地面类初始化
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
+	Terrain terrain2 = Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	//水面
 	WaterShader waterShader;
-	WaterRenderer waterRenderer(loader, waterShader, masterRenderer.getProjectionMatrix());
+	WaterTile waterTile = WaterTile(1.0f, 2.0f, 3.0f);
 	std::vector<WaterTile> waterTiles;
-	WaterTile waterTile = WaterTile(0.0f, 0.0f, 0.0f);
+	
 	waterTiles.push_back(waterTile);
+
+	WaterRenderer waterRenderer(loader, waterShader, masterRenderer.getProjectionMatrix());
 	
 
 	/* 布料模拟 */
@@ -469,15 +472,14 @@ int main() {
 
 		//加载
 		masterRenderer.processTerrain(terrain);
+		masterRenderer.processTerrain(terrain2);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
-		masterRenderer.render(light, camera);
 		waterRenderer.render(waterTiles, camera);
+		masterRenderer.render(light, camera);	
 		masterRenderer.cleanUp();
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
-		//刷新主角位置
-
 
 		//------------------------------cloth sim start------------------------
 		/* 布料 */

@@ -26,23 +26,24 @@ void Camera::move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	float horizontaDistance = calculateHorizontaDistance();
 	float verticalDistance = calculateVerticalDistance();
 
-	calculateCameraPosition(horizontaDistance, verticalDistance, position, rotation, scale);
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
-	//{
-	//	position_.z -= 1.2;
-	//}
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS)
-	//{
-	//	position_.x += 1.2;
-	//}
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_A) == GLFW_PRESS)
-	//{
-	//	position_.x -= 1.2;
-	//}
-	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
-	//{
-	//	position_.z += 1.2;
-	//}
+	//calculateCameraPosition(horizontaDistance, verticalDistance, position, rotation, scale);
+	calculateCameraPosition(horizontaDistance, verticalDistance, position_, rotation, scale);
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
+	{
+		position_.z -= 1.2;
+	}
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS)
+	{
+		position_.x += 1.2;
+	}
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_A) == GLFW_PRESS)
+	{
+		position_.x -= 1.2;
+	}
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
+	{
+		position_.z += 1.2;
+	}
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT) == GLFW_PRESS)
 	{
