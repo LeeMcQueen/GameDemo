@@ -44,7 +44,7 @@ protected:
 private:
 
 	//Location of transformation matrix in shader progam
-	GLuint Location_tansformationMatrix;
+	GLuint Location_transformationMatrix;
 	//location of projection matrix in shader program
 	GLuint Location_projectionMatrix;
 	//location of view matrix in shader program

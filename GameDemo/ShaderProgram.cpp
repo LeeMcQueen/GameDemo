@@ -28,11 +28,8 @@ ShaderProgram::ShaderProgram(const char* VertexFile, const char* FragmentFile){
 }
 
 void ShaderProgram::bindAttribute(GLint attribute, const char *variableName){
-	glBindAttribLocation(programID, attribute, variableName);
 
-	//cerr << "1." << programID << endl;
-	//cerr << "2." << attribute << endl;
-	//cerr << "3." <<variableName << endl;
+	glBindAttribLocation(programID, attribute, variableName);
 }
 
 ShaderProgram::~ShaderProgram(){

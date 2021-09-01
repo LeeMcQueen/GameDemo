@@ -14,10 +14,8 @@ class WaterRenderer{
 public:
 
 	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix);
-	WaterRenderer() = default;
 
 	void render(std::vector<WaterTile> &waterTile);
-
 
 private:
 
@@ -26,5 +24,6 @@ private:
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile);
 	void prepareInstance(WaterTile &waterTile);
+	void bindTexture(WaterTile &waterTile);
 	void unbindTextureModel();
 };

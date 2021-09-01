@@ -437,7 +437,7 @@ int main() {
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	Terrain terrain2 = Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(0.0f, 0.0f, 3.0f, loader);
+	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
 
 	/* 布料模拟 */
 	//布料绘制
@@ -465,7 +465,7 @@ int main() {
 
 		//加载
 		//masterRenderer.processTerrain(terrain);
-		masterRenderer.processTerrain(terrain2);
+		//masterRenderer.processTerrain(terrain2);
 		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);

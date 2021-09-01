@@ -49,7 +49,7 @@ void MasterRenderer::render(Light &light, Camera &camera) {
 
 	//water
 	waterShader_.start();
-	//waterShader_.loadLight(light);
+	waterShader_.loadLight(light);
 	waterShader_.loadViewMatrix(camera.getViewMatrix());
 	waterRenderer_.render(waterTiles_);
 	waterShader_.stop();

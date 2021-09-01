@@ -26,8 +26,9 @@ void Camera::move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	float horizontaDistance = calculateHorizontaDistance();
 	float verticalDistance = calculateVerticalDistance();
 
-	//calculateCameraPosition(horizontaDistance, verticalDistance, position, rotation, scale);
-	calculateCameraPosition(horizontaDistance, verticalDistance, position_, rotation, scale);
+	calculateCameraPosition(horizontaDistance, verticalDistance, position, rotation, scale);
+	//自由相机
+	//calculateCameraPosition(horizontaDistance, verticalDistance, position_, rotation, scale);
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		position_.z -= 1.2;

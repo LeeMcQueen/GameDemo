@@ -4,8 +4,8 @@
 const char* TerrainShader::VERTEX_FILE = "terrainVertexShader.txt";
 const char* TerrainShader::FRAGMENT_FILE = "terrainFragmentShader.txt";
 
-TerrainShader::TerrainShader():ShaderProgram(VERTEX_FILE, FRAGMENT_FILE)
-{
+TerrainShader::TerrainShader():ShaderProgram(VERTEX_FILE, FRAGMENT_FILE){
+
 	//bindAttribute
 	bindAttributes();
 
@@ -26,7 +26,7 @@ void TerrainShader::bindAttributes()
 
 void TerrainShader::loadTransformationMatrix(glm::mat4 matrix)
 {
-	loadMatrix4(Location_tansformationMatrix, matrix);
+	loadMatrix4(Location_transformationMatrix, matrix);
 }
 
 void TerrainShader::loadProjectionMatrix(glm::mat4 matrix)
@@ -67,7 +67,7 @@ void TerrainShader::loadShineVariables(float shineDamper, float reflectivity)
 
 void TerrainShader::getAllUniformLocations()
 {
-	Location_tansformationMatrix = getUniformLocation("transformationMatrix");
+	Location_transformationMatrix = getUniformLocation("transformationMatrix");
 	Location_projectionMatrix = getUniformLocation("projectionMatrix");
 	Location_viewMatrix = getUniformLocation("viewMatrix");
 	Location_lightColor = getUniformLocation("lightColor");

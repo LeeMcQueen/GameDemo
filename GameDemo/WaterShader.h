@@ -18,8 +18,12 @@ public:
 	void loadProjectionMatrix(glm::mat4 matrix);
 	//观察矩阵加载 参数类型mat4
 	void loadViewMatrix(glm::mat4 matrix);
-	//光线信息加载 参数 1:vec3光线颜色 2:vec3光线位置
-	//void loadLight(Light light);
+	//加载纹理集合
+	void loadconnectTextureUnits();
+	//load light to shader program
+	void loadLight(Light light);
+	//load ShineDamper reflectivity to program
+	void loadShineVariables(float shineDamper, float reflectivity);
 protected:
 
 	//继承 给传入shader的VBO进行命名
@@ -34,8 +38,22 @@ private:
 	GLuint Location_projectionMatrix;
 	//观察矩阵传递参数
 	GLuint Location_viewMatrix;
-	////光线颜色传递参数
-	//GLuint Location_lightColor;
-	////光线位置传递参数
-	//GLuint Location_lightPosition;
+	//location of lightColor in shader program
+	GLuint Location_lightColor;
+	//location of lightPosition in shader program
+	GLuint Location_lightPosition;
+	//location of shineDamper;
+	GLuint Location_shineDamper;
+	//Location of reflectivity
+	GLuint Location_reflectivity;
+	//Location of backgroundTexture
+	GLuint Location_backgroundTexture;
+	//Location of r
+	GLuint Location_rTexture;
+	//Location of g
+	GLuint Location_gTexture;
+	//Location of b
+	GLuint Location_bTexture;
+	//Location of blendMap
+	GLuint Location_blendMap;
 };
