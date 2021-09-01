@@ -14,7 +14,7 @@ public:
 	GLuint createVAO();
 
 	//VAO水面加载
-	RawModel loadToVAO(std::vector<GLfloat> const &positions, int dimensions);
+	RawModel loadToVAO(std::vector<glm::vec2> &positions, int dimensions);
 
 	RawModel loadToVao(std::vector<glm::vec3> vertices
 						, std::vector<glm::vec2> textureCoords
@@ -32,7 +32,7 @@ private:
 	std::vector<GLuint> textures;
 
 	void storeDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize);
-	void storeFloatDataInAttributeList(int attributeNumber, int coordinateSize, std::vector<GLfloat> const& data);
+	void storeFloatDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize);
 	void bindIndicesBuffer(int *indices, int &count);
 
 	//解绑VAO

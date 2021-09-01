@@ -19,7 +19,7 @@ public:
 	//观察矩阵加载 参数类型mat4
 	void loadViewMatrix(glm::mat4 matrix);
 	//光线信息加载 参数 1:vec3光线颜色 2:vec3光线位置
-	void loadLight(Light light);
+	//void loadLight(Light light);
 protected:
 
 	//继承 给传入shader的VBO进行命名

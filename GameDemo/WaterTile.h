@@ -7,8 +7,12 @@ class WaterTile {
 
 public:
 
-	WaterTile(float centerX, float centerZ, float height);
+	WaterTile(float centerX, float centerZ, float height, Loader loader);
 	~WaterTile();
+
+	RawModel getModel() {
+		return rawModel_;
+	};
 
 	float getX() const {
 		return x_;

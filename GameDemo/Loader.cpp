@@ -12,11 +12,11 @@ using namespace std;
 
 //模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
-RawModel Loader::loadToVAO(std::vector<GLfloat> const &positions, int dimensions) {
+RawModel Loader::loadToVAO(std::vector<glm::vec2> &positions, int dimensions) {
 	GLuint vaoId = createVAO();
-	storeFloatDataInAttributeList(0, dimensions, positions);
+	storeFloatDataInAttributeList(0, dimensions, &positions[0], positions.size() * sizeof(glm::vec2));
 	unbindVAO();
-	return RawModel(vaoId, positions.size() / dimensions);
+	return RawModel(vaoId, positions.size());
 }
 
 //load information to VAO
@@ -42,10 +42,8 @@ RawModel Loader::loadToVao(std::vector<glm::vec3> vertices,
 GLuint Loader::createVAO() {
 
 	GLuint vaoID;
-
 	//创建新的vertexarray
 	glGenVertexArrays(1, &vaoID);
-
 	//把创建好的VAO加入VAOS列表里面
 	vaos.push_back(std::move(vaoID));
 	//绑定VAO（顶点数组对象）
@@ -54,14 +52,20 @@ GLuint Loader::createVAO() {
 	return vaoID;
 }
 
-void Loader::storeFloatDataInAttributeList(int attributeNumber, int coordinateSize, std::vector<GLfloat> const& data) {
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	vbos.push_back(std::move(vbo));
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(GLfloat), data.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(attributeNumber, coordinateSize, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+void Loader::storeFloatDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize) {
+
+	GLuint vboID;
+	//创建VBO（顶点缓冲对象）
+	glGenBuffers(1, &vboID);
+	//把VBO储存到表里
+	vbos.push_back(vboID);
+	//绑定VBO（顶点缓冲对象）
+	glBindBuffer(GL_ARRAY_BUFFER, vboID);
+	//把数据存储进绑定的缓存里面 1.缓存类型 2.数据大小 3.存储的数据（数组） 4.管理类型（数据不会或几乎不会改变）
+	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
+	//把VBO（顶点缓冲对象）存储进入VAO（顶点数组对象）
+	//1.顶点数据 2.顶点属性的大小 3.数据类型
+	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 
 //VBO封装

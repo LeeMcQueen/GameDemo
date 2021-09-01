@@ -10,14 +10,14 @@
 
 std::map<TexturedModel, std::vector<Entity>> MasterRenderer::entities_;
 std::vector<Terrain>  MasterRenderer::terrains_;
-//std::vector<WaterTile> MasterRenderer::waterTiles_;
+std::vector<WaterTile> MasterRenderer::waterTiles_;
 
 MasterRenderer::MasterRenderer()
 	: projectionMatrix_(getProjectionMatrix())
 	, entityRenderer_(EntityRenderer(staticshader_, projectionMatrix_))
-	, terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_)){
+	, terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_))
+	, waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_)) {
 
-	//waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_))
 	//背面剔除
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -48,15 +48,15 @@ void MasterRenderer::render(Light &light, Camera &camera) {
 	terrainShader_.stop();
 
 	//water
-	//waterShader_.start();
+	waterShader_.start();
 	//waterShader_.loadLight(light);
-	//waterShader_.loadViewMatrix(camera.getViewMatrix());
-	//waterRenderer_.render(waterTiles_);
-	//waterShader_.stop();
+	waterShader_.loadViewMatrix(camera.getViewMatrix());
+	waterRenderer_.render(waterTiles_);
+	waterShader_.stop();
 
 	terrains_.clear();
 	entities_.clear();
-	//waterTiles_.clear();
+	waterTiles_.clear();
 }
 
 //主要模型 往主要模型list里注入对象
@@ -72,10 +72,10 @@ void MasterRenderer::processTerrain(const Terrain &terrain){
 	terrains_.push_back(terrain);
 }
 //水面 往水面list里注入对象
-//void MasterRenderer::processWater(const WaterTile & waterTile){
-//
-//	waterTiles_.push_back(waterTile);
-//}
+void MasterRenderer::processWater(const WaterTile & waterTile){
+
+	waterTiles_.push_back(waterTile);
+}
 
 void MasterRenderer::prepare()
 {
@@ -98,7 +98,7 @@ void MasterRenderer::cleanUp()
 {
 	staticshader_.stop();
 	terrainShader_.stop();
-	
+	waterShader_.stop();
 }
 
 #endif RENDERENGINE_MASTER_RENDERER_H

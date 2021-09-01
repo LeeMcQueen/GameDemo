@@ -13,18 +13,18 @@ class WaterRenderer{
 
 public:
 
-	WaterRenderer(Loader &loader ,WaterShader &waterShader, glm::mat4 &projectionMatrix);
+	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix);
 	WaterRenderer() = default;
 
-	void render(std::vector<WaterTile> &waterTile, Camera &camera);
+	void render(std::vector<WaterTile> &waterTile);
 
 
 private:
 
 	WaterShader waterShader_;
-	std::vector<float> vectices_;
-	RawModel quad_;
+
 	//加载水面顶点
-	void initVertices();
-	void prepareWater(Camera &camera);
+	void prepareWater(WaterTile &waterTile);
+	void prepareInstance(WaterTile &waterTile);
+	void unbindTextureModel();
 };

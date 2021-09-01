@@ -10,6 +10,7 @@
 class Terrain
 {
 public:
+
 	Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap);
 	~Terrain();
 
