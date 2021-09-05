@@ -1,5 +1,4 @@
-﻿#ifndef RENDERENGINE_MASTER_RENDERER_H
-#define RENDERENGINE_MASTER_RENDERER_H
+﻿#pragma once
 
 #include <gtx\transform.hpp>
 

@@ -1,4 +1,6 @@
-﻿#include <fstream>
+﻿#pragma once
+
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <time.h>

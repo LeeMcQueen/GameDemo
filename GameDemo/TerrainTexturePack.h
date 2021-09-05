@@ -1,4 +1,5 @@
 #pragma once
+
 #include "TerrainTexture.h"
 
 class TerrainTexturePack {

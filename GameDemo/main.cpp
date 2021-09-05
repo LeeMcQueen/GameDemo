@@ -435,7 +435,6 @@ int main() {
 
 	//地面类初始化
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
-	Terrain terrain2 = Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	//水面
 	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
 
@@ -464,12 +463,10 @@ int main() {
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
 		//加载
-		//masterRenderer.processTerrain(terrain);
-		//masterRenderer.processTerrain(terrain2);
+		masterRenderer.processTerrain(terrain);
 		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
-		masterRenderer.processEntity(fern);
-		
+		masterRenderer.processEntity(fern);	
 		masterRenderer.render(light, camera);	
 		masterRenderer.cleanUp();
 		player.move();

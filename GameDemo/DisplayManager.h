@@ -1,4 +1,5 @@
 ﻿#define GLEW_STATIC
+
 #include <GLFW/glfw3.h>
 #include <glm.hpp>
 #include <string>
