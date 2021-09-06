@@ -34,6 +34,7 @@
 #include "TerrainTexturePack.h"
 #include "Player.h"
 #include "Maths.h"
+#include "WaterFrameBuffers.h"
 
 #include "Vertex.h"
 #include "Bone.h"
@@ -405,6 +406,8 @@ int main() {
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
 	OBJLoader objloader;
+	//
+	//WaterFrameBuffers fbos;
 
 	//加载模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
@@ -472,6 +475,10 @@ int main() {
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 
+		//fbos.bindReflectionFrameBuffer();
+		//masterRenderer.processTerrain(terrain);
+		//fbos.unbindCurrentFrameBuffer();
+
 		//------------------------------cloth sim start------------------------
 		/* 布料 */
 		for (int i = 0; i < cloth.iterationFreq; i++) {
@@ -533,6 +540,7 @@ int main() {
 		glfwPollEvents();
 	}
 
+	//fbos.cleanUp();
 	//销毁GLFW
 	glfwTerminate();
 

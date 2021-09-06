@@ -155,6 +155,7 @@
     <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
+    <ClCompile Include="WaterFrameBuffers.cpp" />
     <ClCompile Include="WaterRenderer.cpp" />
     <ClCompile Include="WaterShader.cpp" />
     <ClCompile Include="WaterTile.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Vectors.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="WaterFrameBuffers.h" />
     <ClInclude Include="WaterRenderer.h" />
     <ClInclude Include="WaterShader.h" />
     <ClInclude Include="WaterTile.h" />

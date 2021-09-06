@@ -99,5 +99,3 @@ void MasterRenderer::cleanUp()
 	terrainShader_.stop();
 	waterShader_.stop();
 }
-
-#endif RENDERENGINE_MASTER_RENDERER_H
