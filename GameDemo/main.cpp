@@ -48,6 +48,7 @@
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
 
+#pragma region 骨骼动画vertexShader
 const char* vertexShaderSource = R"(
 	#version 330 core
 	layout (location = 0) in vec3 position; 
@@ -83,6 +84,9 @@ const char* vertexShaderSource = R"(
 		v_normal = normalize(v_normal);
 	}
 	)";
+#pragma endregion
+
+#pragma region 骨骼动画fragmentShader
 const char* fragmentShaderSource = R"(
 	#version 330 core
 	in vec2 tex_cord;
@@ -101,6 +105,7 @@ const char* fragmentShaderSource = R"(
 		color = vec4(dCol, 1);
 	}
 	)";
+#pragma endregion
 
 /* 弹簧模拟变数 */
 //空气吹动力
@@ -120,7 +125,7 @@ Cloth cloth(clothPos, clothSize);
 //重力
 Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
 
-//加载动画信息
+#pragma region 加载动画信息
 void loadAnimation(const aiScene *scene, Animation &animation) {
 
 	//加载第一个动画,多个动画加载需要修改
@@ -203,8 +208,9 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 		}
 	}
 }
+#pragma endregion
 
-//渲染
+#pragma region 骨骼动画渲染
 unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsigned int> indices) {
 	unsigned int vao = 0;
 	unsigned int vbo = 0;
@@ -234,7 +240,9 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 	glBindVertexArray(0);
 	return vao;
 }
+#pragma endregion
 
+#pragma region 骨骼动画纹理
 unsigned int createTexture(std::string filepath) {
 	unsigned int textureId = 0;
 	int width, height, nrChannels;
@@ -252,10 +260,12 @@ unsigned int createTexture(std::string filepath) {
 
 	stbi_image_free(data);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
 	return textureId;
 }
+#pragma endregion
 
-//
+#pragma region 时间处理
 std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &dt) {
 	unsigned int segment = 0;
 
@@ -273,8 +283,9 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &
 
 	return{ segment, frac };
 }
+#pragma endregion
 
-//得到当前姿势
+#pragma region 骨骼动画得到当前姿势
 void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
 	BoneTransformTrack &boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 
@@ -326,8 +337,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 		getPose(animation, child, dt, output, globaTransform, globalInverseTransform);
 	}
 }
-
-//------------------------------skeleton animation end------------------------
+#pragma endregion
 
 //窗口大小变换监听
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
