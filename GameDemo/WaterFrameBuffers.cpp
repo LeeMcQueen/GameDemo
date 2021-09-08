@@ -38,6 +38,7 @@ unsigned int WaterFrameBuffers::createTextureAttachment(int width, int height){
 
 	unsigned int texture;
 	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -80,7 +81,7 @@ void WaterFrameBuffers::bindFrameBuffer(unsigned int framebuffer, int width, int
 void WaterFrameBuffers::unbindCurrentFrameBuffer() {
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glViewport(0, 0, 1280, 720);
+	glViewport(0, 0, 720, 320);
 }
 
 void WaterFrameBuffers::bindReflectionFrameBuffer() {

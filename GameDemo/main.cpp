@@ -35,6 +35,8 @@
 #include "Player.h"
 #include "Maths.h"
 #include "WaterFrameBuffers.h"
+#include "GuiTexture.h"
+#include "GuiRenderer.h"
 
 #include "Vertex.h"
 #include "Bone.h"
@@ -416,7 +418,7 @@ int main() {
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
 	OBJLoader objloader;
-	//
+	//水面FBOs
 	//WaterFrameBuffers fbos;
 
 	//加载模型顶点信息
@@ -450,6 +452,11 @@ int main() {
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
 	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
+
+	//std::vector<GuiTexture> guiTextures;
+	//GuiTexture guiTexture = GuiTexture(loader.loadTexture("grassy2"), glm::vec2(1,1), glm::vec2(1,1));
+	//guiTextures.push_back(guiTexture);
+	//GuiRenderer guiRenderer(loader);	
 
 	/* 布料模拟 */
 	//布料绘制
@@ -485,12 +492,13 @@ int main() {
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 
+		//guiRenderer.render(guiTextures);
+
 		//fbos.bindReflectionFrameBuffer();
 		//masterRenderer.processTerrain(terrain);
 		//fbos.unbindCurrentFrameBuffer();
 
-		//------------------------------cloth sim start------------------------
-		/* 布料 */
+#pragma region 布料主循环
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
@@ -498,9 +506,9 @@ int main() {
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
-		//------------------------------cloth sim end--------------------------
+#pragma endregion
 
-		//------------------------------skeleton animation start------------------------
+#pragma region 骨骼动画主循环
 		//移动
 		modelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
@@ -538,7 +546,7 @@ int main() {
 		glUniform1i(textureLocation, 0);
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
-		//------------------------------skeleton animation end------------------------
+#pragma endregion
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

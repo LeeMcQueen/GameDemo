@@ -22,8 +22,8 @@ public:
 private:
 	const int REFLECTION_WIDTH = 320;
 	const int REFLECTION_HEIGHT = 180;
-	const int REFRACTION_WIDTH = 1280;
-	const int REFRACTION_HEIGHT = 720;
+	const int REFRACTION_WIDTH = 720;
+	const int REFRACTION_HEIGHT = 320;
 
 	unsigned int reflectionFrameBuffer_;
 	unsigned int reflectionTexture_;

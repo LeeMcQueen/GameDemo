@@ -12,11 +12,11 @@ using namespace std;
 
 //模型加载有法线向量
 //data 1.vertices position 2.texture position 3.normals
-RawModel Loader::loadToVAO(std::vector<glm::vec2> &positions, int dimensions) {
+RawModel Loader::loadToVAO(std::vector<float> &positions, int dimensions) {
 	GLuint vaoId = createVAO();
-	storeFloatDataInAttributeList(0, dimensions, &positions[0], positions.size() * sizeof(glm::vec2));
+	storeFloatDataInAttributeList(0, dimensions, &positions[0], positions.size() * sizeof(float));
 	unbindVAO();
-	return RawModel(vaoId, positions.size());
+	return RawModel(vaoId, positions.size() / dimensions);
 }
 
 //load information to VAO

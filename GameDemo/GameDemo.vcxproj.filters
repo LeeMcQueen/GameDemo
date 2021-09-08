@@ -76,6 +76,12 @@
     <Filter Include="头文件\water">
       <UniqueIdentifier>{cb23092d-bc32-4528-bb2e-4359ef27181b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Gui">
+      <UniqueIdentifier>{a651c0b7-1ca9-4641-8b8b-390c40bf4268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Gui">
+      <UniqueIdentifier>{9ac80686-9fed-4fd2-9717-eb56a698f1e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -146,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="WaterFrameBuffers.cpp">
       <Filter>源文件\water</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiRenderer.cpp">
+      <Filter>源文件\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiShader.cpp">
+      <Filter>源文件\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +278,15 @@
     <ClInclude Include="WaterFrameBuffers.h">
       <Filter>头文件\water</Filter>
     </ClInclude>
+    <ClInclude Include="GuiTexture.h">
+      <Filter>头文件\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRenderer.h">
+      <Filter>头文件\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiShader.h">
+      <Filter>头文件\Gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexShader.txt">
@@ -284,6 +305,12 @@
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="waterVertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="guiVertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="guiFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
   </ItemGroup>

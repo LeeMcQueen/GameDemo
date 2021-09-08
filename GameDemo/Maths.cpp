@@ -21,3 +21,13 @@ glm::mat4 Maths::createTransformationMatrix(const glm::vec3 position, const glm:
 	//把位移，旋转，缩放合并成modelMatrix然后传给vertexShader
 	return modelMatrix;
 }
+
+glm::mat4 Maths::createTransformationMatrix(glm::vec2 & translation, glm::vec2 & scale){
+
+	glm::mat4 modelMatrix;
+
+	modelMatrix = glm::translate(modelMatrix, glm::vec3{ translation.x, translation.y, 0.0f });
+	modelMatrix = glm::scale(modelMatrix, glm::vec3{ scale.x, scale.y, 0.0f });
+
+	return modelMatrix;
+}
