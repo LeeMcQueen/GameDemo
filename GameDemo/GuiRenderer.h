@@ -17,5 +17,5 @@ public:
 private:
 
 	static RawModel rawModel_;
-	static GuiShader guiShader_;
+	//static GuiShader guiShader_;
 };

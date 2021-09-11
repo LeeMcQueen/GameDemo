@@ -1,7 +1,7 @@
 #include "GuiRenderer.h"
 
 RawModel GuiRenderer::rawModel_;
-GuiShader GuiRenderer::guiShader_;
+//GuiShader GuiRenderer::guiShader_;
 
 GuiRenderer::GuiRenderer(Loader loader){
 
@@ -11,7 +11,7 @@ GuiRenderer::GuiRenderer(Loader loader){
 
 void GuiRenderer::render(std::vector<GuiTexture> guiTextures) {
 
-	guiShader_.start();
+	//guiShader_.start();
 	glBindVertexArray(rawModel_.getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnable(GL_BLEND);
@@ -22,17 +22,17 @@ void GuiRenderer::render(std::vector<GuiTexture> guiTextures) {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, guiTexture.getTexture());
 		glm::mat4 transformMatrix = Maths::createTransformationMatrix(guiTexture.getPosition(), guiTexture.getScale());
-		guiShader_.loadTransformationMatrix(transformMatrix);
+		//guiShader_.loadTransformationMatrix(transformMatrix);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, rawModel_.getVertexCount());
 	}
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
-	guiShader_.stop();
+	//guiShader_.stop();
 }
 
 void GuiRenderer::cleanUp() {
 
-	guiShader_.stop();
+	//guiShader_.stop();
 }

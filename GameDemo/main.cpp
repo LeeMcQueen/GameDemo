@@ -418,6 +418,8 @@ int main() {
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
 	OBJLoader objloader;
+	//Gui渲染启动
+	GuiRenderer guiRenderer(loader);
 	//水面FBOs
 	//WaterFrameBuffers fbos;
 
@@ -452,11 +454,11 @@ int main() {
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
 	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
-
-	//std::vector<GuiTexture> guiTextures;
-	//GuiTexture guiTexture = GuiTexture(loader.loadTexture("grassy2"), glm::vec2(1,1), glm::vec2(1,1));
-	//guiTextures.push_back(guiTexture);
-	//GuiRenderer guiRenderer(loader);	
+	//Gui列表
+	std::vector<GuiTexture> guiTextures;
+	GuiTexture guiTexture = GuiTexture(loader.loadTexture("grassy2"), glm::vec2(1,1), glm::vec2(1,1));
+	guiTextures.push_back(guiTexture);
+	
 
 	/* 布料模拟 */
 	//布料绘制
@@ -487,12 +489,10 @@ int main() {
 		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);	
-		masterRenderer.render(light, camera);	
-		masterRenderer.cleanUp();
+		masterRenderer.render(light, camera);
+		guiRenderer.render(guiTextures);
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
-
-		//guiRenderer.render(guiTextures);
 
 		//fbos.bindReflectionFrameBuffer();
 		//masterRenderer.processTerrain(terrain);
@@ -558,7 +558,9 @@ int main() {
 		glfwPollEvents();
 	}
 
+	masterRenderer.cleanUp();
 	//fbos.cleanUp();
+
 	//销毁GLFW
 	glfwTerminate();
 
