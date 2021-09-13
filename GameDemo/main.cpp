@@ -425,15 +425,14 @@ int main() {
 	//水面FBOs
 	//WaterFrameBuffers fbos;
 
-	//加载模型顶点信息
+	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
 	//使用纹理文件名加载纹理
 	ModelTexture texture(loader.loadTexture("playerTexture"));
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
-
-	//rawModel  modelTexture
 	TexturedModel texturedModel(model, texture);
+	//加载杂草模型
 	TexturedModel fernModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern"), true, false));
 
 	//加载模型
@@ -458,7 +457,7 @@ int main() {
 	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture guiTexture = GuiTexture(loader.loadTexture("grassy2"), glm::vec2(1,1), glm::vec2(1,1));
+	GuiTexture guiTexture = GuiTexture(loader.loadTexture("grassy2"), glm::vec2(-1, 1), glm::vec2(0.3, 0.3));
 	guiTextures.push_back(guiTexture);
 	
 
