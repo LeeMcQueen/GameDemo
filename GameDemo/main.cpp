@@ -422,8 +422,6 @@ int main() {
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
-	//水面FBOs
-	//WaterFrameBuffers fbos;
 
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
@@ -456,8 +454,10 @@ int main() {
 	//水面
 	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
 	//Gui列表
+	//水面FBOs
+	WaterFrameBuffers fbos;
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture guiTexture = GuiTexture(loader.loadTexture("grassy2"), glm::vec2(-1, 1), glm::vec2(0.3, 0.3));
+	GuiTexture guiTexture = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.3, 0.3));
 	guiTextures.push_back(guiTexture);
 	
 
@@ -494,9 +494,9 @@ int main() {
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 
-		//fbos.bindReflectionFrameBuffer();
-		//masterRenderer.processTerrain(terrain);
-		//fbos.unbindCurrentFrameBuffer();
+		fbos.bindReflectionFrameBuffer();
+		masterRenderer.processTerrain(terrain);
+		fbos.unbindCurrentFrameBuffer();
 
 #pragma region 布料主循环
 		for (int i = 0; i < cloth.iterationFreq; i++) {

@@ -6,7 +6,7 @@ WaterFrameBuffers::WaterFrameBuffers(){
 	initRefractionBuffer();
 }
 
-WaterFrameBuffers::~WaterFrameBuffers(){}
+//WaterFrameBuffers::~WaterFrameBuffers(){}
 
 void WaterFrameBuffers::initReflectionBuffer(){
 
@@ -81,7 +81,7 @@ void WaterFrameBuffers::bindFrameBuffer(unsigned int framebuffer, int width, int
 void WaterFrameBuffers::unbindCurrentFrameBuffer() {
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glViewport(0, 0, 720, 320);
+	glViewport(0, 0, 1280, 720);
 }
 
 void WaterFrameBuffers::bindReflectionFrameBuffer() {
@@ -96,4 +96,10 @@ void WaterFrameBuffers::bindRefractionFrameBuffer() {
 
 void WaterFrameBuffers::cleanUp(){
 
+	glDeleteFramebuffers(1, &reflectionFrameBuffer_);
+	glDeleteTextures(1, &reflectionTexture_);
+	glDeleteRenderbuffers(1, &reflectionDepthBuffer_);
+	glDeleteFramebuffers(1, &refractionFrameBuffer_);
+	glDeleteTextures(1, &refractionTexture_);
+	glDeleteTextures(1, &refractionDepthTexture_);
 }
