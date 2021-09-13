@@ -418,8 +418,10 @@ int main() {
 	MasterRenderer masterRenderer;
 	//实例化加载OBJ
 	OBJLoader objloader;
+	//GuiShader
+	GuiShader guiShader;
 	//Gui渲染启动
-	GuiRenderer guiRenderer(loader);
+	GuiRenderer guiRenderer(guiShader, loader);
 	//水面FBOs
 	//WaterFrameBuffers fbos;
 
@@ -478,7 +480,6 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-
 		//OBJ模型的移动
 		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.0f));
 		//OBJ模型的旋转
@@ -558,6 +559,7 @@ int main() {
 		glfwPollEvents();
 	}
 
+	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();
 	//fbos.cleanUp();
 

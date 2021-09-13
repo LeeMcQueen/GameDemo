@@ -8,8 +8,8 @@ TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projec
 	terrainShader_.stop();
 }
 
-void TerrainRenderer::render(std::vector<Terrain> &terrains)
-{
+void TerrainRenderer::render(std::vector<Terrain> &terrains){
+
 	for (Terrain& terrain : terrains)
 	{
 		prepareTerrain(terrain);

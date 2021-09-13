@@ -10,12 +10,12 @@ class GuiRenderer {
 
 public:
 
-	GuiRenderer(Loader loader);
-	static void render(std::vector<GuiTexture> guiTextures);
-	static void cleanUp();
+	GuiRenderer(GuiShader &guiShader, Loader loader);
+	void render(std::vector<GuiTexture> guiTextures);
+	void cleanUp();
 
 private:
 
-	static RawModel rawModel_;
-	//static GuiShader guiShader_;
+	GuiShader guiShader_;
+	RawModel rawModel_;
 };

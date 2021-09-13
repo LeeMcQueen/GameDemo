@@ -117,7 +117,6 @@ GLint ShaderProgram::loadShader(const char* fileName, int type){
 		exit(-1);
 	}
 
-	//输出shader内容
 	//cerr << "shaderSource:" << shaderSource << "End" << endl;
 
 	return shaderID;

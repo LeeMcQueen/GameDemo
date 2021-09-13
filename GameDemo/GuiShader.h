@@ -16,6 +16,7 @@ public:
 protected:
 
 	void bindAttributes() override;
+
 	void getAllUniformLocations() override;
 
 private:
