@@ -492,7 +492,6 @@ int main() {
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.render(light, camera);
 		fbos.unbindCurrentFrameBuffer();
-		//glDisable(GL_CLIP_PLANE0);
 
 		//加载
 		masterRenderer.processTerrain(terrain);
