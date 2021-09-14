@@ -457,7 +457,7 @@ int main() {
 	//水面FBOs
 	WaterFrameBuffers fbos;
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture guiTexture = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.3, 0.3));
+	GuiTexture guiTexture = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
 	guiTextures.push_back(guiTexture);
 	
 
@@ -484,6 +484,16 @@ int main() {
 		//OBJ模型的旋转
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
+		glEnable(GL_CLIP_DISTANCE0);
+
+		fbos.bindReflectionFrameBuffer();
+		masterRenderer.processEntity(entity);
+		masterRenderer.processEntity(fern);
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.render(light, camera);
+		fbos.unbindCurrentFrameBuffer();
+		//glDisable(GL_CLIP_PLANE0);
+
 		//加载
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processWater(waterTile);
@@ -493,10 +503,6 @@ int main() {
 		guiRenderer.render(guiTextures);
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
-
-		fbos.bindReflectionFrameBuffer();
-		masterRenderer.processTerrain(terrain);
-		fbos.unbindCurrentFrameBuffer();
 
 #pragma region 布料主循环
 		for (int i = 0; i < cloth.iterationFreq; i++) {
@@ -560,7 +566,7 @@ int main() {
 
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();
-	//fbos.cleanUp();
+	fbos.cleanUp();
 
 	//销毁GLFW
 	glfwTerminate();

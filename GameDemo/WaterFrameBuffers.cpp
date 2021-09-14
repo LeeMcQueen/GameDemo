@@ -80,7 +80,7 @@ void WaterFrameBuffers::bindFrameBuffer(unsigned int framebuffer, int width, int
 
 void WaterFrameBuffers::unbindCurrentFrameBuffer() {
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, 1280, 720);
 }
 
