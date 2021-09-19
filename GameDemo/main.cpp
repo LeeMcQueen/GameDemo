@@ -490,15 +490,17 @@ int main() {
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
 		masterRenderer.processTerrain(terrain);
-		masterRenderer.render(light, camera);
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 1.0f));
 		fbos.unbindCurrentFrameBuffer();
+
+		glDisable(GL_CLIP_DISTANCE0);
 
 		//加载
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);	
-		masterRenderer.render(light, camera);
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());

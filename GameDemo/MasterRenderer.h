@@ -18,7 +18,7 @@ public:
 
 	MasterRenderer();
 
-	void render(Light &light, Camera &camera);
+	void render(Light &light, Camera &camera, glm::vec4 &clipPlane);
 	void processEntity(const Entity &entity);
 	void processTerrain(const Terrain &terrain);
 	void processWater(const WaterTile &waterTile);

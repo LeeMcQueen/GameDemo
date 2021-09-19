@@ -15,7 +15,7 @@ uniform mat4 projectionMatrix;		//deep Matrix
 uniform mat4 viewMatrix;			//camera Matrix
 uniform vec3 lightPosition;			//light position
 uniform float useFakeLighting;
-uniform vec4 plane = vec4(0, -1, 0, 15);
+uniform vec4 plane;					//water reflection CLIP_DISTANCE
 
 const float density = 0.007;		//fog
 const float gradient = 1.5;			//fog

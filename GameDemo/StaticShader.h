@@ -38,6 +38,8 @@ public:
 	void loadUserFakeLighting(bool useFake);
 	//shader天空颜色接口
 	void loadSkyColour(float r, float g, float b);
+	//切线平面
+	void loadClipPlane(glm::vec4 plane);
 
 protected:
 
@@ -66,5 +68,7 @@ private:
 	GLuint Location_useFakeLighting;
 	//天空颜色
 	GLuint Location_skyColour;
+	//水面用的截切平面
+	GLuint Location_plane;
 };
 

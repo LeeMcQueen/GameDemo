@@ -27,12 +27,13 @@ MasterRenderer::MasterRenderer()
 	glEnable(GL_MULTISAMPLE);
 }
 
-void MasterRenderer::render(Light &light, Camera &camera) {
+void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane) {
 
 	prepare();
 
 	//Entity
 	staticshader_.start();
+	staticshader_.loadClipPlane(cilpPlane);
 	staticshader_.loadSkyColour(0.6f, 0.6f, 0.6f);
 	staticshader_.loadLight(light);
 	staticshader_.loadViewMatrix(camera.getViewMatrix());

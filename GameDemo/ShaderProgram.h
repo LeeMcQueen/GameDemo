@@ -45,6 +45,8 @@ protected:
 	void loadInt(GLuint location, int value);
 	//load 3D vector into uniform by location
 	void loadVector3(GLuint location, glm::vec3 vec);
+	//加载vec4到shader的uniform
+	void loadVector4(GLuint location, glm::vec4 vec);
 	//load bool into uniform by location
 	void loadBoolean(GLuint location, bool value);
 	//load matrix into unifrom by location

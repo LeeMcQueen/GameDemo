@@ -54,6 +54,10 @@ void ShaderProgram::loadVector3(GLuint location, glm::vec3 vec){
 	glUniform3f(location, vec.x, vec.y, vec.z);
 }
 
+void ShaderProgram::loadVector4(GLuint location, glm::vec4 vec){
+	glUniform4f(location, vec.x, vec.y, vec.z, vec.w);
+}
+
 void ShaderProgram::loadBoolean(GLuint location, bool value){
 	//true = 1 , false = 0
 	glUniform1f(location, value ? 1.0 : 0.0);
