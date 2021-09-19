@@ -422,6 +422,8 @@ int main() {
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
+	//水面FBOs
+	WaterFrameBuffers fbos;
 
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
@@ -455,13 +457,13 @@ int main() {
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
 	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
+
 	//Gui列表
-	//水面FBOs
-	WaterFrameBuffers fbos;
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture guiTexture = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
-	guiTextures.push_back(guiTexture);
-	
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
+	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.7, 0.7));
+	guiTextures.push_back(reflection);
+	guiTextures.push_back(refraction);
 
 	/* 布料模拟 */
 	//布料绘制
@@ -486,16 +488,24 @@ int main() {
 		//OBJ模型的旋转
 		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
 
+		//水面反射buffer
 		glEnable(GL_CLIP_DISTANCE0);
-
 		fbos.bindReflectionFrameBuffer();
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 1.0f));
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 10.0f));
 		fbos.unbindCurrentFrameBuffer();
 
+		//水面折射buffer
+		fbos.bindRefractionFrameBuffer();
+		masterRenderer.processEntity(entity);
+		masterRenderer.processEntity(fern);
+		masterRenderer.processEntity(tree);
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 10.0f));
+		fbos.unbindCurrentFrameBuffer();
 		glDisable(GL_CLIP_DISTANCE0);
 
 		//加载
