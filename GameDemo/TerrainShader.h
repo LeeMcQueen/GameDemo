@@ -33,6 +33,8 @@ public:
 	void loadLight(Light light);
 	//load ShineDamper reflectivity to program
 	void loadShineVariables(float shineDamper, float reflectivity);
+	//切线平面
+	void loadCilpPlane(glm::vec4 plane);
 
 protected:
 
@@ -67,6 +69,8 @@ private:
 	GLuint Location_bTexture;
 	//Location of blendMap
 	GLuint Location_blendMap;
+	//水面剪切平面uniform
+	GLuint Location_plane;
 
 };
 

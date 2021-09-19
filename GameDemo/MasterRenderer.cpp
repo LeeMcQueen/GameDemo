@@ -42,6 +42,7 @@ void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane) 
 
 	//terrain
 	terrainShader_.start();
+	terrainShader_.loadCilpPlane(cilpPlane);
 	terrainShader_.loadLight(light);
 	terrainShader_.loadViewMatrix(camera.getViewMatrix());
 	terrainRenderer_.render(terrains_);

@@ -13,7 +13,7 @@ uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;		//deep Matrix
 uniform mat4 viewMatrix;			//camera Matrix
 uniform vec3 lightPosition;			//light position
-uniform vec4 plane = vec4(0, -1, 0, 15);
+uniform vec4 plane;
 
 void main(void)
 {

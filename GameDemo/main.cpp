@@ -432,10 +432,12 @@ int main() {
 	TexturedModel texturedModel(model, texture);
 	//加载杂草模型
 	TexturedModel fernModel = TexturedModel(OBJLoader::loadObjModel("fern"), ModelTexture(loader.loadTexture("fern"), true, false));
+	TexturedModel treeModel = TexturedModel(OBJLoader::loadObjModel("tree"), ModelTexture(loader.loadTexture("tree"), true, false));
 
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity tree(treeModel, glm::vec3(50, 0, 10), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -457,7 +459,7 @@ int main() {
 	//水面FBOs
 	WaterFrameBuffers fbos;
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture guiTexture = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
+	GuiTexture guiTexture = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
 	guiTextures.push_back(guiTexture);
 	
 
@@ -489,6 +491,7 @@ int main() {
 		fbos.bindReflectionFrameBuffer();
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
+		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 1.0f));
 		fbos.unbindCurrentFrameBuffer();
@@ -499,6 +502,7 @@ int main() {
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
+		masterRenderer.processEntity(tree);
 		masterRenderer.processEntity(fern);	
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
