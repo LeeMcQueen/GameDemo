@@ -88,7 +88,6 @@ struct ClothRender // Texture & Lighting
 		/** Build render program **/
 		Program program("Shader/ClothVS.glsl", "Shader/ClothFS.glsl");
 		programID = program.ID;
-		std::cout << "Cloth Program ID: " << programID << std::endl;
 
 		// Generate ID of VAO and VBOs
 		glGenVertexArrays(1, &vaoID);

@@ -84,7 +84,7 @@ RawModel OBJLoader::loadObjModel(const std::string &fileName){
 	}
 	fclose(file);
 
-	printf("Load time: %dms\n", clock() - startTime);
+	//printf("Load time: %dms\n", clock() - startTime);
 
 	Loader *myloader = new Loader;
 	return myloader->loadToVao(vertices, textures, normals, indices);

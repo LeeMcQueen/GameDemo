@@ -27,6 +27,10 @@ RawModel WaterTile::generateWater(Loader &loader) {
 				0,
 				(float)i / ((float)VERTEX_COUNT - 1) * SIZE);
 			vertexPointer++;
+
+			std::cout << " X : " << (float)j / ((float)VERTEX_COUNT - 1) * SIZE << std::endl;
+			std::cout << " Z : " << (float)i / ((float)VERTEX_COUNT - 1) * SIZE << std::endl;
+
 		}
 	}
 

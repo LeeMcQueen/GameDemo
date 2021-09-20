@@ -2,9 +2,7 @@
 
 #include "Loader.h"
 #include "RawModel.h"
-#include "TerrainTexturePack.h"
-#include "TerrainTexture.h"
-#include "std_image.h"
+#include <iostream>
 
 class WaterTile {
 
@@ -34,10 +32,10 @@ public:
 	}
 private:
 
-	const float SIZE = 800;
+	const float SIZE = 1;
 	float VERTEX_COUNT = 2;
 
-	const float TILE_SIZE = 125.0f;
+	const float TILE_SIZE = 10.0f;
 	float x_;
 	float z_;
 	float height_;
