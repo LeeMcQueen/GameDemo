@@ -456,7 +456,7 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(0, 0, loader);
+	WaterTile waterTile = WaterTile(0, 0, -10, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
@@ -491,11 +491,18 @@ int main() {
 		//水面反射buffer
 		glEnable(GL_CLIP_DISTANCE0);
 		fbos.bindReflectionFrameBuffer();
+
+		auto reflectionCamera = camera;
+		float distance = 2 * (camera.getPosition().y - waterTile.getHeight());
+		auto position = reflectionCamera.getPosition() - glm::vec3(0, distance, 0);
+		reflectionCamera.setPosition(position);
+		reflectionCamera.invertPitch();
+
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 10.0f));
+		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight()));
 		fbos.unbindCurrentFrameBuffer();
 
 		//水面折射buffer
@@ -504,7 +511,7 @@ int main() {
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 10.0f));
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
 		fbos.unbindCurrentFrameBuffer();
 		glDisable(GL_CLIP_DISTANCE0);
 

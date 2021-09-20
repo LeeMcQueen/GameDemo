@@ -31,7 +31,7 @@ void WaterRenderer::prepareWater(WaterTile &waterTile) {
 void WaterRenderer::prepareInstance(WaterTile & waterTile) {
 	//变换矩阵
 	glm::mat4 transformationMatrix = Maths::createTransformationMatrix(
-		glm::vec3(waterTile.getX(), 0.0f, waterTile.getZ()),
+		glm::vec3(waterTile.getX(), waterTile.getHeight(), waterTile.getZ()),
 		glm::vec3(0, 0, 0),
 		glm::vec3(waterTile.getTileSize(), waterTile.getTileSize(), waterTile.getTileSize()));
 

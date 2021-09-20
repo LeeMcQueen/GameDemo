@@ -168,3 +168,8 @@ glm::vec3 Camera::getRotation() const {
 
 	return rotation_;
 }
+
+void Camera::invertPitch(){
+
+	position_.y = -position_.y;
+}

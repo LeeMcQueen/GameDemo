@@ -8,7 +8,7 @@ class WaterTile {
 
 public:
 
-	WaterTile(int centerX, int centerZ, Loader loader);
+	WaterTile(float centerX, float centerZ, float height,Loader loader);
 	~WaterTile();
 
 	RawModel getModel() {
@@ -34,8 +34,7 @@ private:
 
 	const float SIZE = 1;
 	float VERTEX_COUNT = 2;
-
-	const float TILE_SIZE = 10.0f;
+	const float TILE_SIZE = 60.0f;
 	float x_;
 	float z_;
 	float height_;

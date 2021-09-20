@@ -1,8 +1,9 @@
 #include "WaterTile.h"
 
-WaterTile::WaterTile(int centerX, int centerZ, Loader loader) :
+WaterTile::WaterTile(float centerX, float centerZ, float height, Loader loader) :
 	x_(centerX),
 	z_(centerZ),
+	height_(height),
 	rawModel_(generateWater(loader)) {}
 
 WaterTile::~WaterTile() {
@@ -24,13 +25,12 @@ RawModel WaterTile::generateWater(Loader &loader) {
 		{
 			vertices[vertexPointer] = glm::vec3(
 				(float)j / ((float)VERTEX_COUNT - 1) * SIZE,
-				0,
+				height_,
 				(float)i / ((float)VERTEX_COUNT - 1) * SIZE);
 			vertexPointer++;
 
 			std::cout << " X : " << (float)j / ((float)VERTEX_COUNT - 1) * SIZE << std::endl;
 			std::cout << " Z : " << (float)i / ((float)VERTEX_COUNT - 1) * SIZE << std::endl;
-
 		}
 	}
 
