@@ -456,7 +456,7 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(0, 0, loader, terrainTexturePack, blendMap);
+	WaterTile waterTile = WaterTile(0, 0, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
@@ -513,7 +513,7 @@ int main() {
 		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
-		masterRenderer.processEntity(fern);	
+		masterRenderer.processEntity(fern);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
 		player.move();

@@ -32,7 +32,6 @@ void TerrainRenderer::prepareTerrain(Terrain &terrain)
 
 	bindTexture(terrain);
 
-	//load shine 
 	//getShineDamer getReflectivity
 	terrainShader_.loadShineVariables(1.0f, 0.0f);
 

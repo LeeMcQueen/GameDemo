@@ -1,21 +1,15 @@
 #include "WaterTile.h"
 
-WaterTile::WaterTile(int centerX, int centerZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap) :
+WaterTile::WaterTile(int centerX, int centerZ, Loader loader) :
 	x_(centerX),
 	z_(centerZ),
-	terrainTexturePack_(terrainTexturePack),
-	blendMap_(blendMap),
-	rawModel_(generateWater(loader, "heightmap")) {}
+	rawModel_(generateWater(loader)) {}
 
 WaterTile::~WaterTile() {
 
 }
 
-RawModel WaterTile::generateWater(Loader &loader, std::string heightMap) {
-
-	_image = stbi_load("res/heightmap.png", &_width, &_height, &_colorChannels, 0);
-
-	VERTEX_COUNT = _height;
+RawModel WaterTile::generateWater(Loader &loader) {
 
 	int count = VERTEX_COUNT * VERTEX_COUNT;
 
@@ -32,16 +26,6 @@ RawModel WaterTile::generateWater(Loader &loader, std::string heightMap) {
 				(float)j / ((float)VERTEX_COUNT - 1) * SIZE,
 				0,
 				(float)i / ((float)VERTEX_COUNT - 1) * SIZE);
-
-			normals[vertexPointer] = glm::vec3(
-				0,
-				1,
-				0);
-
-			textureCoords[vertexPointer] = glm::vec2(
-				(float)j / ((float)VERTEX_COUNT - 1),
-				(float)i / ((float)VERTEX_COUNT - 1));
-
 			vertexPointer++;
 		}
 	}
@@ -64,52 +48,4 @@ RawModel WaterTile::generateWater(Loader &loader, std::string heightMap) {
 		}
 	}
 	return loader.loadToVao(vertices, textureCoords, normals, indices);
-}
-
-float WaterTile::getHeight(int x, int z, unsigned char *data) {
-	if (x < 0 || x > _height || z < 0 || z > _height) {
-		return 0;
-	}
-
-	float height = getRGBSum(x, z);
-	height /= (MAX_PIXEL_COLOUR / 2);
-	height -= 1.0;
-	height *= MAX_HEIGHT;
-
-	return height;
-}
-
-glm::vec3 WaterTile::calculateNormal(int x, int z, unsigned char * image)
-{
-	float heightL = getHeight(x - 1, z, image);
-	float heightR = getHeight(x + 1, z, image);
-	float heightD = getHeight(x, z - 1, image);
-	float heightU = getHeight(x, z + 1, image);
-	glm::vec3 normal = {
-		heightL - heightR,
-		2.f,
-		heightD - heightU
-	};
-
-	normal = glm::normalize(normal);
-	return normal;
-}
-
-std::int32_t WaterTile::getRGBSum(int x, int y)
-{
-	int addr = (y * _width + x) * _colorChannels;
-	std::int32_t r = _image[addr];
-	std::int32_t g = _image[addr + 1];
-	std::int32_t b = _image[addr + 2];
-	return (r << 16) + (g << 8) + b;
-}
-
-TerrainTexturePack WaterTile::getTerrainTexturePack()
-{
-	return terrainTexturePack_;
-}
-
-TerrainTexture WaterTile::getTerrainTexture()
-{
-	return blendMap_;
 }

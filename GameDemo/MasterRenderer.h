@@ -12,7 +12,7 @@
 #include "Camera.h"
 #include "WaterTIle.h"
 
-class MasterRenderer{
+class MasterRenderer {
 
 public:
 
@@ -51,4 +51,3 @@ private:
 	static std::map<TexturedModel, std::vector<Entity>> entities_;
 	static std::vector<WaterTile> waterTiles_;
 };
-

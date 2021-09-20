@@ -1,7 +1,7 @@
 #include "GuiRenderer.h"
 
-GuiRenderer::GuiRenderer(GuiShader &guiShader, Loader loader)
-	:guiShader_(guiShader){
+GuiRenderer::GuiRenderer(GuiShader &guiShader, Loader loader):
+	guiShader_(guiShader){
 
 	std::vector<float> positions = { -1, 1, -1, -1, 1, 1, 1, -1 };
 	rawModel_ = loader.loadToVAO(positions, 2);
@@ -19,7 +19,9 @@ void GuiRenderer::render(std::vector<GuiTexture> guiTextures) {
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, guiTexture.getTexture());
-		glm::mat4 transformMatrix = Maths::createTransformationMatrix(guiTexture.getPosition(), guiTexture.getScale());
+		glm::mat4 transformMatrix = Maths::createTransformationMatrix(
+			guiTexture.getPosition(), 
+			guiTexture.getScale());
 		guiShader_.loadTransformationMatrix(transformMatrix);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, rawModel_.getVertexCount());
 	}

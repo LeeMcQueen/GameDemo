@@ -50,7 +50,6 @@ void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane) 
 
 	//water
 	waterShader_.start();
-	waterShader_.loadLight(light);
 	waterShader_.loadViewMatrix(camera.getViewMatrix());
 	waterRenderer_.render(waterTiles_);
 	waterShader_.stop();
@@ -61,19 +60,19 @@ void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane) 
 }
 
 //主要模型 往主要模型list里注入对象
-void MasterRenderer::processEntity(const Entity &entity){
+void MasterRenderer::processEntity(const Entity &entity) {
 	//Get textureModel form entity
 	TexturedModel& model = entity.GetModel();
 
 	entities_[entity.GetModel()].push_back(entity);
 }
 //地面 往地面list里注入对象
-void MasterRenderer::processTerrain(const Terrain &terrain){
+void MasterRenderer::processTerrain(const Terrain &terrain) {
 
 	terrains_.push_back(terrain);
 }
 //水面 往水面list里注入对象
-void MasterRenderer::processWater(const WaterTile & waterTile){
+void MasterRenderer::processWater(const WaterTile & waterTile) {
 
 	waterTiles_.push_back(waterTile);
 }

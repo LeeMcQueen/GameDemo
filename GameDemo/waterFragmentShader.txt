@@ -1,63 +1,14 @@
 #version 330 core
 
-in vec2 pass_textureCoords;			//UV position
-in vec3 surfaceNormal;
-in vec3 toLightVector;
-in vec3 toCameraVector;
+in vec2 textureCoords;			//UV position
 
 out vec4 out_Colour;
-
-uniform sampler2D backgroundTexture;
-uniform sampler2D rTexture;
-uniform sampler2D gTexture;
-uniform sampler2D bTexture;
-uniform sampler2D blendMap;
 
 uniform vec3 lightColor;			
 uniform float shineDamper;			//light->shineDemper
 uniform float reflectivity;			//light->reflectivity
 
-void main(void)
-{
-	//get colour of blendmap to find out how much of each texture should be rendered
-	vec4 blendMapColour = texture(blendMap, pass_textureCoords);
-
-	//blendMap amount
-	float backTextureAmount = 1 - (blendMapColour.r + blendMapColour.g + blendMapColour.b);
-
-	// all textureCoords
-	vec2 tiledCoords = pass_textureCoords * 40.0;
-	//calculate colours of each texture
-	vec4 backgroundTextureColour = texture(backgroundTexture, tiledCoords) * backTextureAmount;
-	vec4 rTextureColour = texture(rTexture, tiledCoords) * blendMapColour.r;
-	vec4 gTextureColour = texture(gTexture, tiledCoords) * blendMapColour.g;
-	vec4 bTextureColour = texture(bTexture, tiledCoords) * blendMapColour.b;
-	vec4 totalColour =  backgroundTextureColour + rTextureColour + gTextureColour + bTextureColour;
-
-	// Normalize the vectors
-	vec3 unitNormal = normalize(surfaceNormal);
-	vec3 unitLightVector = normalize(toLightVector);
-
-	float nDotl = dot(unitNormal, unitLightVector);
-
-	//Min value > 0.2
-	float brightness = max(nDotl, 0.2);
-
-	vec3 diffuse = brightness * lightColor;
-
-	//GOTO camera vector 
-	vec3 unitVectorToCamera = normalize(toCameraVector);
-
-	//where light form
-	vec3 lightDirection = -unitLightVector;
-
-	//Opengl reflection function
-	vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
-
-	float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
-	specularFactor  = max(specularFactor, 0.0);
-	float dampedFactor = pow(specularFactor, shineDamper);
-	vec3 finalSpecular = max(dampedFactor * reflectivity * lightColor, 0.0);
+void main(void){
 
 	out_Colour = vec4(0.0, 0.0, 1.0, 1.0);
 }

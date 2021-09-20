@@ -34,6 +34,11 @@ void TerrainShader::loadProjectionMatrix(glm::mat4 matrix){
 	loadMatrix4(Location_projectionMatrix, matrix);
 }
 
+void TerrainShader::loadViewMatrix(glm::mat4 matrix) {
+
+	loadMatrix4(Location_viewMatrix, matrix);
+}
+
 void TerrainShader::loadconnectTextureUnits(){
 
 	//通道0的背景纹理
@@ -46,11 +51,6 @@ void TerrainShader::loadconnectTextureUnits(){
 	loadInt(Location_bTexture, 3);
 	//通道4的混合纹理
 	loadInt(Location_blendMap, 4);
-}
-
-void TerrainShader::loadViewMatrix(glm::mat4 matrix){
-
-	loadMatrix4(Location_viewMatrix, matrix);
 }
 
 void TerrainShader::loadLight(Light light){

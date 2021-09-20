@@ -9,7 +9,7 @@
 #include "Loader.h"
 #include "Maths.h"
 
-class WaterRenderer{
+class WaterRenderer {
 
 public:
 
@@ -24,6 +24,5 @@ private:
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile);
 	void prepareInstance(WaterTile &waterTile);
-	void bindTexture(WaterTile &waterTile);
 	void unbindTextureModel();
 };

@@ -1,4 +1,16 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
+  EntityRenderer.cpp
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  MasterRenderer.cpp
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  WaterRenderer.cpp
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  WaterTile.cpp
+WaterTile.cpp(6): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+WaterTile.cpp(14): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+WaterTile.cpp(18): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+WaterTile.cpp(38): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+WaterTile.cpp(40): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
   main.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
@@ -40,5 +52,6 @@ main.cpp(169): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(170): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(189): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(420): warning C4101: “objloader”: 未引用的局部变量
+  正在生成代码...
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)
