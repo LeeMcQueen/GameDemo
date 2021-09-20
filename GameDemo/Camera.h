@@ -35,6 +35,8 @@ private:
 	//相机围绕主角的角度
 	float angleAroundPlayer_;
 
+	glm::vec3 viewDirection_;
+
 
 	//相机到主角远近移动函数
 	void calclateZoom();
