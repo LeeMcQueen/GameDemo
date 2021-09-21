@@ -53,20 +53,24 @@
 #pragma region 骨骼动画vertexShader
 const char* vertexShaderSource = R"(
 	#version 330 core
+
 	layout (location = 0) in vec3 position; 
 	layout (location = 1) in vec3 normal;
 	layout (location = 2) in vec2 texture;
 	layout (location = 3) in vec4 boneIds;
 	layout (location = 4) in vec4 boneWeights;
+
 	out vec2 tex_cord;
 	out vec3 v_normal;
 	out vec3 v_pos;
 	out vec4 bw;
+
 	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]
 	//uniform mat4 view_projection_matrix;
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
+
 	void main()
 	{
 		bw = vec4(0);
@@ -91,20 +95,37 @@ const char* vertexShaderSource = R"(
 #pragma region 骨骼动画fragmentShader
 const char* fragmentShaderSource = R"(
 	#version 330 core
+
 	in vec2 tex_cord;
 	in vec3 v_normal;
 	in vec3 v_pos;
 	in vec4 bw;
+
 	out vec4 color;
+
 	uniform sampler2D diff_texture;
+	uniform sampler2D emission;
+	uniform float time;
+
 	vec3 lightPos = vec3(20.0, 55.0, 13.0);
 	
 	void main()
 	{
 		vec3 lightDir = normalize(lightPos - v_pos);
 		float diff = max(dot(v_normal, lightDir), 0.2);
+
 		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
-		color = vec4(dCol, 1);
+
+		vec3 emission = vec3(0.0);
+		//if(texture(diff_texture, tex_cord).r == 0.0)
+		//{
+		//	emission = texture(emission, tex_cord).rgb;
+		//
+		//	emission = texture(emission, tex_cord + vec2(0.0, time)).rgb;
+		//	emission = emission * (sin(time) * 0.5 + 0.5) * 2.0;
+		//}
+
+		color = vec4(dCol + emission, 1.0f);
 	}
 	)";
 #pragma endregion
@@ -367,7 +388,7 @@ int main() {
 	displayManager.CreatManager(window);
 #pragma endregion
 
-	//------------------------------skeleton animation start------------------------
+#pragma region 骨骼动画设定
 	bool isRunning = true;
 
 	//animation数组实例化
@@ -388,6 +409,9 @@ int main() {
 	//图片初始化
 	unsigned int diffuseTexture;
 	diffuseTexture = createTexture("res/boss_lan.jpg");
+	unsigned int emissionTexture;
+	emissionTexture = createTexture("res/boss_lan.jpg");
+
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
 
 	glm::mat4 identity;
@@ -405,7 +429,9 @@ int main() {
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
-	//------------------------------skeleton animation end------------------------
+	unsigned int emissionLocation = glGetUniformLocation(shader, "emission");
+	unsigned int timeLocation = glGetUniformLocation(shader, "time");
+#pragma endregion
 
 	/* 模型&地面 */
 	//实例化加载工具
@@ -493,16 +519,13 @@ int main() {
 		fbos.bindReflectionFrameBuffer();
 
 		auto reflectionCamera = camera;
-		float distance = 2 * (camera.getPosition().y - waterTile.getHeight());
-		auto position = reflectionCamera.getPosition() - glm::vec3(0, distance, 0);
-		reflectionCamera.setPosition(position);
-		reflectionCamera.invertPitch();
-
+		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight()));
+
 		fbos.unbindCurrentFrameBuffer();
 
 		//水面折射buffer
@@ -572,6 +595,11 @@ int main() {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
 		glUniform1i(textureLocation, 0);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, emissionTexture);
+		glUniform1i(emissionLocation, 1);
+		glUniform1f(timeLocation, idleStartTime);
+
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 #pragma endregion

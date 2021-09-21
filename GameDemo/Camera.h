@@ -20,7 +20,7 @@ public:
 	glm::vec3 getRotation() const;
 	//设定相机position
 	void setPosition(glm::vec3 position) { position_ = position; }
-	void invertPitch();
+	void setviewDirection(glm::vec3 viewDirection) { viewDirection_ = viewDirection; };
 
 private:
 

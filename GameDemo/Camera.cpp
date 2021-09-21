@@ -128,19 +128,7 @@ void Camera::calculateCameraPosition(float horizDistance, float verticDistance, 
 	float xOffset = horizDistance * std::sin(glm::radians(theta));
 	float zOffset = horizDistance * std::cos(glm::radians(theta));
 
-	//position.x = position.x - xOffset;
-	//position.y = position.y - zOffset;
-	//position.z = position.y + verticDistance + 5.0f;
-
 	setPosition(position);
-
-	//std::cout << "player.x" << position.x << std::endl;
-	//std::cout << "player.y" << position.y << std::endl;
-	//std::cout << "player.z" << position.z << std::endl;
-
-	//std::cout << "camera.x" << position_.x << std::endl;
-	//std::cout << "camera.y" << position_.y << std::endl;
-	//std::cout << "camera.z" << position_.z << std::endl;
 }
 
 //观察矩阵函数
@@ -166,9 +154,4 @@ glm::vec3 Camera::getPosition() const {
 glm::vec3 Camera::getRotation() const {
 
 	return rotation_;
-}
-
-void Camera::invertPitch(){
-
-	position_.y = -position_.y;
 }

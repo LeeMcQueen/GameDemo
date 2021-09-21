@@ -59,7 +59,7 @@ void TerrainShader::loadLight(Light light){
 	loadVector3(Location_lightPosition, light.getPosition());
 }
 
-void TerrainShader::loadShineVariables(float shineDamper, float reflectivity){\
+void TerrainShader::loadShineVariables(float shineDamper, float reflectivity){
 
 	loadFloat(Location_shineDamper, shineDamper);
 	loadFloat(Location_reflectivity, reflectivity);
