@@ -66,7 +66,6 @@ const char* vertexShaderSource = R"(
 	out vec4 bw;
 
 	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]
-	//uniform mat4 view_projection_matrix;
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
@@ -76,14 +75,15 @@ const char* vertexShaderSource = R"(
 		bw = vec4(0);
 		if(int(boneIds.x) == 1)
 		bw.z = boneIds.x;
-		//boneWeights = normalize(boneWeights);
 		mat4 boneTransform  =  mat4(0.0);
 		boneTransform  +=    bone_transforms[int(boneIds.x)] * boneWeights.x;
 		boneTransform  +=    bone_transforms[int(boneIds.y)] * boneWeights.y;
 		boneTransform  +=    bone_transforms[int(boneIds.z)] * boneWeights.z;
 		boneTransform  +=    bone_transforms[int(boneIds.w)] * boneWeights.w;
 		vec4 pos =boneTransform * vec4(position, 1.0);
+
 		gl_Position = projection_Matrix * view_Matrix * model_matrix * pos;
+
 		v_pos = vec3(model_matrix * boneTransform * pos);
 		tex_cord = texture;
 		v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
@@ -114,9 +114,11 @@ const char* fragmentShaderSource = R"(
 		vec3 lightDir = normalize(lightPos - v_pos);
 		float diff = max(dot(v_normal, lightDir), 0.2);
 
-		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
+		vec3 dCol = diff * texture(diff_texture, tex_cord + vec2(0.0, time)).rgb; 
+		dCol = dCol * (sin(time) * 0.5 + 0.5) * 2.0;
 
 		vec3 emission = vec3(0.0);
+		
 		//if(texture(diff_texture, tex_cord).r == 0.0)
 		//{
 		//	emission = texture(emission, tex_cord).rgb;
