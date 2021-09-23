@@ -4,9 +4,7 @@ in vec2 textureCoords;			//UV position
 
 out vec4 out_Colour;
 
-uniform vec3 lightColor;			
-uniform float shineDamper;			//light->shineDemper
-uniform float reflectivity;			//light->reflectivity
+
 
 void main(void){
 

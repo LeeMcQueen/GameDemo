@@ -114,17 +114,15 @@ const char* fragmentShaderSource = R"(
 		vec3 lightDir = normalize(lightPos - v_pos);
 		float diff = max(dot(v_normal, lightDir), 0.2);
 
-		vec3 dCol = diff * texture(diff_texture, tex_cord + vec2(0.0, time)).rgb; 
-		dCol = dCol * (sin(time) * 0.5 + 0.5) * 2.0;
+		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
 
-		vec3 emission = vec3(0.0);
-		
+		vec3 emission = vec3(0.0);	
 		//if(texture(diff_texture, tex_cord).r == 0.0)
 		//{
 		//	emission = texture(emission, tex_cord).rgb;
 		//
 		//	emission = texture(emission, tex_cord + vec2(0.0, time)).rgb;
-		//	emission = emission * (sin(time) * 0.5 + 0.5) * 2.0;
+		//	emission = emission * (sin(time) * 0.1 + 0.5) * 2.0;
 		//}
 
 		color = vec4(dCol + emission, 1.0f);
@@ -267,29 +265,6 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 }
 #pragma endregion
 
-#pragma region 骨骼动画纹理
-unsigned int createTexture(std::string filepath) {
-	unsigned int textureId = 0;
-	int width, height, nrChannels;
-	byte *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 4);
-	glGenTextures(1, &textureId);
-	glBindTexture(GL_TEXTURE_2D, textureId);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 3);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-	stbi_image_free(data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	return textureId;
-}
-#pragma endregion
-
 #pragma region 时间处理
 std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &dt) {
 	unsigned int segment = 0;
@@ -392,11 +367,13 @@ int main() {
 
 #pragma region 骨骼动画设定
 	bool isRunning = true;
-
+	//实例化加载工具
+	Loader loader;
 	//animation数组实例化
 	Animation animation;
 	//Bone骨骼数组实例化
 	Bone skeleton;
+	//顶点数组实例化
 	Vertex vertex;
 	//实例化加载Assimp
 	AnimaModelLoader animaModelLoader;
@@ -406,16 +383,17 @@ int main() {
 	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
 	loadAnimation(scene, animation);
 
-	//vao
 	unsigned int vao = 0;
 	//图片初始化
 	unsigned int diffuseTexture;
-	diffuseTexture = createTexture("res/boss_lan.jpg");
+	diffuseTexture = loader.loadTexture("boss_lan");
 	unsigned int emissionTexture;
-	emissionTexture = createTexture("res/boss_lan.jpg");
-
+	emissionTexture = loader.loadTexture("boss_green");
+	
+	//创建骨骼动画的顶点数组对象
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
 
+	//得到动画个数，然后生成相应大小的list（空的matrix，之后用getpose得到对应的matrix）
 	glm::mat4 identity;
 	std::vector<glm::mat4> currentPose = {};
 	currentPose.resize(animaModelLoader.getbBoneCount(), identity);
@@ -435,9 +413,6 @@ int main() {
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
 #pragma endregion
 
-	/* 模型&地面 */
-	//实例化加载工具
-	Loader loader;
 	//主角控制
 	Player player(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
@@ -519,15 +494,13 @@ int main() {
 		//水面反射buffer
 		glEnable(GL_CLIP_DISTANCE0);
 		fbos.bindReflectionFrameBuffer();
-
 		auto reflectionCamera = camera;
-		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
+		reflectionCamera.setviewDirection(glm::vec3(0.0f, -40.0f, 70.0f));
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight()));
-
 		fbos.unbindCurrentFrameBuffer();
 
 		//水面折射buffer
