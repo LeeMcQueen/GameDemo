@@ -443,7 +443,7 @@ int main() {
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Entity tree(treeModel, glm::vec3(50, 0, 10), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
+	Entity tree(treeModel, glm::vec3(50, 0, 30), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -460,12 +460,12 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(-10, -12, -10, loader);
+	WaterTile waterTile = WaterTile(-10, -15, -10, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
-	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
+	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.7, 0.7));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
 
@@ -503,7 +503,6 @@ int main() {
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight()));
 		fbos.unbindCurrentFrameBuffer();
-
 		//水面折射buffer
 		fbos.bindRefractionFrameBuffer();
 		masterRenderer.processEntity(entity);

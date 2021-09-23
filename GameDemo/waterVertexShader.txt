@@ -2,7 +2,7 @@
 
 in vec3 position;
 
-out vec2 textureCoords;
+out vec4 clipSpace;
 
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;		//deep Matrix
@@ -10,10 +10,9 @@ uniform mat4 viewMatrix;			//camera Matrix
 
 void main(void){
 
-   //position * transformationMatrix
    vec4 worldPosition = transformationMatrix * vec4(position.x, 0.0, position.z, 1.0);
 
-   gl_Position = projectionMatrix * viewMatrix * worldPosition;
-      
-   textureCoords = vec2(position.x/2.0 + 0.5, position.z/2.0 + 0.5);
+   clipSpace = projectionMatrix * viewMatrix * worldPosition;
+   gl_Position = clipSpace;
+
 }
