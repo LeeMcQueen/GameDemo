@@ -417,16 +417,17 @@ int main() {
 	Player player(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
 	Camera camera(player);
+	//水面FBOs
+	WaterFrameBuffers fbos;
 	//实例化渲染器
-	MasterRenderer masterRenderer;
+	MasterRenderer masterRenderer(fbos);
 	//实例化加载OBJ
 	OBJLoader objloader;
 	//GuiShader
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
-	//水面FBOs
-	WaterFrameBuffers fbos;
+	
 
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
@@ -459,12 +460,12 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(0, 0, -10, loader);
+	WaterTile waterTile = WaterTile(-10, -12, -10, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
-	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.7, 0.7));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
+	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
 

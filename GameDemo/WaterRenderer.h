@@ -3,23 +3,22 @@
 #include "WaterShader.h"
 #include "Loader.h"
 #include "WaterTile.h"
-#include "Camera.h"
-#include "Light.h"
 #include "RawModel.h"
-#include "Loader.h"
+#include "WaterFrameBuffers.h"
 #include "Maths.h"
 
 class WaterRenderer {
 
 public:
 
-	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix);
+	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo);
 
 	void render(std::vector<WaterTile> &waterTile);
 
 private:
 
 	WaterShader waterShader_;
+	const WaterFrameBuffers &fbo_;
 
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile);

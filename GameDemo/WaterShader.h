@@ -18,6 +18,8 @@ public:
 	void loadProjectionMatrix(glm::mat4 matrix);
 	//观察矩阵加载 参数类型mat4
 	void loadViewMatrix(glm::mat4 matrix);
+	//加载纹理集合
+	void loadconnectTextureUnits();
 protected:
 
 	//继承 给传入shader的VBO进行命名
@@ -32,4 +34,6 @@ private:
 	GLuint Location_projectionMatrix;
 	//观察矩阵传递参数
 	GLuint Location_viewMatrix;
+	GLuint Location_reflectionTexture;
+	GLuint Location_refractionTexture;
 };

@@ -1,9 +1,11 @@
 ﻿#include "WaterRenderer.h"
 
-WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix) :
-	waterShader_(waterShader) {
+WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo) :
+	waterShader_(waterShader),
+	fbo_(fbo){
 
 	waterShader_.start();
+	waterShader_.loadconnectTextureUnits();
 	waterShader_.loadProjectionMatrix(projectionMatrix);
 	waterShader_.stop();
 }
@@ -26,6 +28,11 @@ void WaterRenderer::prepareWater(WaterTile &waterTile) {
 
 	glBindVertexArray(rawModel.getVaoId());
 	glEnableVertexAttribArray(0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, fbo_.getReflectionTexture());
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, fbo_.getRefractionTexture());
 }
 
 void WaterRenderer::prepareInstance(WaterTile & waterTile) {

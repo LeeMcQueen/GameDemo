@@ -4,9 +4,13 @@ in vec2 textureCoords;			//UV position
 
 out vec4 out_Colour;
 
-
+uniform sampler2D reflectionTexture;
+uniform sampler2D refractionTexture;
 
 void main(void){
 
-	out_Colour = vec4(0.0, 0.0, 1.0, 1.0);
+	vec4 reflectionColor = texture(reflectionTexture, textureCoords);
+	vec4 refractionColor = texture(refractionTexture, textureCoords);
+
+	out_Colour = mix(reflectionColor, refractionColor, 0.5);
 }

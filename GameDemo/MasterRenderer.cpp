@@ -6,16 +6,17 @@
 #include "StaticShader.h"
 #include "EntityRenderer.h"
 #include "DisplayManager.h"
+#include "waterFrameBuffers.h"
 
 std::map<TexturedModel, std::vector<Entity>> MasterRenderer::entities_;
 std::vector<Terrain>  MasterRenderer::terrains_;
 std::vector<WaterTile> MasterRenderer::waterTiles_;
 
-MasterRenderer::MasterRenderer()
+MasterRenderer::MasterRenderer(WaterFrameBuffers &fbo)
 	: projectionMatrix_(getProjectionMatrix())
 	, entityRenderer_(EntityRenderer(staticshader_, projectionMatrix_))
 	, terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_))
-	, waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_)) {
+	, waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_, fbo)) {
 
 	//背面剔除
 	glEnable(GL_CULL_FACE);

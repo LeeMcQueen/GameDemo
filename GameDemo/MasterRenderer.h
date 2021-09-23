@@ -16,7 +16,7 @@ class MasterRenderer {
 
 public:
 
-	MasterRenderer();
+	MasterRenderer(WaterFrameBuffers &fbo);
 
 	void render(Light &light, Camera &camera, glm::vec4 &clipPlane);
 	void processEntity(const Entity &entity);

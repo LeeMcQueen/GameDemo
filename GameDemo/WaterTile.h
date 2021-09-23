@@ -34,7 +34,7 @@ private:
 
 	const float SIZE = 1;
 	float VERTEX_COUNT = 2;
-	const float TILE_SIZE = 60.0f;
+	const float TILE_SIZE = 130.0f;
 	float x_;
 	float z_;
 	float height_;
