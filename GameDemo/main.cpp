@@ -4,11 +4,9 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-//------------------------------skeleton animation start------------------------
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
-//------------------------------skeleton animation start------------------------
 #include <glm.hpp>
 #include <gtc/quaternion.hpp>
 #include <gtx/quaternion.hpp>
@@ -19,7 +17,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
-
 #include "DisplayManager.h"
 #include "RawModel.h"
 #include "Loader.h"
@@ -133,7 +130,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(30.0f, 15.0f, 30.0f);
+Vec3 clothPos(20.0f, 20.0f, 30.0f);
 Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
@@ -458,24 +455,23 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
-	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.7, 0.7));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
+	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
 
-	/* 布料模拟 */
 	//布料绘制
 	Vec3 initForce(10.0, 40.0, 20.0);
 	Vec3 normalForce(0.0, 0.0, 0.5);
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
-	/** 骨骼模型开始时间 **/
+	//骨骼模型开始时间
 	float RunStartTime = 865.0f;
 	float RunEndTime = 888.0f;
 	float idleStartTime = 805.0f;
 	float idleEndTime = 856.0f;
-	/** 骨骼模型位置，旋转，大小 **/
+	//骨骼模型位置，旋转，大小
 	glm::mat4 modelMatrix;
 
 	//渲染循环

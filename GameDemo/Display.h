@@ -157,7 +157,7 @@ struct ClothRender // Texture & Lighting
 		glm::mat4 uniModelMatrix = glm::mat4(1.0f);
 		uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
 		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
 
 		/** 光线 **/
