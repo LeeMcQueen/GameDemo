@@ -116,14 +116,8 @@ const char* fragmentShaderSource = R"(
 
 		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
 
-		vec3 emission = vec3(0.0);	
-		//if(texture(diff_texture, tex_cord).r == 0.0)
-		//{
-		//	emission = texture(emission, tex_cord).rgb;
-		//
-		//	emission = texture(emission, tex_cord + vec2(0.0, time)).rgb;
-		//	emission = emission * (sin(time) * 0.1 + 0.5) * 2.0;
-		//}
+		vec3 emission = texture(emission, tex_cord + vec2(0.0, time * 0.001)).rgb;
+		emission = emission * (sin(time) * 0.001 + 0.5) * 2.0;
 
 		color = vec4(dCol + emission, 1.0f);
 	}
@@ -567,12 +561,15 @@ int main() {
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
 		glBindVertexArray(vao);
+		//骨骼动画基础纹理
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
 		glUniform1i(textureLocation, 0);
+		//骨骼动画运动纹理
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, emissionTexture);
 		glUniform1i(emissionLocation, 1);
+		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
 
 
