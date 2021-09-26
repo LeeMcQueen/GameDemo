@@ -146,3 +146,20 @@ GLuint Loader::loadTexture(const char *fileName) {
 
 	return texture[0];
 }
+
+GLuint Loader::loadCubeMap(const std::vector<std::string>& fileName){
+
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, numberChannels;
+
+	for (int i = 0; i < fileName.size(); i++) {
+		
+		auto path = fileName[i];
+		unsigned char *data = stbi_load(path.c_str(), &width, &height, &numberChannels, 0);
+	}
+
+	return GLuint();
+}

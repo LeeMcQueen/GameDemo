@@ -2,27 +2,30 @@
 #include <glm.hpp>
 
 #include "RawModel.h"
+#include "std_image.h"
 
 #pragma once
 
 class RawModel;
 
-class Loader{
+class Loader {
 
 public:
 	//创建VAO
 	GLuint createVAO();
 
-	//VAO水面加载
+	//VAO单参数加载
 	RawModel loadToVAO(std::vector<float> &positions, int dimensions);
 
+	//VAO多参数加载
 	RawModel loadToVao(std::vector<glm::vec3> vertices
-						, std::vector<glm::vec2> textureCoords
-						, std::vector<glm::vec3> normals
-						, std::vector<int> indices);
+		, std::vector<glm::vec2> textureCoords
+		, std::vector<glm::vec3> normals
+		, std::vector<int> indices);
 
-	//load texture from file
+	//纹理图像加载
 	GLuint loadTexture(const char *filename);
+	GLuint loadCubeMap(const std::vector < std::string > &fileName);
 
 private:
 	//顶点数组对象
