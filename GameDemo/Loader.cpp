@@ -147,7 +147,7 @@ GLuint Loader::loadTexture(const char *fileName) {
 	return texture[0];
 }
 
-GLuint Loader::loadCubeMap(const std::vector<std::string>& fileName){
+GLuint Loader::loadCubeMap(const std::vector<std::string> &fileName){
 
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
@@ -159,7 +159,16 @@ GLuint Loader::loadCubeMap(const std::vector<std::string>& fileName){
 		
 		auto path = fileName[i];
 		unsigned char *data = stbi_load(path.c_str(), &width, &height, &numberChannels, 0);
+		if (data) {
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			stbi_image_free(data);
+		}else {
+			std::cout << " CubeMap filed to load: " << path << std::endl;
+			stbi_image_free(data);
+		}
 	}
 
-	return GLuint();
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	return textureID;
 }

@@ -24,7 +24,7 @@ public:
 		, std::vector<int> indices);
 
 	//纹理图像加载
-	GLuint loadTexture(const char *filename);
+	GLuint loadTexture(const char* filename);
 	GLuint loadCubeMap(const std::vector < std::string > &fileName);
 
 private:
@@ -35,7 +35,7 @@ private:
 	std::vector<GLuint> textures;
 
 	void storeDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize);
-	void storeFloatDataInAttributeList(GLuint attribNumber, int attribSize, void *data, int dataSize);
+	void storeFloatDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize);
 	void bindIndicesBuffer(int *indices, int &count);
 
 	//解绑VAO
