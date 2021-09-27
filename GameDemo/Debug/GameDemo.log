@@ -1,17 +1,10 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  Camera.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-Camera.cpp(35): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(39): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(43): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(47): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(70): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(74): warning C4305: “-=”: 从“double”到“float”截断
   EntityRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   GuiRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   Loader.cpp
+Loader.cpp(158): warning C4018: “<”: 有符号/无符号不匹配
   MasterRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
   OBJLoader.cpp

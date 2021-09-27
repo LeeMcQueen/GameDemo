@@ -7,10 +7,10 @@ class WaterShader : public ShaderProgram {
 
 public:
 
-	WaterShader();
-
 	static const char *WATER_VERTEX_FILE;
 	static const char *WATER_FRAGMENT_FILE;
+
+	WaterShader();
 
 	//变换矩阵加载 参数类型mat4
 	void loadTransformationMatrix(glm::mat4 matrix);

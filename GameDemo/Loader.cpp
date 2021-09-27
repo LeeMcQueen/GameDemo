@@ -10,8 +10,8 @@
 
 using namespace std;
 
-//模型加载有法线向量
-//data 1.vertices position 2.texture position 3.normals
+//load information to VAO
+//data 1.vertices position 2.texture position 
 RawModel Loader::loadToVAO(std::vector<float> &positions, int dimensions) {
 	GLuint vaoId = createVAO();
 	storeFloatDataInAttributeList(0, dimensions, &positions[0], positions.size() * sizeof(float));
@@ -19,8 +19,8 @@ RawModel Loader::loadToVAO(std::vector<float> &positions, int dimensions) {
 	return RawModel(vaoId, positions.size() / dimensions);
 }
 
-//load information to VAO
-//data 1.vertices position 2.texture position 
+//模型加载有法线向量
+//data 1.vertices position 2.texture position 3.normals
 RawModel Loader::loadToVao(std::vector<glm::vec3> vertices, 
 	std::vector<glm::vec2> textureCoords,
 	std::vector<glm::vec3> normals, 
@@ -133,7 +133,7 @@ GLuint Loader::loadTexture(const char *fileName) {
 	//设置S，T坐标上的纹理表现形式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
+	//指定的参数，数据生成一个纹理图片
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	//生成Mip层
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -160,6 +160,7 @@ GLuint Loader::loadCubeMap(const std::vector<std::string> &fileName){
 		auto path = fileName[i];
 		unsigned char *data = stbi_load(path.c_str(), &width, &height, &numberChannels, 0);
 		if (data) {
+			//指定的参数，数据生成一个纹理图片
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 			stbi_image_free(data);
 		}else {
@@ -169,6 +170,10 @@ GLuint Loader::loadCubeMap(const std::vector<std::string> &fileName){
 	}
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 	return textureID;
 }
