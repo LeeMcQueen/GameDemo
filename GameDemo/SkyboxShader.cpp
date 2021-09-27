@@ -26,8 +26,9 @@ void SkyboxShader::loadProjectionMatrix(glm::mat4 matrix){
 	loadMatrix4(Location_projectionMatrix, matrix);
 }
 
-void SkyboxShader::loadViewMatrix(glm::mat4 matrix){
+void SkyboxShader::loadViewMatrix(Camera &camera){
 
+	glm::mat4 matrix = camera.getViewMatrix();
 	loadMatrix4(Location_viewMatrix, matrix);
 }
 

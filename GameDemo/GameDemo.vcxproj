@@ -152,6 +152,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SkyboxRenderer.cpp" />
+    <ClCompile Include="SkyboxShader.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainRenderer.cpp" />
@@ -189,6 +191,8 @@
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Rigid.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SkyboxRenderer.h" />
+    <ClInclude Include="SkyboxShader.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="std_image.h" />
@@ -210,6 +214,8 @@
     <Text Include="fragmentShader.txt" />
     <Text Include="guiFragmentShader.txt" />
     <Text Include="guiVertexShader.txt" />
+    <Text Include="skyboxFragmentShader.txt" />
+    <Text Include="skyboxVertexShader.txt" />
     <Text Include="terrainFragmentShader.txt" />
     <Text Include="terrainVertexShader.txt" />
     <Text Include="waterFragmentShader.txt" />

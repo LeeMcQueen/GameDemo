@@ -411,7 +411,7 @@ int main() {
 	//水面FBOs
 	WaterFrameBuffers fbos;
 	//实例化渲染器
-	MasterRenderer masterRenderer(fbos);
+	MasterRenderer masterRenderer(loader, fbos);
 	//实例化加载OBJ
 	OBJLoader objloader;
 	//GuiShader

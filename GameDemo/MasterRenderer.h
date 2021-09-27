@@ -7,16 +7,19 @@
 #include "EntityRenderer.h"
 #include "TerrainRenderer.h"
 #include "WaterRenderer.h"
+#include "waterFrameBuffers.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Camera.h"
 #include "WaterTIle.h"
+#include "SkyboxRenderer.h"
+#include "SkyboxShader.h"
 
 class MasterRenderer {
 
 public:
 
-	MasterRenderer(WaterFrameBuffers &fbo);
+	MasterRenderer(Loader &loader, WaterFrameBuffers &fbo);
 
 	void render(Light &light, Camera &camera, glm::vec4 &clipPlane);
 	void processEntity(const Entity &entity);
@@ -41,11 +44,13 @@ private:
 	StaticShader staticshader_;
 	TerrainShader terrainShader_;
 	WaterShader waterShader_;
+	SkyboxShader skyboxShader_;
 
-	//Renderer
+	//渲染
 	EntityRenderer entityRenderer_;
 	TerrainRenderer terrainRenderer_;
 	WaterRenderer waterRenderer_;
+	SkyboxRenderer skyboxRenderer_;
 
 	static std::vector<Terrain> terrains_;
 	static std::map<TexturedModel, std::vector<Entity>> entities_;

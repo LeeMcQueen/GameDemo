@@ -82,6 +82,12 @@
     <Filter Include="源文件\Gui">
       <UniqueIdentifier>{9ac80686-9fed-4fd2-9717-eb56a698f1e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\skybox">
+      <UniqueIdentifier>{e21c515b-c129-4b3d-aa94-e54106cc9f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\skybox">
+      <UniqueIdentifier>{6e63659b-8653-4b12-80ae-c73b95f6cf93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -158,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="GuiShader.cpp">
       <Filter>源文件\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxShader.cpp">
+      <Filter>源文件\skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxRenderer.cpp">
+      <Filter>源文件\skybox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +299,12 @@
     <ClInclude Include="GuiShader.h">
       <Filter>头文件\Gui</Filter>
     </ClInclude>
+    <ClInclude Include="SkyboxShader.h">
+      <Filter>头文件\skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxRenderer.h">
+      <Filter>头文件\skybox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexShader.txt">
@@ -311,6 +329,12 @@
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="guiFragmentShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="skyboxVertexShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="skyboxFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
   </ItemGroup>

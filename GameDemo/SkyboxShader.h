@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ShaderProgram.h"
+#include "Camera.h"
 
 class SkyboxShader : public ShaderProgram {
 
@@ -12,7 +13,7 @@ public:
 	SkyboxShader();
 
 	void loadProjectionMatrix(glm::mat4 matrix);
-	void loadViewMatrix(glm::mat4 matrix);
+	void loadViewMatrix(Camera &camera);
 
 protected:
 
