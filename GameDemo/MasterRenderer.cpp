@@ -53,6 +53,8 @@ void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane) 
 	waterRenderer_.render(waterTiles_);
 	waterShader_.stop();
 
+	skyboxRenderer_.render(camera, glm::vec3(0.0, 0.0, 0.0));
+
 	terrains_.clear();
 	entities_.clear();
 	waterTiles_.clear();
