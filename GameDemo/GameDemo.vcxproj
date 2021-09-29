@@ -140,6 +140,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DisplayManager.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Grasses.cpp" />
+    <ClCompile Include="GrassesShader.cpp" />
     <ClCompile Include="GuiRenderer.cpp" />
     <ClCompile Include="GuiShader.cpp" />
     <ClCompile Include="Loader.cpp" />
@@ -174,6 +176,8 @@
     <ClInclude Include="Display.h" />
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Grasses.h" />
+    <ClInclude Include="GrassesShader.h" />
     <ClInclude Include="GuiRenderer.h" />
     <ClInclude Include="GuiShader.h" />
     <ClInclude Include="GuiTexture.h" />
@@ -221,6 +225,19 @@
     <Text Include="waterFragmentShader.txt" />
     <Text Include="vertexShader.txt" />
     <Text Include="waterVertexShader.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\ClothFS.glsl" />
+    <None Include="Shader\ClothVS.glsl" />
+    <None Include="Shader\grass.comp.glsl" />
+    <None Include="Shader\grass.frag.glsl" />
+    <None Include="Shader\grass.tesc.glsl" />
+    <None Include="Shader\grass.tese.glsl" />
+    <None Include="Shader\grass.vert.glsl" />
+    <None Include="Shader\RigidFS.glsl" />
+    <None Include="Shader\RigidVS.glsl" />
+    <None Include="Shader\SpringFS.glsl" />
+    <None Include="Shader\SpringVS.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

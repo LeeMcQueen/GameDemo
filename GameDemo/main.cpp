@@ -43,6 +43,7 @@
 #include "Rigid.h"
 #include "Program.h"
 #include "Display.h"
+#include "Grasses.h"
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -418,8 +419,13 @@ int main() {
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
+	//草地
+	Grasses grasses;
+	//游戏进行时间（草地用）
+	using DeltaDuration = std::chrono::duration<float, std::milli>;
+	DeltaDuration delta_time_;
+	std::chrono::steady_clock::time_point last_frame_;
 	
-
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
 	//使用纹理文件名加载纹理
@@ -473,6 +479,8 @@ int main() {
 	float idleEndTime = 856.0f;
 	//骨骼模型位置，旋转，大小
 	glm::mat4 modelMatrix;
+
+	grasses.init();
 
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
@@ -571,6 +579,11 @@ int main() {
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 #pragma endregion
+
+		const auto current_time = std::chrono::steady_clock::now();
+		delta_time_ = current_time - last_frame_;
+		grasses.update(delta_time_);
+		grasses.render();
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

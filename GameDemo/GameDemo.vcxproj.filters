@@ -88,6 +88,12 @@
     <Filter Include="头文件\skybox">
       <UniqueIdentifier>{6e63659b-8653-4b12-80ae-c73b95f6cf93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Grasses">
+      <UniqueIdentifier>{c253d7c3-ce31-4c15-b747-02fefd78bbf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Grasses">
+      <UniqueIdentifier>{bb971d5c-2b25-4b76-ad08-8e4644a09eab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -170,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="SkyboxRenderer.cpp">
       <Filter>源文件\skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="Grasses.cpp">
+      <Filter>源文件\Grasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GrassesShader.cpp">
+      <Filter>源文件\Grasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +317,12 @@
     <ClInclude Include="SkyboxRenderer.h">
       <Filter>头文件\skybox</Filter>
     </ClInclude>
+    <ClInclude Include="Grasses.h">
+      <Filter>头文件\Grasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GrassesShader.h">
+      <Filter>头文件\Grasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexShader.txt">
@@ -337,5 +355,40 @@
     <Text Include="skyboxFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\grass.comp.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\grass.frag.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\grass.tesc.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\grass.tese.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\grass.vert.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\ClothFS.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\ClothVS.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\RigidFS.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\RigidVS.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\SpringFS.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
+    <None Include="Shader\SpringVS.glsl">
+      <Filter>资源文件\ShaderSource</Filter>
+    </None>
   </ItemGroup>
 </Project>
