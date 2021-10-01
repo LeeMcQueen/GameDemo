@@ -15,6 +15,7 @@ struct NumBlades {
 };
 
 struct Blade {
+	Blade(glm::vec4 v0, glm::vec4 v1, glm::vec4 v2, glm::vec4 up) {};
 	glm::vec4 v0; // xyz: Position, w: orientation (in radius)
 	glm::vec4 v1; // xyz: Bezier point w: height
 	glm::vec4 v2; // xyz: Physical model guide w: width
@@ -128,6 +129,7 @@ void Grasses::update(DeltaDuration delta_time)
 	grass_compute_shader_.setFloat("wind_wave_length", wind_wave_length);
 	grass_compute_shader_.setFloat("wind_wave_period", wind_wave_period);
 
+	//gl_NumWorkGrounps
 	glDispatchCompute(static_cast<GLuint>(blades_count_), 1, 1);
 }
 
