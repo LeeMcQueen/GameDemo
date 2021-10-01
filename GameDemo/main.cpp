@@ -512,8 +512,8 @@ int main() {
 		glDisable(GL_CLIP_DISTANCE0);
 
 		//加载
-		masterRenderer.processTerrain(terrain);
-		masterRenderer.processWater(waterTile);
+		//masterRenderer.processTerrain(terrain);
+		//masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processEntity(fern);

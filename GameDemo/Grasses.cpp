@@ -15,7 +15,12 @@ struct NumBlades {
 };
 
 struct Blade {
-	Blade(glm::vec4 v0, glm::vec4 v1, glm::vec4 v2, glm::vec4 up) {};
+	Blade(glm::vec4 p_v0, glm::vec4 p_v1, glm::vec4 p_v2, glm::vec4 p_up) :
+		v0(p_v0),
+		v1(p_v1),
+		v2(p_v2),
+		up(p_up)
+	{};
 	glm::vec4 v0; // xyz: Position, w: orientation (in radius)
 	glm::vec4 v1; // xyz: Bezier point w: height
 	glm::vec4 v2; // xyz: Physical model guide w: width
