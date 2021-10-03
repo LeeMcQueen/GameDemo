@@ -369,6 +369,14 @@ int main() {
 	Vertex vertex;
 	//实例化加载Assimp
 	AnimaModelLoader animaModelLoader;
+	//骨骼模型位置，旋转，大小
+	glm::mat4 skeletonModelMatrix;
+	//骨骼模型开始时间
+	float RunStartTime = 865.0f;
+	float RunEndTime = 888.0f;
+	float idleStartTime = 805.0f;
+	float idleEndTime = 856.0f;
+	
 	animaModelLoader.loadAssimpScene("res/warhummer.FBX");
 
 	Assimp::Importer importer;
@@ -405,6 +413,17 @@ int main() {
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
 #pragma endregion
 
+#pragma region 草地
+	//草地
+	Grasses grasses;
+	//游戏进行时间（草地用）
+	using DeltaDuration = std::chrono::duration<float, std::milli>;
+	DeltaDuration deltaTime;
+	std::chrono::steady_clock::time_point lastFrame;
+
+	grasses.init();
+#pragma endregion
+
 	//主角控制
 	Player player(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
@@ -419,13 +438,7 @@ int main() {
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
-	//草地
-	Grasses grasses;
-	//游戏进行时间（草地用）
-	using DeltaDuration = std::chrono::duration<float, std::milli>;
-	DeltaDuration delta_time_;
-	std::chrono::steady_clock::time_point last_frame_;
-	
+
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("person");
 	//使用纹理文件名加载纹理
@@ -472,16 +485,6 @@ int main() {
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
-	//骨骼模型开始时间
-	float RunStartTime = 865.0f;
-	float RunEndTime = 888.0f;
-	float idleStartTime = 805.0f;
-	float idleEndTime = 856.0f;
-	//骨骼模型位置，旋转，大小
-	glm::mat4 modelMatrix;
-
-	grasses.init();
-
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
@@ -512,8 +515,8 @@ int main() {
 		glDisable(GL_CLIP_DISTANCE0);
 
 		//加载
-		//masterRenderer.processTerrain(terrain);
-		//masterRenderer.processWater(waterTile);
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.processWater(waterTile);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processEntity(fern);
@@ -521,6 +524,23 @@ int main() {
 		guiRenderer.render(guiTextures);
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
+
+		//草地渲染时间
+		const auto current_time = std::chrono::steady_clock::now();
+		deltaTime = current_time - lastFrame;
+		glm::mat4 grassViewMatrix = camera.getViewMatrix();
+		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix();
+		//草地的观察矩阵&投影矩阵
+		unsigned int cameraUniformBuffer = 0;
+		glGenBuffers(1, &cameraUniformBuffer);
+		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
+		glBufferData(GL_UNIFORM_BUFFER, 128, nullptr, GL_STATIC_DRAW);
+		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
+		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
+		//草地渲染
+		grasses.update(deltaTime);
+		grasses.render();
 
 #pragma region 布料主循环
 		for (int i = 0; i < cloth.iterationFreq; i++) {
@@ -534,7 +554,7 @@ int main() {
 
 #pragma region 骨骼动画主循环
 		//移动
-		modelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
+		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
 		//得到游戏每循坏一次所需时间(32010 / 30)
 		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
@@ -562,7 +582,7 @@ int main() {
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
 
-		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
 		glBindVertexArray(vao);
 		//骨骼动画基础纹理
@@ -579,11 +599,6 @@ int main() {
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 #pragma endregion
-
-		const auto current_time = std::chrono::steady_clock::now();
-		delta_time_ = current_time - last_frame_;
-		grasses.update(delta_time_);
-		grasses.render();
 
 		//按下Esc就关闭窗口
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

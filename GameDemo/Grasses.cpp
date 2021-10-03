@@ -1,4 +1,4 @@
-
+﻿
 #include "grasses.h"
 
 #include <random>
@@ -19,10 +19,10 @@ struct Blade {
 		v0(p_v0),
 		v1(p_v1),
 		v2(p_v2),
-		up(p_up)
-	{};
-	glm::vec4 v0; // xyz: Position, w: orientation (in radius)
-	glm::vec4 v1; // xyz: Bezier point w: height
+		up(p_up){};
+
+	glm::vec4 v0; // xyz: Position, w: 半径上的方向 orientation (in radius)
+	glm::vec4 v1; // xyz: 贝塞尔点 Bezier point w: height
 	glm::vec4 v2; // xyz: Physical model guide w: width
 	glm::vec4 up; // xyz: Up vector w: stiffness coefficient
 };
@@ -54,7 +54,7 @@ namespace {
 		return blades;
 	}
 
-} // anonymous namespace
+}
 
 void Grasses::init()
 {
@@ -70,14 +70,17 @@ void Grasses::init()
 	glGenBuffers(1, &grass_input_buffer);
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, grass_input_buffer);
+	//分配数据
 	glBufferData(GL_SHADER_STORAGE_BUFFER,
 		static_cast<GLsizei>(blades.size() * sizeof(Blade)),
 		blades.data(), GL_DYNAMIC_COPY);
+	//layout的binding号对应
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, grass_input_buffer);
 
 	unsigned int grass_output_buffer = 0;
 	glGenBuffers(1, &grass_output_buffer);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, grass_output_buffer);
+	//分配数据
 	glBufferData(GL_SHADER_STORAGE_BUFFER,
 		static_cast<GLsizei>(blades.size() * sizeof(Blade)), nullptr,
 		GL_STREAM_DRAW);
@@ -87,6 +90,7 @@ void Grasses::init()
 	unsigned int grass_indirect_buffer = 0;
 	glGenBuffers(1, &grass_indirect_buffer);
 	glBindBuffer(GL_DRAW_INDIRECT_BUFFER, grass_indirect_buffer);
+	//分配数据
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(NumBlades), &numBlades,
 		GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, grass_output_buffer);

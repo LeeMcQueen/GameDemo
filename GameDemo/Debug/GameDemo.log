@@ -1,7 +1,4 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  Grasses.cpp
-d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(44): warning C5030: 未识别属性“nodiscard”
-Grasses.cpp(36): warning C4305: “参数”: 从“double”到“float”截断
   main.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
@@ -43,7 +40,6 @@ main.cpp(179): warning C4244: “参数”: 从“double”转换到“const flo
 main.cpp(182): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(183): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(417): warning C4101: “objloader”: 未引用的局部变量
-  正在生成代码...
+main.cpp(437): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

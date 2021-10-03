@@ -5,14 +5,8 @@ layout(local_size_x = WORKGROUP_SIZE,
 local_size_y = 1,
 local_size_z = 1) in;
 
-layout(binding = 0) uniform CameraBufferObject {
-    mat4 view;
-    mat4 proj;
-} camera;
-
 uniform float current_time;
 uniform float delta_time;
-
 uniform float wind_magnitude;
 uniform float wind_wave_length;
 uniform float wind_wave_period;
@@ -23,6 +17,11 @@ struct Blade {
     vec4 v2;
     vec4 up;
 };
+
+layout(binding = 0) uniform CameraBufferObject {
+    mat4 view;
+    mat4 proj;
+} camera;
 
 layout(binding = 1, std140) buffer inputBuffer {
     Blade inputBlades[];

@@ -29,5 +29,5 @@ void main() {
 
   vec3 mixedColor = mix(lowerColor, upperColor, uv.y);
 
-  outColor = vec4(mixedColor*NoL, 1.0);
+  outColor = vec4(mixedColor * NoL, 1.0);
 }
