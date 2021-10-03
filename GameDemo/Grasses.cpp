@@ -138,7 +138,7 @@ void Grasses::update(DeltaDuration delta_time)
 	grass_compute_shader_.setFloat("wind_wave_length", wind_wave_length);
 	grass_compute_shader_.setFloat("wind_wave_period", wind_wave_period);
 
-	//gl_NumWorkGrounps
+	//gl_NumWorkGrounps 执行16000次WorkGrounps
 	glDispatchCompute(static_cast<GLuint>(blades_count_), 1, 1);
 }
 

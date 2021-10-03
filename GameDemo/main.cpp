@@ -531,6 +531,10 @@ int main() {
 		glm::mat4 grassViewMatrix = camera.getViewMatrix();
 		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix();
 		//草地的观察矩阵&投影矩阵
+
+		//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		unsigned int cameraUniformBuffer = 0;
 		glGenBuffers(1, &cameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
@@ -538,8 +542,10 @@ int main() {
 		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
 		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
-		//草地渲染
+
+		//草地更新
 		grasses.update(deltaTime);
+		//草地渲染
 		grasses.render();
 
 #pragma region 布料主循环
