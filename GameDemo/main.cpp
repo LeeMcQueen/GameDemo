@@ -342,9 +342,9 @@ int main() {
 	//初始化glfw
 	glfwInit();
 	//大版本3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	//小版本3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	//使用Opengl核心模式
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	GLFWwindow *window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
@@ -528,13 +528,10 @@ int main() {
 		//草地渲染时间
 		const auto current_time = std::chrono::steady_clock::now();
 		deltaTime = current_time - lastFrame;
+		//草地的观察矩阵&投影矩阵
 		glm::mat4 grassViewMatrix = camera.getViewMatrix();
 		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix();
-		//草地的观察矩阵&投影矩阵
-
-		//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		
 		unsigned int cameraUniformBuffer = 0;
 		glGenBuffers(1, &cameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
@@ -601,7 +598,6 @@ int main() {
 		glUniform1i(emissionLocation, 1);
 		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
-
 
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 #pragma endregion
