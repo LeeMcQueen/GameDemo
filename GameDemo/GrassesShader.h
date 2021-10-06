@@ -15,8 +15,7 @@ struct Shader {
 public:
 
 	//shader的类型
-	enum Type {
-
+	enum class Type : GLenum {
 		Vertex = GL_VERTEX_SHADER,
 		Fragment = GL_FRAGMENT_SHADER,
 		TessControl = GL_TESS_CONTROL_SHADER,

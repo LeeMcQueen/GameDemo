@@ -14,6 +14,7 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 #include <unordered_map>
+#include <windows.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
@@ -44,6 +45,10 @@
 #include "Program.h"
 #include "Display.h"
 #include "Grasses.h"
+
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
