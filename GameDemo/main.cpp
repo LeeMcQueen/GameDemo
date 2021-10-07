@@ -421,10 +421,19 @@ int main() {
 #pragma region 草地
 	//草地
 	Grasses grasses;
+	//计算shader插值ID
+	unsigned int cameraUniformBuffer = 0;
 	//游戏进行时间（草地用）
 	using DeltaDuration = std::chrono::duration<float, std::milli>;
+
+	glGenBuffers(1, &cameraUniformBuffer);
+	glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
+	glBufferData(GL_UNIFORM_BUFFER, 128, nullptr, GL_STATIC_DRAW);
+	glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
+
 	DeltaDuration deltaTime;
 	std::chrono::steady_clock::time_point lastFrame;
+	lastFrame = std::chrono::steady_clock::now();
 
 	grasses.init();
 #pragma endregion
@@ -530,18 +539,17 @@ int main() {
 		player.move();
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 
+#pragma region 草地主循环
 		//草地渲染时间
 		const auto current_time = std::chrono::steady_clock::now();
 		deltaTime = current_time - lastFrame;
+		lastFrame = current_time;
 		//草地的观察矩阵&投影矩阵
 		glm::mat4 grassViewMatrix = camera.getViewMatrix();
 		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix();
 		
-		unsigned int cameraUniformBuffer = 0;
-		glGenBuffers(1, &cameraUniformBuffer);
-		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
-		glBufferData(GL_UNIFORM_BUFFER, 128, nullptr, GL_STATIC_DRAW);
 		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
+		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
 		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
 
@@ -549,6 +557,7 @@ int main() {
 		grasses.update(deltaTime);
 		//草地渲染
 		grasses.render();
+#pragma endregion
 
 #pragma region 布料主循环
 		for (int i = 0; i < cloth.iterationFreq; i++) {

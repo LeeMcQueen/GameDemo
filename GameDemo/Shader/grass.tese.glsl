@@ -45,5 +45,5 @@ void main() {
   
   tese_out.uv = vec2(u, v);
   tese_out.normal = normalize(cross(t0, t1));
-  gl_Position = camera.proj * camera.view * vec4(p, 1.0);
+  gl_Position = camera.proj * camera.view * vec4(p, 0.1);
 }
