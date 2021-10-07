@@ -35,7 +35,6 @@
 #include "WaterFrameBuffers.h"
 #include "GuiTexture.h"
 #include "GuiRenderer.h"
-
 #include "Vertex.h"
 #include "Bone.h"
 #include "BoneTransformTrack.h"

@@ -21,4 +21,9 @@ public:
 	void init();
 	void update(DeltaDuration delta_time);
 	void render();
+
+private:
+
+	float getGrassesHeight(int x, int z, unsigned char *image);
+	std::int32_t getRGBSum(int x, int y);
 };

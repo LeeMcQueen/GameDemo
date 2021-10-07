@@ -15,6 +15,7 @@ struct NumBlades {
 };
 
 struct Blade {
+
 	Blade(glm::vec4 p_v0, glm::vec4 p_v1, glm::vec4 p_v2, glm::vec4 p_up) :
 		v0(p_v0),
 		v1(p_v1),
@@ -56,8 +57,8 @@ namespace {
 
 }
 
-void Grasses::init()
-{
+void Grasses::init(){
+
 	const std::vector<Blade> blades = generate_blades();
 	blades_count_ = static_cast<GLuint>(blades.size());
 
@@ -128,8 +129,8 @@ void Grasses::init()
 		.build();
 }
 
-void Grasses::update(DeltaDuration delta_time)
-{
+void Grasses::update(DeltaDuration delta_time){
+
 	grass_compute_shader_.use();
 	grass_compute_shader_.setFloat("current_time",
 		static_cast<float>(glfwGetTime()));
@@ -142,11 +143,23 @@ void Grasses::update(DeltaDuration delta_time)
 	glDispatchCompute(static_cast<GLuint>(blades_count_), 1, 1);
 }
 
-void Grasses::render()
-{
+void Grasses::render(){
+
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
 	glBindVertexArray(grass_vao_);
 	grass_shader_.use();
 	glDrawArraysIndirect(GL_PATCHES, reinterpret_cast<void*>(0));
+}
+
+//计算草在当前位置的高度
+float Grasses::getGrassesHeight(int x, int z, unsigned char * image){
+
+
+	return 0.0f;
+}
+
+std::int32_t Grasses::getRGBSum(int x, int y){
+
+	return std::int32_t();
 }
