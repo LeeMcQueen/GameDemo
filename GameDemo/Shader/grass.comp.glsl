@@ -80,15 +80,15 @@ void main() {
     if (v0OutFrustum && v1OutFrustum) return;
 
     // Distance culling
-    const float far1 = 0.95;
+    const float far1 = 1.95;
     if (v0ClipSpace.z > far1 && v1ClipSpace.z > far1 && rand(index) > 0.5) {
         return;
     }
-    const float far2 = 0.98;
+    const float far2 = 1.98;
     if (v0ClipSpace.z > far2 && v1ClipSpace.z > far2 && rand(index) > 0.2) {
         return;
     }
-    const float far3 = 0.99;
+    const float far3 = 1.99;
     if (v0ClipSpace.z > far3 && v1ClipSpace.z > far3 && rand(index) > 0.1) {
         return;
     }
