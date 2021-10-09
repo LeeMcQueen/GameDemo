@@ -41,14 +41,14 @@ namespace {
 		std::vector<Blade> blades;
 		for (int i = -200; i < 200; ++i) {
 			for (int j = -200; j < 200; ++j) {
-				const auto x = static_cast<float>(i) / 10 - 1 + dis(gen) * 0.1f;
-				const auto y = static_cast<float>(j) / 10 - 1 + dis(gen) * 0.1f;
-				const auto blade_height = height_dis(gen);
+				const auto x = static_cast<float>(i) / 2 - 1 + dis(gen) * 0.1f;
+				const auto y = static_cast<float>(j) / 2 - 1 + dis(gen) * 0.1f;
+				const auto blade_height = height_dis(gen) * 5;
 
 				blades.emplace_back(
 					glm::vec4(x, 0, y, orientation_dis(gen)),
 					glm::vec4(x, blade_height, y, blade_height),
-					glm::vec4(x, blade_height, y, 0.1f),
+					glm::vec4(x, blade_height, y, 0.5f),
 					glm::vec4(0, blade_height, 0, 0.7f + dis(gen) * 0.3f));
 			}
 		}
