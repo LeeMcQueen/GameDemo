@@ -1,5 +1,6 @@
 ﻿
 #include "grasses.h"
+#include "std_image.h"
 
 #include <random>
 #include <vector>
@@ -23,32 +24,46 @@ struct Blade {
 		up(p_up){};
 
 	glm::vec4 v0; // xyz: Position, w: 半径上的方向 orientation (in radius)
-	glm::vec4 v1; // xyz: 贝塞尔点 Bezier point w: height
-	glm::vec4 v2; // xyz: Physical model guide w: width
-	glm::vec4 up; // xyz: Up vector w: stiffness coefficient
+	glm::vec4 v1; // xyz: 贝塞尔点 Bezier point w: 草的高
+	glm::vec4 v2; // xyz: Physical model guide w: 草的宽
+	glm::vec4 up; // xyz: Up vector w: stiffness coefficient草的回复力
 };
 
 namespace {
 
 	std::vector<Blade> generate_blades()
 	{
+
+		int _width, _height, _colorChannels;
+		unsigned char *_image;
+		_image = stbi_load("res/heightmap3.png", &_width, &_height, &_colorChannels, 0);
+
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_real_distribution<float> orientation_dis(0, 3.1415926);
-		std::uniform_real_distribution<float> height_dis(0.6f, 1.2f);
-		std::uniform_real_distribution<float> dis(-1, 1);
+		std::uniform_real_distribution<float> height_dis(4.0f, 6.0f);
+		std::uniform_real_distribution<float> dis(0, 1);
 
 		std::vector<Blade> blades;
-		for (int i = -200; i < 200; ++i) {
-			for (int j = -200; j < 200; ++j) {
-				const auto x = static_cast<float>(i) / 2 - 1 + dis(gen) * 0.1f;
-				const auto y = static_cast<float>(j) / 2 - 1 + dis(gen) * 0.1f;
-				const auto blade_height = height_dis(gen) * 5;
+		for (int i = 0; i < 400; ++i) {
+			for (int j = 0; j < 400; ++j) {
+				const auto x = static_cast<float>(j) + dis(gen) * 0.1f;		//草的位置X
+				const auto y = static_cast<float>(i) + dis(gen) * 0.1f;		//草的位置Y
+				const auto blade_height = height_dis(gen);
+
+				int addr = (j * _width + i) * _colorChannels;
+				std::int32_t r = _image[addr];
+				std::int32_t g = _image[addr + 1];
+				std::int32_t b = _image[addr + 2];
+				float height1 = (r << 16) + (g << 8) + b;
+				height1 /= (256 * 256 * 256 / 2);
+				height1 -= 1.0;
+				height1 *= 40;
 
 				blades.emplace_back(
-					glm::vec4(x, 0, y, orientation_dis(gen)),
+					glm::vec4(x, height1, y, orientation_dis(gen)),
 					glm::vec4(x, blade_height, y, blade_height),
-					glm::vec4(x, blade_height, y, 0.5f),
+					glm::vec4(x, blade_height, y, 1.0f),
 					glm::vec4(0, blade_height, 0, 0.7f + dis(gen) * 0.3f));
 			}
 		}

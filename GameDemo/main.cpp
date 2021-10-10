@@ -438,7 +438,7 @@ int main() {
 #pragma endregion
 
 	//主角控制
-	Player player(glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
+	Player player(glm::vec3(100.0f, 10.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
 	Camera camera(player);
 	//水面FBOs
@@ -466,7 +466,7 @@ int main() {
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Entity tree(treeModel, glm::vec3(50, 0, 30), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
+	Entity tree(treeModel, glm::vec3(150, 0, 100), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -481,9 +481,9 @@ int main() {
 	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
 
 	//地面类初始化
-	Terrain terrain = Terrain(-100, -100, loader, terrainTexturePack, blendMap);
+	Terrain terrain = Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(-10, -15, -10, loader);
+	WaterTile waterTile = WaterTile(80.0, 80.0, -15.0, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;

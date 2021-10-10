@@ -59,6 +59,7 @@ void main() {
     vec3 v1 = inputBlades[index].v1.xyz;
     vec3 v2 = inputBlades[index].v2.xyz;
     vec3 up = normalize(inputBlades[index].up.xyz);
+
     float orientation = inputBlades[index].v0.w;
     float height = inputBlades[index].v1.w;
     float width = inputBlades[index].v2.w;
@@ -80,15 +81,15 @@ void main() {
     if (v0OutFrustum && v1OutFrustum) return;
 
     // Distance culling
-    const float far1 = 1.95;
+    const float far1 = 1.0;
     if (v0ClipSpace.z > far1 && v1ClipSpace.z > far1 && rand(index) > 0.5) {
         return;
     }
-    const float far2 = 1.98;
+    const float far2 = 1.0;
     if (v0ClipSpace.z > far2 && v1ClipSpace.z > far2 && rand(index) > 0.2) {
         return;
     }
-    const float far3 = 1.99;
+    const float far3 = 1.0;
     if (v0ClipSpace.z > far3 && v1ClipSpace.z > far3 && rand(index) > 0.1) {
         return;
     }
@@ -118,7 +119,7 @@ void main() {
     v2 += (0.1 * g + r + w) * delta_time;
 
     float lproj = length(v2 - v0 - up * dot((v2-v0), up));
-    v1 = v0 + height*up*max(1-lproj/height, 0.05*max(lproj/height, 1));
+    v1 = v0 + height * up * max(1-lproj / height, 0.05*max(lproj / height, 1));
 
     inputBlades[index].v1.xyz = v1;
     inputBlades[index].v2.xyz = v2;

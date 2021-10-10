@@ -1,47 +1,7 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
   Grasses.cpp
 d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(43): warning C5030: 未识别属性“nodiscard”
-Grasses.cpp(37): warning C4305: “参数”: 从“double”到“float”截断
-    正在
-LINK : warning LNK4098: 默
-LINK : warning LNK4098: 默
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中
+Grasses.cpp(43): warning C4305: “参数”: 从“double”到“float”截断
+Grasses.cpp(58): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

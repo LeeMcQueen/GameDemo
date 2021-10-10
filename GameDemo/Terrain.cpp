@@ -64,6 +64,7 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap){
 }
 
 float Terrain::getHeight(int x, int z, unsigned char *data) {
+
 	if (x < 0 || x > _height || z < 0 || z > _height) {
 		return 0;
 	}
@@ -76,8 +77,17 @@ float Terrain::getHeight(int x, int z, unsigned char *data) {
 	return height;
 }
 
-glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image)
-{
+std::int32_t Terrain::getRGBSum(int x, int y){
+
+	int addr = (y * _width + x) * _colorChannels;
+	std::int32_t r = _image[addr];
+	std::int32_t g = _image[addr + 1];
+	std::int32_t b = _image[addr + 2];
+	return (r << 16) + (g << 8) + b;
+}
+
+glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image){
+
 	float heightL = getHeight(x - 1, z, image);
 	float heightR = getHeight(x + 1, z, image);
 	float heightD = getHeight(x, z - 1, image);
@@ -90,15 +100,6 @@ glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image)
 
 	normal = glm::normalize(normal);
 	return normal;
-}
-
-std::int32_t Terrain::getRGBSum(int x, int y)
-{
-	int addr = (y * _width + x) * _colorChannels;
-	std::int32_t r = _image[addr];
-	std::int32_t g = _image[addr + 1];
-	std::int32_t b = _image[addr + 2];
-	return (r << 16) + (g << 8) + b;
 }
 
 float Terrain::getX()
