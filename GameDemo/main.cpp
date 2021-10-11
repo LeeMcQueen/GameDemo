@@ -483,7 +483,7 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(80.0, 80.0, -15.0, loader);
+	WaterTile waterTile = WaterTile(20.0, 20.0, -8.0, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;

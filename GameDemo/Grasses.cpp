@@ -36,7 +36,7 @@ namespace {
 
 		int _width, _height, _colorChannels;
 		unsigned char *_image;
-		_image = stbi_load("res/heightmap3.png", &_width, &_height, &_colorChannels, 0);
+		_image = stbi_load("res/heightmap4.png", &_width, &_height, &_colorChannels, 0);
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
@@ -45,8 +45,8 @@ namespace {
 		std::uniform_real_distribution<float> dis(0, 1);
 
 		std::vector<Blade> blades;
-		for (int i = 0; i < 256; ++i) {
-			for (int j = 0; j < 256; ++j) {
+		for (int i = 0; i < 400; ++i) {
+			for (int j = 0; j < 400; ++j) {
 				const auto x = static_cast<float>(j) + dis(gen) * 0.1f;		//草的位置X
 				const auto y = static_cast<float>(i) + dis(gen) * 0.1f;		//草的位置Y
 				const auto blade_height = height_dis(gen);

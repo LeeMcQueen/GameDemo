@@ -21,7 +21,7 @@ public:
 	TerrainTexture getTerrainTexture();
 
 private:
-	const float SIZE = 256;
+	const float SIZE = 400;
 	float VERTEX_COUNT;
 	const float MAX_HEIGHT = 40.0f;
 	const float MIN_HEIGHT = -40.0f;

@@ -13,7 +13,7 @@ Terrain::~Terrain() {
 
 RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap){
 
-	_image = stbi_load("res/heightmap3.png", &_width, &_height, &_colorChannels, 0);
+	_image = stbi_load("res/heightmap4.png", &_width, &_height, &_colorChannels, 0);
 
 	VERTEX_COUNT = _height;
 
