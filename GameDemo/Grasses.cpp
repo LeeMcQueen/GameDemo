@@ -45,13 +45,13 @@ namespace {
 		std::uniform_real_distribution<float> dis(0, 1);
 
 		std::vector<Blade> blades;
-		for (int i = 0; i < 400; ++i) {
-			for (int j = 0; j < 400; ++j) {
+		for (int i = 0; i < 256; ++i) {
+			for (int j = 0; j < 256; ++j) {
 				const auto x = static_cast<float>(j) + dis(gen) * 0.1f;		//草的位置X
 				const auto y = static_cast<float>(i) + dis(gen) * 0.1f;		//草的位置Y
 				const auto blade_height = height_dis(gen);
 
-				int addr = (j * _width + i) * _colorChannels;
+				int addr = (i * _width + j) * _colorChannels;
 				std::int32_t r = _image[addr];
 				std::int32_t g = _image[addr + 1];
 				std::int32_t b = _image[addr + 2];
