@@ -45,9 +45,9 @@
 #include "Display.h"
 #include "Grasses.h"
 
-extern "C" {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-}
+//extern "C" {
+//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+//}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -466,7 +466,7 @@ int main() {
 	//加载模型
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Entity tree(treeModel, glm::vec3(150, 0, 100), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
+	Entity tree(treeModel, glm::vec3(90, 0, 50), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -483,7 +483,7 @@ int main() {
 	//地面类初始化
 	Terrain terrain = Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	//水面
-	WaterTile waterTile = WaterTile(20.0, 20.0, -8.0, loader);
+	WaterTile waterTile = WaterTile(15.0, 20.0, -8.0, loader);
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;

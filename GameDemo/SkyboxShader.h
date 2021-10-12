@@ -24,4 +24,5 @@ private:
 
 	GLuint Location_projectionMatrix;
 	GLuint Location_viewMatrix;
+	float rotation_ = 0.0f;
 };
