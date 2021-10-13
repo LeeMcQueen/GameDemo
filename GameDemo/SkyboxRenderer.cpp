@@ -70,6 +70,7 @@ SkyboxRenderer::SkyboxRenderer(SkyboxShader &skyboxShader, Loader &loader, glm::
 
 void SkyboxRenderer::render(Camera &camera, const glm::vec3 & fogColor) {
 
+	glDepthMask(GL_FALSE);
 	skyboxShader_.start();
 	skyboxShader_.loadViewMatrix(camera);
 	glBindVertexArray(cube_.getVaoId());
@@ -81,6 +82,7 @@ void SkyboxRenderer::render(Camera &camera, const glm::vec3 & fogColor) {
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 	skyboxShader_.stop();
+	glDepthMask(GL_TRUE);
 }
 
 void SkyboxRenderer::bindTextures() {

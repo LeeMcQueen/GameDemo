@@ -487,7 +487,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(1.0, 1.0));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
@@ -519,9 +519,6 @@ int main() {
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
 		fbos.bindRefractionFrameBuffer();
-		masterRenderer.processEntity(entity);
-		masterRenderer.processEntity(fern);
-		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
 		fbos.unbindCurrentFrameBuffer();
