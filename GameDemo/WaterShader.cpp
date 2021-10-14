@@ -41,6 +41,7 @@ void WaterShader::loadconnectTextureUnits(){
 
 	loadInt(Location_reflectionTexture, 0);
 	loadInt(Location_refractionTexture, 1);
+	loadInt(Location_dudvMap, 2);
 }
 
 void WaterShader::getAllUniformLocations() {
@@ -50,4 +51,5 @@ void WaterShader::getAllUniformLocations() {
 	Location_viewMatrix = getUniformLocation("viewMatrix");
 	Location_reflectionTexture = getUniformLocation("reflectionTexture");
 	Location_refractionTexture = getUniformLocation("refractionTexture");
+	Location_dudvMap = getUniformLocation("dudvMap");
 }

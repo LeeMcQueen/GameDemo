@@ -3,10 +3,13 @@
 in vec3 position;
 
 out vec4 clipSpace;
+out vec2 textureCoords;
 
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;		//deep Matrix
 uniform mat4 viewMatrix;			//camera Matrix
+
+const float titing = 1.0;
 
 void main(void){
 
@@ -15,4 +18,5 @@ void main(void){
    clipSpace = projectionMatrix * viewMatrix * worldPosition;
    gl_Position = clipSpace;
 
+   textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5) * titing;
 }

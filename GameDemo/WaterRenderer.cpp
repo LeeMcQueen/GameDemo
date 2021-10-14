@@ -4,6 +4,10 @@ WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatr
 	waterShader_(waterShader),
 	fbo_(fbo){
 
+	Loader loader;
+
+	dudvTexture_ = loader.loadTexture(DUDVMAP);
+
 	waterShader_.start();
 	waterShader_.loadconnectTextureUnits();
 	waterShader_.loadProjectionMatrix(projectionMatrix);
@@ -33,6 +37,8 @@ void WaterRenderer::prepareWater(WaterTile &waterTile) {
 	glBindTexture(GL_TEXTURE_2D, fbo_.getReflectionTexture());
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, fbo_.getRefractionTexture());
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, dudvTexture_);
 }
 
 void WaterRenderer::prepareInstance(WaterTile & waterTile) {

@@ -16,9 +16,11 @@ public:
 	void render(std::vector<WaterTile> &waterTile);
 
 private:
+	const char *DUDVMAP = "dudvMap";
 
 	WaterShader waterShader_;
 	const WaterFrameBuffers &fbo_;
+	unsigned int dudvTexture_;
 
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile);

@@ -36,4 +36,5 @@ private:
 	GLuint Location_viewMatrix;
 	GLuint Location_reflectionTexture;
 	GLuint Location_refractionTexture;
+	GLuint Location_dudvMap;
 };
