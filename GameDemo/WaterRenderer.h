@@ -14,13 +14,14 @@ public:
 	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo);
 
 	void render(std::vector<WaterTile> &waterTile);
-
 private:
-	const char *DUDVMAP = "dudvMap";
+	const char *DUDVMAP = "waterDUDV";
+	float WAVE_SPEED = 0.03f;
 
 	WaterShader waterShader_;
 	const WaterFrameBuffers &fbo_;
 	unsigned int dudvTexture_;
+	float moveFactor = 0;
 
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile);

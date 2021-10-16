@@ -20,6 +20,8 @@ public:
 	void loadViewMatrix(glm::mat4 matrix);
 	//加载纹理集合
 	void loadconnectTextureUnits();
+	//水面移动时间参数
+	void loadMoveFactor(float factor);
 protected:
 
 	//继承 给传入shader的VBO进行命名
@@ -37,4 +39,5 @@ private:
 	GLuint Location_reflectionTexture;
 	GLuint Location_refractionTexture;
 	GLuint Location_dudvMap;
+	GLuint Location_moveFactor;
 };

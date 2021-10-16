@@ -44,6 +44,11 @@ void WaterShader::loadconnectTextureUnits(){
 	loadInt(Location_dudvMap, 2);
 }
 
+void WaterShader::loadMoveFactor(float factor){
+
+	loadFloat(Location_moveFactor, factor);
+}
+
 void WaterShader::getAllUniformLocations() {
 
 	Location_transformtionMatrix = getUniformLocation("transformationMatrix");
@@ -52,4 +57,5 @@ void WaterShader::getAllUniformLocations() {
 	Location_reflectionTexture = getUniformLocation("reflectionTexture");
 	Location_refractionTexture = getUniformLocation("refractionTexture");
 	Location_dudvMap = getUniformLocation("dudvMap");
+	Location_moveFactor = getUniformLocation("moveFactor");
 }

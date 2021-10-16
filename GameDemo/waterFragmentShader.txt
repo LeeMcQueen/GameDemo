@@ -9,6 +9,8 @@ uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
 
+uniform float moveFactor;
+
 const float waveStrength = 0.02;
 
 void main(void){
@@ -20,7 +22,11 @@ void main(void){
 	vec2 distortion1 = (texture(dudvMap, vec2(textureCoords.x, textureCoords.y)).rg * 2.0 - 1.0) * waveStrength;
 
 	reflectionTextureCoords += distortion1;
+	reflectionTextureCoords.x = clamp(reflectionTextureCoords.x, 0.001, 0.999);
+	reflectionTextureCoords.y = clamp(reflectionTextureCoords.y, -0.999, -0.001);
+
 	refractionTextureCoords += distortion1;
+	refractionTextureCoords = clamp(refractionTextureCoords, 0.001, 0.999);
 
 	vec4 reflectionColor = texture(reflectionTexture, reflectionTextureCoords);
 	vec4 refractionColor = texture(refractionTexture, refractionTextureCoords);

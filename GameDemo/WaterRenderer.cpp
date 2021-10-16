@@ -4,11 +4,15 @@ WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatr
 	waterShader_(waterShader),
 	fbo_(fbo){
 
+	//loader类加载
 	Loader loader;
-
+	//水面DUDV图片加载
 	dudvTexture_ = loader.loadTexture(DUDVMAP);
 
+	moveFactor += WAVE_SPEED;
+
 	waterShader_.start();
+	waterShader_.loadMoveFactor(moveFactor);
 	waterShader_.loadconnectTextureUnits();
 	waterShader_.loadProjectionMatrix(projectionMatrix);
 	waterShader_.stop();

@@ -45,9 +45,9 @@
 #include "Display.h"
 #include "Grasses.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
