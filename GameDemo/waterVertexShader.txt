@@ -9,7 +9,7 @@ uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;		//deep Matrix
 uniform mat4 viewMatrix;			//camera Matrix
 
-const float titing = 6.0;
+const float titing = 3.0;
 
 void main(void){
 

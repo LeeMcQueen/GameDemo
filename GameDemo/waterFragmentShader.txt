@@ -20,8 +20,10 @@ void main(void){
 	vec2 refractionTextureCoords = vec2(ndc.x, ndc.y);
 
 	vec2 distortion1 = (texture(dudvMap, vec2(textureCoords.x + moveFactor, textureCoords.y)).rg * 2.0 - 1.0) * waveStrength;
+	vec2 distortion2 = (texture(dudvMap, vec2(-textureCoords.x + moveFactor, textureCoords.y + moveFactor)).rg * 2.0 - 1.0) * waveStrength;
+	vec2 totalDistortion = distortion1 + distortion2;
 
-	reflectionTextureCoords += distortion1;
+	reflectionTextureCoords += totalDistortion;
 	reflectionTextureCoords.x = clamp(reflectionTextureCoords.x, 0.001, 0.999);
 	reflectionTextureCoords.y = clamp(reflectionTextureCoords.y, -0.999, -0.001);
 
@@ -32,4 +34,5 @@ void main(void){
 	vec4 refractionColor = texture(refractionTexture, refractionTextureCoords);
 
 	out_Colour = mix(reflectionColor, refractionColor, 0.5);
+	out_Colour = mix(out_Colour, vec4(0.0, 0.2, 0.4, 1.0), 0.2);
 }
