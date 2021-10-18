@@ -9,10 +9,7 @@ WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatr
 	//水面DUDV图片加载
 	dudvTexture_ = loader.loadTexture(DUDVMAP);
 
-	moveFactor += WAVE_SPEED;
-
 	waterShader_.start();
-	waterShader_.loadMoveFactor(moveFactor);
 	waterShader_.loadconnectTextureUnits();
 	waterShader_.loadProjectionMatrix(projectionMatrix);
 	waterShader_.stop();
@@ -23,14 +20,17 @@ void WaterRenderer::render(std::vector<WaterTile> &waterTile) {
 	for (WaterTile tile : waterTile) {
 		prepareWater(tile);
 		prepareInstance(tile);
-		//glDrawArrays(GL_TRIANGLES, 0, tile.getModel().getVertexCount());
 		glDrawElements(GL_TRIANGLES, tile.getModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
 		unbindTextureModel();
 	}
-
 }
 
 void WaterRenderer::prepareWater(WaterTile &waterTile) {
+
+	//水面波纹波动
+	moveFactor_ += WAVE_SPEED;
+	moveFactor_ = std::fmod(moveFactor_, 1);
+	waterShader_.loadMoveFactor(moveFactor_);
 
 	RawModel &rawModel = waterTile.getModel();
 

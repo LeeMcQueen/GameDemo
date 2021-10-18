@@ -16,12 +16,12 @@ public:
 	void render(std::vector<WaterTile> &waterTile);
 private:
 	const char *DUDVMAP = "waterDUDV";
-	float WAVE_SPEED = 0.03f;
+	float WAVE_SPEED = 0.0003;
 
-	WaterShader waterShader_;
+	WaterShader waterShader_{};
 	const WaterFrameBuffers &fbo_;
 	unsigned int dudvTexture_;
-	float moveFactor = 0;
+	float moveFactor_ = 0;
 
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile);
