@@ -43,10 +43,13 @@ private:
 	GLuint Location_projectionMatrix;
 	//观察矩阵传递参数
 	GLuint Location_viewMatrix;
+	//图片
 	GLuint Location_reflectionTexture;
 	GLuint Location_refractionTexture;
 	GLuint Location_dudvMap;
 	GLuint Location_normalMap;
+	GLuint Location_depthMap;
+
 	GLuint Location_moveFactor;
 	GLuint Location_cameraPosition;
 	//光

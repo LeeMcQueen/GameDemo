@@ -49,6 +49,11 @@ void WaterRenderer::prepareWater(WaterTile &waterTile, Light &sun) {
 	glBindTexture(GL_TEXTURE_2D, dudvTexture_);
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, normalTexture_);
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, fbo_.getRefractionDepthTexture());
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_BLEND_SRC_ALPHA);
 }
 
 void WaterRenderer::prepareInstance(WaterTile & waterTile) {
@@ -64,6 +69,7 @@ void WaterRenderer::prepareInstance(WaterTile & waterTile) {
 
 void WaterRenderer::unbindTextureModel() {
 	//unbind textureModel
+	glDisable(GL_BLEND);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }

@@ -516,7 +516,7 @@ int main() {
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processTerrain(terrain);
-		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight()));
+		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f));
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
 		fbos.bindRefractionFrameBuffer();

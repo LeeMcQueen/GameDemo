@@ -13,7 +13,7 @@ uniform mat4 viewMatrix;			//camera Matrix
 uniform vec3 cameraPosition;
 uniform vec3 lightPosition;
 
-const float titing = 3.0;
+const float titing = 2.0;
 
 void main(void){
 
