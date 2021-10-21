@@ -2,16 +2,22 @@
 
 in vec4 clipSpace;
 in vec2 textureCoords;
+in vec3 toCameraVector;
+in vec3 formLightVector;
 
 out vec4 out_Colour;
 
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
+uniform sampler2D normalMap;
 
+uniform vec3 lightColor;
 uniform float moveFactor;
 
-const float waveStrength = 0.02;
+const float waveStrength = 0.03;
+const float shineDamper = 10.0;
+const float reflectivity = 0.3;
 
 void main(void){
 
@@ -19,20 +25,33 @@ void main(void){
 	vec2 reflectionTextureCoords = vec2(ndc.x, -ndc.y);
 	vec2 refractionTextureCoords = vec2(ndc.x, ndc.y);
 
-	vec2 distortion1 = (texture(dudvMap, vec2(textureCoords.x + moveFactor, textureCoords.y)).rg * 2.0 - 1.0) * waveStrength;
-	vec2 distortion2 = (texture(dudvMap, vec2(-textureCoords.x + moveFactor, textureCoords.y + moveFactor)).rg * 2.0 - 1.0) * waveStrength;
-	vec2 totalDistortion = distortion1 + distortion2;
+	vec2 distortedTextureCoords = texture(dudvMap, vec2(textureCoords.x + moveFactor, textureCoords.y)).rg * 0.1;
+	distortedTextureCoords = textureCoords + vec2(distortedTextureCoords.x + distortedTextureCoords.y + moveFactor);
+	vec2 totalDistortion = (texture(dudvMap, distortedTextureCoords).rg * 2.0 - 1.0) * waveStrength;
 
 	reflectionTextureCoords += totalDistortion;
 	reflectionTextureCoords.x = clamp(reflectionTextureCoords.x, 0.001, 0.999);
 	reflectionTextureCoords.y = clamp(reflectionTextureCoords.y, -0.999, -0.001);
 
-	refractionTextureCoords += distortion1;
+	refractionTextureCoords += totalDistortion;
 	refractionTextureCoords = clamp(refractionTextureCoords, 0.001, 0.999);
 
 	vec4 reflectionColor = texture(reflectionTexture, reflectionTextureCoords);
 	vec4 refractionColor = texture(refractionTexture, refractionTextureCoords);
 
-	out_Colour = mix(reflectionColor, refractionColor, 0.5);
-	out_Colour = mix(out_Colour, vec4(0.0, 0.2, 0.4, 1.0), 0.2);
+	vec3 viewVector = normalize(toCameraVector);
+	float refractiveFactor = dot(viewVector, vec3(0.0, 1.0, 0.0));
+	refractiveFactor = pow(refractiveFactor, 0.9);
+
+	vec4 normalMapColour = texture(normalMap, distortedTextureCoords);
+	vec3 normal = vec3(normalMapColour.r * 2.0 - 1.0, normalMapColour.b, normalMapColour.g * 2.0 - 1.0);
+	normal = normalize(normal);
+
+	vec3 reflectedLight = reflect(normalize(formLightVector), normal);
+	float specular = max(dot(reflectedLight, viewVector), 0.0);
+	specular = pow(specular, shineDamper);
+	vec3 specularHighlights = lightColor * specular * reflectivity;
+
+	out_Colour = mix(reflectionColor, refractionColor, refractiveFactor);
+	out_Colour = mix(out_Colour, vec4(0.0, 0.2, 0.4, 1.0), 0.2) + vec4(specularHighlights, 0.0);
 }

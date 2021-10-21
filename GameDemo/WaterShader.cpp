@@ -37,11 +37,27 @@ void WaterShader::loadViewMatrix(glm::mat4 matrix) {
 	loadMatrix4(Location_viewMatrix, matrix);
 }
 
+void WaterShader::loadCameraPosition(glm::vec3 position){
+
+	loadVector3(Location_cameraPosition, position);
+}
+
+void WaterShader::loadLightPosition(glm::vec3 lightPosition){
+
+	loadVector3(Location_lightPosition, lightPosition);
+}
+
+void WaterShader::loadLightColor(glm::vec3 lightColor){
+
+	loadVector3(Location_lightColor, lightColor);
+}
+
 void WaterShader::loadconnectTextureUnits(){
 
 	loadInt(Location_reflectionTexture, 0);
 	loadInt(Location_refractionTexture, 1);
 	loadInt(Location_dudvMap, 2);
+	loadInt(Location_normalMap, 3);
 }
 
 void WaterShader::loadMoveFactor(float factor){
@@ -57,5 +73,9 @@ void WaterShader::getAllUniformLocations() {
 	Location_reflectionTexture = getUniformLocation("reflectionTexture");
 	Location_refractionTexture = getUniformLocation("refractionTexture");
 	Location_dudvMap = getUniformLocation("dudvMap");
+	Location_normalMap = getUniformLocation("normalMap");
 	Location_moveFactor = getUniformLocation("moveFactor");
+	Location_cameraPosition = getUniformLocation("cameraPosition");
+	Location_lightColor = getUniformLocation("lightColor");
+	Location_lightPosition = getUniformLocation("lightPosition");
 }

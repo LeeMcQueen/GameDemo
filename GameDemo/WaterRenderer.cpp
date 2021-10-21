@@ -8,6 +8,7 @@ WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatr
 	Loader loader;
 	//水面DUDV图片加载
 	dudvTexture_ = loader.loadTexture(DUDVMAP);
+	normalTexture_ = loader.loadTexture(NORMALMAP);
 
 	waterShader_.start();
 	waterShader_.loadconnectTextureUnits();
@@ -15,22 +16,25 @@ WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatr
 	waterShader_.stop();
 }
 
-void WaterRenderer::render(std::vector<WaterTile> &waterTile) {
+void WaterRenderer::render(std::vector<WaterTile> &waterTile, Light &sun) {
 
 	for (WaterTile tile : waterTile) {
-		prepareWater(tile);
+		prepareWater(tile, sun);
 		prepareInstance(tile);
 		glDrawElements(GL_TRIANGLES, tile.getModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
 		unbindTextureModel();
 	}
 }
 
-void WaterRenderer::prepareWater(WaterTile &waterTile) {
+void WaterRenderer::prepareWater(WaterTile &waterTile, Light &sun) {
 
 	//水面波纹波动
 	moveFactor_ += WAVE_SPEED;
 	moveFactor_ = std::fmod(moveFactor_, 1);
 	waterShader_.loadMoveFactor(moveFactor_);
+	//shader光线加载
+	waterShader_.loadLightPosition(sun.getPosition());
+	waterShader_.loadLightColor(sun.getColor());
 
 	RawModel &rawModel = waterTile.getModel();
 
@@ -43,6 +47,8 @@ void WaterRenderer::prepareWater(WaterTile &waterTile) {
 	glBindTexture(GL_TEXTURE_2D, fbo_.getRefractionTexture());
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, dudvTexture_);
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, normalTexture_);
 }
 
 void WaterRenderer::prepareInstance(WaterTile & waterTile) {

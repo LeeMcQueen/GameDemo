@@ -50,7 +50,8 @@ void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane) 
 	//water
 	waterShader_.start();
 	waterShader_.loadViewMatrix(camera.getViewMatrix());
-	waterRenderer_.render(waterTiles_);
+	waterShader_.loadCameraPosition(camera.getPosition());
+	waterRenderer_.render(waterTiles_, light);
 	waterShader_.stop();
 
 	skyboxRenderer_.render(camera, glm::vec3(0.0, 0.0, 0.0));

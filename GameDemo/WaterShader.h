@@ -22,6 +22,13 @@ public:
 	void loadconnectTextureUnits();
 	//水面移动时间参数
 	void loadMoveFactor(float factor);
+	//加载相机位置方法
+	void loadCameraPosition(glm::vec3 position);
+	//加载光线位置信息
+	void loadLightPosition(glm::vec3 lightPosition);
+	//加载光线颜色信息
+	void loadLightColor(glm::vec3 lightColor);
+
 protected:
 
 	//继承 给传入shader的VBO进行命名
@@ -39,5 +46,10 @@ private:
 	GLuint Location_reflectionTexture;
 	GLuint Location_refractionTexture;
 	GLuint Location_dudvMap;
+	GLuint Location_normalMap;
 	GLuint Location_moveFactor;
+	GLuint Location_cameraPosition;
+	//光
+	GLuint Location_lightColor;
+	GLuint Location_lightPosition;
 };

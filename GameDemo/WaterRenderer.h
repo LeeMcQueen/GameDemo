@@ -12,19 +12,22 @@ class WaterRenderer {
 public:
 
 	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo);
+	void render(std::vector<WaterTile> &waterTile, Light &sun);
 
-	void render(std::vector<WaterTile> &waterTile);
 private:
 	const char *DUDVMAP = "waterDUDV";
+	const char *NORMALMAP = "waterNormalMap";
 	float WAVE_SPEED = 0.0003;
+
+	unsigned int dudvTexture_;
+	unsigned int normalTexture_;
+	float moveFactor_ = 0;
 
 	WaterShader waterShader_{};
 	const WaterFrameBuffers &fbo_;
-	unsigned int dudvTexture_;
-	float moveFactor_ = 0;
 
 	//加载水面顶点
-	void prepareWater(WaterTile &waterTile);
+	void prepareWater(WaterTile &waterTile, Light &sun);
 	void prepareInstance(WaterTile &waterTile);
 	void unbindTextureModel();
 };

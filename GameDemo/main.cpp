@@ -380,7 +380,7 @@ int main() {
 	float RunEndTime = 888.0f;
 	float idleStartTime = 805.0f;
 	float idleEndTime = 856.0f;
-	
+
 	animaModelLoader.loadAssimpScene("res/warhummer.FBX");
 
 	Assimp::Importer importer;
@@ -393,7 +393,7 @@ int main() {
 	diffuseTexture = loader.loadTexture("boss_lan");
 	unsigned int emissionTexture;
 	emissionTexture = loader.loadTexture("boss_green");
-	
+
 	//创建骨骼动画的顶点数组对象
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
 
@@ -544,7 +544,7 @@ int main() {
 		//草地的观察矩阵&投影矩阵
 		glm::mat4 grassViewMatrix = camera.getViewMatrix();
 		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix();
-		
+
 		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
