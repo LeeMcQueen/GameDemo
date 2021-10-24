@@ -13,24 +13,29 @@ Terrain::~Terrain() {
 
 RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap){
 
-	_image = stbi_load("res/heightmap4.png", &_width, &_height, &_colorChannels, 0);
-
-	VERTEX_COUNT = _height;
+	_image = stbi_load("res/heightmap4.png", &width_, &height_, &colorChannels_, 0);
+	VERTEX_COUNT = height_;
 
 	int count = VERTEX_COUNT * VERTEX_COUNT;
-
 	std::vector<glm::vec3> vertices(count), normals(count);
 	std::vector<glm::vec2> textureCoords(count);
 	std::vector<int> indices(6 * (VERTEX_COUNT - 1) * VERTEX_COUNT);
 	int vertexPointer = 0;
 
+	heights_.resize(VERTEX_COUNT);
+	for (auto& height : heights_)
+		height.resize(VERTEX_COUNT);
+
 	for (int i = 0; i < VERTEX_COUNT; i++)
 	{
 		for (int j = 0; j < VERTEX_COUNT; j++)
 		{
+			float height = getHeight(j, i, _image);
+			heights_[j][i] = height;
+
 			vertices[vertexPointer] = glm::vec3(
 				(float)j / ((float)VERTEX_COUNT - 1) * SIZE,
-				getHeight(j, i, _image),
+				height,
 				(float)i / ((float)VERTEX_COUNT - 1) * SIZE);
 
 			normals[vertexPointer] = calculateNormal(j, i, _image);
@@ -65,7 +70,7 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap){
 
 float Terrain::getHeight(int x, int z, unsigned char *data) {
 
-	if (x < 0 || x > _height || z < 0 || z > _height) {
+	if (x < 0 || x > height_ || z < 0 || z > height_) {
 		return 0;
 	}
 
@@ -79,11 +84,16 @@ float Terrain::getHeight(int x, int z, unsigned char *data) {
 
 std::int32_t Terrain::getRGBSum(int x, int y){
 
-	int addr = (y * _width + x) * _colorChannels;
+	int addr = (y * width_ + x) * colorChannels_;
 	std::int32_t r = _image[addr];
 	std::int32_t g = _image[addr + 1];
 	std::int32_t b = _image[addr + 2];
 	return (r << 16) + (g << 8) + b;
+}
+
+float Terrain::getHeightOfTerrain(float worldX, float worldZ){
+
+	return 0.0f;
 }
 
 glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image){
@@ -102,27 +112,27 @@ glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image){
 	return normal;
 }
 
-float Terrain::getX()
-{
+float Terrain::getX(){
+
 	return x_;
 }
 
-float Terrain::getZ()
-{
+float Terrain::getZ(){
+
 	return z_;
 }
 
-RawModel Terrain::getModel()
-{
+RawModel Terrain::getModel(){
+
 	return rawModel_;
 }
 
-TerrainTexturePack Terrain::getTerrainTexturePack()
-{
+TerrainTexturePack Terrain::getTerrainTexturePack(){
+
 	return terrainTexturePack_;
 }
 
-TerrainTexture Terrain::getTerrainTexture()
-{
+TerrainTexture Terrain::getTerrainTexture(){
+
 	return blendMap_;
 }

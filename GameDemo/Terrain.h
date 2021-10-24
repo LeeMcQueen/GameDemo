@@ -28,11 +28,11 @@ private:
 	const float MAX_PIXEL_COLOUR = 256 * 256 * 256;
 
 	//图片的宽，高，通道
-	int _width, _height, _colorChannels;
+	int width_, height_, colorChannels_;
 	unsigned char *_image;
 
-	float x_;
-	float z_;
+	float x_, z_;
+	std::vector<std::vector<float>> heights_;
 
 	RawModel rawModel_;
 	TerrainTexturePack terrainTexturePack_;
@@ -42,5 +42,8 @@ private:
 	float getHeight(int x, int z, unsigned char *image);
 	glm::vec3 calculateNormal(int x, int z, unsigned char *image);
 	std::int32_t getRGBSum(int x, int y);
+
+	//得到地形高度
+	float getHeightOfTerrain(float worldX, float worldZ);
 };
 
