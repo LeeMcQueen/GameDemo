@@ -11,7 +11,6 @@
 class Terrain
 {
 public:
-
 	Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap);
 	~Terrain();
 
@@ -38,11 +37,12 @@ private:
 	RawModel rawModel_;
 	TerrainTexturePack terrainTexturePack_;
 	TerrainTexture blendMap_;
+
 	//返回RawModel结构的数组 VAO的ID 顶点的排序
 	RawModel generateTerrain(Loader& loader, std::string heightMap);
-	float getHeight(int x, int z, unsigned char *image);
 	glm::vec3 calculateNormal(int x, int z, unsigned char *image);
 	std::int32_t getRGBSum(int x, int y);
+	float getHeight(int x, int z, unsigned char *image);
 
 	//得到地形高度
 	float getHeightOfTerrain(float worldX, float worldZ);

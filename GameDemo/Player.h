@@ -2,13 +2,14 @@
 
 #include <gtx\transform.hpp>
 
+#include "terrain.h"
 
 class Player {
 
 public:
 	Player(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
-	void move();
+	void move(Terrain &terrain);
 	void checkInputs();
 	void translate(float dx, float dy, float dz);
 	void rotation(float rx, float ry, float rz);

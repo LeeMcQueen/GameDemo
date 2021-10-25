@@ -1,4 +1,6 @@
-﻿#include <iostream>
+﻿#pragma once
+
+#include <iostream>
 
 #include "Camera.h"
 
@@ -9,13 +11,12 @@ float UPDOWN_SPEED = 1.0f;
 //相机围绕主角旋转的速度
 float TURN_SPEED = 5.0f;
 
-Camera::Camera(Player player)
+Camera::Camera()
 	:position_(glm::vec3(0.0f, 20.0f, 70.0f)),
 	rotation_(glm::vec3(45.0f, 0.0f, 0.0f)),
-	player_(player),
 	viewDirection_(0.0f, 30.0f, 40.0f),
 	distanceFromPlayer_(50.0f),
-	angleAroundPlayer_(0.0f) {}
+	angleAroundPlayer_(0.0f) {};
 
 void Camera::move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 {
@@ -122,10 +123,10 @@ float Camera::calculateVerticalDistance(){
 
 void Camera::calculateCameraPosition(float horizDistance, float verticDistance, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale){
 
-	float theta = player_.getRotation().z + rotation_.y;
-
-	float xOffset = horizDistance * std::sin(glm::radians(theta));
-	float zOffset = horizDistance * std::cos(glm::radians(theta));
+	//取消了使用player 暂时注释掉
+	//float theta = player_.getRotation().z + rotation_.y;
+	//float xOffset = horizDistance * std::sin(glm::radians(theta));
+	//float zOffset = horizDistance * std::cos(glm::radians(theta));
 
 	setPosition(position);
 }

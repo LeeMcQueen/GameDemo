@@ -13,7 +13,6 @@ class ShaderPrograms;
 struct Shader {
 
 public:
-
 	//shader的类型
 	enum class Type : GLenum {
 		Vertex = GL_VERTEX_SHADER,
@@ -33,14 +32,13 @@ public:
 	Shader& operator=(Shader&& other) noexcept;
 
 private:
-
 	Type type_;
 	unsigned int id_;
 	friend ShaderPrograms;
 };
 
 // Read whole file into a string
-[[nodiscard]] inline std::string readFile(std::string path)
+inline std::string readFile(std::string path)
 {
 	std::ifstream file{ path.data() };
 

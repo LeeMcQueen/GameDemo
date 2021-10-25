@@ -440,7 +440,7 @@ int main() {
 	//主角控制
 	Player player(glm::vec3(100.0f, 10.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
-	Camera camera(player);
+	Camera camera;
 	//水面FBOs
 	WaterFrameBuffers fbos;
 	//实例化渲染器
@@ -533,7 +533,7 @@ int main() {
 		masterRenderer.processEntity(fern);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
-		player.move();
+		player.move(terrain);
 		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 
 #pragma region 草地主循环
@@ -567,7 +567,7 @@ int main() {
 #pragma endregion
 
 #pragma region 骨骼动画主循环
-		//移动
+		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
 		//得到游戏每循坏一次所需时间(32010 / 30)

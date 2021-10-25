@@ -1,4 +1,6 @@
-﻿#include "Terrain.h"
+﻿#pragma once
+
+#include "Terrain.h"
 
 Terrain::Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexturePack, TerrainTexture blendMap)
 	:x_(gridX),
@@ -95,12 +97,12 @@ std::int32_t Terrain::getRGBSum(int x, int y){
 float Terrain::getHeightOfTerrain(float worldX, float worldZ){
 
 	//x_，z_是transformationMatirx的偏移量
-	float terrainX = worldX - x_;
-	float terrainZ = worldX - z_;
+	auto terrainX = worldX - x_;
+	auto terrainZ = worldX - z_;
 	float gridSquareSize = SIZE / static_cast<float>(heights_.size() - 1);
 
-	int gridX = static_cast<int>(std::floor(terrainX / gridSquareSize));
-	int gridZ = static_cast<int>(std::floor(terrainZ / gridSquareSize));
+	auto gridX = static_cast<int>(std::floor(terrainX / gridSquareSize));
+	auto gridZ = static_cast<int>(std::floor(terrainZ / gridSquareSize));
 
 	//检测是否是在地形内 超出就返回0为高度
 	if (gridX >= heights_.size() - 1 || gridZ >= heights_.size() - 1 || gridX < 0 || gridZ < 0) {

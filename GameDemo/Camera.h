@@ -1,14 +1,13 @@
-﻿#pragma once
+﻿#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <gtx\transform.hpp>
 #include <GLFW/glfw3.h>
 
-#include "Player.h"
-
 class Camera {
 
 public:
-	Camera(Player player);
+	Camera();
 
 	//increase position&rotation into view(camera)Matrix
 	void move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
@@ -24,9 +23,6 @@ public:
 	void setviewDirection(glm::vec3 viewDirection) { viewDirection_ = viewDirection; };
 
 private:
-
-	//主角类(主角位置，旋转，缩放)
-	Player player_;
 	//相机位置
 	glm::vec3 position_;
 	//相机旋转
@@ -37,7 +33,6 @@ private:
 	float angleAroundPlayer_;
 
 	glm::vec3 viewDirection_;
-
 
 	//相机到主角远近移动函数
 	void calclateZoom();
@@ -53,4 +48,6 @@ private:
 	void calculateCameraPosition(float horizDistance, float verticDistance, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 };
+
+#endif
 

@@ -1,14 +1,20 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
   Camera.cpp
-Camera.cpp(34): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(38): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(42): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(46): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(69): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(73): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(35): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(39): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(43): warning C4305: “-=”: 从“double”到“float”截断
+Camera.cpp(47): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(70): warning C4305: “+=”: 从“double”到“float”截断
+Camera.cpp(74): warning C4305: “-=”: 从“double”到“float”截断
   EntityRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(20): warning C4305: “初始化”: 从“double”到“float”截断
+  Grasses.cpp
+d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
+Grasses.cpp(43): warning C4305: “参数”: 从“double”到“float”截断
+Grasses.cpp(58): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+  GrassesShader.cpp
+d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
   GuiRenderer.cpp
   MasterRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(20): warning C4305: “初始化”: 从“double”到“float”截断
@@ -19,17 +25,17 @@ d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return�
   SkyboxShader.cpp
   StaticShader.cpp
   Terrain.cpp
-Terrain.cpp(8): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
-Terrain.cpp(17): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-Terrain.cpp(19): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(22): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
-Terrain.cpp(25): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
+Terrain.cpp(10): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+Terrain.cpp(19): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+Terrain.cpp(21): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(24): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
 Terrain.cpp(27): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
-Terrain.cpp(57): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(29): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
 Terrain.cpp(59): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(78): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
-Terrain.cpp(106): warning C4018: “>=”: 有符号/无符号不匹配
-Terrain.cpp(114): warning C4101: “maths”: 未引用的局部变量
+Terrain.cpp(61): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+Terrain.cpp(80): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+Terrain.cpp(108): warning C4018: “>=”: 有符号/无符号不匹配
+Terrain.cpp(116): warning C4101: “maths”: 未引用的局部变量
   TerrainRenderer.cpp
   TerrainShader.cpp
   WaterRenderer.cpp
@@ -69,7 +75,7 @@ d:\opengl\demo\gamedemo\gamedemo\Cloth.h(178): warning C4018: “<”: 有符号
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(187): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(199): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
-d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(43): warning C5030: 未识别属性“nodiscard”
+d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
 main.cpp(154): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 main.cpp(161): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 main.cpp(174): warning C4018: “<”: 有符号/无符号不匹配

@@ -1,7 +1,8 @@
-﻿#include <iostream>
+﻿#pragma once
+
+#include <iostream>
 
 #include "Player.h"
-#include "terrain.h"
 
 const float RUN_SPEED = 1.0f;
 const float TURN_SPEED = 5.0f;
@@ -11,7 +12,7 @@ Player::Player(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
 	rotation_(rotation),
 	scale_(scale) {};
 
-void Player::move() {
+void Player::move(Terrain &terrain) {
 
 	//键盘控制
 	checkInputs();
