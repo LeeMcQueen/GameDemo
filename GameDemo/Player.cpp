@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 
 #include "Player.h"
+#include "terrain.h"
 
 const float RUN_SPEED = 1.0f;
 const float TURN_SPEED = 5.0f;

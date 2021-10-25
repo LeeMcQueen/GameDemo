@@ -1,5 +1,4 @@
-﻿#include <GLFW/glfw3.h>
-#include <iostream>
+﻿#include <iostream>
 
 #include "Camera.h"
 
@@ -10,7 +9,7 @@ float UPDOWN_SPEED = 1.0f;
 //相机围绕主角旋转的速度
 float TURN_SPEED = 5.0f;
 
-Camera::Camera(Player &player)
+Camera::Camera(Player player)
 	:position_(glm::vec3(0.0f, 20.0f, 70.0f)),
 	rotation_(glm::vec3(45.0f, 0.0f, 0.0f)),
 	player_(player),

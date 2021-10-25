@@ -2,7 +2,6 @@
 
 #include <gtx\transform.hpp>
 
-#include "DisplayManager.h"
 
 class Player {
 

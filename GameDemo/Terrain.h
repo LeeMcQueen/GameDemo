@@ -6,6 +6,7 @@
 #include "TerrainTexturePack.h"
 #include "TerrainTexture.h"
 #include "std_image.h"
+#include "Maths.h"
 
 class Terrain
 {

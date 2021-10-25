@@ -23,13 +23,14 @@ RawModel Terrain::generateTerrain(Loader& loader, std::string heightMap){
 	int vertexPointer = 0;
 
 	heights_.resize(VERTEX_COUNT);
-	for (auto& height : heights_)
-		height.resize(VERTEX_COUNT);
+	for (auto& heightTemp : heights_)
+		heightTemp.resize(VERTEX_COUNT);
 
 	for (int i = 0; i < VERTEX_COUNT; i++)
 	{
 		for (int j = 0; j < VERTEX_COUNT; j++)
 		{
+			//高度保存到list
 			float height = getHeight(j, i, _image);
 			heights_[j][i] = height;
 
@@ -93,7 +94,41 @@ std::int32_t Terrain::getRGBSum(int x, int y){
 
 float Terrain::getHeightOfTerrain(float worldX, float worldZ){
 
-	return 0.0f;
+	//x_，z_是transformationMatirx的偏移量
+	float terrainX = worldX - x_;
+	float terrainZ = worldX - z_;
+	float gridSquareSize = SIZE / static_cast<float>(heights_.size() - 1);
+
+	int gridX = static_cast<int>(std::floor(terrainX / gridSquareSize));
+	int gridZ = static_cast<int>(std::floor(terrainZ / gridSquareSize));
+
+	//检测是否是在地形内 超出就返回0为高度
+	if (gridX >= heights_.size() - 1 || gridZ >= heights_.size() - 1 || gridX < 0 || gridZ < 0) {
+		return 0;
+	}
+
+	float xCoord = std::fmod(terrainX, gridSquareSize) / gridSquareSize;
+	float zCoord = std::fmod(terrainZ, gridSquareSize) / gridSquareSize;
+
+	float answer;
+	Maths maths;
+
+	//上半部三角形
+	if (xCoord <= (1.f - zCoord)) {
+		answer = Maths::barryCentricInterpolation(glm::vec3{ 0, heights_[gridX][gridZ], 0 },
+			glm::vec3{ 1, heights_[gridX + 1][gridZ], 0 },
+			glm::vec3{ 0, heights_[gridX][gridZ + 1], 1 },
+			glm::vec2{ xCoord, zCoord });
+	}
+	//下半部三角形
+	else {
+		answer = Maths::barryCentricInterpolation(glm::vec3{ 0, heights_[gridX + 1][gridZ], 0 },
+			glm::vec3{ 1, heights_[gridX + 1][gridZ + 1], 1 },
+			glm::vec3{ 0, heights_[gridX][gridZ + 1], 1 },
+			glm::vec2{ xCoord, zCoord });
+	}
+
+	return answer;
 }
 
 glm::vec3 Terrain::calculateNormal(int x, int z, unsigned char * image){

@@ -13,6 +13,7 @@ void TerrainRenderer::render(std::vector<Terrain> &terrains){
 	for (Terrain& terrain : terrains)
 	{
 		prepareTerrain(terrain);
+		//加载变换矩阵
 		prepareInstance(terrain);
 		glDrawElements(GL_TRIANGLES, terrain.getModel().getVertexCount(), GL_UNSIGNED_INT, nullptr);
 		unbindTextureModel();

@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include <gtx\transform.hpp>
+#include <GLFW/glfw3.h>
 
 #include "Player.h"
 
 class Camera {
 
 public:
-	Camera(Player &player);
+	Camera(Player player);
 
 	//increase position&rotation into view(camera)Matrix
 	void move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
