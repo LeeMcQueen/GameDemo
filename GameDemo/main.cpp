@@ -438,7 +438,7 @@ int main() {
 #pragma endregion
 
 	//主角控制
-	Player player(glm::vec3(100.0f, 10.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
+	Player player(glm::vec3(100.0f, 0.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
 	Camera camera;
 	//水面FBOs

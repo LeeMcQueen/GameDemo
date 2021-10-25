@@ -20,6 +20,9 @@ public:
 	TerrainTexturePack getTerrainTexturePack();
 	TerrainTexture getTerrainTexture();
 
+	//得到地形高度
+	float getHeightOfTerrain(float worldX, float worldZ);
+
 private:
 	const float SIZE = 400;
 	float VERTEX_COUNT;
@@ -43,8 +46,5 @@ private:
 	glm::vec3 calculateNormal(int x, int z, unsigned char *image);
 	std::int32_t getRGBSum(int x, int y);
 	float getHeight(int x, int z, unsigned char *image);
-
-	//得到地形高度
-	float getHeightOfTerrain(float worldX, float worldZ);
 };
 

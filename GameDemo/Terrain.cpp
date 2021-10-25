@@ -98,7 +98,7 @@ float Terrain::getHeightOfTerrain(float worldX, float worldZ){
 
 	//x_，z_是transformationMatirx的偏移量
 	auto terrainX = worldX - x_;
-	auto terrainZ = worldX - z_;
+	auto terrainZ = worldZ - z_;
 	float gridSquareSize = SIZE / static_cast<float>(heights_.size() - 1);
 
 	auto gridX = static_cast<int>(std::floor(terrainX / gridSquareSize));
@@ -111,12 +111,11 @@ float Terrain::getHeightOfTerrain(float worldX, float worldZ){
 
 	float xCoord = std::fmod(terrainX, gridSquareSize) / gridSquareSize;
 	float zCoord = std::fmod(terrainZ, gridSquareSize) / gridSquareSize;
-
 	float answer;
 	Maths maths;
 
 	//上半部三角形
-	if (xCoord <= (1.f - zCoord)) {
+	if (xCoord <= (1.0f - zCoord)) {
 		answer = Maths::barryCentricInterpolation(glm::vec3{ 0, heights_[gridX][gridZ], 0 },
 			glm::vec3{ 1, heights_[gridX + 1][gridZ], 0 },
 			glm::vec3{ 0, heights_[gridX][gridZ + 1], 1 },

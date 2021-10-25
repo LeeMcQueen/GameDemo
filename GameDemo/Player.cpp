@@ -26,7 +26,9 @@ void Player::move(Terrain &terrain) {
 	float deltaX = distance * std::sin(glm::radians(getRotation().z));
 	float deltaZ = distance * std::cos(glm::radians(getRotation().z));
 
-	translate(-deltaX, 0.0f, -deltaZ);
+	float terrainHeight = terrain.getHeightOfTerrain(position_.x, position_.z);
+
+	translate(-deltaX, terrainHeight + 10.0f, -deltaZ);
 }
 
 void Player::checkInputs() {
@@ -53,7 +55,7 @@ void Player::checkInputs() {
 
 void Player::translate(float dx, float dy, float dz) {
 	position_.x += dx;
-	position_.y += dy;
+	position_.y = dy;
 	position_.z += dz;
 }
 
