@@ -49,7 +49,7 @@ protected:
 	void getAllUniformLocations() override;
 
 private:
-
+	static constexpr int MAX_LIGHTS = 4;
 	//Location of transformation matrix in shader progam
 	GLuint Location_tansformationMatrix;
 	//location of projection matrix in shader program
