@@ -2,7 +2,7 @@
 
 #include <gtx\transform.hpp>
 
-class Vertex{
+class Vertex {
 
 public:
 
@@ -26,11 +26,15 @@ public:
 	void setBoneWeights_y(float boneWeights_y) { boneWeights_.y = boneWeights_y; }
 	void setBoneWeights_z(float boneWeights_z) { boneWeights_.z = boneWeights_z; }
 	void setBoneWeights_w(float boneWeights_w) { boneWeights_.w = boneWeights_w; }
+	void setTangent(const glm::vec3 tangent) { tangent_ = tangent; }
+	void setBitangent(const glm::vec3 biTangent) { bitangent_ = biTangent; }
 	glm::vec3 getPosition() const { return position_; }
 	glm::vec3 getNormal() const { return normal_; }
 	glm::vec2 getTexture() const { return texture_; }
 	glm::vec4 getBoneIds() const { return boneIds_; }
 	glm::vec4 getBoneWieghts() const { return boneWeights_; }
+	glm::vec3 getTangent() const { return tangent_; }
+	glm::vec3 getBitangent() const { return bitangent_; }
 
 	//顶点坐标
 	glm::vec3 position_;
@@ -43,4 +47,8 @@ public:
 	//骨骼权重
 	glm::vec4 boneWeights_;
 
+	//法线贴图成员变量 切线
+	glm::vec3 tangent_;
+	//法线贴图成员变量 副切线
+	glm::vec3 bitangent_;
 };

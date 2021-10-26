@@ -1,16 +1,26 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  Terrain.cpp
-Terrain.cpp(10): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
-Terrain.cpp(19): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-Terrain.cpp(21): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(24): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
-Terrain.cpp(27): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
-Terrain.cpp(29): warning C4244: “参数”: 从“float”转换到“unsigned int”，可能丢失数据
-Terrain.cpp(59): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(61): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(80): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
-Terrain.cpp(108): warning C4018: “>=”: 有符号/无符号不匹配
-Terrain.cpp(115): warning C4101: “maths”: 未引用的局部变量
+  AnimaModelLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(177): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(185): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(201): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(207): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(214): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(215): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(218): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(219): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(223): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(224): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+  OBJLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+OBJLoader.cpp(27): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
   main.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
   D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
