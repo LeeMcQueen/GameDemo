@@ -61,16 +61,21 @@ const char* vertexShaderSource = R"(
 	layout (location = 2) in vec2 texture;
 	layout (location = 3) in vec4 boneIds;
 	layout (location = 4) in vec4 boneWeights;
-
-	out vec2 tex_cord;
-	out vec3 v_normal;
-	out vec3 v_pos;
-	out vec4 bw;
+	layout (location = 5) in vec3 tangent;
+	layout (location = 6) in vec3 bitangent;
 
 	uniform mat4 bone_transforms[50];		//jointTransForms[MAX_JOINTS]
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
+	vec3 cameraPosition = vec3(1.0, 1.0, 1.0);
+	vec3 lightPosition = vec3(20.0, 55.0, 13.0);
+
+	out vec2 tex_cord;
+	out vec4 bw;
+	out vec3 TangentLightPos;
+	out vec3 TangentViewPos;
+	out vec3 TangentFragPos;
 
 	void main()
 	{
@@ -78,18 +83,26 @@ const char* vertexShaderSource = R"(
 		if(int(boneIds.x) == 1)
 		bw.z = boneIds.x;
 		mat4 boneTransform  =  mat4(0.0);
-		boneTransform  +=    bone_transforms[int(boneIds.x)] * boneWeights.x;
-		boneTransform  +=    bone_transforms[int(boneIds.y)] * boneWeights.y;
-		boneTransform  +=    bone_transforms[int(boneIds.z)] * boneWeights.z;
-		boneTransform  +=    bone_transforms[int(boneIds.w)] * boneWeights.w;
-		vec4 pos =boneTransform * vec4(position, 1.0);
-
+		boneTransform += bone_transforms[int(boneIds.x)] * boneWeights.x;
+		boneTransform += bone_transforms[int(boneIds.y)] * boneWeights.y;
+		boneTransform += bone_transforms[int(boneIds.z)] * boneWeights.z;
+		boneTransform += bone_transforms[int(boneIds.w)] * boneWeights.w;
+		vec4 pos = boneTransform * vec4(position, 1.0);
 		gl_Position = projection_Matrix * view_Matrix * model_matrix * pos;
 
-		v_pos = vec3(model_matrix * boneTransform * pos);
+		vec3 v_pos = vec3(model_matrix * pos);
 		tex_cord = texture;
-		v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
+
+		vec3 v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
 		v_normal = normalize(v_normal);
+
+		vec3 T = normalize(v_normal * tangent);
+		vec3 B = normalize(v_normal * bitangent);
+		vec3 N = normalize(v_normal * normal);
+		mat3 TBN = transpose(mat3(T, B, N));
+		TangentLightPos = TBN * lightPosition;
+		TangentViewPos = TBN * cameraPosition;
+		TangentFragPos = TBN * v_pos;
 	}
 	)";
 #pragma endregion
@@ -99,29 +112,34 @@ const char* fragmentShaderSource = R"(
 	#version 330 core
 
 	in vec2 tex_cord;
-	in vec3 v_normal;
-	in vec3 v_pos;
 	in vec4 bw;
+	in vec3 TangentLightPos;
+	in vec3 TangentViewPos;
+	in vec3 TangentFragPos;
 
-	out vec4 color;
+	out vec4 out_Colour;
 
 	uniform sampler2D diff_texture;
-	uniform sampler2D emission;
+	uniform sampler2D emission_texture;
+	uniform sampler2D normal_texture;
 	uniform float time;
 
 	vec3 lightPos = vec3(20.0, 55.0, 13.0);
 	
 	void main()
 	{
-		vec3 lightDir = normalize(lightPos - v_pos);
-		float diff = max(dot(v_normal, lightDir), 0.2);
+		vec3 normal = texture(normal_texture, tex_cord).rgb;
+		normal = normalize(normal * 2.0 - 1.0);
+		
+		vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
+		float diff = max(dot(normal, lightDir), 0.2);
 
 		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
 
-		vec3 emission = texture(emission, tex_cord + vec2(0.0, time * 0.001)).rgb;
-		emission = emission * (sin(time) * 0.001 + 0.5) * 2.0;
+		vec3 emission_texture = texture(emission_texture, tex_cord + vec2(0.0, time * 0.001)).rgb;
+		emission_texture = emission_texture * (sin(time) * 0.001 + 0.5) * 2.0;
 
-		color = vec4(dCol + emission, 1.0f);
+		out_Colour = vec4(dCol + emission_texture, 1.0f);
 	}
 	)";
 #pragma endregion
@@ -253,6 +271,10 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneIds_));
 	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneWeights_));
+	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, tangent_));
+	glEnableVertexAttribArray(6);
+	glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, bitangent_));
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
@@ -393,6 +415,8 @@ int main() {
 	diffuseTexture = loader.loadTexture("boss_lan");
 	unsigned int emissionTexture;
 	emissionTexture = loader.loadTexture("boss_green");
+	unsigned int normalTexture;
+	normalTexture = loader.loadTexture("boss_normal");
 
 	//创建骨骼动画的顶点数组对象
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
@@ -413,7 +437,8 @@ int main() {
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
-	unsigned int emissionLocation = glGetUniformLocation(shader, "emission");
+	unsigned int emissionLocation = glGetUniformLocation(shader, "emission_texture");
+	unsigned int normalLocation = glGetUniformLocation(shader, "normal_texture");
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
 #pragma endregion
 
@@ -607,6 +632,9 @@ int main() {
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, emissionTexture);
 		glUniform1i(emissionLocation, 1);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, normalTexture);
+		glUniform1i(normalLocation, 2);
 		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
 

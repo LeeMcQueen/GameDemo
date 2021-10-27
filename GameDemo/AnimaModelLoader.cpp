@@ -60,12 +60,21 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 		vector.y = mesh->mVertices[i].y;
 		vector.z = mesh->mVertices[i].z;
 		vertex.setPosition(vector);
-
 		//取得法线
 		vector.x = mesh->mNormals[i].x;
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
 		vertex.setNormal(vector);
+		//取得切线
+		vector.x = mesh->mTangents[i].x;
+		vector.y = mesh->mTangents[i].y;
+		vector.z = mesh->mTangents[i].z;
+		vertex.setTangent(vector);
+		//取得副切线
+		vector.x = mesh->mBitangents[i].x;
+		vector.y = mesh->mBitangents[i].y;
+		vector.z = mesh->mBitangents[i].z;
+		vertex.setBitangent(vector);
 
 		//空的Vec2的变量
 		glm::vec2 vec;
