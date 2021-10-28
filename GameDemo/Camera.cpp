@@ -18,18 +18,20 @@ Camera::Camera()
 	distanceFromPlayer_(50.0f),
 	angleAroundPlayer_(0.0f) {};
 
-void Camera::move(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+void Camera::move(glm::vec3 playerPosition, glm::vec3 playerRotation)
 {
 	calclateZoom();
 	calculatePitch();
 	calculateAngleAoundPlayer();
 
+	//玩家到相机的水平距离 distanceFromPlayer_ * cos(θ)/
 	float horizontaDistance = calculateHorizontaDistance();
+	//玩家到相机的垂直高度 distanceFromPlayer_ * sin(θ)
 	float verticalDistance = calculateVerticalDistance();
 
-	calculateCameraPosition(horizontaDistance, verticalDistance, position, rotation, scale);
+	calculateCameraPosition(horizontaDistance, verticalDistance, playerPosition, playerRotation);
 	//自由相机
-	//calculateCameraPosition(horizontaDistance, verticalDistance, position_, rotation, scale);
+	//calculateCameraPosition(horizontaDistance, verticalDistance, position_);
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		position_.z -= 1.2;
@@ -121,14 +123,14 @@ float Camera::calculateVerticalDistance(){
 	return distanceFromPlayer_ * std::sin(glm::radians(rotation_.x));
 }
 
-void Camera::calculateCameraPosition(float horizDistance, float verticDistance, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale){
+void Camera::calculateCameraPosition(float horizDistance, float verticDistance, glm::vec3 playerPosition, glm::vec3 playerRotation){
 
 	//取消了使用player 暂时注释掉
 	//float theta = player_.getRotation().z + rotation_.y;
 	//float xOffset = horizDistance * std::sin(glm::radians(theta));
 	//float zOffset = horizDistance * std::cos(glm::radians(theta));
 
-	setPosition(position);
+	setPosition(playerPosition);
 }
 
 //观察矩阵函数

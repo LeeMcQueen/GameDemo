@@ -68,8 +68,8 @@ const char* vertexShaderSource = R"(
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
-	vec3 cameraPosition = vec3(1.0, 1.0, 1.0);
-	vec3 lightPosition = vec3(20.0, 55.0, 13.0);
+	uniform vec3 cameraPosition;
+	uniform vec3 lightPosition;
 
 	out vec2 tex_cord;
 	out vec4 bw;
@@ -137,7 +137,7 @@ const char* fragmentShaderSource = R"(
 		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
 
 		vec3 emission_texture = texture(emission_texture, tex_cord + vec2(0.0, time * 0.001)).rgb;
-		emission_texture = emission_texture * (sin(time) * 0.001 + 0.5) * 2.0;
+		emission_texture = emission_texture * (sin(time) * 0.001 + 0.1) * 2.0;
 
 		out_Colour = vec4(dCol + emission_texture, 1.0f);
 	}
@@ -440,6 +440,8 @@ int main() {
 	unsigned int emissionLocation = glGetUniformLocation(shader, "emission_texture");
 	unsigned int normalLocation = glGetUniformLocation(shader, "normal_texture");
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
+	unsigned int cameraPositionLocation = glGetUniformLocation(shader, "cameraPosition");
+	unsigned int lightPositionLocation = glGetUniformLocation(shader, "lightPosition");
 #pragma endregion
 
 #pragma region 草地
@@ -463,7 +465,7 @@ int main() {
 #pragma endregion
 
 	//主角控制
-	Player player(glm::vec3(100.0f, 0.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(8.0f, 8.0f, 8.0f));
+	Player player(glm::vec3(100.0f, 0.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 180.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
 	Camera camera;
 	//水面FBOs
@@ -526,17 +528,24 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		//OBJ模型的移动
-		entity.increasePosition(glm::vec3(0.0f, 0.0f, 0.0f));
-		//OBJ模型的旋转
-		entity.increaseRotation(glm::vec3(0.0f, 0.01f, 0.0f));
+		player.move(terrain);
+		camera.move(player.getPosition(), player.getRotation());
 
-		//水面反射buffer
 		glEnable(GL_CLIP_DISTANCE0);
+		//水面反射buffer
 		fbos.bindReflectionFrameBuffer();
+		//auto reflectionCamera = camera;
+		//reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
 
+		//把相机的全部属性赋值给新的相机（reflectionCamera）
 		auto reflectionCamera = camera;
-		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
+		//计算距离 也就是相机距离水面的高度的反值
+		float distance = 2.0f * (camera.getPosition().y - waterTile.getHeight());
+		//利用计算出来的高度 对反射相机的位置参数进行赋值
+		auto position = reflectionCamera.getPosition() - glm::vec3(0, distance, 0);
+		//把参数的值用set方法给到结构体里面去
+		reflectionCamera.setPosition(position);
+
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(fern);
 		masterRenderer.processEntity(tree);
@@ -558,8 +567,6 @@ int main() {
 		masterRenderer.processEntity(fern);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
-		player.move(terrain);
-		camera.move(player.getPosition(), player.getRotation(), player.getScale());
 
 #pragma region 草地主循环
 		//草地渲染时间
@@ -620,9 +627,10 @@ int main() {
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
-
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
+		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
+		glUniform3f(lightPositionLocation, light.getPosition().x, light.getPosition().y, light.getPosition().z);
 		glBindVertexArray(vao);
 		//骨骼动画基础纹理
 		glActiveTexture(GL_TEXTURE0);

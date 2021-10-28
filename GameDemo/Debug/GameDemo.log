@@ -43,6 +43,6 @@ main.cpp(201): warning C4244: “参数”: 从“double”转换到“const flo
 main.cpp(204): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(205): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(224): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(474): warning C4101: “objloader”: 未引用的局部变量
+main.cpp(476): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)
