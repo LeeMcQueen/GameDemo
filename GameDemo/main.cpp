@@ -119,27 +119,29 @@ const char* fragmentShaderSource = R"(
 
 	out vec4 out_Colour;
 
-	uniform sampler2D diff_texture;
-	uniform sampler2D emission_texture;
-	uniform sampler2D normal_texture;
+	uniform sampler2D diffTexture;
+	uniform sampler2D emissionTexture;
+	uniform sampler2D albedoTexture;
+	uniform sampler2D normalTexture;
+	uniform sampler2D metallicTexture;
+	uniform sampler2D roughnessTexture;
+	uniform sampler2D aoTexture;
 	uniform float time;
-
-	vec3 lightPos = vec3(20.0, 55.0, 13.0);
 	
 	void main()
 	{
-		vec3 normal = texture(normal_texture, tex_cord).rgb;
+		vec3 normal = texture(normalTexture, tex_cord).rgb;
 		normal = normalize(normal * 2.0 - 1.0);
 		
 		vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
 		float diff = max(dot(normal, lightDir), 0.2);
 
-		vec3 dCol = diff * texture(diff_texture, tex_cord).rgb; 
+		vec3 dCol = diff * texture(diffTexture, tex_cord).rgb; 
 
-		vec3 emission_texture = texture(emission_texture, tex_cord + vec2(0.0, time * 0.001)).rgb;
-		emission_texture = emission_texture * (sin(time) * 0.001 + 0.1) * 2.0;
+		vec3 emissionTexture = texture(emissionTexture, tex_cord + vec2(0.0, time * 0.001)).rgb;
+		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
 
-		out_Colour = vec4(dCol + emission_texture, 1.0f);
+		out_Colour = vec4(dCol + emissionTexture, 1.0f);
 	}
 	)";
 #pragma endregion
@@ -153,7 +155,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(20.0f, 20.0f, 30.0f);
+Vec3 clothPos(140.0f, 25.0f, 50.0f);
 Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
@@ -412,11 +414,20 @@ int main() {
 	unsigned int vao = 0;
 	//图片初始化
 	unsigned int diffuseTexture;
-	diffuseTexture = loader.loadTexture("boss_lan");
+	//diffuseTexture = loader.loadTexture("boss_lan");old-metal-slats1_albedo
+	diffuseTexture = loader.loadTexture("old-metal-slats1_albedo");
 	unsigned int emissionTexture;
 	emissionTexture = loader.loadTexture("boss_green");
+	unsigned int albedoTexture;
+	albedoTexture = loader.loadTexture("boss_normal");
 	unsigned int normalTexture;
 	normalTexture = loader.loadTexture("boss_normal");
+	unsigned int metallicTexture;
+	metallicTexture = loader.loadTexture("boss_normal");
+	unsigned int roughnessTexture;
+	roughnessTexture = loader.loadTexture("boss_normal");
+	unsigned int aoTexture;
+	aoTexture = loader.loadTexture("boss_normal");
 
 	//创建骨骼动画的顶点数组对象
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
@@ -436,12 +447,18 @@ int main() {
 	//modelMatrix变换
 	unsigned int modelMatrixLocation = glGetUniformLocation(shader, "model_matrix");
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
-	unsigned int textureLocation = glGetUniformLocation(shader, "diff_texture");
-	unsigned int emissionLocation = glGetUniformLocation(shader, "emission_texture");
-	unsigned int normalLocation = glGetUniformLocation(shader, "normal_texture");
-	unsigned int timeLocation = glGetUniformLocation(shader, "time");
+	unsigned int textureLocation = glGetUniformLocation(shader, "diffTexture");
+	unsigned int emissionLocation = glGetUniformLocation(shader, "emissionTexture");
+
+	unsigned int albedoLocation = glGetUniformLocation(shader, "albedoTexture");
+	unsigned int normalLocation = glGetUniformLocation(shader, "normalTexture");
+	unsigned int metallicLocation = glGetUniformLocation(shader, "metallicTexture");
+	unsigned int roughnessLocation = glGetUniformLocation(shader, "roughnessTexture");
+	unsigned int aoLocation = glGetUniformLocation(shader, "aoTexture");
+
 	unsigned int cameraPositionLocation = glGetUniformLocation(shader, "cameraPosition");
 	unsigned int lightPositionLocation = glGetUniformLocation(shader, "lightPosition");
+	unsigned int timeLocation = glGetUniformLocation(shader, "time");
 #pragma endregion
 
 #pragma region 草地
@@ -514,7 +531,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
@@ -534,22 +551,8 @@ int main() {
 		glEnable(GL_CLIP_DISTANCE0);
 		//水面反射buffer
 		fbos.bindReflectionFrameBuffer();
-		//auto reflectionCamera = camera;
-		//reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
-
-		//把相机的全部属性赋值给新的相机（reflectionCamera）
 		auto reflectionCamera = camera;
-		//计算距离 也就是相机距离水面的高度的反值
-		float distance = 2.0f * (camera.getPosition().y - waterTile.getHeight());
-		//利用计算出来的高度 对反射相机的位置参数进行赋值
-		auto position = reflectionCamera.getPosition() - glm::vec3(0, distance, 0);
-		//把参数的值用set方法给到结构体里面去
-		reflectionCamera.setPosition(position);
-
-		masterRenderer.processEntity(entity);
-		masterRenderer.processEntity(fern);
-		masterRenderer.processEntity(tree);
-		masterRenderer.processTerrain(terrain);
+		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
 		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f));
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
@@ -641,8 +644,20 @@ int main() {
 		glBindTexture(GL_TEXTURE_2D, emissionTexture);
 		glUniform1i(emissionLocation, 1);
 		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, albedoTexture);
+		glUniform1i(albedoLocation, 2);
+		glActiveTexture(GL_TEXTURE3);
 		glBindTexture(GL_TEXTURE_2D, normalTexture);
-		glUniform1i(normalLocation, 2);
+		glUniform1i(normalLocation, 3);
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, metallicTexture);
+		glUniform1i(metallicLocation, 4);
+		glActiveTexture(GL_TEXTURE5);
+		glBindTexture(GL_TEXTURE_2D, roughnessTexture);
+		glUniform1i(roughnessLocation, 5);
+		glActiveTexture(GL_TEXTURE6);
+		glBindTexture(GL_TEXTURE_2D, aoTexture);
+		glUniform1i(aoLocation, 6);
 		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
 

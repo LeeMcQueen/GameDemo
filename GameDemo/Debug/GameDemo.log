@@ -33,16 +33,16 @@ d:\opengl\demo\gamedemo\gamedemo\Cloth.h(187): warning C4018: “<”: 有符号
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(199): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
 d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
-main.cpp(172): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(179): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(192): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(196): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(197): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(200): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(201): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(204): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(205): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(224): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(476): warning C4101: “objloader”: 未引用的局部变量
+main.cpp(174): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(181): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(194): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(198): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(199): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(203): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(206): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(207): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(226): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(493): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

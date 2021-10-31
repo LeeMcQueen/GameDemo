@@ -31,7 +31,7 @@ void Camera::move(glm::vec3 playerPosition, glm::vec3 playerRotation)
 
 	calculateCameraPosition(horizontaDistance, verticalDistance, playerPosition, playerRotation);
 	//自由相机
-	//calculateCameraPosition(horizontaDistance, verticalDistance, position_);
+	//calculateCameraPosition(horizontaDistance, verticalDistance, position_, playerRotation);
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		position_.z -= 1.2;
