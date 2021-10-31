@@ -71,8 +71,10 @@ const char* vertexShaderSource = R"(
 	uniform vec3 cameraPosition;
 	uniform vec3 lightPosition;
 
-	out vec2 tex_cord;
+	out vec2 TexCoords;
 	out vec4 bw;
+	out vec3 WorldPos;
+	out vec3 v_normal;
 	out vec3 TangentLightPos;
 	out vec3 TangentViewPos;
 	out vec3 TangentFragPos;
@@ -90,8 +92,8 @@ const char* vertexShaderSource = R"(
 		vec4 pos = boneTransform * vec4(position, 1.0);
 		gl_Position = projection_Matrix * view_Matrix * model_matrix * pos;
 
-		vec3 v_pos = vec3(model_matrix * pos);
-		tex_cord = texture;
+		vec3 WorldPos = vec3(model_matrix * pos);
+		TexCoords = texture;
 
 		vec3 v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
 		v_normal = normalize(v_normal);
@@ -102,7 +104,7 @@ const char* vertexShaderSource = R"(
 		mat3 TBN = transpose(mat3(T, B, N));
 		TangentLightPos = TBN * lightPosition;
 		TangentViewPos = TBN * cameraPosition;
-		TangentFragPos = TBN * v_pos;
+		TangentFragPos = TBN * WorldPos;
 	}
 	)";
 #pragma endregion
@@ -111,8 +113,10 @@ const char* vertexShaderSource = R"(
 const char* fragmentShaderSource = R"(
 	#version 330 core
 
-	in vec2 tex_cord;
+	in vec2 TexCoords;
 	in vec4 bw;
+	in vec3 WorldPos;
+	in vec3 v_normal;
 	in vec3 TangentLightPos;
 	in vec3 TangentViewPos;
 	in vec3 TangentFragPos;
@@ -128,17 +132,83 @@ const char* fragmentShaderSource = R"(
 	uniform sampler2D aoTexture;
 	uniform float time;
 	
+	const float PI = 3.14159265359;
+
+	// ----------------------------------------------------------------------------
+	vec3 getNormalFromMap()
+	{
+		vec3 tangentNormal = texture(normalTexture, TexCoords).xyz * 2.0 - 1.0;
+
+		vec3 Q1  = dFdx(WorldPos);
+		vec3 Q2  = dFdy(WorldPos);
+		vec2 st1 = dFdx(TexCoords);
+		vec2 st2 = dFdy(TexCoords);
+
+		vec3 N   = normalize(v_normal);
+		vec3 T  = normalize(Q1*st2.t - Q2*st1.t);
+		vec3 B  = -normalize(cross(N, T));
+		mat3 TBN = mat3(T, B, N);
+
+		return normalize(TBN * tangentNormal);
+	}
+	// ----------------------------------------------------------------------------
+	float DistributionGGX(vec3 N, vec3 H, float roughness)
+	{
+		float a = roughness*roughness;
+		float a2 = a*a;
+		float NdotH = max(dot(N, H), 0.0);
+		float NdotH2 = NdotH*NdotH;
+
+		float nom   = a2;
+		float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+		denom = PI * denom * denom;
+
+		return nom / denom;
+	}
+	// ----------------------------------------------------------------------------
+	float GeometrySchlickGGX(float NdotV, float roughness)
+	{
+		float r = (roughness + 1.0);
+		float k = (r*r) / 8.0;
+
+		float nom   = NdotV;
+		float denom = NdotV * (1.0 - k) + k;
+
+		return nom / denom;
+	}
+	// ----------------------------------------------------------------------------
+	float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
+	{
+		float NdotV = max(dot(N, V), 0.0);
+		float NdotL = max(dot(N, L), 0.0);
+		float ggx2 = GeometrySchlickGGX(NdotV, roughness);
+		float ggx1 = GeometrySchlickGGX(NdotL, roughness);
+
+		return ggx1 * ggx2;
+	}
+	// ----------------------------------------------------------------------------
+	vec3 fresnelSchlick(float cosTheta, vec3 F0)
+	{
+		return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+	}
+	// ----------------------------------------------------------------------------
+
 	void main()
 	{
-		vec3 normal = texture(normalTexture, tex_cord).rgb;
+		vec3 albedo     = pow(texture(albedoTexture, TexCoords).rgb, vec3(2.2));
+		float metallic  = texture(metallicTexture, TexCoords).r;
+		float roughness = texture(roughnessTexture, TexCoords).r;
+		float ao        = texture(aoTexture, TexCoords).r;
+	
+		vec3 normal = texture(normalTexture, TexCoords).rgb;
 		normal = normalize(normal * 2.0 - 1.0);
 		
 		vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
-		float diff = max(dot(normal, lightDir), 0.2);
+		float diff = max(dot(normal, lightDir), 0.2) * 1.2;
 
-		vec3 dCol = diff * texture(diffTexture, tex_cord).rgb; 
+		vec3 dCol = diff * texture(diffTexture, TexCoords).rgb; 
 
-		vec3 emissionTexture = texture(emissionTexture, tex_cord + vec2(0.0, time * 0.001)).rgb;
+		vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
 		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
 
 		out_Colour = vec4(dCol + emissionTexture, 1.0f);
@@ -419,15 +489,15 @@ int main() {
 	unsigned int emissionTexture;
 	emissionTexture = loader.loadTexture("boss_green");
 	unsigned int albedoTexture;
-	albedoTexture = loader.loadTexture("boss_normal");
+	albedoTexture = loader.loadTexture("old-metal-slats1_albedo");
 	unsigned int normalTexture;
-	normalTexture = loader.loadTexture("boss_normal");
+	normalTexture = loader.loadTexture("old-metal-slats1_normal-dx");
 	unsigned int metallicTexture;
-	metallicTexture = loader.loadTexture("boss_normal");
+	metallicTexture = loader.loadTexture("old-metal-slats1_metallic");
 	unsigned int roughnessTexture;
-	roughnessTexture = loader.loadTexture("boss_normal");
+	roughnessTexture = loader.loadTexture("old-metal-slats1_roughness");
 	unsigned int aoTexture;
-	aoTexture = loader.loadTexture("boss_normal");
+	aoTexture = loader.loadTexture("old-metal-slats1_ao");
 
 	//创建骨骼动画的顶点数组对象
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
