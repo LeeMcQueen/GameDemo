@@ -45,9 +45,9 @@
 #include "Display.h"
 #include "Grasses.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -75,6 +75,8 @@ const char* vertexShaderSource = R"(
 	out vec4 bw;
 	out vec3 WorldPos;
 	out vec3 v_normal;
+	out vec3 CameraPosition;
+	out vec3 LightPosition;
 	out vec3 TangentLightPos;
 	out vec3 TangentViewPos;
 	out vec3 TangentFragPos;
@@ -105,6 +107,8 @@ const char* vertexShaderSource = R"(
 		TangentLightPos = TBN * lightPosition;
 		TangentViewPos = TBN * cameraPosition;
 		TangentFragPos = TBN * WorldPos;
+		CameraPosition = cameraPosition;
+		LightPosition = lightPosition;
 	}
 	)";
 #pragma endregion
@@ -117,6 +121,8 @@ const char* fragmentShaderSource = R"(
 	in vec4 bw;
 	in vec3 WorldPos;
 	in vec3 v_normal;
+	in vec3 CameraPosition;
+	in vec3 LightPosition;
 	in vec3 TangentLightPos;
 	in vec3 TangentViewPos;
 	in vec3 TangentFragPos;
@@ -133,6 +139,7 @@ const char* fragmentShaderSource = R"(
 	uniform float time;
 	
 	const float PI = 3.14159265359;
+	vec3 lightColor = vec3(0.5, 0.5, 0.0);
 
 	// ----------------------------------------------------------------------------
 	vec3 getNormalFromMap()
@@ -199,19 +206,51 @@ const char* fragmentShaderSource = R"(
 		float metallic  = texture(metallicTexture, TexCoords).r;
 		float roughness = texture(roughnessTexture, TexCoords).r;
 		float ao        = texture(aoTexture, TexCoords).r;
-	
-		vec3 normal = texture(normalTexture, TexCoords).rgb;
-		normal = normalize(normal * 2.0 - 1.0);
-		
-		vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
-		float diff = max(dot(normal, lightDir), 0.2) * 1.2;
 
-		vec3 dCol = diff * texture(diffTexture, TexCoords).rgb; 
+		vec3 N = getNormalFromMap();
+		vec3 V = normalize(CameraPosition - WorldPos);
 
-		vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
-		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
+		vec3 F0 = vec3(0.04); 
+		F0 = mix(F0, albedo, metallic);
 
-		out_Colour = vec4(dCol + emissionTexture, 1.0f);
+		vec3 Lo = vec3(0.0);
+		vec3 L = normalize(LightPosition - WorldPos);	
+		vec3 H = normalize(V + L);	
+		float distance = length(LightPosition - WorldPos);
+        float attenuation = 1.0 / (distance * distance);
+        vec3 radiance = lightColor * attenuation;
+
+		float NDF = DistributionGGX(N, H, roughness);   
+        float G   = GeometrySmith(N, V, L, roughness);      
+        vec3 F    = fresnelSchlick(max(dot(H, V), 0.2), F0);
+
+		vec3 numerator    = NDF * G * F; 
+        float denominator = 4 * max(dot(N, V), 0.2) * max(dot(N, L), 0.2) + 0.0001; // + 0.0001 to prevent divide by zero
+        vec3 specular = numerator / denominator;
+		vec3 kS = F;
+		vec3 kD = vec3(1.0) - kS;
+		kD *= 1.0 - metallic;
+		float NdotL = max(dot(N, L), 0.2); 
+		Lo += (kD * albedo / PI + specular) * radiance * NdotL;
+		vec3 ambient = vec3(0.5) * albedo * ao;
+		vec3 color = ambient + Lo;
+		color = color / (color + vec3(1.0));
+		color = pow(color, vec3(1.0/2.2));
+		out_Colour = vec4(color, 1.0);
+
+
+		//vec3 normal = texture(normalTexture, TexCoords).rgb;
+		//normal = normalize(normal * 2.0 - 1.0);
+
+		//vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
+		//float diff = max(dot(normal, lightDir), 0.3);
+
+		//vec3 dCol = diff * texture(diffTexture, TexCoords).rgb; 
+
+		//vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
+		//emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
+
+		//out_Colour = vec4(dCol + emissionTexture, 1.0f);
 	}
 	)";
 #pragma endregion
@@ -225,7 +264,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(140.0f, 25.0f, 50.0f);
+Vec3 clothPos(140.0f, 30.0f, 50.0f);
 Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
@@ -583,7 +622,7 @@ int main() {
 	Entity tree(treeModel, glm::vec3(80, 0, 50), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
-	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(40, 40, 20), glm::vec3(1, 1, 1));
 
 	//加载地面 混合纹理
 	TerrainTexture backgroundTexture = TerrainTexture(loader.loadTexture("grassy2"));
@@ -601,7 +640,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
@@ -702,7 +741,7 @@ int main() {
 		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
-		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
+		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y + 30.0f, camera.getPosition().z + 40.0f);
 		glUniform3f(lightPositionLocation, light.getPosition().x, light.getPosition().y, light.getPosition().z);
 		glBindVertexArray(vao);
 		//骨骼动画基础纹理
