@@ -45,9 +45,9 @@
 #include "Display.h"
 #include "Grasses.h"
 
-extern "C" {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-}
+//extern "C" {
+//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+//}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -55,7 +55,6 @@ extern "C" {
 #pragma region 骨骼动画vertexShader
 const char* vertexShaderSource = R"(
 	#version 330 core
-
 	layout (location = 0) in vec3 position; 
 	layout (location = 1) in vec3 normal;
 	layout (location = 2) in vec2 texture;
@@ -68,18 +67,19 @@ const char* vertexShaderSource = R"(
 	uniform mat4 view_Matrix;
 	uniform mat4 projection_Matrix;
 	uniform mat4 model_matrix;
-	uniform vec3 cameraPosition;
+	
 	uniform vec3 lightPosition;
+	uniform vec3 cameraPosition;
 
 	out vec2 TexCoords;
 	out vec4 bw;
-	out vec3 WorldPos;
-	out vec3 v_normal;
-	out vec3 CameraPosition;
-	out vec3 LightPosition;
 	out vec3 TangentLightPos;
 	out vec3 TangentViewPos;
 	out vec3 TangentFragPos;
+
+	out vec3 v_position;
+	out mat3 v_tangentBasis;
+	out vec3 v_cameraPosition;
 
 	void main()
 	{
@@ -91,24 +91,27 @@ const char* vertexShaderSource = R"(
 		boneTransform += bone_transforms[int(boneIds.y)] * boneWeights.y;
 		boneTransform += bone_transforms[int(boneIds.z)] * boneWeights.z;
 		boneTransform += bone_transforms[int(boneIds.w)] * boneWeights.w;
+
 		vec4 pos = boneTransform * vec4(position, 1.0);
 		gl_Position = projection_Matrix * view_Matrix * model_matrix * pos;
 
-		vec3 WorldPos = vec3(model_matrix * pos);
+		v_position = vec3(model_matrix * pos);
 		TexCoords = texture;
+		v_cameraPosition = cameraPosition;
 
 		vec3 v_normal = mat3(transpose(inverse(model_matrix * boneTransform))) * normal;
 		v_normal = normalize(v_normal);
+
+		v_tangentBasis = mat3(transpose(inverse(model_matrix * boneTransform))) * mat3(tangent, bitangent, normal);
 
 		vec3 T = normalize(v_normal * tangent);
 		vec3 B = normalize(v_normal * bitangent);
 		vec3 N = normalize(v_normal * normal);
 		mat3 TBN = transpose(mat3(T, B, N));
+
 		TangentLightPos = TBN * lightPosition;
 		TangentViewPos = TBN * cameraPosition;
-		TangentFragPos = TBN * WorldPos;
-		CameraPosition = cameraPosition;
-		LightPosition = lightPosition;
+		TangentFragPos = TBN * v_position;
 	}
 	)";
 #pragma endregion
@@ -119,13 +122,13 @@ const char* fragmentShaderSource = R"(
 
 	in vec2 TexCoords;
 	in vec4 bw;
-	in vec3 WorldPos;
-	in vec3 v_normal;
-	in vec3 CameraPosition;
-	in vec3 LightPosition;
 	in vec3 TangentLightPos;
 	in vec3 TangentViewPos;
 	in vec3 TangentFragPos;
+
+	in vec3	v_position;
+	in mat3 v_tangentBasis;
+	in vec3 v_cameraPosition;
 
 	out vec4 out_Colour;
 
@@ -139,66 +142,33 @@ const char* fragmentShaderSource = R"(
 	uniform float time;
 	
 	const float PI = 3.14159265359;
-	vec3 lightColor = vec3(0.5, 0.5, 0.0);
+	const vec3 Fdielectric = vec3(4.0);
+	const float Epsilon = 1.0;
 
-	// ----------------------------------------------------------------------------
-	vec3 getNormalFromMap()
+	//--------------------------------------------------------------
+	float ndfGGX(float cosLh, float roughness)
 	{
-		vec3 tangentNormal = texture(normalTexture, TexCoords).xyz * 2.0 - 1.0;
+		float alpha   = roughness * roughness;
+		float alphaSq = alpha * alpha;
 
-		vec3 Q1  = dFdx(WorldPos);
-		vec3 Q2  = dFdy(WorldPos);
-		vec2 st1 = dFdx(TexCoords);
-		vec2 st2 = dFdy(TexCoords);
-
-		vec3 N   = normalize(v_normal);
-		vec3 T  = normalize(Q1*st2.t - Q2*st1.t);
-		vec3 B  = -normalize(cross(N, T));
-		mat3 TBN = mat3(T, B, N);
-
-		return normalize(TBN * tangentNormal);
+		float denom = (cosLh * cosLh) * (alphaSq - 1.0) + 1.0;
+		return alphaSq / (PI * denom * denom);
 	}
-	// ----------------------------------------------------------------------------
-	float DistributionGGX(vec3 N, vec3 H, float roughness)
+	float gaSchlickG1(float cosTheta, float k)
 	{
-		float a = roughness*roughness;
-		float a2 = a*a;
-		float NdotH = max(dot(N, H), 0.0);
-		float NdotH2 = NdotH*NdotH;
-
-		float nom   = a2;
-		float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-		denom = PI * denom * denom;
-
-		return nom / denom;
+		return cosTheta / (cosTheta * (1.0 - k) + k);
 	}
-	// ----------------------------------------------------------------------------
-	float GeometrySchlickGGX(float NdotV, float roughness)
+	float gaSchlickGGX(float cosLi, float cosLo, float roughness)
 	{
-		float r = (roughness + 1.0);
-		float k = (r*r) / 8.0;
-
-		float nom   = NdotV;
-		float denom = NdotV * (1.0 - k) + k;
-
-		return nom / denom;
+		float r = roughness + 1.0;
+		float k = (r * r) / 8.0; // Epic suggests using this roughness remapping for analytic lights.
+		return gaSchlickG1(cosLi, k) * gaSchlickG1(cosLo, k);
 	}
-	// ----------------------------------------------------------------------------
-	float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
+	vec3 fresnelSchlick(vec3 F0, float cosTheta)
 	{
-		float NdotV = max(dot(N, V), 0.0);
-		float NdotL = max(dot(N, L), 0.0);
-		float ggx2 = GeometrySchlickGGX(NdotV, roughness);
-		float ggx1 = GeometrySchlickGGX(NdotL, roughness);
-
-		return ggx1 * ggx2;
+		return F0 + (vec3(1.0) - F0) * pow(1.0 - cosTheta, 5.0);
 	}
-	// ----------------------------------------------------------------------------
-	vec3 fresnelSchlick(float cosTheta, vec3 F0)
-	{
-		return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
-	}
-	// ----------------------------------------------------------------------------
+	//--------------------------------------------------------------
 
 	void main()
 	{
@@ -207,50 +177,42 @@ const char* fragmentShaderSource = R"(
 		float roughness = texture(roughnessTexture, TexCoords).r;
 		float ao        = texture(aoTexture, TexCoords).r;
 
-		vec3 N = getNormalFromMap();
-		vec3 V = normalize(CameraPosition - WorldPos);
+		vec3 Lo = normalize(v_cameraPosition - v_position);
 
-		vec3 F0 = vec3(0.04); 
-		F0 = mix(F0, albedo, metallic);
+		vec3 N = normalize(2.0 * texture(normalTexture, TexCoords).rgb - 1.0);
+		N = normalize(v_tangentBasis * N);
 
-		vec3 Lo = vec3(0.0);
-		vec3 L = normalize(LightPosition - WorldPos);	
-		vec3 H = normalize(V + L);	
-		float distance = length(LightPosition - WorldPos);
-        float attenuation = 1.0 / (distance * distance);
-        vec3 radiance = lightColor * attenuation;
+		float cosLo = max(0.0, dot(N, Lo));
+		vec3 Lr = 2.0 * cosLo * N - Lo;
+		vec3 F0 = mix(Fdielectric, albedo, metallic);	
+		vec3 directLighting = vec3(0.0);
 
-		float NDF = DistributionGGX(N, H, roughness);   
-        float G   = GeometrySmith(N, V, L, roughness);      
-        vec3 F    = fresnelSchlick(max(dot(H, V), 0.2), F0);
+		vec3 Li = -normalize(vec3(-1.0f, 0.0f, 0.0f));
+		vec3 Lradiance = vec3(1.0);
 
-		vec3 numerator    = NDF * G * F; 
-        float denominator = 4 * max(dot(N, V), 0.2) * max(dot(N, L), 0.2) + 0.0001; // + 0.0001 to prevent divide by zero
-        vec3 specular = numerator / denominator;
-		vec3 kS = F;
-		vec3 kD = vec3(1.0) - kS;
-		kD *= 1.0 - metallic;
-		float NdotL = max(dot(N, L), 0.2); 
-		Lo += (kD * albedo / PI + specular) * radiance * NdotL;
-		vec3 ambient = vec3(0.5) * albedo * ao;
-		vec3 color = ambient + Lo;
-		color = color / (color + vec3(1.0));
-		color = pow(color, vec3(1.0/2.2));
-		out_Colour = vec4(color, 1.0);
+		vec3 Lh = normalize(Li + Lo);
+		float cosLi = max(0.0, dot(N, Li));
+		float cosLh = max(0.0, dot(N, Lh));
+		vec3 F  = fresnelSchlick(F0, max(0.0, dot(Lh, Lo)));
+		float D = ndfGGX(cosLh, roughness);
+		float G = gaSchlickGGX(cosLi, cosLo, roughness);
+		vec3 kd = mix(vec3(1.0) - F, vec3(0.0), metallic);
+		vec3 diffuseBRDF = kd * albedo;
+		vec3 specularBRDF = (F * D * G) / max(Epsilon, 4.0 * cosLi * cosLo);
+		directLighting += (diffuseBRDF + specularBRDF) * Lradiance * cosLi;
 
+		vec3 normal = texture(normalTexture, TexCoords).rgb;
+		normal = normalize(normal * 2.0 - 1.0);
 
-		//vec3 normal = texture(normalTexture, TexCoords).rgb;
-		//normal = normalize(normal * 2.0 - 1.0);
+		vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
+		float diff = max(dot(normal, lightDir), 0.3);
 
-		//vec3 lightDir = normalize(TangentLightPos - TangentViewPos);
-		//float diff = max(dot(normal, lightDir), 0.3);
+		vec3 dCol = diff * texture(diffTexture, TexCoords).rgb; 
 
-		//vec3 dCol = diff * texture(diffTexture, TexCoords).rgb; 
+		vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
+		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
 
-		//vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
-		//emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
-
-		//out_Colour = vec4(dCol + emissionTexture, 1.0f);
+		out_Colour = vec4(dCol + emissionTexture + directLighting, 1.0f);
 	}
 	)";
 #pragma endregion
@@ -264,7 +226,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(140.0f, 30.0f, 50.0f);
+Vec3 clothPos(140.0f, 35.0f, 50.0f);
 Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
@@ -530,7 +492,7 @@ int main() {
 	unsigned int albedoTexture;
 	albedoTexture = loader.loadTexture("old-metal-slats1_albedo");
 	unsigned int normalTexture;
-	normalTexture = loader.loadTexture("old-metal-slats1_normal-dx");
+	normalTexture = loader.loadTexture("boss_normal");
 	unsigned int metallicTexture;
 	metallicTexture = loader.loadTexture("old-metal-slats1_metallic");
 	unsigned int roughnessTexture;
@@ -622,7 +584,7 @@ int main() {
 	Entity tree(treeModel, glm::vec3(80, 0, 50), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
-	Light light(glm::vec3(40, 40, 20), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
 
 	//加载地面 混合纹理
 	TerrainTexture backgroundTexture = TerrainTexture(loader.loadTexture("grassy2"));
