@@ -45,9 +45,9 @@
 #include "Display.h"
 #include "Grasses.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -142,7 +142,7 @@ const char* fragmentShaderSource = R"(
 	uniform float time;
 	
 	const float PI = 3.14159265359;
-	const vec3 Fdielectric = vec3(4.0);
+	const vec3 Fdielectric = vec3(5.0);
 	const float Epsilon = 1.0;
 
 	//--------------------------------------------------------------
@@ -602,7 +602,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);

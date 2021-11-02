@@ -41,7 +41,7 @@ namespace {
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_real_distribution<float> orientation_dis(0, 3.1415926);
-		std::uniform_real_distribution<float> height_dis(4.0f, 6.0f);
+		std::uniform_real_distribution<float> height_dis(5.0f, 7.0f);
 		std::uniform_real_distribution<float> dis(0, 1);
 
 		std::vector<Blade> blades;
