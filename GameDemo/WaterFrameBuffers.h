@@ -10,9 +10,9 @@ public:
 	WaterFrameBuffers();
 	/*~WaterFrameBuffers();*/
 
-	void unbindCurrentFrameBuffer();
 	void bindReflectionFrameBuffer();
 	void bindRefractionFrameBuffer();
+	void unbindCurrentFrameBuffer();
 	void cleanUp();
 
 	unsigned int getReflectionTexture() const { return reflectionTexture_; }

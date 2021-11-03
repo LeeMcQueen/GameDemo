@@ -154,6 +154,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShadowFrameBuffer.cpp" />
     <ClCompile Include="SkyboxRenderer.cpp" />
     <ClCompile Include="SkyboxShader.cpp" />
     <ClCompile Include="StaticShader.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="Rigid.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShadowFrameBuffer.h" />
     <ClInclude Include="SkyboxRenderer.h" />
     <ClInclude Include="SkyboxShader.h" />
     <ClInclude Include="Spring.h" />

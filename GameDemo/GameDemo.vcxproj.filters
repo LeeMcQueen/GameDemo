@@ -94,6 +94,12 @@
     <Filter Include="源文件\Grasses">
       <UniqueIdentifier>{bb971d5c-2b25-4b76-ad08-8e4644a09eab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Shadow">
+      <UniqueIdentifier>{ed2451a2-8971-4ee1-aa5f-557af305064e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Shadow">
+      <UniqueIdentifier>{bea70dbf-c7d0-4dfa-825f-946c9b3b720b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -182,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="GrassesShader.cpp">
       <Filter>源文件\Grasses</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowFrameBuffer.cpp">
+      <Filter>源文件\Shadow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="GrassesShader.h">
       <Filter>头文件\Grasses</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowFrameBuffer.h">
+      <Filter>头文件\Shadow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
