@@ -14,7 +14,7 @@ float TURN_SPEED = 5.0f;
 Camera::Camera()
 	:position_(glm::vec3(0.0f, 20.0f, 70.0f)),
 	rotation_(glm::vec3(45.0f, 0.0f, 0.0f)),
-	viewDirection_(0.0f, 30.0f, 40.0f),
+	viewDirection_(glm::vec3(0.0f, 30.0f, 40.0f)),
 	distanceFromPlayer_(50.0f),
 	angleAroundPlayer_(0.0f) {};
 
@@ -144,7 +144,7 @@ glm::mat4 Camera::getViewMatrix() const {
 	//return view;
 
 	/*方案1 相机函数*/
-	//相机位置 目标位置 相机上方向
+	//相机位置  目标位置 相机上方向
 	return glm::lookAt(position_ + viewDirection_, position_, glm::vec3(0, 1.0f, 0));
 }
 

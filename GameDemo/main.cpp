@@ -76,10 +76,11 @@ const char* vertexShaderSource = R"(
 	out vec3 TangentLightPos;
 	out vec3 TangentViewPos;
 	out vec3 TangentFragPos;
-
 	out vec3 v_position;
 	out mat3 v_tangentBasis;
 	out vec3 v_cameraPosition;
+
+	out vec3 reflectedVector;
 
 	void main()
 	{
@@ -112,6 +113,9 @@ const char* vertexShaderSource = R"(
 		TangentLightPos = TBN * lightPosition;
 		TangentViewPos = TBN * cameraPosition;
 		TangentFragPos = TBN * v_position;
+
+		vec3 viewVector = normalize(v_position.xyz - cameraPosition);
+		reflectedVector = reflect(viewVector, v_normal);
 	}
 	)";
 #pragma endregion
@@ -125,10 +129,11 @@ const char* fragmentShaderSource = R"(
 	in vec3 TangentLightPos;
 	in vec3 TangentViewPos;
 	in vec3 TangentFragPos;
-
 	in vec3	v_position;
 	in mat3 v_tangentBasis;
 	in vec3 v_cameraPosition;
+
+	in vec3 reflectedVector;
 
 	out vec4 out_Colour;
 
@@ -139,6 +144,7 @@ const char* fragmentShaderSource = R"(
 	uniform sampler2D metallicTexture;
 	uniform sampler2D roughnessTexture;
 	uniform sampler2D aoTexture;
+	uniform samplerCube enviroMap;
 	uniform float time;
 	
 	const float PI = 3.14159265359;
@@ -211,8 +217,11 @@ const char* fragmentShaderSource = R"(
 
 		vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
 		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
-
+		
 		out_Colour = vec4(dCol + emissionTexture + directLighting, 1.0f);
+
+		vec4 reflectedColour = texture(enviroMap, reflectedVector);
+		out_Colour = mix(out_Colour, reflectedColour, 0.3);
 	}
 	)";
 #pragma endregion
@@ -457,6 +466,16 @@ int main() {
 #pragma endregion
 
 #pragma region 骨骼动画设定
+
+	std::vector<std::string> TEXTURE = {
+		"res/right.png",
+		"res/left.png",
+		"res/top.png",
+		"res/bottom.png",
+		"res/back.png",
+		"res/front.png"
+	};
+
 	bool isRunning = true;
 	//实例化加载工具
 	Loader loader;
@@ -499,6 +518,8 @@ int main() {
 	roughnessTexture = loader.loadTexture("old-metal-slats1_roughness");
 	unsigned int aoTexture;
 	aoTexture = loader.loadTexture("old-metal-slats1_ao");
+	unsigned int cubeMap;
+	cubeMap = loader.loadCubeMap(TEXTURE);
 
 	//创建骨骼动画的顶点数组对象
 	vao = createVertexArray(animaModelLoader.getVertices(), animaModelLoader.getIndices());
@@ -512,7 +533,6 @@ int main() {
 	unsigned int shader = createShader(vertexShaderSource, fragmentShaderSource);
 
 	//shader变量的设定和链接
-	//create camera
 	unsigned int viewMatrixLocation = glGetUniformLocation(shader, "view_Matrix");
 	unsigned int projectionMatrixLocation = glGetUniformLocation(shader, "projection_Matrix");
 	//modelMatrix变换
@@ -520,13 +540,12 @@ int main() {
 	unsigned int boneMatricesLocation = glGetUniformLocation(shader, "bone_transforms");
 	unsigned int textureLocation = glGetUniformLocation(shader, "diffTexture");
 	unsigned int emissionLocation = glGetUniformLocation(shader, "emissionTexture");
-
 	unsigned int albedoLocation = glGetUniformLocation(shader, "albedoTexture");
 	unsigned int normalLocation = glGetUniformLocation(shader, "normalTexture");
 	unsigned int metallicLocation = glGetUniformLocation(shader, "metallicTexture");
 	unsigned int roughnessLocation = glGetUniformLocation(shader, "roughnessTexture");
 	unsigned int aoLocation = glGetUniformLocation(shader, "aoTexture");
-
+	unsigned int cubeMapLocation = glGetUniformLocation(shader, "enviroMap");
 	unsigned int cameraPositionLocation = glGetUniformLocation(shader, "cameraPosition");
 	unsigned int lightPositionLocation = glGetUniformLocation(shader, "lightPosition");
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
@@ -602,7 +621,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
@@ -616,14 +635,11 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		player.move(terrain);
-		camera.move(player.getPosition(), player.getRotation());
-
 		glEnable(GL_CLIP_DISTANCE0);
 		//水面反射buffer
 		fbos.bindReflectionFrameBuffer();
 		auto reflectionCamera = camera;
-		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 70.0f));
+		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 40.0f));
 		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f));
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
@@ -642,6 +658,8 @@ int main() {
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
 
+		player.move(terrain);
+		camera.move(player.getPosition(), player.getRotation());
 #pragma region 草地主循环
 		//草地渲染时间
 		const auto current_time = std::chrono::steady_clock::now();
@@ -729,6 +747,9 @@ int main() {
 		glActiveTexture(GL_TEXTURE6);
 		glBindTexture(GL_TEXTURE_2D, aoTexture);
 		glUniform1i(aoLocation, 6);
+		glActiveTexture(GL_TEXTURE7);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap);
+		glUniform1i(cubeMapLocation, 7);
 		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
 

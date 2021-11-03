@@ -19,8 +19,8 @@ public:
 	//相机旋转的get函数
 	glm::vec3 getRotation() const;
 	//设定相机position
-	void setPosition(glm::vec3 position) { position_ = position; }
-	void setviewDirection(glm::vec3 viewDirection) { viewDirection_ = viewDirection; };
+	inline void setPosition(glm::vec3 position) { position_ = position; }
+	inline void setviewDirection(glm::vec3 viewDirection) { viewDirection_ = viewDirection; }
 
 private:
 	//相机位置
