@@ -46,9 +46,9 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 
-extern "C" {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-}
+//extern "C" {
+//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+//}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -578,6 +578,7 @@ int main() {
 	Camera camera;
 	//水面FBOs
 	WaterFrameBuffers fbos;
+	//阴影FBOs
 	ShadowFrameBuffer shadowFrameBuffer;
 	//实例化渲染器
 	MasterRenderer masterRenderer(loader, fbos);
@@ -623,7 +624,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
+	GuiTexture reflection = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
@@ -634,9 +635,38 @@ int main() {
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
+
+
+
+	const unsigned int SHADOW_WIDTH = 1280, SHADOW_HEIGHT = 720;
+	unsigned int depthMapFBO;
+	glGenFramebuffers(1, &depthMapFBO);
+	unsigned int depthMap;
+	glGenTextures(1, &depthMap);
+	glBindTexture(GL_TEXTURE_2D, depthMap);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
+		glEnable(GL_CLIP_DISTANCE0);
+		shadowFrameBuffer.bindShadowFrameBuffer();
+		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(tree);
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
+		shadowFrameBuffer.unbindCurrentFrameBuffer();
+		glDisable(GL_CLIP_DISTANCE0);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		//水面反射buffer
@@ -772,6 +802,7 @@ int main() {
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();
 	fbos.cleanUp();
+	shadowFrameBuffer.cleanUp();
 
 	//销毁GLFW
 	glfwTerminate();

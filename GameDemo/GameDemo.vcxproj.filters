@@ -192,6 +192,9 @@
     <ClCompile Include="ShadowFrameBuffer.cpp">
       <Filter>源文件\Shadow</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowBox.cpp">
+      <Filter>源文件\Shadow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -333,6 +336,9 @@
       <Filter>头文件\Grasses</Filter>
     </ClInclude>
     <ClInclude Include="ShadowFrameBuffer.h">
+      <Filter>头文件\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowBox.h">
       <Filter>头文件\Shadow</Filter>
     </ClInclude>
   </ItemGroup>

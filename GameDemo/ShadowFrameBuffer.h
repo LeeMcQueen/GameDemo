@@ -10,8 +10,10 @@ public:
 	ShadowFrameBuffer();
 
 	void bindShadowFrameBuffer();
-	unsigned int getShadowMap() const { return shadowMap_; }
+	void unbindCurrentFrameBuffer();
+	void cleanUp();
 
+	unsigned int getShadowMap() const { return shadowMap_; }
 
 private:
 	const int SHADOW_WIDTH = 1280;

@@ -5,15 +5,28 @@ ShadowFrameBuffer::ShadowFrameBuffer(){
 	initialiseFrameBuffer();
 }
 
+void ShadowFrameBuffer::initialiseFrameBuffer() {
+
+	shadowMapFBO_ = createFrameBuffer();
+	shadowMap_ = createDepthBufferAttachment(SHADOW_WIDTH, SHADOW_HEIGHT);
+	unbindCurrentFrameBuffer();
+}
+
 void ShadowFrameBuffer::bindShadowFrameBuffer(){
 
 	bindFrameBuffer(shadowMapFBO_, SHADOW_WIDTH, SHADOW_HEIGHT);
 }
 
-void ShadowFrameBuffer::initialiseFrameBuffer(){
+void ShadowFrameBuffer::unbindCurrentFrameBuffer(){
 
-	shadowMapFBO_ = createFrameBuffer();
-	shadowMap_ = createDepthBufferAttachment(SHADOW_WIDTH, SHADOW_HEIGHT);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, 1280, 720);
+}
+
+void ShadowFrameBuffer::cleanUp(){
+
+	glDeleteFramebuffers(1, &shadowMapFBO_);
+	glDeleteTextures(1, &shadowMap_);
 }
 
 unsigned int ShadowFrameBuffer::createDepthBufferAttachment(int width, int height){
