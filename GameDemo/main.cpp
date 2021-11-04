@@ -44,6 +44,7 @@
 #include "Program.h"
 #include "Display.h"
 #include "Grasses.h"
+#include "ShadowFrameBuffer.h"
 
 extern "C" {
 	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
@@ -577,6 +578,7 @@ int main() {
 	Camera camera;
 	//水面FBOs
 	WaterFrameBuffers fbos;
+	ShadowFrameBuffer shadowFrameBuffer;
 	//实例化渲染器
 	MasterRenderer masterRenderer(loader, fbos);
 	//实例化加载OBJ
@@ -635,6 +637,7 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
+
 		glEnable(GL_CLIP_DISTANCE0);
 		//水面反射buffer
 		fbos.bindReflectionFrameBuffer();

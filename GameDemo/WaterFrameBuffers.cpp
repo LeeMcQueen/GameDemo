@@ -24,7 +24,6 @@ void WaterFrameBuffers::initRefractionBuffer(){
 	unbindCurrentFrameBuffer();
 }
 
-
 unsigned int WaterFrameBuffers::createFrameBuffer(){
 
 	unsigned int frameBuffer;
