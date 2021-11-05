@@ -44,45 +44,5 @@ main.cpp(287): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(288): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(307): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(586): warning C4101: “objloader”: 未引用的局部变量
-LINK : warning LNK4098: 默
-LINK : warning LNK4098: 默
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-Grasses.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GrassesShader.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-GuiRenderer.obj : warning LNK4049: 已
-SkyboxRenderer.obj : warning LNK4049: 已
-TerrainRenderer.obj : warning LNK4049: 已
-glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\Debug\vc120.pdb”中
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)

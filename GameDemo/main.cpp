@@ -624,7 +624,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
+	GuiTexture reflection = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
@@ -663,6 +663,7 @@ int main() {
 		glEnable(GL_CLIP_DISTANCE0);
 		shadowFrameBuffer.bindShadowFrameBuffer();
 		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
 		shadowFrameBuffer.unbindCurrentFrameBuffer();
