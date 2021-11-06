@@ -4,16 +4,17 @@
 
 #include "MasterRenderer.h"
 #include "DisplayManager.h"
+#include "ShadowFrameBuffer.h"
 
 std::map<TexturedModel, std::vector<Entity>> MasterRenderer::entities_;
 std::vector<Terrain>  MasterRenderer::terrains_;
 std::vector<WaterTile> MasterRenderer::waterTiles_;
 
-MasterRenderer::MasterRenderer(Loader &loader,WaterFrameBuffers &fbo):
+MasterRenderer::MasterRenderer(Loader &loader,WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO):
 	projectionMatrix_(getProjectionMatrix()),
 	entityRenderer_(EntityRenderer(staticshader_, projectionMatrix_)),
 	terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_)),
-	waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_, fbo)),
+	waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_, fbo, shadowFBO)),
 	skyboxRenderer_(SkyboxRenderer(skyboxShader_, loader, projectionMatrix_)){
 
 	//背面剔除

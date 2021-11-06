@@ -1,8 +1,9 @@
 ﻿#include "WaterRenderer.h"
 
-WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo) :
+WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO) :
 	waterShader_(waterShader),
-	fbo_(fbo){
+	fbo_(fbo),
+	shadowFBO_(shadowFBO){
 
 	//loader类加载
 	Loader loader;
@@ -50,7 +51,7 @@ void WaterRenderer::prepareWater(WaterTile &waterTile, Light &sun) {
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, normalTexture_);
 	glActiveTexture(GL_TEXTURE4);
-	glBindTexture(GL_TEXTURE_2D, fbo_.getRefractionDepthTexture());
+	glBindTexture(GL_TEXTURE_2D, shadowFBO_.getShadowMap());
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_BLEND_SRC_ALPHA);

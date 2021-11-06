@@ -10,7 +10,7 @@ public:
 	ShadowFrameBuffer();
 
 	void bindShadowFrameBuffer();
-	void unbindCurrentFrameBuffer();
+	void unbindShadowFrameBuffer();
 	void cleanUp();
 
 	unsigned int getShadowMap() const { return shadowMap_; }

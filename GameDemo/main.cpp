@@ -227,6 +227,7 @@ const char* fragmentShaderSource = R"(
 	)";
 #pragma endregion
 
+#pragma region 布料变量设定
 /* 弹簧模拟变数 */
 //空气吹动力
 int windBlowing = 0;
@@ -244,6 +245,7 @@ Cloth cloth(clothPos, clothSize);
 //球变数
 //重力
 Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
+#pragma endregion
 
 #pragma region 加载动画信息
 void loadAnimation(const aiScene *scene, Animation &animation) {
@@ -467,7 +469,7 @@ int main() {
 #pragma endregion
 
 #pragma region 骨骼动画设定
-
+	//骨骼动画环境反射贴图
 	std::vector<std::string> TEXTURE = {
 		"res/right.png",
 		"res/left.png",
@@ -476,7 +478,6 @@ int main() {
 		"res/back.png",
 		"res/front.png"
 	};
-
 	bool isRunning = true;
 	//实例化加载工具
 	Loader loader;
@@ -581,7 +582,7 @@ int main() {
 	//阴影FBOs
 	ShadowFrameBuffer shadowFrameBuffer;
 	//实例化渲染器
-	MasterRenderer masterRenderer(loader, fbos);
+	MasterRenderer masterRenderer(loader, fbos, shadowFrameBuffer);
 	//实例化加载OBJ
 	OBJLoader objloader;
 	//GuiShader
@@ -604,6 +605,7 @@ int main() {
 	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity tree(treeModel, glm::vec3(80, 0, 50), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
+	Entity underTree(treeModel, glm::vec3(80, -35, 80), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -624,8 +626,10 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture reflection = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
+	GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.5, 0.5));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
+	guiTextures.push_back(shadow);
 	guiTextures.push_back(reflection);
 	guiTextures.push_back(refraction);
 
@@ -635,48 +639,26 @@ int main() {
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
-
-
-
-	const unsigned int SHADOW_WIDTH = 1280, SHADOW_HEIGHT = 720;
-	unsigned int depthMapFBO;
-	glGenFramebuffers(1, &depthMapFBO);
-	unsigned int depthMap;
-	glGenTextures(1, &depthMap);
-	glBindTexture(GL_TEXTURE_2D, depthMap);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-	glDrawBuffer(GL_NONE);
-	glReadBuffer(GL_NONE);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
 		shadowFrameBuffer.bindShadowFrameBuffer();
 		masterRenderer.processTerrain(terrain);
-		masterRenderer.processEntity(entity);
-		masterRenderer.processEntity(tree);
+		masterRenderer.processEntity(underTree);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
-		shadowFrameBuffer.unbindCurrentFrameBuffer();
+		shadowFrameBuffer.unbindShadowFrameBuffer();
 
 		glEnable(GL_CLIP_DISTANCE0);
 		//水面反射buffer
 		fbos.bindReflectionFrameBuffer();
 		auto reflectionCamera = camera;
 		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 40.0f));
-		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f));
+		masterRenderer.render(light, camera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f));
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
 		fbos.bindRefractionFrameBuffer();
 		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(underTree);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
 		fbos.unbindCurrentFrameBuffer();
 		glDisable(GL_CLIP_DISTANCE0);

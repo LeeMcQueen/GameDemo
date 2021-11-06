@@ -6,12 +6,13 @@
 #include "RawModel.h"
 #include "WaterFrameBuffers.h"
 #include "Maths.h"
+#include "ShadowFrameBuffer.h"
 
 class WaterRenderer {
 
 public:
 
-	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo);
+	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo , ShadowFrameBuffer &shadowFBO);
 	void render(std::vector<WaterTile> &waterTile, Light &sun);
 
 private:
@@ -25,6 +26,7 @@ private:
 
 	WaterShader waterShader_{};
 	const WaterFrameBuffers &fbo_;
+	const ShadowFrameBuffer &shadowFBO_;
 
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile, Light &sun);
