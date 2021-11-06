@@ -660,14 +660,12 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		glEnable(GL_CLIP_DISTANCE0);
 		shadowFrameBuffer.bindShadowFrameBuffer();
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
 		shadowFrameBuffer.unbindCurrentFrameBuffer();
-		glDisable(GL_CLIP_DISTANCE0);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		//水面反射buffer
