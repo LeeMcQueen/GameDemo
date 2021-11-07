@@ -69,6 +69,8 @@ private:
 	GLuint Location_bTexture;
 	//Location of blendMap
 	GLuint Location_blendMap;
+	//阴影纹理
+	GLuint Location_shadowMap;
 	//水面剪切平面uniform
 	GLuint Location_plane;
 

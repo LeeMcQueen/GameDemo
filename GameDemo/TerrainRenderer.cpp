@@ -53,6 +53,8 @@ void TerrainRenderer::bindTexture(Terrain &terrain)
 	glBindTexture(GL_TEXTURE_2D, terrainTexturePack.getBTexture().textureID_);
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, terrain.getTerrainTexture().textureID_);
+	glActiveTexture(GL_TEXTURE5);
+	//glBIndTexture(GL_TEXTURE_2D, )
 }
 
 void TerrainRenderer::prepareInstance(Terrain &terrain)

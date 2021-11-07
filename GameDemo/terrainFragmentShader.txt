@@ -4,6 +4,7 @@ in vec2 pass_textureCoords;			//UV position
 in vec3 surfaceNormal;
 in vec3 toLightVector;
 in vec3 toCameraVector;
+in vec4 FragPosLightSpace;
 
 out vec4 out_Colour;
 
@@ -12,7 +13,7 @@ uniform sampler2D rTexture;
 uniform sampler2D gTexture;
 uniform sampler2D bTexture;
 uniform sampler2D blendMap;
-
+//uniform sampler2D shadowMap;
 uniform vec3 lightColor;			
 uniform float shineDamper;			//light->shineDemper
 uniform float reflectivity;			//light->reflectivity

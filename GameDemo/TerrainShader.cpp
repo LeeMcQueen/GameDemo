@@ -51,6 +51,8 @@ void TerrainShader::loadconnectTextureUnits(){
 	loadInt(Location_bTexture, 3);
 	//通道4的混合纹理
 	loadInt(Location_blendMap, 4);
+	//通道5的阴影纹理
+	loadInt(Location_shadowMap, 5);
 }
 
 void TerrainShader::loadLight(Light light){
@@ -84,5 +86,6 @@ void TerrainShader::getAllUniformLocations(){
 	Location_gTexture = getUniformLocation("gTexture");
 	Location_bTexture = getUniformLocation("bTexture");
 	Location_blendMap = getUniformLocation("blendMap");
+	Location_shadowMap = getUniformLocation("shadowMap");
 	Location_plane = getUniformLocation("plane");
 }

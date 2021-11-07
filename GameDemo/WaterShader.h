@@ -49,7 +49,6 @@ private:
 	GLuint Location_dudvMap;
 	GLuint Location_normalMap;
 	GLuint Location_depthMap;
-
 	GLuint Location_moveFactor;
 	GLuint Location_cameraPosition;
 	//光
