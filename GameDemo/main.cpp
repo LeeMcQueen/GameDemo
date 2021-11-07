@@ -626,8 +626,8 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.5, 0.5));
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.5, 0.5));
+	GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.7, 0.7));
+	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(shadow);
 	guiTextures.push_back(reflection);
@@ -674,6 +674,7 @@ int main() {
 
 		player.move(terrain);
 		camera.move(player.getPosition(), player.getRotation());
+
 #pragma region 草地主循环
 		//草地渲染时间
 		const auto current_time = std::chrono::steady_clock::now();

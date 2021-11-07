@@ -8,5 +8,18 @@ uniform sampler2D guiTexture;
 
 void main(void){
 
-	out_Color = texture(guiTexture,textureCoords);
+	//depthMapFunction	
+	float near = 0.1;
+	float far = 1000.0;
+	float depth = texture(guiTexture, textureCoords).r;
+	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+
+	depth = gl_FragCoord.z;
+	float waterDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+	float waterDepth = floorDistance - waterDistance;
+
+	out_Color = vec4(waterDepth / 50.0f);
+
+	//Normal GuiFunction
+	//out_Color = texture(guiTexture, textureCoords);
 }

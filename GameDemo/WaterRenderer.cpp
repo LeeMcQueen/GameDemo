@@ -51,7 +51,7 @@ void WaterRenderer::prepareWater(WaterTile &waterTile, Light &sun) {
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, normalTexture_);
 	glActiveTexture(GL_TEXTURE4);
-	glBindTexture(GL_TEXTURE_2D, shadowFBO_.getShadowMap());
+	glBindTexture(GL_TEXTURE_2D, fbo_.getRefractionDepthTexture());
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_BLEND_SRC_ALPHA);
