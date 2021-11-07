@@ -642,10 +642,81 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
+		player.move(terrain);
+		camera.move(player.getPosition(), player.getRotation());
+
 		shadowFrameBuffer.bindShadowFrameBuffer();
 		masterRenderer.processTerrain(terrain);
+		masterRenderer.processEntity(tree);
 		masterRenderer.processEntity(underTree);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
+		auto shadowMapCamera = camera;
+		shadowMapCamera.setviewDirection(glm::vec3(0.0f, 80.0f, 40.0f));
+		masterRenderer.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
+
+		#pragma region 骨骼动画主循环
+		//移动 得到实时的变换matrix
+		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
+
+		//得到游戏每循坏一次所需时间(32010 / 30)
+		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
+		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
+
+		idleStartTime = idleStartTime + displayManager.getDeltaTime();
+
+		//骨骼动画控制
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
+			RunStartTime = RunStartTime + displayManager.getDeltaTime();
+			if (RunStartTime > RunEndTime)
+				RunStartTime = 865.0f;
+			//std::cout << RUNelapsedTime << std::endl;
+			getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		}
+		else {
+			if (idleStartTime > idleEndTime)
+				idleStartTime = 805.0f;
+			//std::cout << RUNelapsedTime << std::endl;
+			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		}
+		//骨骼动画shader传值
+		glUseProgram(shader);
+		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(shadowMapCamera.getViewMatrix()));
+		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
+		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
+		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
+		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y + 30.0f, camera.getPosition().z + 40.0f);
+		glUniform3f(lightPositionLocation, light.getPosition().x, light.getPosition().y, light.getPosition().z);
+		glBindVertexArray(vao);
+		//骨骼动画基础纹理
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+		glUniform1i(textureLocation, 0);
+		//骨骼动画运动纹理
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, emissionTexture);
+		glUniform1i(emissionLocation, 1);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, albedoTexture);
+		glUniform1i(albedoLocation, 2);
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, normalTexture);
+		glUniform1i(normalLocation, 3);
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, metallicTexture);
+		glUniform1i(metallicLocation, 4);
+		glActiveTexture(GL_TEXTURE5);
+		glBindTexture(GL_TEXTURE_2D, roughnessTexture);
+		glUniform1i(roughnessLocation, 5);
+		glActiveTexture(GL_TEXTURE6);
+		glBindTexture(GL_TEXTURE_2D, aoTexture);
+		glUniform1i(aoLocation, 6);
+		glActiveTexture(GL_TEXTURE7);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap);
+		glUniform1i(cubeMapLocation, 7);
+		//骨骼动画运动纹理时间单位
+		glUniform1f(timeLocation, idleStartTime);
+		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
+		#pragma endregion
+
 		shadowFrameBuffer.unbindShadowFrameBuffer();
 
 		glEnable(GL_CLIP_DISTANCE0);
@@ -671,9 +742,6 @@ int main() {
 		masterRenderer.processEntity(fern);
 		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
 		guiRenderer.render(guiTextures);
-
-		player.move(terrain);
-		camera.move(player.getPosition(), player.getRotation());
 
 #pragma region 草地主循环
 		//草地渲染时间

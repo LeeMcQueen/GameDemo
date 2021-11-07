@@ -16,8 +16,8 @@ public:
 	unsigned int getShadowMap() const { return shadowMap_; }
 
 private:
-	const int SHADOW_WIDTH = 1280;
-	const int SHADOW_HEIGHT = 720;
+	const int SHADOW_WIDTH = 2560;
+	const int SHADOW_HEIGHT = 1440;
 
 	unsigned int shadowMap_;
 	unsigned int shadowMapFBO_;

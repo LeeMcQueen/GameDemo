@@ -18,7 +18,7 @@ void main(void){
 	float waterDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
 	float waterDepth = floorDistance - waterDistance;
 
-	out_Color = vec4(waterDepth / 50.0f);
+	out_Color = vec4(waterDepth / 150.0f);
 
 	//Normal GuiFunction
 	//out_Color = texture(guiTexture, textureCoords);
