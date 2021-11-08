@@ -12,7 +12,7 @@ class WaterRenderer {
 
 public:
 
-	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo , ShadowFrameBuffer &shadowFBO);
+	WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo);
 	void render(std::vector<WaterTile> &waterTile, Light &sun);
 
 private:
@@ -26,7 +26,6 @@ private:
 
 	WaterShader waterShader_{};
 	const WaterFrameBuffers &fbo_;
-	const ShadowFrameBuffer &shadowFBO_;
 
 	//加载水面顶点
 	void prepareWater(WaterTile &waterTile, Light &sun);

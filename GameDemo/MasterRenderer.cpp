@@ -4,18 +4,17 @@
 
 #include "MasterRenderer.h"
 #include "DisplayManager.h"
-#include "ShadowFrameBuffer.h"
 
 std::map<TexturedModel, std::vector<Entity>> MasterRenderer::entities_;
 std::vector<Terrain>  MasterRenderer::terrains_;
 std::vector<WaterTile> MasterRenderer::waterTiles_;
 
-MasterRenderer::MasterRenderer(Loader &loader,WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO):
-	projectionMatrix_(getProjectionMatrix()),
+MasterRenderer::MasterRenderer(Loader &loader, WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO, bool projectionType) :
+	projectionMatrix_(getProjectionMatrix(projectionType)),
 	entityRenderer_(EntityRenderer(staticshader_, projectionMatrix_)),
-	terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_)),
-	waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_, fbo, shadowFBO)),
-	skyboxRenderer_(SkyboxRenderer(skyboxShader_, loader, projectionMatrix_)){
+	terrainRenderer_(TerrainRenderer(terrainShader_, projectionMatrix_, shadowFBO)),
+	waterRenderer_(WaterRenderer(waterShader_, projectionMatrix_, fbo)),
+	skyboxRenderer_(SkyboxRenderer(skyboxShader_, loader, projectionMatrix_)) {
 
 	//背面剔除
 	glEnable(GL_CULL_FACE);
@@ -91,10 +90,14 @@ void MasterRenderer::prepare()
 }
 
 //返回投影矩阵(getProjectionMatrix)
-glm::mat4 MasterRenderer::getProjectionMatrix()
+glm::mat4 MasterRenderer::getProjectionMatrix(bool projectionType)
 {
-	//return glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, NEAR_PLANE, FAR_PLANE);
-	return glm::perspective(glm::radians(FOV), (float)DisplayManager::WIDTH / (float)DisplayManager::HEIGHT, NEAR_PLANE, FAR_PLANE);
+	if (!projectionType) {
+		return glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, NEAR_PLANE, FAR_PLANE);
+	}
+	else {
+		return glm::perspective(glm::radians(FOV), (float)DisplayManager::WIDTH / (float)DisplayManager::HEIGHT, NEAR_PLANE, FAR_PLANE);
+	}
 }
 
 //清除shader

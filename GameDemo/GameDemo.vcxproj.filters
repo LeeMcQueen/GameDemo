@@ -192,9 +192,6 @@
     <ClCompile Include="ShadowFrameBuffer.cpp">
       <Filter>源文件\Shadow</Filter>
     </ClCompile>
-    <ClCompile Include="ShadowBox.cpp">
-      <Filter>源文件\Shadow</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -338,15 +335,9 @@
     <ClInclude Include="ShadowFrameBuffer.h">
       <Filter>头文件\Shadow</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowBox.h">
-      <Filter>头文件\Shadow</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexShader.txt">
-      <Filter>资源文件\ShaderSource</Filter>
-    </Text>
-    <Text Include="terrainFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="terrainVertexShader.txt">
@@ -371,6 +362,9 @@
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
     <Text Include="skyboxFragmentShader.txt">
+      <Filter>资源文件\ShaderSource</Filter>
+    </Text>
+    <Text Include="terrainFragmentShader.txt">
       <Filter>资源文件\ShaderSource</Filter>
     </Text>
   </ItemGroup>

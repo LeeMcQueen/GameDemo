@@ -1,7 +1,9 @@
 ﻿#include "TerrainRenderer.h"
 
-TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projectionMatrix)
-	:terrainShader_(terrainShader){
+TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projectionMatrix, ShadowFrameBuffer &shadowFBO)
+	:terrainShader_(terrainShader),
+	shadowFBO_(shadowFBO){
+
 	terrainShader_.start();
 	terrainShader_.loadProjectionMatrix(projectionMatrix);
 	terrainShader_.loadconnectTextureUnits();
@@ -10,8 +12,7 @@ TerrainRenderer::TerrainRenderer(TerrainShader &terrainShader, glm::mat4 &projec
 
 void TerrainRenderer::render(std::vector<Terrain> &terrains){
 
-	for (Terrain& terrain : terrains)
-	{
+	for (Terrain& terrain : terrains){
 		prepareTerrain(terrain);
 		//加载变换矩阵
 		prepareInstance(terrain);
@@ -35,7 +36,6 @@ void TerrainRenderer::prepareTerrain(Terrain &terrain)
 
 	//getShineDamer getReflectivity
 	terrainShader_.loadShineVariables(1.0f, 0.0f);
-
 }
 
 void TerrainRenderer::bindTexture(Terrain &terrain)
@@ -54,7 +54,7 @@ void TerrainRenderer::bindTexture(Terrain &terrain)
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, terrain.getTerrainTexture().textureID_);
 	glActiveTexture(GL_TEXTURE5);
-	//glBIndTexture(GL_TEXTURE_2D, )
+	glBindTexture(GL_TEXTURE_2D, shadowFBO_.getShadowMap());
 }
 
 void TerrainRenderer::prepareInstance(Terrain &terrain)

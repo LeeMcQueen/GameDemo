@@ -581,8 +581,10 @@ int main() {
 	WaterFrameBuffers fbos;
 	//阴影FBOs
 	ShadowFrameBuffer shadowFrameBuffer;
-	//实例化渲染器
-	MasterRenderer masterRenderer(loader, fbos, shadowFrameBuffer);
+	//实例化渲染器 透视投影
+	MasterRenderer masterRenderer(loader, fbos, shadowFrameBuffer, true);
+	//实例化渲染器 正交投影
+	MasterRenderer masterRendererOrtho(loader, fbos, shadowFrameBuffer, false);
 	//实例化加载OBJ
 	OBJLoader objloader;
 	//GuiShader
@@ -615,8 +617,7 @@ int main() {
 	TerrainTexture rTexture = TerrainTexture(loader.loadTexture("dirt"));
 	TerrainTexture gTexture = TerrainTexture(loader.loadTexture("pinkFlowers"));
 	TerrainTexture bTexture = TerrainTexture(loader.loadTexture("path"));
-	TerrainTexturePack terrainTexturePack = TerrainTexturePack(
-		backgroundTexture, rTexture, gTexture, bTexture);
+	TerrainTexturePack terrainTexturePack = TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
 	TerrainTexture blendMap = TerrainTexture(loader.loadTexture("blendMap"));
 
 	//地面类初始化
@@ -646,13 +647,12 @@ int main() {
 		camera.move(player.getPosition(), player.getRotation());
 
 		shadowFrameBuffer.bindShadowFrameBuffer();
-		masterRenderer.processTerrain(terrain);
-		masterRenderer.processEntity(tree);
-		masterRenderer.processEntity(underTree);
+		masterRendererOrtho.processTerrain(terrain);
+		masterRendererOrtho.processEntity(tree);
+		masterRendererOrtho.processEntity(underTree);
 		auto shadowMapCamera = camera;
-		shadowMapCamera.setviewDirection(glm::vec3(0.0f, 80.0f, 40.0f));
-		masterRenderer.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
-
+		shadowMapCamera.setviewDirection(glm::vec3(400.0f, 400.0f, 200.0f));
+		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
 		#pragma region 骨骼动画主循环
 		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
@@ -680,7 +680,7 @@ int main() {
 		//骨骼动画shader传值
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(shadowMapCamera.getViewMatrix()));
-		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
+		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(false)));
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
 		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y + 30.0f, camera.getPosition().z + 40.0f);
@@ -716,7 +716,6 @@ int main() {
 		glUniform1f(timeLocation, idleStartTime);
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 		#pragma endregion
-
 		shadowFrameBuffer.unbindShadowFrameBuffer();
 
 		glEnable(GL_CLIP_DISTANCE0);
@@ -750,7 +749,7 @@ int main() {
 		lastFrame = current_time;
 		//草地的观察矩阵&投影矩阵
 		glm::mat4 grassViewMatrix = camera.getViewMatrix();
-		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix();
+		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix(true);
 
 		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
@@ -801,7 +800,7 @@ int main() {
 		//骨骼动画shader传值
 		glUseProgram(shader);
 		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
-		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
+		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(true)));
 		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
 		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
 		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y + 30.0f, camera.getPosition().z + 40.0f);
@@ -851,6 +850,7 @@ int main() {
 
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();
+	masterRendererOrtho.cleanUp();
 	fbos.cleanUp();
 	shadowFrameBuffer.cleanUp();
 

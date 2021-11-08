@@ -151,7 +151,7 @@ struct ClothRender // Texture & Lighting
 
 		/** 投影矩阵 : 矩形的投影矩阵 **/
 		// Since projection matrix rarely changes, set it outside the rendering loop for only onec time
-		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(true)));
 
 		/** 模型矩阵 : 布料模型矩阵 **/
 		glm::mat4 uniModelMatrix = glm::mat4(1.0f);

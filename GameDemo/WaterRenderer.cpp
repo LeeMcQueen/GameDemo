@@ -1,9 +1,8 @@
 ﻿#include "WaterRenderer.h"
 
-WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO) :
+WaterRenderer::WaterRenderer(WaterShader &waterShader, glm::mat4 &projectionMatrix, WaterFrameBuffers &fbo) :
 	waterShader_(waterShader),
-	fbo_(fbo),
-	shadowFBO_(shadowFBO){
+	fbo_(fbo){
 
 	//loader类加载
 	Loader loader;

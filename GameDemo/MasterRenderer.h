@@ -19,7 +19,7 @@ class MasterRenderer {
 
 public:
 
-	MasterRenderer(Loader &loader, WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO);
+	MasterRenderer(Loader &loader, WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO, bool projectionType);
 
 	void render(Light &light, Camera &camera, glm::vec4 &clipPlane);
 	void processEntity(const Entity &entity);
@@ -28,7 +28,7 @@ public:
 	void prepare();
 	void cleanUp();
 
-	glm::mat4 getProjectionMatrix();
+	glm::mat4 getProjectionMatrix(bool projectionType);
 
 private:
 
