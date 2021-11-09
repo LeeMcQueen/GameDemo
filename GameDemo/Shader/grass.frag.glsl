@@ -13,6 +13,8 @@ in TESE_OUT
 
 layout(location = 0) out vec4 outColor;
 
+uniform sampler2D shadowMap;
+
 void main() {
   vec3 normal = frag_in.normal;
   vec2 uv = frag_in.uv;

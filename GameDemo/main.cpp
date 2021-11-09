@@ -558,6 +558,7 @@ int main() {
 	Grasses grasses;
 	//计算shader插值ID
 	unsigned int cameraUniformBuffer = 0;
+	unsigned int lightCameraUniformBuffer = 0;
 	//游戏进行时间（草地用）
 	using DeltaDuration = std::chrono::duration<float, std::milli>;
 
@@ -565,6 +566,11 @@ int main() {
 	glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
 	glBufferData(GL_UNIFORM_BUFFER, 128, nullptr, GL_STATIC_DRAW);
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
+
+	glGenBuffers(1, &lightCameraUniformBuffer);
+	glBindBuffer(GL_UNIFORM_BUFFER, lightCameraUniformBuffer);
+	glBufferData(GL_UNIFORM_BUFFER, 128, nullptr, GL_STATIC_DRAW);
+	glBindBufferBase(GL_UNIFORM_BUFFER, 4, lightCameraUniformBuffer);
 
 	DeltaDuration deltaTime;
 	std::chrono::steady_clock::time_point lastFrame;
@@ -647,12 +653,15 @@ int main() {
 		camera.move(player.getPosition(), player.getRotation());
 
 		shadowFrameBuffer.bindShadowFrameBuffer();
-		masterRendererOrtho.processTerrain(terrain);
+		//masterRendererOrtho.processTerrain(terrain);
 		masterRendererOrtho.processEntity(tree);
 		masterRendererOrtho.processEntity(underTree);
 		auto shadowMapCamera = camera;
 		shadowMapCamera.setviewDirection(glm::vec3(400.0f, 400.0f, 200.0f));
-		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
+		glm::mat4 terrainLightViewMatrix = shadowMapCamera.getViewMatrix();
+		glm::mat4 terrainLightOrthoMatrix = masterRenderer.getProjectionMatrix(false);
+		glm::mat4 terrainLightVPMatrix = terrainLightViewMatrix * terrainLightOrthoMatrix;
+		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightVPMatrix);
 		#pragma region 骨骼动画主循环
 		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
@@ -722,14 +731,14 @@ int main() {
 		//水面反射buffer
 		fbos.bindReflectionFrameBuffer();
 		auto reflectionCamera = camera;
-		reflectionCamera.setviewDirection(glm::vec3(0.0f, -30.0f, 40.0f));
-		masterRenderer.render(light, camera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f));
+		reflectionCamera.setviewDirection(glm::vec3(0.0f, 30.0f, 40.0f));
+		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f), terrainLightVPMatrix);
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
 		fbos.bindRefractionFrameBuffer();
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(underTree);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()));
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightVPMatrix);
 		fbos.unbindCurrentFrameBuffer();
 		glDisable(GL_CLIP_DISTANCE0);
 
@@ -739,7 +748,7 @@ int main() {
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processEntity(fern);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f));
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f), terrainLightVPMatrix);
 		guiRenderer.render(guiTextures);
 
 #pragma region 草地主循环
@@ -756,8 +765,16 @@ int main() {
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
 		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
 
+		glm::mat4 lightViewMatrix = shadowMapCamera.getViewMatrix();
+		glm::mat4 lightProjectionMatrix = masterRenderer.getProjectionMatrix(false);
+
+		glBindBufferBase(GL_UNIFORM_BUFFER, 4, lightCameraUniformBuffer);
+		glBindBuffer(GL_UNIFORM_BUFFER, lightCameraUniformBuffer);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &lightViewMatrix);
+		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &lightProjectionMatrix);
+
 		//草地更新
-		grasses.update(deltaTime);
+		grasses.update(deltaTime, shadowFrameBuffer);
 		//草地渲染
 		grasses.render();
 #pragma endregion

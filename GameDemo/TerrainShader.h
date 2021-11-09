@@ -29,6 +29,8 @@ public:
 	void loadconnectTextureUnits();
 	//load viewMatrix to shader program
 	void loadViewMatrix(glm::mat4 matrix);
+	//阴影空间矩阵
+	void loadLightVPMatrix(glm::mat4 matrix);
 	//load light to shader program
 	void loadLight(Light light);
 	//load ShineDamper reflectivity to program
@@ -73,6 +75,7 @@ private:
 	GLuint Location_shadowMap;
 	//水面剪切平面uniform
 	GLuint Location_plane;
+	GLuint Location_lightVPMatrix;
 
 };
 

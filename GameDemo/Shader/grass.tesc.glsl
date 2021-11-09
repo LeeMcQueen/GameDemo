@@ -43,12 +43,12 @@ void main() {
     gl_TessLevelOuter[2] = 8.0;
     gl_TessLevelOuter[3] = 3.0;
   } else {
-    gl_TessLevelInner[0] = 2.0;
-    gl_TessLevelInner[1] = 5.0;
-    gl_TessLevelOuter[0] = 5.0;
-    gl_TessLevelOuter[1] = 2.0;
-    gl_TessLevelOuter[2] = 5.0;
-    gl_TessLevelOuter[3] = 2.0;
+    gl_TessLevelInner[0] = 1.0;
+    gl_TessLevelInner[1] = 3.0;
+    gl_TessLevelOuter[0] = 3.0;
+    gl_TessLevelOuter[1] = 1.0;
+    gl_TessLevelOuter[2] = 3.0;
+    gl_TessLevelOuter[3] = 1.0;
   }
 
 }

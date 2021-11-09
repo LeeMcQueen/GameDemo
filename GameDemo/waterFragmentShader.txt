@@ -12,7 +12,6 @@ uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
 uniform sampler2D normalMap;
 uniform sampler2D depthMap;
-
 uniform vec3 lightColor;
 uniform float moveFactor;
 

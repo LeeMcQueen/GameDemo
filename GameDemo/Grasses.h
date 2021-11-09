@@ -1,12 +1,14 @@
 #pragma once
 
 #include "GrassesShader.h"
+#include "ShadowFrameBuffer.h"
 
 #include <chrono>
 
 class Grasses {
 	unsigned int grass_vao_ = 0;
 	ShaderPrograms grass_shader_{};
+	ShaderPrograms grass_fragment_shader_{};
 	ShaderPrograms grass_compute_shader_{};
 	GLuint blades_count_ = 0;
 
@@ -19,7 +21,7 @@ public:
 	using DeltaDuration = std::chrono::duration<float, std::milli>;
 
 	void init();
-	void update(DeltaDuration delta_time);
+	void update(DeltaDuration delta_time, ShadowFrameBuffer &shadowFBO);
 	void render();
 
 private:

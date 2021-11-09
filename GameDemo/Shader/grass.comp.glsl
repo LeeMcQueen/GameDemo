@@ -106,7 +106,7 @@ void main() {
     vec3 r = (v0 + up * height - v2) * stiffness;
 
     //  Wind
-    vec3 windForce = 0.25 * wind_magnitude *
+    vec3 windForce = 0.75 * wind_magnitude *
     vec3(
     sin(current_time * 3. / wind_wave_period + v0.x * 0.1 * 11 / wind_wave_length),
     0,

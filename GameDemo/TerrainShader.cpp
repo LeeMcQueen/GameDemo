@@ -39,6 +39,11 @@ void TerrainShader::loadViewMatrix(glm::mat4 matrix) {
 	loadMatrix4(Location_viewMatrix, matrix);
 }
 
+void TerrainShader::loadLightVPMatrix(glm::mat4 matrix){
+
+	loadMatrix4(Location_lightVPMatrix, matrix);
+}
+
 void TerrainShader::loadconnectTextureUnits(){
 
 	//通道0的背景纹理
@@ -88,4 +93,5 @@ void TerrainShader::getAllUniformLocations(){
 	Location_blendMap = getUniformLocation("blendMap");
 	Location_shadowMap = getUniformLocation("shadowMap");
 	Location_plane = getUniformLocation("plane");
+	Location_lightVPMatrix = getUniformLocation("terrainLightVPMatrix");
 }

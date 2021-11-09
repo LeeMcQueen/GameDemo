@@ -21,7 +21,7 @@ public:
 
 	MasterRenderer(Loader &loader, WaterFrameBuffers &fbo, ShadowFrameBuffer &shadowFBO, bool projectionType);
 
-	void render(Light &light, Camera &camera, glm::vec4 &clipPlane);
+	void render(Light &light, Camera &camera, glm::vec4 &clipPlane, glm::mat4 lightVPMatrix);
 	void processEntity(const Entity &entity);
 	void processTerrain(const Terrain &terrain);
 	void processWater(const WaterTile &waterTile);

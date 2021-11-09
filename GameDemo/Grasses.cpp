@@ -21,7 +21,7 @@ struct Blade {
 		v0(p_v0),
 		v1(p_v1),
 		v2(p_v2),
-		up(p_up){};
+		up(p_up) {};
 
 	glm::vec4 v0; // xyz: Position, w: 半径上的方向 orientation (in radius)
 	glm::vec4 v1; // xyz: 贝塞尔点 Bezier point w: 草的高
@@ -72,7 +72,7 @@ namespace {
 
 }
 
-void Grasses::init(){
+void Grasses::init() {
 
 	const std::vector<Blade> blades = generate_blades();
 	blades_count_ = static_cast<GLuint>(blades.size());
@@ -144,7 +144,7 @@ void Grasses::init(){
 		.build();
 }
 
-void Grasses::update(DeltaDuration delta_time){
+void Grasses::update(DeltaDuration delta_time, ShadowFrameBuffer &shadowFBO) {
 
 	grass_compute_shader_.use();
 	grass_compute_shader_.setFloat("current_time",
@@ -156,9 +156,14 @@ void Grasses::update(DeltaDuration delta_time){
 
 	//gl_NumWorkGrounps 执行16000次WorkGrounps
 	glDispatchCompute(static_cast<GLuint>(blades_count_), 1, 1);
+
+	grass_shader_.use();
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, shadowFBO.getShadowMap());
+	grass_compute_shader_.setInt("shadowMap", 0);
 }
 
-void Grasses::render(){
+void Grasses::render() {
 
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
@@ -168,13 +173,13 @@ void Grasses::render(){
 }
 
 //计算草在当前位置的高度
-float Grasses::getGrassesHeight(int x, int z, unsigned char * image){
+float Grasses::getGrassesHeight(int x, int z, unsigned char * image) {
 
 
 	return 0.0f;
 }
 
-std::int32_t Grasses::getRGBSum(int x, int y){
+std::int32_t Grasses::getRGBSum(int x, int y) {
 
 	return std::int32_t();
 }
