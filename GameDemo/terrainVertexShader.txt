@@ -15,7 +15,8 @@ uniform mat4 projectionMatrix;		//deep Matrix
 uniform mat4 viewMatrix;			//camera Matrix
 uniform vec3 lightPosition;			//light position
 uniform vec4 plane;
-uniform mat4 terrainLightVPMatrix;
+uniform mat4 lightViewMatrix;
+uniform mat4 lightOrthoMatrix;
 
 void main(void)
 {
@@ -23,8 +24,8 @@ void main(void)
    vec4 worldPosition = transformationMatrix * vec4(position, 1.0);
 
    //lightWorldMatirx
-   mat4 lightSpaceMatrix = projectionMatrix * viewMatrix;
-   FragPosLightSpace = lightSpaceMatrix * worldPosition;
+   mat4 terrainLightVPMatrix = lightOrthoMatrix * lightViewMatrix;
+   FragPosLightSpace = terrainLightVPMatrix * vec4(worldPosition.xyz, 1.0);
 
    gl_ClipDistance[0] = dot(worldPosition, plane);
 

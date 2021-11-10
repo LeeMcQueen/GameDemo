@@ -39,9 +39,13 @@ void TerrainShader::loadViewMatrix(glm::mat4 matrix) {
 	loadMatrix4(Location_viewMatrix, matrix);
 }
 
-void TerrainShader::loadLightVPMatrix(glm::mat4 matrix){
+void TerrainShader::loadLightViewMatrix(glm::mat4 matrix){
 
-	loadMatrix4(Location_lightVPMatrix, matrix);
+	loadMatrix4(Location_lightViewMatrix, matrix);
+}
+void TerrainShader::loadLightOrthoMatrix(glm::mat4 matrix) {
+
+	loadMatrix4(Location_lightOrthoMatrix, matrix);
 }
 
 void TerrainShader::loadconnectTextureUnits(){
@@ -93,5 +97,6 @@ void TerrainShader::getAllUniformLocations(){
 	Location_blendMap = getUniformLocation("blendMap");
 	Location_shadowMap = getUniformLocation("shadowMap");
 	Location_plane = getUniformLocation("plane");
-	Location_lightVPMatrix = getUniformLocation("terrainLightVPMatrix");
+	Location_lightViewMatrix = getUniformLocation("lightViewMatrix");
+	Location_lightOrthoMatrix = getUniformLocation("lightOrthoMatrix");
 }

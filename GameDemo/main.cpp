@@ -46,9 +46,9 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -633,7 +633,7 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.7, 0.7));
+	GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.2, 0.2));
 	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
 	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
 	guiTextures.push_back(shadow);
@@ -659,9 +659,7 @@ int main() {
 		auto shadowMapCamera = camera;
 		shadowMapCamera.setviewDirection(glm::vec3(400.0f, 400.0f, 200.0f));
 		glm::mat4 terrainLightViewMatrix = shadowMapCamera.getViewMatrix();
-		glm::mat4 terrainLightOrthoMatrix = masterRenderer.getProjectionMatrix(false);
-		glm::mat4 terrainLightVPMatrix = terrainLightViewMatrix * terrainLightOrthoMatrix;
-		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightVPMatrix);
+		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
 		#pragma region 骨骼动画主循环
 		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
@@ -732,13 +730,13 @@ int main() {
 		fbos.bindReflectionFrameBuffer();
 		auto reflectionCamera = camera;
 		reflectionCamera.setviewDirection(glm::vec3(0.0f, 30.0f, 40.0f));
-		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f), terrainLightVPMatrix);
+		masterRenderer.render(light, reflectionCamera, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.getHeight() + 0.5f), terrainLightViewMatrix);
 		fbos.unbindCurrentFrameBuffer();
 		//水面折射buffer
 		fbos.bindRefractionFrameBuffer();
 		masterRenderer.processTerrain(terrain);
 		masterRenderer.processEntity(underTree);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightVPMatrix);
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
 		fbos.unbindCurrentFrameBuffer();
 		glDisable(GL_CLIP_DISTANCE0);
 
@@ -748,7 +746,7 @@ int main() {
 		masterRenderer.processEntity(entity);
 		masterRenderer.processEntity(tree);
 		masterRenderer.processEntity(fern);
-		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f), terrainLightVPMatrix);
+		masterRenderer.render(light, camera, glm::vec4(0.0f, -1.0f, 0.0f, 15.0f), terrainLightViewMatrix);
 		guiRenderer.render(guiTextures);
 
 #pragma region 草地主循环

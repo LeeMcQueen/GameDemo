@@ -26,7 +26,7 @@ MasterRenderer::MasterRenderer(Loader &loader, WaterFrameBuffers &fbo, ShadowFra
 	glEnable(GL_MULTISAMPLE);
 }
 
-void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane, glm::mat4 lightVPMatirx) {
+void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane, glm::mat4 lightViewMatirx) {
 
 	prepare();
 
@@ -43,7 +43,8 @@ void MasterRenderer::render(Light &light, Camera &camera, glm::vec4 &cilpPlane, 
 	terrainShader_.start();
 	terrainShader_.loadCilpPlane(cilpPlane);
 	terrainShader_.loadLight(light);
-	terrainShader_.loadLightVPMatrix(lightVPMatirx);
+	terrainShader_.loadLightViewMatrix(lightViewMatirx);
+	terrainShader_.loadLightOrthoMatrix(getProjectionMatrix(false));
 	terrainShader_.loadViewMatrix(camera.getViewMatrix());
 	terrainRenderer_.render(terrains_);
 	terrainShader_.stop();
