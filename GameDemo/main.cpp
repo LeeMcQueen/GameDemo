@@ -238,11 +238,15 @@ Vec3 windDir;
 Vec3 wind;
 //布料变数
 Vec3 clothPos(140.0f, 35.0f, 50.0f);
-Vec2 clothSize(3, 4);
+Vec2 clothSize(3, 3);
 Cloth cloth(clothPos, clothSize);
 //TODO
 //地面变数
 //球变数
+Vec3 ballPos(150.0f, 15.0f, 45.0f);
+int ballRadius = 5.0;
+glm::vec4 ballColor(0.6f, 0.5f, 0.8f, 1.0f);
+Ball ball(ballPos, ballRadius, ballColor);
 //重力
 Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
 #pragma endregion
@@ -644,6 +648,7 @@ int main() {
 	Vec3 initForce(10.0, 40.0, 20.0);
 	Vec3 normalForce(0.0, 0.0, 0.5);
 	ClothRender clothRender(&cloth, masterRenderer);
+	BallRender ballRender(&ball, masterRenderer, camera);
 	cloth.addForce(initForce);
 
 	//渲染循环
@@ -780,10 +785,12 @@ int main() {
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
+			cloth.collisionResponse(&ball);
 			cloth.addForce(normalForce);
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
+		ballRender.flush(camera);
 #pragma endregion
 
 #pragma region 骨骼动画主循环

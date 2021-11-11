@@ -351,7 +351,7 @@ struct SpringRender
 		}
 	}
 
-	void flush() // Rigid does not move, thus do not update vertexes' data
+	void flush(Camera &camera) // Rigid does not move, thus do not update vertexes' data
 	{
 		// Update all the positions of nodes
 		for (int i = 0; i < springCount; i++) {
@@ -374,7 +374,7 @@ struct SpringRender
 
 		/** View Matrix : The camera **/
 		cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
-		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -403,7 +403,7 @@ struct ClothSpringRender
 		render.init(cloth->springs, defaultColor, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
 	}
 
-	void flush() { render.flush(); }
+	void flush(Camera &camera) { render.flush(camera); }
 };
 
 struct RigidRender // Single color & Lighting
@@ -424,7 +424,7 @@ struct RigidRender // Single color & Lighting
 	GLint aPtrNor;
 
 	// Render any rigid body only with it's faces, color and modelVector
-	void init(std::vector<ClothVertex*> f, glm::vec4 c, glm::vec3 modelVec)
+	void init(std::vector<ClothVertex*> f, glm::vec4 c, glm::vec3 modelVec, MasterRenderer &masterRenderer, Camera &camera)
 	{
 		faces = f;
 		vertexCount = (int)(faces.size());
@@ -444,7 +444,7 @@ struct RigidRender // Single color & Lighting
 		}
 
 		/** Build render program **/
-		Program program("RigidVS.glsl", "RigidFS.glsl");
+		Program program("Shader/RigidVS.glsl", "Shader/RigidFS.glsl");
 		programID = program.ID;
 		std::cout << "Rigid Program ID: " << programID << std::endl;
 
@@ -478,7 +478,7 @@ struct RigidRender // Single color & Lighting
 
 		/** Projection matrix : The frustum that camera observes **/
 		// Since projection matrix rarely changes, set it outside the rendering loop for only onec time
-		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, &cam.uniProjMatrix[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(true)));
 
 		/** Model Matrix : Put rigid into the world **/
 		glm::mat4 uniModelMatrix = glm::mat4(1.0f);
@@ -512,7 +512,7 @@ struct RigidRender // Single color & Lighting
 		}
 	}
 
-	void flush() // Rigid does not move, thus do not update vertexes' data
+	void flush(Camera &camera) // Rigid does not move, thus do not update vertexes' data
 	{
 		glUseProgram(programID);
 
@@ -525,7 +525,7 @@ struct RigidRender // Single color & Lighting
 
 		/** View Matrix : The camera **/
 		cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
-		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, &cam.uniViewMatrix[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -546,13 +546,13 @@ struct GroundRender
 	Ground *ground;
 	RigidRender render;
 
-	GroundRender(Ground* g)
+	GroundRender(Ground* g, MasterRenderer &masterRenderer, Camera &camera)
 	{
 		ground = g;
-		render.init(ground->faces, ground->color, glm::vec3(ground->position.x, ground->position.y, ground->position.z));
+		render.init(ground->faces, ground->color, glm::vec3(ground->position.x, ground->position.y, ground->position.z), masterRenderer, camera);
 	}
 
-	void flush() { render.flush(); }
+	void flush(Camera &camera) { render.flush(camera); }
 };
 
 struct BallRender
@@ -560,11 +560,11 @@ struct BallRender
 	Ball* ball;
 	RigidRender render;
 
-	BallRender(Ball* b)
+	BallRender(Ball* b, MasterRenderer &masterRenderer, Camera &camera)
 	{
 		ball = b;
-		render.init(ball->sphere->faces, ball->color, glm::vec3(ball->center.x, ball->center.y, ball->center.z));
+		render.init(ball->sphere->faces, ball->color, glm::vec3(ball->center.x, ball->center.y, ball->center.z), masterRenderer, camera);
 	}
 
-	void flush() { render.flush(); }
+	void flush(Camera &camera) { render.flush(camera); }
 };

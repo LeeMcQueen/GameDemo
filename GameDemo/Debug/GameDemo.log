@@ -1,5 +1,4 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  ShadowFrameBuffer.cpp
   main.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
   D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
@@ -31,20 +30,20 @@ d:\opengl\demo\gamedemo\gamedemo\Cloth.h(164): warning C4018: “<”: 有符号
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(173): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(178): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(187): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(199): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(200): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
 d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
-main.cpp(257): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(264): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(277): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(247): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+main.cpp(261): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(268): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 main.cpp(281): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(282): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(285): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(286): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(289): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(290): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(309): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(595): warning C4101: “objloader”: 未引用的局部变量
-  正在生成代码...
+main.cpp(293): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(294): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(313): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(599): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)
