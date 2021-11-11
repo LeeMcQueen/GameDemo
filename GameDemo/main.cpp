@@ -46,9 +46,9 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 
-extern "C" {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-}
+//extern "C" {
+//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+//}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -217,12 +217,12 @@ const char* fragmentShaderSource = R"(
 		vec3 dCol = diff * texture(diffTexture, TexCoords).rgb; 
 
 		vec3 emissionTexture = texture(emissionTexture, TexCoords + vec2(0.0, time * 0.001)).rgb;
-		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 2.0;
+		emissionTexture = emissionTexture * (sin(time) * 0.001 + 0.1) * 5.0;
 		
 		out_Colour = vec4(dCol + emissionTexture + directLighting, 1.0f);
 
 		vec4 reflectedColour = texture(enviroMap, reflectedVector);
-		out_Colour = mix(out_Colour, reflectedColour, 0.3);
+		out_Colour = mix(out_Colour, reflectedColour, 0.2);
 	}
 	)";
 #pragma endregion
@@ -653,7 +653,6 @@ int main() {
 		camera.move(player.getPosition(), player.getRotation());
 
 		shadowFrameBuffer.bindShadowFrameBuffer();
-		//masterRendererOrtho.processTerrain(terrain);
 		masterRendererOrtho.processEntity(tree);
 		masterRendererOrtho.processEntity(underTree);
 		auto shadowMapCamera = camera;
