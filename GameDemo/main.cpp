@@ -785,7 +785,7 @@ int main() {
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
-			Vec3 ballPos(player.getPosition().x-2, player.getPosition().y+5, player.getPosition().z+5);
+			Vec3 ballPos(player.getPosition().x, player.getPosition().y+5, player.getPosition().z+5);
 			cloth.collisionResponse(ballPos);
 			//cloth.collisionResponse(&ball);
 			//cloth.addForce(normalForce);

@@ -250,7 +250,7 @@ public:
 			//距离值
 			double distLen = distVec.length();
 			//碰撞距离 球的半径ball->radius
-			double safeDist = 6.0 * 1.05;
+			double safeDist = 5.0 * 1.05;
 			if (distLen < safeDist) {
 				distVec.normalize();
 				Vec3 newPos = distVec*safeDist;
