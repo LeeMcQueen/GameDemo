@@ -85,15 +85,14 @@ public:
 		for (int j = 0; j < nodesPerCol; j++) {
 			for (int i = 0; i < nodesPerRow; i++) {
 				/** Create node by position **/
-				//No 4
-				Node* node = new Node(Vec3((double)i / nodesDensity, -((double)j / nodesDensity), 0));
+				Node* node = new Node(Vec3((double)i / nodesDensity * 5, (double)j / nodesDensity * 5, 0));
 				/** Set texture coordinates **/
 				node->texCoord.x = (double)j / (nodesPerRow - 1);
 				node->texCoord.y = (double)i / (1 - nodesPerCol);
 				/** Add node to cloth **/
 				nodes.push_back(node);
 
-				//printf("\t[%d, %d] (%f, %f, %f) - (%f, %f)\n", i, j, node->position.x, node->position.y, node->position.z, node->texCoord.x, node->texCoord.y);
+				printf("\t[%d, %d] (%f, %f, %f) - (%f, %f)\n", i, j, node->position.x, node->position.y, node->position.z, node->texCoord.x, node->texCoord.y);
 			}
 			std::cout << std::endl;
 		}
@@ -115,8 +114,9 @@ public:
 			}
 		}
 
+		//节点的间隔，和碰撞相关
 		pin(pin1, Vec3(0.2, 0.0, 0.0));
-		pin(pin2, Vec3(-0.2, 0.0, 0.0));
+		pin(pin2, Vec3(-0.0, 0.0, 0.0));
 
 		/** Triangle faces **/
 		for (int j = 0; j < nodesPerCol - 1; j++) {
@@ -190,8 +190,13 @@ public:
 		}
 	}
 
-	Vec3 getWorldPos(Node* n) { return clothPos + n->position; }
-	void setWorldPos(Node* n, Vec3 pos) { n->position = pos - clothPos; }
+	Vec3 getWorldPos(Node* n) {
+		return clothPos + (n->position) ;
+	}
+
+	void setWorldPos(Node* n, Vec3 pos) {
+		n->position = pos - clothPos;
+	}
 
 	//void collisionResponse(Ground* ground, Ball* ball)
 	void collisionResponse(Ball* ball)
@@ -199,6 +204,7 @@ public:
 		//循环布料的全部节点List
 		for (int i = 0; i < nodes.size(); i++)
 		{
+			//Vec3 nodesPos = getWorldPos(nodes[i]);
 			/** 地面碰撞 **/
 			//节点的高度小于地面的高度就抬高
 			//if (getWorldPos(nodes[i]).y < ground->position.y) {
@@ -210,15 +216,47 @@ public:
 			/** 球体碰撞 **/
 			//节点到球体的距离
 			Vec3 distVec = getWorldPos(nodes[i]) - ball->center;
-			//计算距离
+			//距离值
 			double distLen = distVec.length();
-			//最小安全距离（是球半径的1.05倍）
-			double safeDist = ball->radius*1.05;
+			//碰撞距离 球的半径ball->radius
+			double safeDist = ball->radius * 1.05;
 			if (distLen < safeDist) {
 				distVec.normalize();
-				//超过安全距离的节点进行位置set
+				Vec3 newPos = distVec*safeDist;
 				setWorldPos(nodes[i], distVec*safeDist + ball->center);
+				//球的摩擦力是 ball->friction
 				nodes[i]->velocity = nodes[i]->velocity*ball->friction;
+			}
+		}
+	}
+
+	void collisionResponse(Vec3 ball)
+	{
+		//循环布料的全部节点List
+		for (int i = 0; i < nodes.size(); i++)
+		{
+			//Vec3 nodesPos = getWorldPos(nodes[i]);
+			/** 地面碰撞 **/
+			//节点的高度小于地面的高度就抬高
+			//if (getWorldPos(nodes[i]).y < ground->position.y) {
+			//	nodes[i]->position.y = ground->position.y - clothPos.y + 0.01;
+			//	//节点的速度 = 节点的速度 * 地面的阻力
+			//	nodes[i]->velocity = nodes[i]->velocity * ground->friction;
+			//}
+
+			/** 球体碰撞 **/
+			//节点到球体的距离
+			Vec3 distVec = getWorldPos(nodes[i]) - ball;
+			//距离值
+			double distLen = distVec.length();
+			//碰撞距离 球的半径ball->radius
+			double safeDist = 6.0 * 1.05;
+			if (distLen < safeDist) {
+				distVec.normalize();
+				Vec3 newPos = distVec*safeDist;
+				setWorldPos(nodes[i], distVec*safeDist + ball);
+				//球的摩擦力是 ball->friction
+				nodes[i]->velocity = nodes[i]->velocity*0.8f;
 			}
 		}
 	}

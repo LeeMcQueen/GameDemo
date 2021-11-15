@@ -153,13 +153,6 @@ struct ClothRender // Texture & Lighting
 		// Since projection matrix rarely changes, set it outside the rendering loop for only onec time
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniProjMatrix"), 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(true)));
 
-		/** 模型矩阵 : 布料模型矩阵 **/
-		glm::mat4 uniModelMatrix = glm::mat4(1.0f);
-		uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
-		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(10.0f, 10.0f, 10.0f));
-		glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
-
 		/** 光线 **/
 		glUniform3fv(glGetUniformLocation(programID, "uniLightPos"), 1, &(sun.pos[0]));
 		glUniform3fv(glGetUniformLocation(programID, "uniLightColor"), 1, &(sun.color[0]));
@@ -214,6 +207,12 @@ struct ClothRender // Texture & Lighting
 
 		/** View Matrix : The camera **/
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
+
+		glm::mat4 uniModelMatrix = glm::mat4(1.0f);
+		uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(cloth->clothPos.x, cloth->clothPos.y, cloth->clothPos.z));
+		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
 
 		glDisable(GL_CULL_FACE);
 		glEnable(GL_BLEND);
@@ -482,7 +481,9 @@ struct RigidRender // Single color & Lighting
 
 		/** Model Matrix : Put rigid into the world **/
 		glm::mat4 uniModelMatrix = glm::mat4(1.0f);
-		uniModelMatrix = glm::translate(uniModelMatrix, modelVec);
+		uniModelMatrix = glm::translate(uniModelMatrix, glm::vec3(modelVec));
+		uniModelMatrix = glm::rotate(uniModelMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		uniModelMatrix = glm::scale(uniModelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniModelMatrix"), 1, GL_FALSE, &uniModelMatrix[0][0]);
 
 		/** Light **/
@@ -524,7 +525,6 @@ struct RigidRender // Single color & Lighting
 		glBufferSubData(GL_ARRAY_BUFFER, 0, vertexCount * sizeof(glm::vec3), vboNor);
 
 		/** View Matrix : The camera **/
-		cam.uniViewMatrix = glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
 
 		glEnable(GL_BLEND);

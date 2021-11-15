@@ -28,7 +28,7 @@ void Player::move(Terrain &terrain) {
 
 	float terrainHeight = terrain.getHeightOfTerrain(position_.x, position_.z);
 
-	translate(-deltaX, terrainHeight + 10.0f, -deltaZ);
+	translate(-deltaX, terrainHeight + 9.5f, -deltaZ);
 }
 
 void Player::checkInputs() {

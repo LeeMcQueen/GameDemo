@@ -46,9 +46,9 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -237,18 +237,18 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(140.0f, 35.0f, 50.0f);
-Vec2 clothSize(3, 3);
+Vec3 clothPos(100, 33, 100);
+Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
 //地面变数
 //球变数
-Vec3 ballPos(150.0f, 15.0f, 45.0f);
-int ballRadius = 5.0;
+Vec3 ballPos(105, 14, 100);
+int ballRadius = 5;
 glm::vec4 ballColor(0.6f, 0.5f, 0.8f, 1.0f);
 Ball ball(ballPos, ballRadius, ballColor);
 //重力
-Vec3 gravity(0.0, 9.8 / cloth.iterationFreq, 0.0);
+Vec3 gravity(0.0, -9.8 / cloth.iterationFreq, 0.0);
 #pragma endregion
 
 #pragma region 加载动画信息
@@ -637,12 +637,12 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.2, 0.2));
-	GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
-	GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
-	guiTextures.push_back(shadow);
-	guiTextures.push_back(reflection);
-	guiTextures.push_back(refraction);
+	//GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.2, 0.2));
+	//GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
+	//GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
+	//guiTextures.push_back(shadow);
+	//guiTextures.push_back(reflection);
+	//guiTextures.push_back(refraction);
 
 	//布料绘制
 	Vec3 initForce(10.0, 40.0, 20.0);
@@ -785,12 +785,14 @@ int main() {
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
-			cloth.collisionResponse(&ball);
-			cloth.addForce(normalForce);
+			Vec3 ballPos(player.getPosition().x-2, player.getPosition().y+5, player.getPosition().z+5);
+			cloth.collisionResponse(ballPos);
+			//cloth.collisionResponse(&ball);
+			//cloth.addForce(normalForce);
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
-		ballRender.flush(camera);
+		//ballRender.flush(camera);
 #pragma endregion
 
 #pragma region 骨骼动画主循环
