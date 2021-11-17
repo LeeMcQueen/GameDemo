@@ -243,10 +243,6 @@ Cloth cloth(clothPos, clothSize);
 //TODO
 //地面变数
 //球变数
-Vec3 ballPos(105, 14, 100);
-int ballRadius = 5;
-glm::vec4 ballColor(0.6f, 0.5f, 0.8f, 1.0f);
-Ball ball(ballPos, ballRadius, ballColor);
 //重力
 Vec3 gravity(0.0, -9.8 / cloth.iterationFreq, 0.0);
 #pragma endregion
@@ -648,7 +644,6 @@ int main() {
 	Vec3 initForce(10.0, 40.0, 20.0);
 	Vec3 normalForce(0.0, 0.0, 0.5);
 	ClothRender clothRender(&cloth, masterRenderer);
-	BallRender ballRender(&ball, masterRenderer, camera);
 	cloth.addForce(initForce);
 
 	//渲染循环
@@ -782,17 +777,22 @@ int main() {
 #pragma endregion
 
 #pragma region 布料主循环
+
+		if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+			cloth.unPin(cloth.pin1);
+		}
+		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+			cloth.unPin(cloth.pin2);
+		}
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
-			Vec3 ballPos(player.getPosition().x, player.getPosition().y+5, player.getPosition().z+5);
+			Vec3 ballPos(player.getPosition().x, player.getPosition().y+5, player.getPosition().z);
 			cloth.collisionResponse(ballPos);
-			//cloth.collisionResponse(&ball);
 			//cloth.addForce(normalForce);
 		}
 		cloth.computeNormal();
 		clothRender.flush(camera);
-		//ballRender.flush(camera);
 #pragma endregion
 
 #pragma region 骨骼动画主循环

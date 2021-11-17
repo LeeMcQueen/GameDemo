@@ -25,6 +25,13 @@ public:
 
 	int width, height;
 	int nodesPerRow, nodesPerCol;
+	int _width, _height, _colorChannels;
+
+	const float MAX_HEIGHT = 40.0f;
+	const float MIN_HEIGHT = -40.0f;
+	const float MAX_PIXEL_COLOUR = 256 * 256 * 256;
+
+	unsigned char *_image = stbi_load("res/heightmap4.png", &_width, &_height, &_colorChannels, 0);
 
 	std::vector<Node*> nodes;
 	std::vector<Spring*> springs;
@@ -198,36 +205,27 @@ public:
 		n->position = pos - clothPos;
 	}
 
-	//void collisionResponse(Ground* ground, Ball* ball)
-	void collisionResponse(Ball* ball)
-	{
-		//循环布料的全部节点List
-		for (int i = 0; i < nodes.size(); i++)
-		{
-			//Vec3 nodesPos = getWorldPos(nodes[i]);
-			/** 地面碰撞 **/
-			//节点的高度小于地面的高度就抬高
-			//if (getWorldPos(nodes[i]).y < ground->position.y) {
-			//	nodes[i]->position.y = ground->position.y - clothPos.y + 0.01;
-			//	//节点的速度 = 节点的速度 * 地面的阻力
-			//	nodes[i]->velocity = nodes[i]->velocity * ground->friction;
-			//}
-
-			/** 球体碰撞 **/
-			//节点到球体的距离
-			Vec3 distVec = getWorldPos(nodes[i]) - ball->center;
-			//距离值
-			double distLen = distVec.length();
-			//碰撞距离 球的半径ball->radius
-			double safeDist = ball->radius * 1.05;
-			if (distLen < safeDist) {
-				distVec.normalize();
-				Vec3 newPos = distVec*safeDist;
-				setWorldPos(nodes[i], distVec*safeDist + ball->center);
-				//球的摩擦力是 ball->friction
-				nodes[i]->velocity = nodes[i]->velocity*ball->friction;
-			}
+	float getHeight(int x, int z, unsigned char *data) {
+	
+		if (x < 0 || x > _height || z < 0 || z > _height) {
+			return 0;
 		}
+
+		float height = getRGBSum(x, z);
+		height /= (MAX_PIXEL_COLOUR / 2);
+		height -= 1.0;
+		height *= MAX_HEIGHT;
+
+		return height;
+	}
+
+	std::int32_t getRGBSum(int x, int y) {
+	
+		int addr = (y * _width + x) * _colorChannels;
+		std::int32_t r = _image[addr];
+		std::int32_t g = _image[addr + 1];
+		std::int32_t b = _image[addr + 2];
+		return (r << 16) + (g << 8) + b;
 	}
 
 	void collisionResponse(Vec3 ball)
@@ -235,14 +233,14 @@ public:
 		//循环布料的全部节点List
 		for (int i = 0; i < nodes.size(); i++)
 		{
-			//Vec3 nodesPos = getWorldPos(nodes[i]);
+			Vec3 nodesPos = getWorldPos(nodes[i]);
 			/** 地面碰撞 **/
 			//节点的高度小于地面的高度就抬高
-			//if (getWorldPos(nodes[i]).y < ground->position.y) {
-			//	nodes[i]->position.y = ground->position.y - clothPos.y + 0.01;
-			//	//节点的速度 = 节点的速度 * 地面的阻力
-			//	nodes[i]->velocity = nodes[i]->velocity * ground->friction;
-			//}
+			if (getWorldPos(nodes[i]).y < getHeight(getWorldPos(nodes[i]).x, getWorldPos(nodes[i]).z, _image) + 5.0f) {
+				nodes[i]->position.y = getHeight(getWorldPos(nodes[i]).x, getWorldPos(nodes[i]).z, _image) + 5.0f - clothPos.y + 0.01;
+				//节点的速度 = 节点的速度 * 地面的阻力
+				nodes[i]->velocity = nodes[i]->velocity * 0.5f;
+			}
 
 			/** 球体碰撞 **/
 			//节点到球体的距离

@@ -65,19 +65,17 @@ void main() {
     float width = inputBlades[index].v2.w;
     float stiffness = inputBlades[index].up.w;
 
-    // Frustum culling
+    // Frustum cullingw
     vec4 v0ClipSpace = camera.proj * camera.view * vec4(v0, 1);
     vec4 v1ClipSpace = camera.proj * camera.view * vec4(v1, 1);
     v0ClipSpace /= v0ClipSpace.w;
     v1ClipSpace /= v1ClipSpace.w;
 
     bool v0OutFrustum =
-    v0ClipSpace.x < -1 || v0ClipSpace.x > 1
-    || v0ClipSpace.y < -1 || v0ClipSpace.y > 1;
+    v0ClipSpace.x < -1.5 || v0ClipSpace.x > 1.5 || v0ClipSpace.y < -1.5 || v0ClipSpace.y > 1.5;
 
     bool v1OutFrustum =
-    v1ClipSpace.x < -1 || v1ClipSpace.x > 1
-    || v1ClipSpace.y < -1 || v1ClipSpace.y > 1;
+    v1ClipSpace.x < -1.5 || v1ClipSpace.x > 1.5 || v1ClipSpace.y < -1.5 || v1ClipSpace.y > 1.5;
     if (v0OutFrustum && v1OutFrustum) return;
 
     // Distance culling
@@ -106,7 +104,7 @@ void main() {
     vec3 r = (v0 + up * height - v2) * stiffness;
 
     //  Wind
-    vec3 windForce = 0.75 * wind_magnitude *
+    vec3 windForce = 0.6 * wind_magnitude *
     vec3(
     sin(current_time * 3. / wind_wave_period + v0.x * 0.1 * 11 / wind_wave_length),
     0,

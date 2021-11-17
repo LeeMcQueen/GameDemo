@@ -55,13 +55,13 @@ namespace {
 				std::int32_t r = _image[addr];
 				std::int32_t g = _image[addr + 1];
 				std::int32_t b = _image[addr + 2];
-				float height1 = (r << 16) + (g << 8) + b;
-				height1 /= (256 * 256 * 256 / 2);
-				height1 -= 1.0;
-				height1 *= 40;
+				float tempHeight = (r << 16) + (g << 8) + b;
+				tempHeight /= (256 * 256 * 256 / 2);
+				tempHeight -= 1.0;
+				tempHeight *= 40;
 
 				blades.emplace_back(
-					glm::vec4(x, height1, y, orientation_dis(gen)),
+					glm::vec4(x, tempHeight, y, orientation_dis(gen)),
 					glm::vec4(x, blade_height, y, blade_height),
 					glm::vec4(x, blade_height, y, 1.0f),
 					glm::vec4(0, blade_height, 0, 0.7f + dis(gen) * 0.3f));

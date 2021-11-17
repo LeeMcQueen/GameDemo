@@ -7,18 +7,24 @@ layout(set = 0, binding = 0) uniform CameraBufferObject {
     mat4 proj;
 } camera;
 
+layout(set = 0, binding = 4) uniform LightCameraBufferObject {
+	mat4 view;
+	mat4 proj;
+}lightCamera;
+
 patch in TESC_OUT
 {
-  vec4 v1;
-  vec4 v2;
-  vec4 up;
-  vec4 dir;
+	vec4 v1;
+	vec4 v2;
+	vec4 up;
+	vec4 dir;
 } tese_in;
 
 out TESE_OUT
 {
-  vec3 normal;
-  vec2 uv;
+	vec4 fragPosLightSpace;
+	vec3 normal;
+	vec2 uv;
 } tese_out;
 
 void main() {
@@ -45,6 +51,9 @@ void main() {
   
   tese_out.uv = vec2(u, v);
   tese_out.normal = normalize(cross(t0, t1));
+
+  mat4 grassesLightVPMatrix = lightCamera.view * lightCamera.proj;
+  tese_out.fragPosLightSpace = grassesLightVPMatrix * vec4(p, 1.0);
 
   gl_Position = camera.proj * camera.view * vec4(p, 1.0);
 }
