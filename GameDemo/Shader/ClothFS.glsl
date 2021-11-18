@@ -29,6 +29,7 @@ void main()
     color = texture(uniTex, texCoord);
     vec3 objectColor = vec3(color.x, color.y, color.z);
 
+	vec3 emission;
 	emission = (sin(time) / 2.0 + 0.5) * texture(emissionTex, texCoord + vec2(0.0, time)).rgb;
 
     vec3 result = (ambient + diffuse + emission) * objectColor;
