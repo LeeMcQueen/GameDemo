@@ -8,9 +8,11 @@ in vec3 normal;
 
 // Texture Sampler
 uniform sampler2D uniTex;
+uniform sampler2D emissionTex;
 
 uniform vec3 uniLightPos;
 uniform vec3 uniLightColor;
+uniform float time;
 
 void main()
 {
@@ -26,6 +28,9 @@ void main()
     // texture() will output the color obtained by sampling the texture with configured conditions
     color = texture(uniTex, texCoord);
     vec3 objectColor = vec3(color.x, color.y, color.z);
-    vec3 result = (ambient + diffuse) * objectColor;
+
+	emission = (sin(time) / 2.0 + 0.5) * texture(emissionTex, texCoord + vec2(0.0, time)).rgb;
+
+    vec3 result = (ambient + diffuse + emission) * objectColor;
     color = vec4(result, 1.0f);
 }

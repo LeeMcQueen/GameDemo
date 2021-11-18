@@ -13,9 +13,10 @@
 #include "Rigid.h"
 #include "Program.h"
 #include "std_image.h"
-
 #include "camera.h"
+#include "Loader.h"
 #include "masterRenderer.h"
+#include "DisplayManager.h"
 
 struct ClothCamera
 {
@@ -50,6 +51,8 @@ ClothLight sun;
 struct ClothRender // Texture & Lighting
 {
 	const Cloth* cloth;
+	Loader loader;
+	DisplayManager displayManager;
 	int nodeCount; // Number of all nodes in faces
 
 	glm::vec3 *vboPos; // 顶点
@@ -60,6 +63,8 @@ struct ClothRender // Texture & Lighting
 	GLuint vaoID;
 	GLuint vboIDs[3];
 	GLuint texID;
+	GLuint emissionTexID;
+	float time;
 
 	GLint aPtrPos;
 	GLint aPtrTex;
@@ -119,35 +124,14 @@ struct ClothRender // Texture & Lighting
 		glEnableVertexAttribArray(aPtrNor);
 
 		/** Load texture **/
-		// Assign texture ID and gengeration
-		glGenTextures(1, &texID);
-		glBindTexture(GL_TEXTURE_2D, texID);
-		// Set the texture wrapping parameters (for 2D tex: S, T)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set texture filtering parameters (Minify, Magnify)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		/** Load image and configure texture **/
-		stbi_set_flip_vertically_on_load(true);
-		int texW, texH, colorChannels; // After loading the image, stb_image will fill them
-		//布料模拟纹理
-		unsigned char *data = stbi_load("res/box.png", &texW, &texH, &colorChannels, 0);
-		if (data) {
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texW, texH, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-			// Automatically generate all the required mipmaps for the currently bound texture.
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else {
-			cout << "Failed to load texture" << endl;
-		}
-		// Always free image memory
-		stbi_image_free(data);
+		texID = loader.loadTexture("box");
+		emissionTexID = loader.loadTexture("lightbox");
 
 		/** Set uniform **/
 		glUseProgram(programID); // Active shader before set uniform
 		// 加载纹理
 		glUniform1i(glGetUniformLocation(programID, "uniTex"), 0);
+		glUniform1i(glGetUniformLocation(programID, "emissionTex"), 1);
 
 		/** 投影矩阵 : 矩形的投影矩阵 **/
 		// Since projection matrix rarely changes, set it outside the rendering loop for only onec time
@@ -204,6 +188,11 @@ struct ClothRender // Texture & Lighting
 		/** Bind texture **/
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texID);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, emissionTexID);
+
+		time = displayManager.getCurrentFrameTime();
+		glUniform1f(glGetUniformLocation(programID, "time"), time);
 
 		/** View Matrix : The camera **/
 		glUniformMatrix4fv(glGetUniformLocation(programID, "uniViewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));

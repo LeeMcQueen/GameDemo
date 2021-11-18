@@ -31,9 +31,9 @@ d:\opengl\demo\gamedemo\gamedemo\Cloth.h(180): warning C4018: “<”: 有符号
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(185): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(194): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(214): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(238): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(243): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(244): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(234): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(239): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
 d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
 main.cpp(257): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
