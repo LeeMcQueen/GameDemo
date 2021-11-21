@@ -237,7 +237,7 @@ Vec3 windStartPos;
 Vec3 windDir;
 Vec3 wind;
 //布料变数
-Vec3 clothPos(100, 33, 100);
+Vec3 clothPos(100, 30, 100);
 Vec2 clothSize(3, 4);
 Cloth cloth(clothPos, clothSize);
 //TODO
@@ -580,7 +580,7 @@ int main() {
 #pragma endregion
 
 	//主角控制
-	Player player(glm::vec3(100.0f, 0.0f, 100.0f), glm::vec3(-90.0f, 0.0f, 180.0f), glm::vec3(8.0f, 8.0f, 8.0f));
+	Player player(glm::vec3(100.0f, 0.0f, 110.0f), glm::vec3(-90.0f, 0.0f, 180.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
 	Camera camera;
 	//水面FBOs
@@ -599,9 +599,9 @@ int main() {
 	GuiRenderer guiRenderer(guiShader, loader);
 
 	//加载主角模型顶点信息
-	RawModel model = objloader.loadObjModel("person");
+	RawModel model = objloader.loadObjModel("boulder");
 	//使用纹理文件名加载纹理
-	ModelTexture texture(loader.loadTexture("playerTexture"));
+	ModelTexture texture(loader.loadTexture("boulder"));
 	texture.setShineDamer(100.0f);
 	texture.setReflectivity(1.0f);
 	TexturedModel texturedModel(model, texture);
@@ -610,10 +610,10 @@ int main() {
 	TexturedModel treeModel = TexturedModel(OBJLoader::loadObjModel("tree"), ModelTexture(loader.loadTexture("tree"), true, false));
 
 	//加载模型
-	Entity entity(texturedModel, glm::vec3(30, 0, 5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(30, 0, 100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	Entity fern(fernModel, glm::vec3(40, 0, 10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Entity tree(treeModel, glm::vec3(80, 0, 50), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
-	Entity underTree(treeModel, glm::vec3(80, -35, 80), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
+	Entity tree(treeModel, glm::vec3(40, 0, 60), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
+	Entity underTree(treeModel, glm::vec3(45, -35, 70), glm::vec3(0, 0, 0), glm::vec3(10, 10, 10));
 
 	//加载灯光
 	Light light(glm::vec3(400, 400, 200), glm::vec3(1, 1, 1));
@@ -722,33 +722,6 @@ int main() {
 		glUniform1f(timeLocation, idleStartTime);
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 		#pragma endregion
-		#pragma region 草地主循环
-				//草地渲染时间
-				const auto current_time = std::chrono::steady_clock::now();
-				deltaTime = current_time - lastFrame;
-				lastFrame = current_time;
-				//草地的观察矩阵&投影矩阵
-				glm::mat4 grassViewMatrix = camera.getViewMatrix();
-				glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix(true);
-
-				glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
-				glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
-				glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
-				glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
-
-				glm::mat4 lightViewMatrix = shadowMapCamera.getViewMatrix();
-				glm::mat4 lightProjectionMatrix = masterRenderer.getProjectionMatrix(false);
-
-				glBindBufferBase(GL_UNIFORM_BUFFER, 4, lightCameraUniformBuffer);
-				glBindBuffer(GL_UNIFORM_BUFFER, lightCameraUniformBuffer);
-				glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &lightViewMatrix);
-				glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &lightProjectionMatrix);
-
-				//草地更新
-				grasses.update(deltaTime, shadowFrameBuffer);
-				//草地渲染
-				grasses.render();
-		#pragma endregion
 		shadowFrameBuffer.unbindShadowFrameBuffer();
 
 		glEnable(GL_CLIP_DISTANCE0);
@@ -776,11 +749,21 @@ int main() {
 		guiRenderer.render(guiTextures);
 
 #pragma region 草地主循环
+		//草地渲染时间
+		const auto current_time = std::chrono::steady_clock::now();
+		deltaTime = current_time - lastFrame;
+		lastFrame = current_time;
+		//草地的观察矩阵&投影矩阵
+		glm::mat4 grassViewMatrix = camera.getViewMatrix();
+		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix(true);
 
 		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
 		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
+
+		glm::mat4 lightViewMatrix = shadowMapCamera.getViewMatrix();
+		glm::mat4 lightProjectionMatrix = masterRenderer.getProjectionMatrix(false);
 
 		glBindBufferBase(GL_UNIFORM_BUFFER, 4, lightCameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, lightCameraUniformBuffer);
@@ -804,7 +787,7 @@ int main() {
 		for (int i = 0; i < cloth.iterationFreq; i++) {
 			cloth.computeForce(TIME_STEP, gravity);
 			cloth.integrate(AIR_FRICTION, TIME_STEP);
-			Vec3 ballPos(player.getPosition().x, player.getPosition().y+5, player.getPosition().z);
+			Vec3 ballPos(player.getPosition().x, player.getPosition().y + 2, player.getPosition().z);
 			cloth.collisionResponse(ballPos);
 			//cloth.addForce(normalForce);
 		}
