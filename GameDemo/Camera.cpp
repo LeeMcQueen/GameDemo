@@ -14,7 +14,7 @@ float TURN_SPEED = 5.0f;
 Camera::Camera()
 	:position_(glm::vec3(0.0f, 20.0f, 70.0f)),
 	rotation_(glm::vec3(45.0f, 0.0f, 0.0f)),
-	viewDirection_(glm::vec3(0.0f, 30.0f, 40.0f)),
+	viewDirection_(glm::vec3(40.0f, 30.0f, 0.0f)),
 	distanceFromPlayer_(50.0f),
 	angleAroundPlayer_(0.0f) {};
 

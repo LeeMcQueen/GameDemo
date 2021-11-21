@@ -92,7 +92,7 @@ public:
 		for (int j = 0; j < nodesPerCol; j++) {
 			for (int i = 0; i < nodesPerRow; i++) {
 				/** Create node by position **/
-				Node* node = new Node(Vec3((double)i / nodesDensity * 5, (double)j / nodesDensity * 5, 0));
+				Node* node = new Node(Vec3(0, (double)j / nodesDensity * 5, (double)i / nodesDensity * 5));
 				/** Set texture coordinates **/
 				node->texCoord.x = (double)j / (nodesPerRow - 1);
 				node->texCoord.y = (double)i / (1 - nodesPerCol);

@@ -722,6 +722,33 @@ int main() {
 		glUniform1f(timeLocation, idleStartTime);
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 		#pragma endregion
+		#pragma region 草地主循环
+				//草地渲染时间
+				const auto current_time = std::chrono::steady_clock::now();
+				deltaTime = current_time - lastFrame;
+				lastFrame = current_time;
+				//草地的观察矩阵&投影矩阵
+				glm::mat4 grassViewMatrix = camera.getViewMatrix();
+				glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix(true);
+
+				glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
+				glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
+				glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
+				glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
+
+				glm::mat4 lightViewMatrix = shadowMapCamera.getViewMatrix();
+				glm::mat4 lightProjectionMatrix = masterRenderer.getProjectionMatrix(false);
+
+				glBindBufferBase(GL_UNIFORM_BUFFER, 4, lightCameraUniformBuffer);
+				glBindBuffer(GL_UNIFORM_BUFFER, lightCameraUniformBuffer);
+				glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &lightViewMatrix);
+				glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &lightProjectionMatrix);
+
+				//草地更新
+				grasses.update(deltaTime, shadowFrameBuffer);
+				//草地渲染
+				grasses.render();
+		#pragma endregion
 		shadowFrameBuffer.unbindShadowFrameBuffer();
 
 		glEnable(GL_CLIP_DISTANCE0);
@@ -749,21 +776,11 @@ int main() {
 		guiRenderer.render(guiTextures);
 
 #pragma region 草地主循环
-		//草地渲染时间
-		const auto current_time = std::chrono::steady_clock::now();
-		deltaTime = current_time - lastFrame;
-		lastFrame = current_time;
-		//草地的观察矩阵&投影矩阵
-		glm::mat4 grassViewMatrix = camera.getViewMatrix();
-		glm::mat4 grassProjectionMatrix = masterRenderer.getProjectionMatrix(true);
 
 		glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, cameraUniformBuffer);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, &grassViewMatrix);
 		glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, &grassProjectionMatrix);
-
-		glm::mat4 lightViewMatrix = shadowMapCamera.getViewMatrix();
-		glm::mat4 lightProjectionMatrix = masterRenderer.getProjectionMatrix(false);
 
 		glBindBufferBase(GL_UNIFORM_BUFFER, 4, lightCameraUniformBuffer);
 		glBindBuffer(GL_UNIFORM_BUFFER, lightCameraUniformBuffer);
