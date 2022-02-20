@@ -74,13 +74,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;$(KINECTSDK20_DIR)inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;$(KINECTSDK20_DIR)Lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;Kinect20.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -89,13 +89,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;$(KINECTSDK20_DIR)inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;$(KINECTSDK20_DIR)Lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;Kinect20.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -106,15 +106,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;$(KINECTSDK20_DIR)inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;$(KINECTSDK20_DIR)Lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;Kinect20.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,15 +124,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\OpenGL安装包\Assimp\include;D:\OpenGL安装包\glew-2.1.0\include;D:\OpenGL安装包\glm;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include;$(KINECTSDK20_DIR)inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\OpenGL安装包\Assimp\lib;D:\OpenGL安装包\glew-2.1.0\lib;D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\lib-vc2015;$(KINECTSDK20_DIR)Lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc140-mtd.lib;Kinect20.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

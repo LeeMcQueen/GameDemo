@@ -52,34 +52,36 @@ d:\opengl\demo\gamedemo\gamedemo\Rigid.h(76): warning C4018: “<”: 有符号/
 d:\opengl\demo\gamedemo\gamedemo\Rigid.h(101): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Rigid.h(106): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Rigid.h(117): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(39): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(40): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(45): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(64): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(65): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(47): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(52): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(53): warning C4018: “<”: 有符号/无符号不匹配
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(71): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(140): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(144): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(157): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(164): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(173): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(178): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(187): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(205): warning C4018: “<”: 有符号/无符号不匹配
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(236): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(72): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(78): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(148): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(152): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(165): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(172): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(181): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(186): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(195): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(215): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(235): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(241): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
 d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
-main.cpp(261): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(268): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(281): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(285): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(286): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(289): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(290): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(293): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(294): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(313): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(259): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(266): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(279): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(283): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(284): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(287): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(288): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(292): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(293): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(312): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(599): warning C4101: “objloader”: 未引用的局部变量
   MasterRenderer.cpp
 d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
@@ -131,9 +133,9 @@ WaterTile.cpp(44): warning C4244: “初始化”: 从“float”转换到“int
     正在创建库 D:\openGL\demo\GameDemo\Release\GameDemo.lib 和对象 D:\openGL\demo\GameDemo\Release\GameDemo.exp
 LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  3433 of 3756 functions (91.4%) were compiled, the rest were copied from previous compilation.
-    2331 functions were new in current compilation
-    16 functions had inline decision re-evaluated but remain unchanged
+  0 of 3641 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    39 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
 Grasses.obj : warning LNK4049: 已导入本地定义的符号 ___glewMemoryBarrier
 Grasses.obj : warning LNK4049: 已导入本地定义的符号 ___glewPatchParameteri

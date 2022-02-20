@@ -108,15 +108,15 @@ GLuint Loader::loadTexture(const char *fileName) {
 
 	//Load image using lodepng
 	error = lodepng_decode32_file(&image, &width, &height, ("res/" + string(fileName) + ".png").c_str());
-	//check load image
+	//纹理读取检测
 	if (error) {
 		cerr << "ERROR: [TextureLoader::loadTexture] Cannot load texture" << fileName << "!" << endl;
 		exit(-1);
 	}
 
-	cerr << "INFO: [TextureLoader::loadTexture] x:" << width << "!" << endl;
-	cerr << "INFO: [TextureLoader::loadTexture] y:" << height << "!" << endl;
-	cerr << "INFO: [TextureLoader::loadTexture] texture:" << fileName << "!" << endl;
+	//cerr << "info: [textureloader::loadtexture] x:" << width << "!" << endl;
+	//cerr << "info: [textureloader::loadtexture] y:" << height << "!" << endl;
+	//cerr << "info: [textureloader::loadtexture] texture:" << fileName << "!" << endl;
 
 	//纹理贴图标识
 	GLuint texture[1];

@@ -15,6 +15,7 @@
 #include <gtc/type_ptr.hpp>
 #include <unordered_map>
 #include <windows.h>
+#include <Kinect.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
@@ -88,6 +89,7 @@ const char* vertexShaderSource = R"(
 		bw = vec4(0);
 		if(int(boneIds.x) == 1)
 		bw.z = boneIds.x;
+
 		mat4 boneTransform  =  mat4(0.0);
 		boneTransform += bone_transforms[int(boneIds.x)] * boneWeights.x;
 		boneTransform += bone_transforms[int(boneIds.y)] * boneWeights.y;
@@ -222,7 +224,7 @@ const char* fragmentShaderSource = R"(
 		out_Colour = vec4(dCol + emissionTexture + directLighting, 1.0f);
 
 		vec4 reflectedColour = texture(enviroMap, reflectedVector);
-		out_Colour = mix(out_Colour, reflectedColour, 0.2);
+		out_Colour = mix(out_Colour, reflectedColour, 0.4);
 	}
 	)";
 #pragma endregion
@@ -284,6 +286,7 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 		}
 		for (int j = 0; j < channel->mNumRotationKeys; j++) {
 			track.rotationTimestamps_.push_back(channel->mRotationKeys[j].mTime);
+			//track.rotations_.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
 			track.rotations_.push_back(assimpToGlmQuat(channel->mRotationKeys[j].mValue));
 		}
 		for (int j = 0; j < channel->mNumScalingKeys; j++) {
@@ -395,7 +398,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	/* 多重动画修复 */
 	if (boneTransformTrack.getPositions().size() == 0 || boneTransformTrack.getRotations().size() == 0 || boneTransformTrack.getScales().size() == 0)
 		return;
-	//std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
+	std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
 	/* 多重动画修复 */
 
 	//余数
@@ -501,6 +504,7 @@ int main() {
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
+	//动画功能加载
 	loadAnimation(scene, animation);
 
 	unsigned int vao = 0;
@@ -633,9 +637,9 @@ int main() {
 
 	//Gui列表
 	std::vector<GuiTexture> guiTextures;
-	//GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.2, 0.2));
-	//GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.2, 0.2));
-	//GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.2, 0.2));
+	//GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.7, 0.7));
+	//GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
+	//GuiTexture refraction = GuiTexture(fbos.getRefractionTexture(), glm::vec2(1, 1), glm::vec2(0.7, 0.7));
 	//guiTextures.push_back(shadow);
 	//guiTextures.push_back(reflection);
 	//guiTextures.push_back(refraction);
@@ -659,7 +663,7 @@ int main() {
 		shadowMapCamera.setviewDirection(glm::vec3(400.0f, 400.0f, 200.0f));
 		glm::mat4 terrainLightViewMatrix = shadowMapCamera.getViewMatrix();
 		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
-		#pragma region 骨骼动画主循环
+		#pragma region 阴影用骨骼动画主循环
 		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
@@ -807,6 +811,8 @@ int main() {
 
 		//骨骼动画控制
 		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
+
+			//跑步动画是865-888 超过范围返回865
 			RunStartTime = RunStartTime + displayManager.getDeltaTime();
 			if (RunStartTime > RunEndTime)
 				RunStartTime = 865.0f;
@@ -814,10 +820,14 @@ int main() {
 			getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 		}
 		else {
+			//待机动画805-856 如果超过就返回805
 			if (idleStartTime > idleEndTime)
 				idleStartTime = 805.0f;
-			//std::cout << RUNelapsedTime << std::endl;
+			std::cout << idleStartTime << std::endl;
 			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+
+			std::cout << "Duration:" << animation.getDuration() << std::endl;
+			//std::cout << animation.getTicksperSecond().begin() << std::endl;
 		}
 
 		//骨骼动画shader传值

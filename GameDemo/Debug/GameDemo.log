@@ -47,5 +47,48 @@ main.cpp(289): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(290): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(309): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(595): warning C4101: “objloader”: 未引用的局部变量
+    ﾕﾔﾚｴｴｽｨｿ・D:\openGL\demo\GameDemo\Debug\GameDemo.lib ｺﾍｶﾔﾏ・D:\openGL\demo\GameDemo\Debug\GameDemo.exp
+LINK : warning LNK4098: ﾄｬﾈﾏｿ筍ｰMSVCRT｡ｱﾓ・萢釤箏ﾄﾊｹﾓﾃｳ袁ｻ｣ｻﾇ・ｹﾓﾃ /NODEFAULTLIB:library
+LINK : warning LNK4098: ﾄｬﾈﾏｿ筍ｰLIBCMT｡ｱﾓ・萢釤箏ﾄﾊｹﾓﾃｳ袁ｻ｣ｻﾇ・ｹﾓﾃ /NODEFAULTLIB:library
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewActiveTexture
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewActiveTexture
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewActiveTexture
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewActiveTexture
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBindBuffer
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBufferData
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewGenBuffers
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewEnableVertexAttribArray
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewEnableVertexAttribArray
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewEnableVertexAttribArray
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewEnableVertexAttribArray
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewGetUniformLocation
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewUniform1f
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewUniform1i
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewUseProgram
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewUseProgram
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewUseProgram
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewUseProgram
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewVertexAttribPointer
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewDispatchCompute
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewDrawArraysIndirect
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewMemoryBarrier
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewPatchParameteri
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBindBufferBase
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBindVertexArray
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBindVertexArray
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBindVertexArray
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewBindVertexArray
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewGenVertexArrays
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewAttachShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewCompileShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewCreateProgram
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewCreateShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewDeleteShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewLinkProgram
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewShaderSource
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewDisableVertexAttribArray
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewDisableVertexAttribArray
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ ___glewDisableVertexAttribArray
+glew32s.lib(glew.obj) : warning LNK4099: ﾎｴﾕﾒｵｽ PDB｡ｰvc120.pdb｡ｱ(ﾊｹﾓﾃ｡ｰglew32s.lib(glew.obj)｡ｱｻﾚ｡ｰD:\openGL\demo\GameDemo\Debug\vc120.pdb｡ｱﾖﾐﾑｰﾕﾒ)｣ｻﾕﾔﾚﾁｴｽﾓｶﾔﾏｬﾈ醢ｬﾃｻﾓﾐｵﾔﾐﾅﾏ｢ﾒｻﾑ・
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\Debug\GameDemo.pdb (Full PDB)
