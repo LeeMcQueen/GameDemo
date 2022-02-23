@@ -15,7 +15,7 @@
 #include <gtc/type_ptr.hpp>
 #include <unordered_map>
 #include <windows.h>
-#include <Kinect.h>
+//#include <Kinect.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
@@ -324,11 +324,11 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 						outTrack.setScale(item.getScales());
 					}
 				}
-				std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
+				//std::cout << "loadAnimation() animation FBX=" << assimpFbxStr << std::endl;
 				animation.boneTransforms_[assimpFbxStr] = outTrack;
 			}
 			animation.boneTransforms_[channel->mNodeName.C_Str()] = track;
-			std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
+			//std::cout << "loadAnimation() animation = " << channel->mNodeName.C_Str() << std::endl;
 			/* 多重动画修复 */
 		}
 	}
@@ -398,7 +398,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	/* 多重动画修复 */
 	if (boneTransformTrack.getPositions().size() == 0 || boneTransformTrack.getRotations().size() == 0 || boneTransformTrack.getScales().size() == 0)
 		return;
-	std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
+	//std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
 	/* 多重动画修复 */
 
 	//余数
@@ -506,6 +506,9 @@ int main() {
 	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
 	//动画功能加载
 	loadAnimation(scene, animation);
+
+	//Kinect传感器变量
+	//IKinectSensor* m_sensor = nullptr;
 
 	unsigned int vao = 0;
 	//图片初始化
@@ -653,6 +656,12 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
+		//
+		//if (GetDefaultKinectSensor(&m_sensor) == S_OK)
+		//{
+		//	cout << "Get Sensor OK" << endl;
+		//}
+
 		player.move(terrain);
 		camera.move(player.getPosition(), player.getRotation());
 
@@ -823,10 +832,10 @@ int main() {
 			//待机动画805-856 如果超过就返回805
 			if (idleStartTime > idleEndTime)
 				idleStartTime = 805.0f;
-			std::cout << idleStartTime << std::endl;
+			//std::cout << idleStartTime << std::endl;
 			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
 
-			std::cout << "Duration:" << animation.getDuration() << std::endl;
+			//std::cout << "Duration:" << animation.getDuration() << std::endl;
 			//std::cout << animation.getTicksperSecond().begin() << std::endl;
 		}
 
