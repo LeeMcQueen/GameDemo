@@ -1,59 +1,7 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  AnimaModelLoader.cpp
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(186): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(194): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(210): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(216): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(219): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(223): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(224): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-AnimaModelLoader.cpp(227): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(228): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-AnimaModelLoader.cpp(232): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(233): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-  Camera.cpp
-Camera.cpp(37): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(41): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(45): warning C4305: “-=”: 从“double”到“float”截断
-Camera.cpp(49): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(72): warning C4305: “+=”: 从“double”到“float”截断
-Camera.cpp(76): warning C4305: “-=”: 从“double”到“float”截断
-  DisplayManager.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  Entity.cpp
-  Grasses.cpp
-d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
-Grasses.cpp(43): warning C4305: “参数”: 从“double”到“float”截断
-Grasses.cpp(58): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
-  GrassesShader.cpp
-d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
-  GuiRenderer.cpp
-  GuiShader.cpp
-  Loader.cpp
-Loader.cpp(17): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-Loader.cpp(19): warning C4267: “参数”: 从“size_t”转换到“GLuint”，可能丢失数据
-Loader.cpp(31): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-Loader.cpp(34): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-Loader.cpp(35): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-Loader.cpp(36): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-  lodepng.cpp
-lodepng.cpp(798): warning C4334: “<<”: 32 位移位的结果被隐式转换为 64 位(是否希望进行 64 位移位?)
-lodepng.cpp(1460): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-lodepng.cpp(1464): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-lodepng.cpp(1536): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
-lodepng.cpp(3480): warning C4334: “<<”: 32 位移位的结果被隐式转换为 64 位(是否希望进行 64 位移位?)
-lodepng.cpp(3494): warning C4267: “参数”: 从“size_t”转换到“unsigned int”，可能丢失数据
-lodepng.cpp(4334): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
-lodepng.cpp(4382): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
-lodepng.cpp(4462): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
-lodepng.cpp(5405): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
   main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
-  D:\OpenGL安装包\glfw-3.3.2.bin.WIN32\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
+  D:\OpenGL安装包\glfw-3.3.6.bin.WIN64\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
 d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
@@ -81,98 +29,8 @@ main.cpp(287): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(288): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(292): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(293): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(736): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
-main.cpp(880): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
-main.cpp(602): warning C4101: “objloader”: 未引用的局部变量
-  MasterRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  Maths.cpp
-  OBJLoader.cpp
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-OBJLoader.cpp(27): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const std::string”
-  EntityRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
-  Player.cpp
-  RawModel.cpp
-  ShaderProgram.cpp
-ShaderProgram.cpp(63): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-  ShadowFrameBuffer.cpp
-  SkyboxRenderer.cpp
-  正在生成代码...
-  正在编译...
-  SkyboxShader.cpp
-  StaticShader.cpp
-  Terrain.cpp
-Terrain.cpp(10): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
-Terrain.cpp(19): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
-Terrain.cpp(21): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(24): warning C4244: “参数”: 从“float”转换到“unsigned __int64”，可能丢失数据
-Terrain.cpp(27): warning C4244: “参数”: 从“float”转换到“unsigned __int64”，可能丢失数据
-Terrain.cpp(29): warning C4244: “参数”: 从“float”转换到“unsigned __int64”，可能丢失数据
-Terrain.cpp(59): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(61): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-Terrain.cpp(80): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
-Terrain.cpp(115): warning C4101: “maths”: 未引用的局部变量
-  TerrainRenderer.cpp
-  TerrainShader.cpp
-  TexturedModel.cpp
-  WaterFrameBuffers.cpp
-  WaterRenderer.cpp
-d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
-WaterRenderer.cpp(33): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-  WaterShader.cpp
-  WaterTile.cpp
-WaterTile.cpp(15): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-WaterTile.cpp(19): warning C4244: “参数”: 从“float”转换到“unsigned __int64”，可能丢失数据
-WaterTile.cpp(42): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-WaterTile.cpp(44): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-  正在生成代码...
-LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
-LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewActiveTexture
-GuiRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewActiveTexture
-SkyboxRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewActiveTexture
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewActiveTexture
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBindBuffer
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBufferData
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGenBuffers
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewEnableVertexAttribArray
-GuiRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewEnableVertexAttribArray
-SkyboxRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewEnableVertexAttribArray
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewEnableVertexAttribArray
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGetUniformLocation
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewUniform1f
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewUniform1i
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewUseProgram
-GuiRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewUseProgram
-SkyboxRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewUseProgram
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewUseProgram
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewVertexAttribPointer
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewDispatchCompute
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewDrawArraysIndirect
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewMemoryBarrier
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewPatchParameteri
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBindBufferBase
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBindVertexArray
-GuiRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewBindVertexArray
-SkyboxRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewBindVertexArray
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewBindVertexArray
-Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGenVertexArrays
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewAttachShader
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewCompileShader
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewCreateProgram
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewCreateShader
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewDeleteShader
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewLinkProgram
-GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewShaderSource
-GuiRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewDisableVertexAttribArray
-SkyboxRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewDisableVertexAttribArray
-TerrainRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewDisableVertexAttribArray
-glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\x64\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+main.cpp(739): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(883): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(610): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.pdb (Full PDB)

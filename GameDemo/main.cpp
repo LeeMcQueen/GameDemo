@@ -15,7 +15,7 @@
 #include <gtc/type_ptr.hpp>
 #include <unordered_map>
 #include <windows.h>
-//#include <Kinect.h>
+#include <Kinect.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "std_image.h"
@@ -47,9 +47,9 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 
-extern "C" {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-}
+//extern "C" {
+//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+//}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -500,6 +500,15 @@ int main() {
 	float idleStartTime = 805.0f;
 	float idleEndTime = 856.0f;
 
+	//Kinect传感器变量
+	IKinectSensor* m_sensor = nullptr;
+
+	//判断Kinect传感器是否链接
+	if (GetDefaultKinectSensor(&m_sensor) == S_OK)
+	{
+		cout << "Get Sensor OK" << endl;
+	}
+
 	animaModelLoader.loadAssimpScene("res/warhummer.FBX");
 
 	Assimp::Importer importer;
@@ -507,8 +516,7 @@ int main() {
 	//动画功能加载
 	loadAnimation(scene, animation);
 
-	//Kinect传感器变量
-	//IKinectSensor* m_sensor = nullptr;
+
 
 	unsigned int vao = 0;
 	//图片初始化
@@ -656,11 +664,6 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		//
-		//if (GetDefaultKinectSensor(&m_sensor) == S_OK)
-		//{
-		//	cout << "Get Sensor OK" << endl;
-		//}
 
 		player.move(terrain);
 		camera.move(player.getPosition(), player.getRotation());
