@@ -47,9 +47,9 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 #define AIR_FRICTION 0.02
 #define TIME_STEP 0.01
@@ -501,22 +501,37 @@ int main() {
 	float idleEndTime = 856.0f;
 
 	//Kinect传感器变量
-	IKinectSensor* m_sensor = nullptr;
-
+	IKinectSensor* pSensor = nullptr;
+	IBodyFrameSource* pFrameSource = nullptr;
+	INT32 iBodyCount = 0;
+	cout << " > Can trace " << iBodyCount << " bodies" << endl;
+	IBody** aBody = new IBody * [iBodyCount];
+	cout << "Try to get body frame reader" << endl;
+	IBodyFrameReader* pFrameReader = nullptr;
 	//判断Kinect传感器是否链接
-	if (GetDefaultKinectSensor(&m_sensor) == S_OK)
+	if (GetDefaultKinectSensor(&pSensor) != S_OK) {
+		std::cout << "Get Sensor failed" << std::endl;
+	}
+	if (pSensor->Open() != S_OK) {
+		std::cout << "Get Sensor failed" << std::endl;
+	}
+	if (pSensor->get_BodyFrameSource(&pFrameSource) != S_OK) {
+		cerr << "Can't get body frame source" << endl;
+	}
+	
+	for (int i = 0; i < iBodyCount; ++i)
+		aBody[i] = nullptr;
+	if (pFrameSource->OpenReader(&pFrameReader) != S_OK)
 	{
-		cout << "Get Sensor OK" << endl;
+		cerr << "Can't get body frame reader" << endl;
 	}
 
+	//Assimp读取动画FBX文件
 	animaModelLoader.loadAssimpScene("res/warhummer.FBX");
-
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("res/boss_lan.FBX", aiProcess_Triangulate);
 	//动画功能加载
 	loadAnimation(scene, animation);
-
-
 
 	unsigned int vao = 0;
 	//图片初始化
