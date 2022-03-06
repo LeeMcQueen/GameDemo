@@ -500,34 +500,6 @@ int main() {
 	float idleStartTime = 805.0f;
 	float idleEndTime = 856.0f;
 
-	//Kinect传感器变量
-	IKinectSensor* pSensor = nullptr;
-	IBodyFrameSource* pFrameSource = nullptr;
-	INT32 iBodyCount = 0;
-	cout << " > Can trace " << iBodyCount << " bodies" << endl;
-	IBody** aBody = new IBody * [iBodyCount];
-	cout << "Try to get body frame reader" << endl;
-	IBodyFrameReader* pFrameReader = nullptr;
-
-	//判断Kinect传感器是否链接
-	if (GetDefaultKinectSensor(&pSensor) != S_OK) {
-		std::cout << "Get Sensor failed" << std::endl;
-	}
-	if (pSensor->Open() != S_OK) {
-		std::cout << "Get Sensor failed" << std::endl;
-	}
-	if (pSensor->get_BodyFrameSource(&pFrameSource) != S_OK) {
-		cerr << "Can't get body frame source" << endl;
-	}
-	
-	for (int i = 0; i < iBodyCount; ++i)
-		aBody[i] = nullptr;
-
-	if (pFrameSource->OpenReader(&pFrameReader) != S_OK)
-	{
-		cerr << "Can't get body frame reader" << endl;
-	}
-
 	//Assimp读取动画FBX文件
 	animaModelLoader.loadAssimpScene("res/warhummer.FBX");
 	Assimp::Importer importer;
@@ -585,7 +557,46 @@ int main() {
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
 #pragma endregion
 
-#pragma region 草地
+#pragma region Kinect设定
+	//Kinect传感器变量
+	IKinectSensor* pSensor = nullptr;
+	//判断Kinect传感器是否链接
+	if (GetDefaultKinectSensor(&pSensor) != S_OK) {
+		std::cout << "Get Sensor failed" << std::endl;
+	}
+	//判断是否打开传感器
+	if (pSensor->Open() != S_OK) {
+		std::cout << "Get Sensor failed" << std::endl;
+	}
+
+	//人体骨架信息来源变量
+	IBodyFrameSource* pFrameSource = nullptr;
+	if (pSensor->get_BodyFrameSource(&pFrameSource) != S_OK) {
+		cerr << "Can't get body frame source" << endl;
+	}
+
+	//骨骼个数变量
+	INT32 iBodyCount = 0;
+	cout << "Can trace " << iBodyCount << " bodies" << endl;
+
+	//骨架数据
+	IBody** aBody = new IBody * [iBodyCount];
+	//骨骼数据初始化
+	for (int i = 0; i < iBodyCount; ++i)
+		aBody[i] = nullptr;
+
+	//构造体Render
+	cout << "Try to get body frame reader" << endl;
+	IBodyFrameReader* pFrameReader = nullptr;
+	if (pFrameSource->OpenReader(&pFrameReader) != S_OK) {
+		cerr << "Can't get body frame reader" << endl;
+	}
+
+	pFrameSource->Release();
+	pFrameSource = nullptr;
+#pragma endregion
+
+#pragma region 草地设定
 	//草地
 	Grasses grasses;
 	//计算shader插值ID
@@ -681,6 +692,24 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
+		#pragma region Kinect主循环
+
+		//得到最后的骨骼数组
+		IBodyFrame* pFrame = nullptr;
+		if (pFrameReader->AcquireLatestFrame(&pFrame) == S_OK) {
+		
+			if (pFrame->GetAndRefreshBodyData(iBodyCount, aBody) == S_OK) {
+				
+				int iTrackedBodyCount = 0;
+
+				for (int i = 0; i < iBodyCount; ++i) {
+					
+					IBody* pBody = aBody[i];
+				}
+			}
+		}
+
+		#pragma endregion
 
 		player.move(terrain);
 		camera.move(player.getPosition(), player.getRotation());

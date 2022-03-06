@@ -88,7 +88,7 @@ public:
 		pin2 = Vec2(nodesPerRow - 1, 0);
 
 		/** Add nodes **/
-		printf("Init cloth with %d nodes\n", nodesPerRow*nodesPerCol);
+		//printf("Init cloth with %d nodes\n", nodesPerRow*nodesPerCol);
 		for (int j = 0; j < nodesPerCol; j++) {
 			for (int i = 0; i < nodesPerRow; i++) {
 				/** Create node by position **/
