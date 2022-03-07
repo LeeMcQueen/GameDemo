@@ -1,3 +1,139 @@
-﻿LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+﻿  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
+  D:\OpenGL安装包\glfw-3.3.6.bin.WIN64\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(22): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(30): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(42): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(76): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(101): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(106): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(117): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(47): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(52): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(53): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(71): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(72): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(78): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(148): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(152): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(165): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(172): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(181): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(186): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(195): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(215): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(235): warning C4018: “<”: 有符号/无符号不匹配
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(241): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
+d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
+main.cpp(259): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(266): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(279): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(283): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(284): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(287): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(288): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(292): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(293): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(312): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(638): warning C4101: “objloader”: 未引用的局部变量
+    正在创建库 D:\openGL\demo\GameDemo\Release\GameDemo.lib 和对象 D:\openGL\demo\GameDemo\Release\GameDemo.exp
+AnimaModelLoader.obj : error LNK2001: 无法解析的外部符号 "public: char const * __thiscall Assimp::Importer::GetErrorString(void)const " (?GetErrorString@Importer@Assimp@@QBEPBDXZ)
+AnimaModelLoader.obj : error LNK2001: 无法解析的外部符号 "public: struct aiScene const * __thiscall Assimp::Importer::ReadFile(char const *,unsigned int)" (?ReadFile@Importer@Assimp@@QAEPBUaiScene@@PBDI@Z)
+AnimaModelLoader.obj : error LNK2001: 无法解析的外部符号 "public: __thiscall Assimp::Importer::~Importer(void)" (??1Importer@Assimp@@QAE@XZ)
+AnimaModelLoader.obj : error LNK2001: 无法解析的外部符号 "public: __thiscall Assimp::Importer::Importer(void)" (??0Importer@Assimp@@QAE@XZ)
+Camera.obj : error LNK2001: 无法解析的外部符号 _glfwGetKey
+Camera.obj : error LNK2001: 无法解析的外部符号 _glfwGetCurrentContext
+DisplayManager.obj : error LNK2001: 无法解析的外部符号 _glfwTerminate
+DisplayManager.obj : error LNK2001: 无法解析的外部符号 _glfwMakeContextCurrent
+DisplayManager.obj : error LNK2001: 无法解析的外部符号 _glewExperimental
+DisplayManager.obj : error LNK2001: 无法解析的外部符号 _glewInit@0
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewEnableVertexAttribArray
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewBindVertexArray
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewUseProgram
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewVertexAttribPointer
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewBindBuffer
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewDrawArraysIndirect
+Grasses.obj : error LNK2001: 无法解析的外部符号 _glfwGetTime
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewUniform1i
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewDispatchCompute
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewUniform1f
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewGetUniformLocation
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewBufferData
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewActiveTexture
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewGenVertexArrays
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewBindBufferBase
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewGenBuffers
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewPatchParameteri
+Grasses.obj : error LNK2001: 无法解析的外部符号 __imp____glewMemoryBarrier
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewCompileShader
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewCreateShader
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewCreateProgram
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewAttachShader
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewShaderSource
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewDeleteShader
+GrassesShader.obj : error LNK2001: 无法解析的外部符号 __imp____glewLinkProgram
+GuiRenderer.obj : error LNK2001: 无法解析的外部符号 __imp____glewDisableVertexAttribArray
+GuiShader.obj : error LNK2001: 无法解析的外部符号 ___glewValidateProgram
+GuiShader.obj : error LNK2001: 无法解析的外部符号 ___glewLinkProgram
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewBindVertexArray
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewVertexAttribPointer
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewBindBuffer
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewBufferData
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewGenVertexArrays
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewGenBuffers
+Loader.obj : error LNK2001: 无法解析的外部符号 ___glewGenerateMipmap
+main.obj : error LNK2001: 无法解析的外部符号 _glfwSwapBuffers
+main.obj : error LNK2001: 无法解析的外部符号 ___glewEnableVertexAttribArray
+main.obj : error LNK2001: 无法解析的外部符号 ___glewUseProgram
+main.obj : error LNK2001: 无法解析的外部符号 _glfwSetFramebufferSizeCallback
+main.obj : error LNK2001: 无法解析的外部符号 ___glewGetShaderiv
+main.obj : error LNK2001: 无法解析的外部符号 ___glewCompileShader
+main.obj : error LNK2001: 无法解析的外部符号 ___glewCreateShader
+main.obj : error LNK2001: 无法解析的外部符号 ___glewCreateProgram
+main.obj : error LNK2001: 无法解析的外部符号 ___glewUniform1i
+main.obj : error LNK2001: 无法解析的外部符号 ___glewGetShaderInfoLog
+main.obj : error LNK2001: 无法解析的外部符号 ___glewBufferSubData
+main.obj : error LNK2001: 无法解析的外部符号 ___glewGetProgramiv
+main.obj : error LNK2001: 无法解析的外部符号 _glfwPollEvents
+main.obj : error LNK2001: 无法解析的外部符号 _glfwInit
+main.obj : error LNK2001: 无法解析的外部符号 _glfwSetWindowShouldClose
+main.obj : error LNK2001: 无法解析的外部符号 ___glewUniform1f
+main.obj : error LNK2001: 无法解析的外部符号 _glfwCreateWindow
+main.obj : error LNK2001: 无法解析的外部符号 _glfwWindowHint
+main.obj : error LNK2001: 无法解析的外部符号 ___glewGetUniformLocation
+main.obj : error LNK2001: 无法解析的外部符号 ___glewAttachShader
+main.obj : error LNK2001: 无法解析的外部符号 ___glewActiveTexture
+main.obj : error LNK2001: 无法解析的外部符号 ___glewShaderSource
+main.obj : error LNK2001: 无法解析的外部符号 ___glewBindBufferBase
+main.obj : error LNK2001: 无法解析的外部符号 ___glewUniformMatrix4fv
+main.obj : error LNK2001: 无法解析的外部符号 ___glewDetachShader
+main.obj : error LNK2001: 无法解析的外部符号 ___glewGetProgramInfoLog
+main.obj : error LNK2001: 无法解析的外部符号 ___glewUniform3f
+main.obj : error LNK2001: 无法解析的外部符号 ___glewDeleteShader
+main.obj : error LNK2001: 无法解析的外部符号 _glfwWindowShouldClose
+main.obj : error LNK2001: 无法解析的外部符号 ___glewUniform3fv
 main.obj : error LNK2001: 无法解析的外部符号 _GetDefaultKinectSensor@4
-D:\openGL\demo\GameDemo\Release\GameDemo.exe : fatal error LNK1120: 1 个无法解析的外部命令
+EntityRenderer.obj : error LNK2001: 无法解析的外部符号 ___glewDisableVertexAttribArray
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 ___glewBindAttribLocation
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 ___glewDeleteProgram
+ShaderProgram.obj : error LNK2001: 无法解析的外部符号 ___glewUniform4f
+ShadowFrameBuffer.obj : error LNK2001: 无法解析的外部符号 ___glewFramebufferTexture
+ShadowFrameBuffer.obj : error LNK2001: 无法解析的外部符号 ___glewDeleteFramebuffers
+ShadowFrameBuffer.obj : error LNK2001: 无法解析的外部符号 ___glewGenFramebuffers
+ShadowFrameBuffer.obj : error LNK2001: 无法解析的外部符号 ___glewBindFramebuffer
+WaterFrameBuffers.obj : error LNK2001: 无法解析的外部符号 ___glewRenderbufferStorage
+WaterFrameBuffers.obj : error LNK2001: 无法解析的外部符号 ___glewDeleteRenderbuffers
+WaterFrameBuffers.obj : error LNK2001: 无法解析的外部符号 ___glewFramebufferRenderbuffer
+WaterFrameBuffers.obj : error LNK2001: 无法解析的外部符号 ___glewBindRenderbuffer
+WaterFrameBuffers.obj : error LNK2001: 无法解析的外部符号 ___glewGenRenderbuffers
+D:\openGL\demo\GameDemo\Release\GameDemo.exe : fatal error LNK1120: 89 个无法解析的外部命令

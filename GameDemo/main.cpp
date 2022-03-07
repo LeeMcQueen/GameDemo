@@ -577,6 +577,9 @@ int main() {
 
 	//骨骼个数变量
 	INT32 iBodyCount = 0;
+	if (pFrameSource->get_BodyCount(&iBodyCount) != S_OK){
+		cerr << "Can't get body count" << endl;
+	}
 	cout << "Can trace " << iBodyCount << " bodies" << endl;
 
 	//骨架数据
@@ -590,6 +593,9 @@ int main() {
 	IBodyFrameReader* pFrameReader = nullptr;
 	if (pFrameSource->OpenReader(&pFrameReader) != S_OK) {
 		cerr << "Can't get body frame reader" << endl;
+	}
+	else {
+		cerr << "Get body frame reader" << endl;
 	}
 
 	pFrameSource->Release();
@@ -694,19 +700,68 @@ int main() {
 	{
 		#pragma region Kinect主循环
 
-		//得到最后的骨骼数组
+		//骨骼数据变量
 		IBodyFrame* pFrame = nullptr;
 		if (pFrameReader->AcquireLatestFrame(&pFrame) == S_OK) {
 		
-			if (pFrame->GetAndRefreshBodyData(iBodyCount, aBody) == S_OK) {
+			if ( pFrame->GetAndRefreshBodyData(iBodyCount, aBody)== S_OK) {
 				
 				int iTrackedBodyCount = 0;
 
 				for (int i = 0; i < iBodyCount; ++i) {
 					
 					IBody* pBody = aBody[i];
+
+					BOOLEAN bTracked = false;
+					if ((pBody->get_IsTracked(&bTracked) == S_OK) && bTracked) {
+						
+						++iTrackedBodyCount;
+						cout << "User " << i << " is under tracking" << endl;
+
+						Joint aJoints[JointType::JointType_Count];
+						if (pBody->GetJoints(JointType::JointType_Count, aJoints) != S_OK)
+						{
+							cerr << "Get joints fail" << endl;
+						}
+
+						JointOrientation aOrientations[JointType::JointType_Count];
+						if (pBody->GetJointOrientations(JointType::JointType_Count, aOrientations) != S_OK)
+						{
+							cerr << "Get joints fail" << endl;
+						}
+
+						JointType eJointType = JointType::JointType_HandRight;
+						const Joint& rJointPos = aJoints[eJointType];
+						const JointOrientation& rJointOri = aOrientations[eJointType];
+
+						cout << " > Right Hand is ";
+						if (rJointPos.TrackingState == TrackingState_NotTracked)
+						{
+							cout << "not tracked" << endl;
+						}
+						else
+						{
+							if (rJointPos.TrackingState == TrackingState_Inferred)
+							{
+								cout << "inferred ";
+							}
+							else if (rJointPos.TrackingState == TrackingState_Tracked)
+							{
+								cout << "tracked ";
+							}
+
+							//cout << "at " << rJointPos.Position << ",\n\t orientation: " << rJointOri.Orientation << endl;
+						}
+					}
 				}
+				if (iTrackedBodyCount > 0)
+					cout << "Total " << iTrackedBodyCount << " bodies in this time\n" << endl;
+				
 			}
+			else{
+				cerr << "Can't read body data" << endl;
+			}
+			pFrame->Release();
 		}
 
 		#pragma endregion
@@ -767,7 +822,7 @@ int main() {
 		//glBindTexture(GL_TEXTURE_2D, albedoTexture);
 		//glUniform1i(albedoLocation, 2);
 		//glActiveTexture(GL_TEXTURE3);
-		//glBindTexture(GL_TEXTURE_2D, normalTexture);
+		//glBindTexture(GL_TEXTURE_2D, normalTexture);s
 		//glUniform1i(normalLocation, 3);
 		//glActiveTexture(GL_TEXTURE4);
 		//glBindTexture(GL_TEXTURE_2D, metallicTexture);
@@ -946,6 +1001,13 @@ int main() {
 	masterRendererOrtho.cleanUp();
 	fbos.cleanUp();
 	shadowFrameBuffer.cleanUp();
+
+	delete[] aBody;
+	pFrameReader->Release();
+	pFrameReader = nullptr;
+	pSensor->Close();
+	pSensor->Release();
+	pSensor = nullptr;
 
 	//销毁GLFW
 	glfwTerminate();
