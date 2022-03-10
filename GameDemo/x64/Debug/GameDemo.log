@@ -29,7 +29,7 @@ main.cpp(287): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(288): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(292): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(293): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(986): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(983): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
 main.cpp(644): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.pdb (Full PDB)

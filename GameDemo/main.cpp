@@ -704,59 +704,60 @@ int main() {
 		IBodyFrame* pFrame = nullptr;
 		if (pFrameReader->AcquireLatestFrame(&pFrame) == S_OK) {
 		
+			//得到骨骼数据
 			if ( pFrame->GetAndRefreshBodyData(iBodyCount, aBody)== S_OK) {
 				
 				int iTrackedBodyCount = 0;
 
+				//遍历相机得到的全部骨骼个数
 				for (int i = 0; i < iBodyCount; ++i) {
 					
 					IBody* pBody = aBody[i];
 
 					BOOLEAN bTracked = false;
+
+					//判断是否取得了骨骼数组 返回布尔值
 					if ((pBody->get_IsTracked(&bTracked) == S_OK) && bTracked) {
-						
+
 						++iTrackedBodyCount;
 						cout << "User " << i << " is under tracking" << endl;
 
+						//节点构造体
 						Joint aJoints[JointType::JointType_Count];
-						if (pBody->GetJoints(JointType::JointType_Count, aJoints) != S_OK)
-						{
+						if (pBody->GetJoints(JointType::JointType_Count, aJoints) != S_OK){
 							cerr << "Get joints fail" << endl;
 						}
 
+						//节点姿态构造体
 						JointOrientation aOrientations[JointType::JointType_Count];
-						if (pBody->GetJointOrientations(JointType::JointType_Count, aOrientations) != S_OK)
-						{
+						if (pBody->GetJointOrientations(JointType::JointType_Count, aOrientations) != S_OK){
 							cerr << "Get joints fail" << endl;
 						}
 
+						//骨骼节点类型设定
 						JointType eJointType = JointType::JointType_HandRight;
+
 						const Joint& rJointPos = aJoints[eJointType];
 						const JointOrientation& rJointOri = aOrientations[eJointType];
 
 						cout << " > Right Hand is ";
-						if (rJointPos.TrackingState == TrackingState_NotTracked)
-						{
+						if (rJointPos.TrackingState == TrackingState_NotTracked){
 							cout << "not tracked" << endl;
 						}
-						else
-						{
-							if (rJointPos.TrackingState == TrackingState_Inferred)
-							{
+						else{
+							if (rJointPos.TrackingState == TrackingState_Inferred){
 								cout << "inferred ";
 							}
-							else if (rJointPos.TrackingState == TrackingState_Tracked)
-							{
+							else if (rJointPos.TrackingState == TrackingState_Tracked){
 								cout << "tracked ";
 							}
 
-							//cout << "at " << rJointPos.Position << ",\n\t orientation: " << rJointOri.Orientation << endl;
+							cout << "at " << rJointPos.Position.X << ",\n\t orientation: " << rJointOri.Orientation.w << endl;
 						}
 					}
 				}
 				if (iTrackedBodyCount > 0)
-					cout << "Total " << iTrackedBodyCount << " bodies in this time\n" << endl;
-				
+					cout << "Total " << iTrackedBodyCount << " bodies in this time\n" << endl;			
 			}
 			else{
 				cerr << "Can't read body data" << endl;
