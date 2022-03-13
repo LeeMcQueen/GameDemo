@@ -730,9 +730,19 @@ int main() {
 							cerr << "Get joints fail" << endl;
 						}
 
+						//循环取值
 						for (int j = 0; j < JointType::JointType_Count; j++) {
-						
+
 							printf("%d/%d\n", j, JointType_Count);
+							printf("position x:%f y:%f z:%f\n",
+								bodyJoints[j].Position.X,
+								bodyJoints[j].Position.Y,
+								bodyJoints[j].Position.Z);
+							printf("oraientation w:%f x:%f y:%f z:%f\n",
+								jointOrientation[j].Orientation.w,
+								jointOrientation[j].Orientation.x,
+								jointOrientation[j].Orientation.y,
+								jointOrientation[j].Orientation.z);
 						}
 
 						//骨骼节点类型设定
@@ -761,6 +771,7 @@ int main() {
 						}
 					}
 				}
+				//判断当前相机前人数
 				if (iTrackedBodyCount > 0)
 					cout << "Total " << iTrackedBodyCount << " bodies in this time\n" << endl;			
 			}
