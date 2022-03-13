@@ -580,7 +580,6 @@ int main() {
 	if (pFrameSource->get_BodyCount(&iBodyCount) != S_OK){
 		cerr << "Can't get body count" << endl;
 	}
-	cout << "Can trace " << iBodyCount << " bodies" << endl;
 
 	//骨架数据
 	IBody** aBody = new IBody * [iBodyCount];
@@ -593,9 +592,6 @@ int main() {
 	IBodyFrameReader* pFrameReader = nullptr;
 	if (pFrameSource->OpenReader(&pFrameReader) != S_OK) {
 		cerr << "Can't get body frame reader" << endl;
-	}
-	else {
-		cerr << "Get body frame reader" << endl;
 	}
 
 	pFrameSource->Release();
@@ -701,17 +697,17 @@ int main() {
 		#pragma region Kinect主循环
 
 		//骨骼数据变量
-		IBodyFrame* pFrame = nullptr;
-		if (pFrameReader->AcquireLatestFrame(&pFrame) == S_OK) {
+		IBodyFrame* pBodyFrame = nullptr;
+		if (pFrameReader->AcquireLatestFrame(&pBodyFrame) == S_OK) {
 		
 			//得到骨骼数据
-			if ( pFrame->GetAndRefreshBodyData(iBodyCount, aBody)== S_OK) {
+			if (pBodyFrame->GetAndRefreshBodyData(iBodyCount, aBody)== S_OK) {
 				
 				int iTrackedBodyCount = 0;
 
 				//遍历相机得到的全部骨骼个数
 				for (int i = 0; i < iBodyCount; ++i) {
-					
+
 					IBody* pBody = aBody[i];
 
 					BOOLEAN bTracked = false;
@@ -723,36 +719,45 @@ int main() {
 						cout << "User " << i << " is under tracking" << endl;
 
 						//节点构造体
-						Joint aJoints[JointType::JointType_Count];
-						if (pBody->GetJoints(JointType::JointType_Count, aJoints) != S_OK){
+						Joint bodyJoints[JointType::JointType_Count];
+						if (pBody->GetJoints(JointType::JointType_Count, bodyJoints) != S_OK){
 							cerr << "Get joints fail" << endl;
 						}
 
 						//节点姿态构造体
-						JointOrientation aOrientations[JointType::JointType_Count];
-						if (pBody->GetJointOrientations(JointType::JointType_Count, aOrientations) != S_OK){
+						JointOrientation jointOrientation[JointType::JointType_Count];
+						if (pBody->GetJointOrientations(JointType::JointType_Count, jointOrientation) != S_OK){
 							cerr << "Get joints fail" << endl;
 						}
 
-						//骨骼节点类型设定
-						JointType eJointType = JointType::JointType_HandRight;
+						for (int j = 0; j < JointType::JointType_Count; j++) {
+						
+							printf("%d/%d\n", j, JointType_Count);
+						}
 
-						const Joint& rJointPos = aJoints[eJointType];
-						const JointOrientation& rJointOri = aOrientations[eJointType];
+						//骨骼节点类型设定
+						JointType headJointType = JointType::JointType_Head;	//头
+						//JointType	//
+						JointType handRightJointType = JointType::JointType_HandRight;
+
+						//关节POS
+						const Joint& handRightJointPos = bodyJoints[handRightJointType];
+						//关节姿态
+						const JointOrientation& handRightJointOri = jointOrientation[handRightJointType];
 
 						cout << " > Right Hand is ";
-						if (rJointPos.TrackingState == TrackingState_NotTracked){
+						if (handRightJointPos.TrackingState == TrackingState_NotTracked){
 							cout << "not tracked" << endl;
 						}
 						else{
-							if (rJointPos.TrackingState == TrackingState_Inferred){
+							if (handRightJointPos.TrackingState == TrackingState_Inferred){
 								cout << "inferred ";
 							}
-							else if (rJointPos.TrackingState == TrackingState_Tracked){
+							else if (handRightJointPos.TrackingState == TrackingState_Tracked){
 								cout << "tracked ";
 							}
 
-							cout << "at " << rJointPos.Position.X << ",\n\t orientation: " << rJointOri.Orientation.w << endl;
+							cout << "at " << handRightJointPos.Position.X << ",\n\t orientation: " << handRightJointOri.Orientation.w << endl;
 						}
 					}
 				}
@@ -762,7 +767,7 @@ int main() {
 			else{
 				cerr << "Can't read body data" << endl;
 			}
-			pFrame->Release();
+			pBodyFrame->Release();
 		}
 
 		#pragma endregion
@@ -996,6 +1001,8 @@ int main() {
 		//检查是否出发相关事件
 		glfwPollEvents();
 	}
+
+end:
 
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();
