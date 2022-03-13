@@ -1,36 +1,47 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
-  D:\OpenGL安装包\glfw-3.3.6.bin.WIN64\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
-d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(22): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Rigid.h(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(47): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(71): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(72): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(78): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(215): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Cloth.h(241): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
-d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
-main.cpp(259): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(266): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-main.cpp(279): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(283): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(284): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(287): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(288): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(292): warning C4018: “<”: 有符号/无符号不匹配
-main.cpp(293): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(1003): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
-main.cpp(1016): warning C4102: “end”: 未引用的标签
-main.cpp(640): warning C4101: “objloader”: 未引用的局部变量
+  KinectGame.cpp
+    ﾕﾔﾚｴｴｽｨｿ・D:\openGL\demo\GameDemo\x64\Debug\GameDemo.lib ｺﾍｶﾔﾏ・D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exp
+LINK : warning LNK4098: ﾄｬﾈﾏｿ筍ｰMSVCRT｡ｱﾓ・萢釤箏ﾄﾊｹﾓﾃｳ袁ｻ｣ｻﾇ・ｹﾓﾃ /NODEFAULTLIB:library
+LINK : warning LNK4098: ﾄｬﾈﾏｿ筍ｰLIBCMT｡ｱﾓ・萢釤箏ﾄﾊｹﾓﾃｳ袁ｻ｣ｻﾇ・ｹﾓﾃ /NODEFAULTLIB:library
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindBuffer
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBufferData
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewGenBuffers
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewGetUniformLocation
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUniform1f
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUniform1i
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewVertexAttribPointer
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDispatchCompute
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDrawArraysIndirect
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewMemoryBarrier
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewPatchParameteri
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindBufferBase
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
+Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewGenVertexArrays
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewAttachShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewCompileShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewCreateProgram
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewCreateShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDeleteShader
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewLinkProgram
+GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewShaderSource
+GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDisableVertexAttribArray
+SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDisableVertexAttribArray
+TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDisableVertexAttribArray
+glew32s.lib(glew.obj) : warning LNK4099: ﾎｴﾕﾒｵｽ PDB｡ｰvc120.pdb｡ｱ(ﾊｹﾓﾃ｡ｰglew32s.lib(glew.obj)｡ｱｻﾚ｡ｰD:\openGL\demo\GameDemo\x64\Debug\vc120.pdb｡ｱﾖﾐﾑｰﾕﾒ)｣ｻﾕﾔﾚﾁｴｽﾓｶﾔﾏｬﾈ醢ｬﾃｻﾓﾐｵﾔﾐﾅﾏ｢ﾒｻﾑ・
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.pdb (Full PDB)

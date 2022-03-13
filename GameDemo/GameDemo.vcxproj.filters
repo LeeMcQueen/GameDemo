@@ -100,6 +100,12 @@
     <Filter Include="头文件\Shadow">
       <UniqueIdentifier>{bea70dbf-c7d0-4dfa-825f-946c9b3b720b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Kinect">
+      <UniqueIdentifier>{ed327fe6-71b6-405f-8c9a-66f783598725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Kinect">
+      <UniqueIdentifier>{318483bc-b2a8-4401-bcda-c260aeb37088}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -191,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="ShadowFrameBuffer.cpp">
       <Filter>源文件\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="KinectGame.cpp">
+      <Filter>源文件\Kinect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="ShadowFrameBuffer.h">
       <Filter>头文件\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="KinectGame.h">
+      <Filter>头文件\Kinect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

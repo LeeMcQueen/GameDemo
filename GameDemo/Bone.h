@@ -27,8 +27,4 @@ public:
 
 	glm::mat4 offset_;
 
-private:
-
-
-
 };

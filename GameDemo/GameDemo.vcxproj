@@ -144,6 +144,7 @@
     <ClCompile Include="GrassesShader.cpp" />
     <ClCompile Include="GuiRenderer.cpp" />
     <ClCompile Include="GuiShader.cpp" />
+    <ClCompile Include="KinectGame.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="GuiRenderer.h" />
     <ClInclude Include="GuiShader.h" />
     <ClInclude Include="GuiTexture.h" />
+    <ClInclude Include="KinectGame.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="lodepng.h" />

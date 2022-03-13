@@ -46,6 +46,7 @@
 #include "Display.h"
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
+#include "KinectGame.h"
 
 extern "C" {
 	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
@@ -250,10 +251,10 @@ Vec3 gravity(0.0, -9.8 / cloth.iterationFreq, 0.0);
 #pragma endregion
 
 #pragma region 加载动画信息
-void loadAnimation(const aiScene *scene, Animation &animation) {
+void loadAnimation(const aiScene* scene, Animation& animation) {
 
 	//加载第一个动画,多个动画加载需要修改
-	aiAnimation *anim = scene->mAnimations[0];
+	aiAnimation* anim = scene->mAnimations[0];
 
 	if (anim->mTicksPerSecond != 0.0f) {
 		animation.ticksPerSecond_ = anim->mTicksPerSecond;
@@ -277,7 +278,7 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 	/* 多重动画修复 */
 
 	for (int i = 0; i < anim->mNumChannels; i++) {
-		aiNodeAnim *channel = anim->mChannels[i];
+		aiNodeAnim* channel = anim->mChannels[i];
 		BoneTransformTrack track;
 
 		for (int j = 0; j < channel->mNumPositionKeys; j++) {
@@ -336,7 +337,7 @@ void loadAnimation(const aiScene *scene, Animation &animation) {
 #pragma endregion
 
 #pragma region 骨骼动画渲染
-unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsigned int> indices) {
+unsigned int createVertexArray(std::vector<Vertex>& vertices, std::vector<unsigned int> indices) {
 	unsigned int vao = 0;
 	unsigned int vbo = 0;
 	unsigned int ebo = 0;
@@ -347,7 +348,7 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) *vertices.size(), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	//VAO的通道号码(0~15) 三个长度为一个单位 是否需要正规化到正负1之间 下一个坐标要跳过多少 下一个信息的偏移量
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position_));
@@ -372,7 +373,7 @@ unsigned int createVertexArray(std::vector<Vertex> &vertices, std::vector<unsign
 #pragma endregion
 
 #pragma region 时间处理
-std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &dt) {
+std::pair<unsigned int, float>getTimeFraction(std::vector<float>& times, float& dt) {
 	unsigned int segment = 0;
 
 	while (dt > times[segment]) {
@@ -392,8 +393,8 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float> &times, float &
 #pragma endregion
 
 #pragma region 骨骼动画得到当前姿势
-void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::mat4> &output, glm::mat4 &parentTransform, glm::mat4 &globalInverseTransform) {
-	BoneTransformTrack &boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
+void getPose(Animation& animation, Bone& skeleton, float dt, std::vector<glm::mat4>& output, glm::mat4& parentTransform, glm::mat4& globalInverseTransform) {
+	BoneTransformTrack& boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 
 	/* 多重动画修复 */
 	if (boneTransformTrack.getPositions().size() == 0 || boneTransformTrack.getRotations().size() == 0 || boneTransformTrack.getScales().size() == 0)
@@ -439,7 +440,7 @@ void getPose(Animation &animation, Bone &skeleton, float dt, std::vector<glm::ma
 	output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
 
 	//更新子骨骼的数组
-	for (Bone &child : skeleton.getChildren()) {
+	for (Bone& child : skeleton.getChildren()) {
 		getPose(animation, child, dt, output, globaTransform, globalInverseTransform);
 	}
 }
@@ -461,7 +462,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	//使用Opengl核心模式
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	GLFWwindow *window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1280, 720, "GameDemo", NULL, NULL);
 	//注册窗口大小监听
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -557,47 +558,6 @@ int main() {
 	unsigned int timeLocation = glGetUniformLocation(shader, "time");
 #pragma endregion
 
-#pragma region Kinect设定
-	//Kinect传感器变量
-	IKinectSensor* pSensor = nullptr;
-	//判断Kinect传感器是否链接
-	if (GetDefaultKinectSensor(&pSensor) != S_OK) {
-		std::cout << "Get Sensor failed" << std::endl;
-	}
-	//判断是否打开传感器
-	if (pSensor->Open() != S_OK) {
-		std::cout << "Get Sensor failed" << std::endl;
-	}
-
-	//人体骨架信息来源变量
-	IBodyFrameSource* pFrameSource = nullptr;
-	if (pSensor->get_BodyFrameSource(&pFrameSource) != S_OK) {
-		cerr << "Can't get body frame source" << endl;
-	}
-
-	//骨骼个数变量
-	INT32 iBodyCount = 0;
-	if (pFrameSource->get_BodyCount(&iBodyCount) != S_OK){
-		cerr << "Can't get body count" << endl;
-	}
-
-	//骨架数据
-	IBody** aBody = new IBody * [iBodyCount];
-	//骨骼数据初始化
-	for (int i = 0; i < iBodyCount; ++i)
-		aBody[i] = nullptr;
-
-	//构造体Render
-	cout << "Try to get body frame reader" << endl;
-	IBodyFrameReader* pFrameReader = nullptr;
-	if (pFrameSource->OpenReader(&pFrameReader) != S_OK) {
-		cerr << "Can't get body frame reader" << endl;
-	}
-
-	pFrameSource->Release();
-	pFrameSource = nullptr;
-#pragma endregion
-
 #pragma region 草地设定
 	//草地
 	Grasses grasses;
@@ -624,6 +584,7 @@ int main() {
 	grasses.init();
 #pragma endregion
 
+	KinectGame kinectGame;
 	//主角控制
 	Player player(glm::vec3(100.0f, 0.0f, 110.0f), glm::vec3(-90.0f, 0.0f, 180.0f), glm::vec3(8.0f, 8.0f, 8.0f));
 	//实例化相机
@@ -642,6 +603,9 @@ int main() {
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
+
+	//Kinect初始化
+	kinectGame.KinectInit();
 
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("boulder");
@@ -694,94 +658,8 @@ int main() {
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
 	{
-		#pragma region Kinect主循环
-
-		//骨骼数据变量
-		IBodyFrame* pBodyFrame = nullptr;
-		if (pFrameReader->AcquireLatestFrame(&pBodyFrame) == S_OK) {
-		
-			//得到骨骼数据
-			if (pBodyFrame->GetAndRefreshBodyData(iBodyCount, aBody)== S_OK) {
-				
-				int iTrackedBodyCount = 0;
-
-				//遍历相机得到的全部骨骼个数
-				for (int i = 0; i < iBodyCount; ++i) {
-
-					IBody* pBody = aBody[i];
-
-					BOOLEAN bTracked = false;
-
-					//判断是否取得了骨骼数组 返回布尔值
-					if ((pBody->get_IsTracked(&bTracked) == S_OK) && bTracked) {
-
-						++iTrackedBodyCount;
-						cout << "User " << i << " is under tracking" << endl;
-
-						//节点构造体
-						Joint bodyJoints[JointType::JointType_Count];
-						if (pBody->GetJoints(JointType::JointType_Count, bodyJoints) != S_OK){
-							cerr << "Get joints fail" << endl;
-						}
-
-						//节点姿态构造体
-						JointOrientation jointOrientation[JointType::JointType_Count];
-						if (pBody->GetJointOrientations(JointType::JointType_Count, jointOrientation) != S_OK){
-							cerr << "Get joints fail" << endl;
-						}
-
-						//循环取值
-						for (int j = 0; j < JointType::JointType_Count; j++) {
-
-							printf("%d/%d\n", j, JointType_Count);
-							printf("position x:%f y:%f z:%f\n",
-								bodyJoints[j].Position.X,
-								bodyJoints[j].Position.Y,
-								bodyJoints[j].Position.Z);
-							printf("oraientation w:%f x:%f y:%f z:%f\n",
-								jointOrientation[j].Orientation.w,
-								jointOrientation[j].Orientation.x,
-								jointOrientation[j].Orientation.y,
-								jointOrientation[j].Orientation.z);
-						}
-
-						//骨骼节点类型设定
-						JointType headJointType = JointType::JointType_Head;	//头
-						//JointType	//
-						JointType handRightJointType = JointType::JointType_HandRight;
-
-						//关节POS
-						const Joint& handRightJointPos = bodyJoints[handRightJointType];
-						//关节姿态
-						const JointOrientation& handRightJointOri = jointOrientation[handRightJointType];
-
-						cout << " > Right Hand is ";
-						if (handRightJointPos.TrackingState == TrackingState_NotTracked){
-							cout << "not tracked" << endl;
-						}
-						else{
-							if (handRightJointPos.TrackingState == TrackingState_Inferred){
-								cout << "inferred ";
-							}
-							else if (handRightJointPos.TrackingState == TrackingState_Tracked){
-								cout << "tracked ";
-							}
-
-							cout << "at " << handRightJointPos.Position.X << ",\n\t orientation: " << handRightJointOri.Orientation.w << endl;
-						}
-					}
-				}
-				//判断当前相机前人数
-				if (iTrackedBodyCount > 0)
-					cout << "Total " << iTrackedBodyCount << " bodies in this time\n" << endl;			
-			}
-			else{
-				cerr << "Can't read body data" << endl;
-			}
-			pBodyFrame->Release();
-		}
-
-		#pragma endregion
+		//Kinect主循环
+		kinectGame.KinectUpdate();
 
 		player.move(terrain);
 		camera.move(player.getPosition(), player.getRotation());
@@ -794,7 +672,7 @@ int main() {
 		glm::mat4 terrainLightViewMatrix = shadowMapCamera.getViewMatrix();
 		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
 
-		#pragma region 阴影用骨骼动画主循环
+#pragma region 阴影用骨骼动画主循环
 		////移动 得到实时的变换matrix
 		//skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
@@ -856,7 +734,7 @@ int main() {
 		////骨骼动画运动纹理时间单位
 		//glUniform1f(timeLocation, idleStartTime);
 		//glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
-		#pragma endregion
+#pragma endregion
 
 		shadowFrameBuffer.unbindShadowFrameBuffer();
 
@@ -1014,19 +892,14 @@ int main() {
 	}
 
 end:
+	//Kinect清楚
+	kinectGame.KinectRelease();
 
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();
 	masterRendererOrtho.cleanUp();
 	fbos.cleanUp();
 	shadowFrameBuffer.cleanUp();
-
-	delete[] aBody;
-	pFrameReader->Release();
-	pFrameReader = nullptr;
-	pSensor->Close();
-	pSensor->Release();
-	pSensor = nullptr;
 
 	//销毁GLFW
 	glfwTerminate();
