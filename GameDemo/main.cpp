@@ -47,6 +47,7 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 #include "KinectGame.h"
+#include "UnityChan.h"
 
 extern "C" {
 	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
@@ -584,6 +585,9 @@ int main() {
 	grasses.init();
 #pragma endregion
 
+	//FBX读取
+	UnityChan unityChan;
+	//Kinect初始化
 	KinectGame kinectGame;
 	//主角控制
 	Player player(glm::vec3(100.0f, 0.0f, 110.0f), glm::vec3(-90.0f, 0.0f, 180.0f), glm::vec3(8.0f, 8.0f, 8.0f));
@@ -603,9 +607,6 @@ int main() {
 	GuiShader guiShader;
 	//Gui渲染启动
 	GuiRenderer guiRenderer(guiShader, loader);
-
-	//Kinect初始化
-	kinectGame.KinectInit();
 
 	//加载主角模型顶点信息
 	RawModel model = objloader.loadObjModel("boulder");
@@ -640,7 +641,7 @@ int main() {
 	//水面
 	WaterTile waterTile = WaterTile(15.0, 20.0, -7.0, loader);
 
-	//Gui列表
+	//Gui列表<DEBUG>
 	std::vector<GuiTexture> guiTextures;
 	//GuiTexture shadow = GuiTexture(shadowFrameBuffer.getShadowMap(), glm::vec2(-1, -1), glm::vec2(0.7, 0.7));
 	//GuiTexture reflection = GuiTexture(fbos.getReflectionTexture(), glm::vec2(-1, 1), glm::vec2(0.7, 0.7));
@@ -654,6 +655,12 @@ int main() {
 	Vec3 normalForce(0.0, 0.0, 0.5);
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
+
+	if (!unityChan.UnityChanInit())
+		goto end;
+
+	//Kinect初始化
+	kinectGame.KinectInit();
 
 	//渲染循环
 	while (!glfwWindowShouldClose(window))
@@ -673,67 +680,67 @@ int main() {
 		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
 
 #pragma region 阴影用骨骼动画主循环
-		////移动 得到实时的变换matrix
-		//skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
+		//移动 得到实时的变换matrix
+		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
-		////得到游戏每循坏一次所需时间(32010 / 30)
-		//displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
-		//displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
+		//得到游戏每循坏一次所需时间(32010 / 30)
+		displayManager.setDeltaTime((displayManager.getCurrentFrameTime() - displayManager.getLastFrameTime()) * 30);
+		displayManager.setLastFrameTime(displayManager.getCurrentFrameTime());
 
-		//idleStartTime = idleStartTime + displayManager.getDeltaTime();
+		idleStartTime = idleStartTime + displayManager.getDeltaTime();
 
-		////骨骼动画控制
-		//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
-		//	RunStartTime = RunStartTime + displayManager.getDeltaTime();
-		//	if (RunStartTime > RunEndTime)
-		//		RunStartTime = 865.0f;
-		//	//std::cout << RUNelapsedTime << std::endl;
-		//	getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
-		//}
-		//else {
-		//	if (idleStartTime > idleEndTime)
-		//		idleStartTime = 805.0f;
-		//	//std::cout << RUNelapsedTime << std::endl;
-		//	getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
-		//}
-		////骨骼动画shader传值
-		//glUseProgram(shader);
-		//glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(shadowMapCamera.getViewMatrix()));
-		//glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(false)));
-		//glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
-		//glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
-		//glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y + 30.0f, camera.getPosition().z + 40.0f);
-		//glUniform3f(lightPositionLocation, light.getPosition().x, light.getPosition().y, light.getPosition().z);
-		//glBindVertexArray(vao);
-		////骨骼动画基础纹理
-		//glActiveTexture(GL_TEXTURE0);
-		//glBindTexture(GL_TEXTURE_2D, diffuseTexture);
-		//glUniform1i(textureLocation, 0);
-		////骨骼动画运动纹理
-		//glActiveTexture(GL_TEXTURE1);
-		//glBindTexture(GL_TEXTURE_2D, emissionTexture);
-		//glUniform1i(emissionLocation, 1);
-		//glActiveTexture(GL_TEXTURE2);
-		//glBindTexture(GL_TEXTURE_2D, albedoTexture);
-		//glUniform1i(albedoLocation, 2);
-		//glActiveTexture(GL_TEXTURE3);
-		//glBindTexture(GL_TEXTURE_2D, normalTexture);s
-		//glUniform1i(normalLocation, 3);
-		//glActiveTexture(GL_TEXTURE4);
-		//glBindTexture(GL_TEXTURE_2D, metallicTexture);
-		//glUniform1i(metallicLocation, 4);
-		//glActiveTexture(GL_TEXTURE5);
-		//glBindTexture(GL_TEXTURE_2D, roughnessTexture);
-		//glUniform1i(roughnessLocation, 5);
-		//glActiveTexture(GL_TEXTURE6);
-		//glBindTexture(GL_TEXTURE_2D, aoTexture);
-		//glUniform1i(aoLocation, 6);
-		//glActiveTexture(GL_TEXTURE7);
-		//glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap);
-		//glUniform1i(cubeMapLocation, 7);
-		////骨骼动画运动纹理时间单位
-		//glUniform1f(timeLocation, idleStartTime);
-		//glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
+		//骨骼动画控制
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS) {
+			RunStartTime = RunStartTime + displayManager.getDeltaTime();
+			if (RunStartTime > RunEndTime)
+				RunStartTime = 865.0f;
+			//std::cout << RUNelapsedTime << std::endl;
+			getPose(animation, animaModelLoader.getSkeleton(), RunStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		}
+		else {
+			if (idleStartTime > idleEndTime)
+				idleStartTime = 805.0f;
+			//std::cout << RUNelapsedTime << std::endl;
+			getPose(animation, animaModelLoader.getSkeleton(), idleStartTime, currentPose, identity, animaModelLoader.getGlobalInverseTransform());
+		}
+		//骨骼动画shader传值
+		glUseProgram(shader);
+		glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(shadowMapCamera.getViewMatrix()));
+		glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(masterRenderer.getProjectionMatrix(false)));
+		glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(skeletonModelMatrix));
+		glUniformMatrix4fv(boneMatricesLocation, animaModelLoader.getbBoneCount(), GL_FALSE, glm::value_ptr(currentPose[0]));
+		glUniform3f(cameraPositionLocation, camera.getPosition().x, camera.getPosition().y + 30.0f, camera.getPosition().z + 40.0f);
+		glUniform3f(lightPositionLocation, light.getPosition().x, light.getPosition().y, light.getPosition().z);
+		glBindVertexArray(vao);
+		//骨骼动画基础纹理
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+		glUniform1i(textureLocation, 0);
+		//骨骼动画运动纹理
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, emissionTexture);
+		glUniform1i(emissionLocation, 1);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, albedoTexture);
+		glUniform1i(albedoLocation, 2);
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, normalTexture);
+		glUniform1i(normalLocation, 3);
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, metallicTexture);
+		glUniform1i(metallicLocation, 4);
+		glActiveTexture(GL_TEXTURE5);
+		glBindTexture(GL_TEXTURE_2D, roughnessTexture);
+		glUniform1i(roughnessLocation, 5);
+		glActiveTexture(GL_TEXTURE6);
+		glBindTexture(GL_TEXTURE_2D, aoTexture);
+		glUniform1i(aoLocation, 6);
+		glActiveTexture(GL_TEXTURE7);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap);
+		glUniform1i(cubeMapLocation, 7);
+		//骨骼动画运动纹理时间单位
+		glUniform1f(timeLocation, idleStartTime);
+		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
 #pragma endregion
 
 		shadowFrameBuffer.unbindShadowFrameBuffer();
@@ -892,8 +899,9 @@ int main() {
 	}
 
 end:
-	//Kinect清楚
+	//Kinect清除
 	kinectGame.KinectRelease();
+	unityChan.UnityChanRelease();
 
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();

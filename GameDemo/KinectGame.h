@@ -9,9 +9,5 @@ public:
 	bool KinectUpdate(void);
 
 	void KinectRelease();
-
-private:
-
-	
 };
 

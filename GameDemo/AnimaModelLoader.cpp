@@ -169,6 +169,9 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 		}
 	}
 
+	//归递读取全部aiNode里面的信息 
+	//参数1 Bone
+	//参数2 boneInfo
 	readSkeleton(skeletonOutput, scene->mRootNode, boneInfo);
 
 }

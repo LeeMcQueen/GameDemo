@@ -1,47 +1,19 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  KinectGame.cpp
-    ﾕﾔﾚｴｴｽｨｿ・D:\openGL\demo\GameDemo\x64\Debug\GameDemo.lib ｺﾍｶﾔﾏ・D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exp
-LINK : warning LNK4098: ﾄｬﾈﾏｿ筍ｰMSVCRT｡ｱﾓ・萢釤箏ﾄﾊｹﾓﾃｳ袁ｻ｣ｻﾇ・ｹﾓﾃ /NODEFAULTLIB:library
-LINK : warning LNK4098: ﾄｬﾈﾏｿ筍ｰLIBCMT｡ｱﾓ・萢釤箏ﾄﾊｹﾓﾃｳ袁ｻ｣ｻﾇ・ｹﾓﾃ /NODEFAULTLIB:library
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
-GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
-SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
-TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewActiveTexture
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindBuffer
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBufferData
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewGenBuffers
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
-GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
-SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
-TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewEnableVertexAttribArray
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewGetUniformLocation
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUniform1f
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUniform1i
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
-GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
-SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
-TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewUseProgram
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewVertexAttribPointer
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDispatchCompute
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDrawArraysIndirect
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewMemoryBarrier
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewPatchParameteri
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindBufferBase
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
-GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
-SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
-TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewBindVertexArray
-Grasses.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewGenVertexArrays
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewAttachShader
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewCompileShader
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewCreateProgram
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewCreateShader
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDeleteShader
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewLinkProgram
-GrassesShader.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewShaderSource
-GuiRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDisableVertexAttribArray
-SkyboxRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDisableVertexAttribArray
-TerrainRenderer.obj : warning LNK4049: ﾒﾑｵｼﾈ・ｾｵﾘｶｨﾒ蠏ﾄｷ釚ﾅ __glewDisableVertexAttribArray
-glew32s.lib(glew.obj) : warning LNK4099: ﾎｴﾕﾒｵｽ PDB｡ｰvc120.pdb｡ｱ(ﾊｹﾓﾃ｡ｰglew32s.lib(glew.obj)｡ｱｻﾚ｡ｰD:\openGL\demo\GameDemo\x64\Debug\vc120.pdb｡ｱﾖﾐﾑｰﾕﾒ)｣ｻﾕﾔﾚﾁｴｽﾓｶﾔﾏｬﾈ醢ｬﾃｻﾓﾐｵﾔﾐﾅﾏ｢ﾒｻﾑ・
+  AnimaModelLoader.cpp
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(189): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(197): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(213): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(219): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(222): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(226): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(227): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(230): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(231): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(235): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(236): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.pdb (Full PDB)
