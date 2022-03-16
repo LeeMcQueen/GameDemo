@@ -176,20 +176,25 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 
 }
 
-//a recursive function to read all bones and form skeleton
+//归递读取全部skeletona里面的bones信息
 bool AnimaModelLoader::readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable){
+
+	
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
 		boneOutput.setName(node->mName.C_Str());
 		boneOutput.setId(boneInfoTable[boneOutput.getName()].first);
 		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
 
-		std::cout << "readSkeleton() bone = " << boneOutput.name_ << std::endl;
+		std::cout << node->mName.C_Str() << "`s chilred = " << node->mNumChildren << std::endl;
 
 		for (int i = 0; i < node->mNumChildren; i++) {
 			Bone child;
 			readSkeleton(child, node->mChildren[i], boneInfoTable);
 			boneOutput.children_.push_back(child);
+
+			std::cout << child.getId() << child.getName() << std::endl;
+
 		}
 		return true;
 	}
