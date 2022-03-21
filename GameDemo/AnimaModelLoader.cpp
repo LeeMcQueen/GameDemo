@@ -1,5 +1,7 @@
 ﻿#include "AnimaModelLoader.h"
 
+static int numTabs = 0;
+
 void AnimaModelLoader::loadAssimpScene(const char *filePath) {
 
 	//导入assimp加载模组
@@ -176,35 +178,46 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 
 }
 
+static void printTabs() {
+
+	for (int i = 0; i < numTabs; i++)
+		printf(" ");
+}
+
 //归递读取全部skeletona里面的bones信息
 bool AnimaModelLoader::readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable){
-
-	
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
 		boneOutput.setName(node->mName.C_Str());
 		boneOutput.setId(boneInfoTable[boneOutput.getName()].first);
 		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
 
-		std::cout << node->mName.C_Str() << "`s chilred = " << node->mNumChildren << std::endl;
+		printTabs();
+		std::cout << "Node : " << node->mName.C_Str() << " | chilred number : " << node->mNumChildren << std::endl;
+		numTabs++;
 
 		for (int i = 0; i < node->mNumChildren; i++) {
+
 			Bone child;
 			readSkeleton(child, node->mChildren[i], boneInfoTable);
 			boneOutput.children_.push_back(child);
-
-			std::cout << child.getId() << child.getName() << std::endl;
-
 		}
 		return true;
 	}
 	else {
 		for (int i = 0; i < node->mNumChildren; i++) {
 			if (readSkeleton(boneOutput, node->mChildren[i], boneInfoTable)) {
+
+				std::cout << "Node : " << node->mName.C_Str() << " | chilred : " << node->mNumChildren << std::endl;
+				numTabs++;
+
 				return true;
 			}
 		}
 	}
+
+	numTabs--;
+
 	return false;
 }
 

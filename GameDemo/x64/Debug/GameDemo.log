@@ -4,16 +4,16 @@ d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“uns
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(191): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(218): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(224): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(227): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(231): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(232): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-AnimaModelLoader.cpp(235): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(236): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(199): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(208): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(231): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+AnimaModelLoader.cpp(237): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 AnimaModelLoader.cpp(240): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(241): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(244): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(245): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(248): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(249): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+AnimaModelLoader.cpp(253): warning C4018: “<”: 有符号/无符号不匹配
+AnimaModelLoader.cpp(254): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.pdb (Full PDB)

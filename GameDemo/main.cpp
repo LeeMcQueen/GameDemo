@@ -395,6 +395,7 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float>& times, float& 
 
 #pragma region 骨骼动画得到当前姿势
 void getPose(Animation& animation, Bone& skeleton, float dt, std::vector<glm::mat4>& output, glm::mat4& parentTransform, glm::mat4& globalInverseTransform) {
+
 	BoneTransformTrack& boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 
 	/* 多重动画修复 */
