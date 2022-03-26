@@ -47,7 +47,6 @@
 #include "Grasses.h"
 #include "ShadowFrameBuffer.h"
 #include "KinectGame.h"
-#include "UnityChan.h"
 
 extern "C" {
 	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
@@ -394,7 +393,12 @@ std::pair<unsigned int, float>getTimeFraction(std::vector<float>& times, float& 
 #pragma endregion
 
 #pragma region 骨骼动画得到当前姿势
-void getPose(Animation& animation, Bone& skeleton, float dt, std::vector<glm::mat4>& output, glm::mat4& parentTransform, glm::mat4& globalInverseTransform) {
+void getPose(Animation& animation,
+	Bone& skeleton,
+	float dt,
+	std::vector<glm::mat4>& output,
+	glm::mat4& parentTransform,
+	glm::mat4& globalInverseTransform) {
 
 	BoneTransformTrack& boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 
@@ -438,6 +442,13 @@ void getPose(Animation& animation, Bone& skeleton, float dt, std::vector<glm::ma
 	glm::mat4 localTransform = positionMat * rotationMat * scaleMat;
 	//模型整体变换 复矩阵
 	glm::mat4 globaTransform = parentTransform * localTransform;
+
+	//std::cout << "[Duration] : " << animation.getDuration() << std::endl;
+	//std::cout << "[Duration] : " << animation.getTicksperSecond()[skeleton.getName()].positions_[fp.first - 1].x << std::endl;
+	//std::cout << "[Duration] : " << animation.getDuration() << std::endl;
+	//std::cout << "[TicksPerSecond] : " << animation.getTicksPerSecond() << std::endl;
+
+	std::cout << skeleton.Id_ << std::endl;
 
 	output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
 
@@ -586,8 +597,6 @@ int main() {
 	grasses.init();
 #pragma endregion
 
-	//FBX读取
-	UnityChan unityChan;
 	//Kinect初始化
 	KinectGame kinectGame;
 	//主角控制
@@ -657,9 +666,6 @@ int main() {
 	ClothRender clothRender(&cloth, masterRenderer);
 	cloth.addForce(initForce);
 
-	if (!unityChan.UnityChanInit())
-		goto end;
-
 	//Kinect初始化
 	kinectGame.KinectInit();
 
@@ -681,6 +687,7 @@ int main() {
 		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
 
 #pragma region 阴影用骨骼动画主循环
+		/*
 		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
@@ -742,6 +749,7 @@ int main() {
 		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
+		*/
 #pragma endregion
 
 		shadowFrameBuffer.unbindShadowFrameBuffer();
@@ -902,7 +910,6 @@ int main() {
 end:
 	//Kinect清除
 	kinectGame.KinectRelease();
-	unityChan.UnityChanRelease();
 
 	guiRenderer.cleanUp();
 	masterRenderer.cleanUp();

@@ -17,23 +17,23 @@ bool KinectGame::KinectInit(void) {
 	pSensor = nullptr;
 	//判断Kinect传感器是否链接
 	if (GetDefaultKinectSensor(&pSensor) != S_OK) {
-		std::cout << "Kinect> Get Sensor failed" << std::endl;
+		std::cout << "[Kinect] : Get Sensor failed" << std::endl;
 	}
 	//判断是否打开传感器
 	if (pSensor->Open() != S_OK) {
-		std::cout << "Kinect> Get Sensor failed" << std::endl;
+		std::cout << "[Kinect] : Get Sensor failed" << std::endl;
 	}
 
 	//人体骨架信息来源变量
 	pFrameSource = nullptr;
 	if (pSensor->get_BodyFrameSource(&pFrameSource) != S_OK) {
-		std::cerr << "Kinect> Can't get body frame source" << std::endl;
+		std::cerr << "[Kinect] : Can't get body frame source" << std::endl;
 	}
 
 	//骨骼个数变量
 	iBodyCount = 0;
 	if (pFrameSource->get_BodyCount(&iBodyCount) != S_OK) {
-		std::cerr << "Kinect> Can't get body count" << std::endl;
+		std::cerr << "[Kinect] : Can't get body count" << std::endl;
 	}
 
 	//骨架数据
@@ -43,10 +43,10 @@ bool KinectGame::KinectInit(void) {
 		aBody[i] = nullptr;
 
 	//构造体Render
-	std::cout << "Kinect> Try to get body frame reader" << std::endl;
+	std::cout << "[Kinect] : Try to get body frame reader" << std::endl;
 	pFrameReader = nullptr;
 	if (pFrameSource->OpenReader(&pFrameReader) != S_OK) {
-		std::cerr << "Kinect> Can't get body frame reader" << std::endl;
+		std::cerr << "[Kinect] : Can't get body frame reader" << std::endl;
 	}
 
 	pFrameSource->Release();
@@ -76,29 +76,29 @@ bool KinectGame::KinectUpdate(void) {
 				if ((pBody->get_IsTracked(&bTracked) == S_OK) && bTracked) {
 
 					++iTrackedBodyCount;
-					std::cout << "Kinect> User " << i << " is under tracking" << std::endl;
+					std::cout << "[Kinect] : User " << i << " is under tracking" << std::endl;
 
 					//节点构造体
 					Joint bodyJoints[JointType::JointType_Count];
 					if (pBody->GetJoints(JointType::JointType_Count, bodyJoints) != S_OK) {
-						std::cerr << "Kinect> Get joints fail" << std::endl;
+						std::cerr << "[Kinect] : Get joints fail" << std::endl;
 					}
 
 					//节点姿态构造体
 					JointOrientation jointOrientation[JointType::JointType_Count];
 					if (pBody->GetJointOrientations(JointType::JointType_Count, jointOrientation) != S_OK) {
-						std::cerr << "Kinect> Get joints fail" << std::endl;
+						std::cerr << "[Kinect] : Get joints fail" << std::endl;
 					}
 
 					//循环取值
 					for (int j = 0; j < JointType::JointType_Count; j++) {
 
 						printf("%d/%d\n", j, JointType_Count);
-						printf("Kinect> position x:%f y:%f z:%f\n",
+						printf("[Kinect] : position x:%f y:%f z:%f\n",
 							bodyJoints[j].Position.X,
 							bodyJoints[j].Position.Y,
 							bodyJoints[j].Position.Z);
-						printf("Kinect> oraientation w:%f x:%f y:%f z:%f\n",
+						printf("[Kinect] : oraientation w:%f x:%f y:%f z:%f\n",
 							jointOrientation[j].Orientation.w,
 							jointOrientation[j].Orientation.x,
 							jointOrientation[j].Orientation.y,
@@ -115,7 +115,7 @@ bool KinectGame::KinectUpdate(void) {
 					//关节姿态
 					const JointOrientation& handRightJointOri = jointOrientation[handRightJointType];
 
-					std::cout << " > Right Hand is ";
+					std::cout << "[Kinect] : Right Hand is ";
 					if (handRightJointPos.TrackingState == TrackingState_NotTracked) {
 						std::cout << "not tracked" << std::endl;
 					}
@@ -133,10 +133,10 @@ bool KinectGame::KinectUpdate(void) {
 			}
 			//判断当前相机前人数
 			if (iTrackedBodyCount > 0)
-				std::cout << "Kinect> Total " << iTrackedBodyCount << " bodies in this time\n" << std::endl;
+				std::cout << "[Kinect] : Total " << iTrackedBodyCount << " bodies in this time\n" << std::endl;
 		}
 		else {
-			std::cerr << "Kinect> Can't read body data" << std::endl;
+			std::cerr << "[Kinect] : Can't read body data" << std::endl;
 		}
 		pBodyFrame->Release();
 	}

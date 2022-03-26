@@ -1,19 +1,36 @@
 ﻿cl : 命令行 warning D9007: “/Gm”需要“/Zi 或 /ZI”；选项被忽略
-  AnimaModelLoader.cpp
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
+  D:\OpenGL安装包\glfw-3.3.6.bin.WIN64\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(199): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(208): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(231): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(237): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-AnimaModelLoader.cpp(240): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(244): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(245): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-AnimaModelLoader.cpp(248): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(249): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-AnimaModelLoader.cpp(253): warning C4018: “<”: 有符号/无符号不匹配
-AnimaModelLoader.cpp(254): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(22): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(47): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(71): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(72): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(78): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(215): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(241): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
+d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
+main.cpp(260): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(267): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(280): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(284): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(285): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(288): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(289): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(293): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(294): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(900): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(913): warning C4102: “end”: 未引用的标签
+main.cpp(618): warning C4101: “objloader”: 未引用的局部变量
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.exe
   GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Debug\GameDemo.pdb (Full PDB)

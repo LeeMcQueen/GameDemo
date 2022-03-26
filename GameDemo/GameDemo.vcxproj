@@ -163,7 +163,6 @@
     <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
-    <ClCompile Include="UnityChan.cpp" />
     <ClCompile Include="WaterFrameBuffers.cpp" />
     <ClCompile Include="WaterRenderer.cpp" />
     <ClCompile Include="WaterShader.cpp" />
@@ -212,7 +211,6 @@
     <ClInclude Include="TerrainTexture.h" />
     <ClInclude Include="TerrainTexturePack.h" />
     <ClInclude Include="TexturedModel.h" />
-    <ClInclude Include="UnityChan.h" />
     <ClInclude Include="Vectors.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WaterFrameBuffers.h" />

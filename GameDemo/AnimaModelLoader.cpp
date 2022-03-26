@@ -2,7 +2,7 @@
 
 static int numTabs = 0;
 
-void AnimaModelLoader::loadAssimpScene(const char *filePath) {
+void AnimaModelLoader::loadAssimpScene(const char* filePath) {
 
 	//导入assimp加载模组
 	Assimp::Importer importer;
@@ -17,13 +17,13 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath) {
 	//顶点类
 	Vertex vertex;
 	//通过ReadFile函数得到Scene
-	const aiScene *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	//Assimp加载成功判定
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		std::cout << "ERROR::Assimp :" << importer.GetErrorString() << std::endl;
 	}
 	//Scene里的Mesh
-	aiMesh *mesh = scene->mMeshes[0];
+	aiMesh* mesh = scene->mMeshes[0];
 	//骨骼根节点的变换矩阵
 	globalInverseTransform_ = assimpToGlmMatrix(scene->mRootNode->mTransformation);
 	//变换矩阵进行反矩阵变换
@@ -38,12 +38,12 @@ void AnimaModelLoader::loadAssimpScene(const char *filePath) {
 	setBoneCount(boneCount);
 };
 
-void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
-	aiMesh *mesh, 
-	std::vector<Vertex> &verticesOutput, 
-	std::vector<unsigned int> &indicesOutput, 
-	Bone &skeletonOutput, 
-	unsigned int &nBoneCount){
+void AnimaModelLoader::loadAssimpModel(const aiScene* scene,
+	aiMesh* mesh,
+	std::vector<Vertex>& verticesOutput,
+	std::vector<unsigned int>& indicesOutput,
+	Bone& skeletonOutput,
+	unsigned int& nBoneCount) {
 
 	//返回参数list初始化
 	verticesOutput = {};
@@ -102,17 +102,17 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	//得到模型的总骨骼数
 	nBoneCount = mesh->mNumBones;
 
-	std::cout << "loadModel() nBoneCount" << nBoneCount << std::endl;
+	std::cout << "[Mesh BoneCount] : " << nBoneCount << std::endl;
 
 	//循环骨骼数量得到()
 	for (unsigned int i = 0; i < nBoneCount; i++) {
 
 		//导入aiMesh对象中的顶点骨骼数据
-		aiBone *bone = mesh->mBones[i];
+		aiBone* bone = mesh->mBones[i];
 		//从Assimp格式转换成glm格式
 		glm::mat4 matrix = assimpToGlmMatrix(bone->mOffsetMatrix);
 		//按照骨骼名称(string形式)往里面注入map, map的形式是(i, matrix)
-		boneInfo[bone->mName.C_Str()] = { i, matrix };
+		boneInfo[bone->mName.C_Str()] = {i, matrix};
 
 		//循环骨骼里面的顶点(通过总权重数就知道有多少个顶点)
 		for (unsigned int j = 0; j < bone->mNumWeights; j++) {
@@ -151,7 +151,7 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	//让所有权重的和为1
 	for (unsigned int i = 0; i < verticesOutput.size(); i++) {
 		//取得所有顶点数组里面的骨骼权重
-		glm::vec4 &boneWeight = verticesOutput[i].getBoneWieghts();
+		glm::vec4& boneWeight = verticesOutput[i].getBoneWieghts();
 
 		float totalWeight = boneWeight.x + boneWeight.y + boneWeight.z + boneWeight.w;
 		if (totalWeight > 0.0f) {
@@ -165,7 +165,7 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 	}
 
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-		aiFace &face = mesh->mFaces[i];
+		aiFace& face = mesh->mFaces[i];
 		for (unsigned int j = 0; j < face.mNumIndices; j++) {
 			indicesOutput.push_back(face.mIndices[j]);
 		}
@@ -181,51 +181,56 @@ void AnimaModelLoader::loadAssimpModel(const aiScene *scene,
 static void printTabs() {
 
 	for (int i = 0; i < numTabs; i++)
-		printf(" ");
+		printf("-");
 }
 
 //归递读取全部skeletona里面的bones信息
-bool AnimaModelLoader::readSkeleton(Bone &boneOutput, aiNode *node, std::unordered_map<std::string, std::pair<int, glm::mat4>> &boneInfoTable){
+bool AnimaModelLoader::readSkeleton(Bone& boneOutput,
+	aiNode* node, std::unordered_map<std::string,
+	std::pair<int, glm::mat4>> &boneInfoTable) {
 
 	if (boneInfoTable.find(node->mName.C_Str()) != boneInfoTable.end()) {
+
 		boneOutput.setName(node->mName.C_Str());
 		boneOutput.setId(boneInfoTable[boneOutput.getName()].first);
 		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
 
 		printTabs();
-		std::cout << "Node : " << node->mName.C_Str() << " | chilred number : " << node->mNumChildren << std::endl;
-		numTabs++;
+		std::cout << "[Node Name] : " << node->mName.C_Str() << "  [Chilred Number] : " << node->mNumChildren << std::endl;
 
 		for (int i = 0; i < node->mNumChildren; i++) {
 
+			numTabs++;
 			Bone child;
 			readSkeleton(child, node->mChildren[i], boneInfoTable);
 			boneOutput.children_.push_back(child);
+
+			//std::cout << "[Node Name] : " << node->mChildren[i]->mName.C_Str() << std::endl;
 		}
+
+		numTabs--;
 		return true;
 	}
 	else {
 		for (int i = 0; i < node->mNumChildren; i++) {
 			if (readSkeleton(boneOutput, node->mChildren[i], boneInfoTable)) {
 
-				std::cout << "Node : " << node->mName.C_Str() << " | chilred : " << node->mNumChildren << std::endl;
-				numTabs++;
+				std::cout << "[Node Name] : " << node->mName.C_Str() << " [Chilred Number] : " << node->mNumChildren << std::endl;
 
+				numTabs--;
 				return true;
 			}
 		}
 	}
 
-	numTabs--;
-
 	return false;
 }
 
 //加载动画信息
-void AnimaModelLoader::loadAnimation(const aiScene *scene, Animation &animation){
+void AnimaModelLoader::loadAnimation(const aiScene* scene, Animation& animation) {
 
 	//加载第一个动画,多个动画加载需要修改
-	aiAnimation *anim = scene->mAnimations[0];
+	aiAnimation* anim = scene->mAnimations[0];
 
 	if (anim->mTicksPerSecond != 0.0f) {
 		animation.ticksPerSecond_ = anim->mTicksPerSecond;
@@ -238,7 +243,7 @@ void AnimaModelLoader::loadAnimation(const aiScene *scene, Animation &animation)
 	animation.boneTransforms_ = {};
 
 	for (int i = 0; i < anim->mNumChannels; i++) {
-		aiNodeAnim *channel = anim->mChannels[i];
+		aiNodeAnim* channel = anim->mChannels[i];
 		BoneTransformTrack track;
 
 		for (int j = 0; j < channel->mNumPositionKeys; j++) {

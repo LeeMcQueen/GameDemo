@@ -201,9 +201,6 @@
     <ClCompile Include="KinectGame.cpp">
       <Filter>源文件\Kinect</Filter>
     </ClCompile>
-    <ClCompile Include="UnityChan.cpp">
-      <Filter>源文件\renderEngine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -349,9 +346,6 @@
     </ClInclude>
     <ClInclude Include="KinectGame.h">
       <Filter>头文件\Kinect</Filter>
-    </ClInclude>
-    <ClInclude Include="UnityChan.h">
-      <Filter>头文件\renderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
