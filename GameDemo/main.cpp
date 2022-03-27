@@ -448,9 +448,14 @@ void getPose(Animation& animation,
 	//std::cout << "[Duration] : " << animation.getDuration() << std::endl;
 	//std::cout << "[TicksPerSecond] : " << animation.getTicksPerSecond() << std::endl;
 
-	std::cout << skeleton.Id_ << std::endl;
+	std::cout << "[Skeleton ID] : " << skeleton.Id_ << " [Skeleton Name] : " << skeleton.getName() << std::endl;
 
-	output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
+
+	glm::mat4 mat4NULL;
+	if (skeleton.Id_ == 10)
+		output[skeleton.Id_] = mat4NULL;
+	else
+		output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
 
 	//更新子骨骼的数组
 	for (Bone& child : skeleton.getChildren()) {
@@ -687,7 +692,7 @@ int main() {
 		masterRendererOrtho.render(light, shadowMapCamera, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.getHeight()), terrainLightViewMatrix);
 
 #pragma region 阴影用骨骼动画主循环
-		/*
+
 		//移动 得到实时的变换matrix
 		skeletonModelMatrix = Maths::createTransformationMatrix(player.getPosition(), player.getRotation(), player.getScale());
 
@@ -749,7 +754,7 @@ int main() {
 		//骨骼动画运动纹理时间单位
 		glUniform1f(timeLocation, idleStartTime);
 		glDrawElements(GL_TRIANGLES, animaModelLoader.getIndices().size(), GL_UNSIGNED_INT, 0);
-		*/
+
 #pragma endregion
 
 		shadowFrameBuffer.unbindShadowFrameBuffer();

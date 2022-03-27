@@ -1,0 +1,69 @@
+﻿  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130): warning C4005: “APIENTRY”: 宏重定义
+  D:\OpenGL安装包\glfw-3.3.6.bin.WIN64\include\GLFW/glfw3.h(123): note: 参见“APIENTRY”的前一个定义
+d:\opengl\demo\gamedemo\gamedemo\DisplayManager.h(17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\WaterRenderer.h(21): warning C4305: “初始化”: 从“double”到“float”截断
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(20): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(21): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(22): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Vertex.h(23): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(22): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Rigid.h(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(46): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(47): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(71): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(72): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(78): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(215): warning C4244: “初始化”: 从“int32_t”转换到“float”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Cloth.h(241): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
+d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
+main.cpp(260): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(267): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+main.cpp(280): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(284): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(285): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(288): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(289): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(293): warning C4018: “<”: 有符号/无符号不匹配
+main.cpp(294): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
+main.cpp(756): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(902): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(915): warning C4102: “end”: 未引用的标签
+main.cpp(620): warning C4101: “objloader”: 未引用的局部变量
+    正在创建库 D:\openGL\demo\GameDemo\x64\Release\GameDemo.lib 和对象 D:\openGL\demo\GameDemo\x64\Release\GameDemo.exp
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+  正在生成代码
+  122 of 3635 functions ( 3.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    72 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewPatchParameteri
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGenBuffers
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBindBufferBase
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGenVertexArrays
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewActiveTexture
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBufferData
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGetUniformLocation
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewUniform1f
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewDispatchCompute
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewUniform1i
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewDrawArraysIndirect
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBindBuffer
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewVertexAttribPointer
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewUseProgram
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewBindVertexArray
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewEnableVertexAttribArray
+Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewMemoryBarrier
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewLinkProgram
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewDeleteShader
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewShaderSource
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewAttachShader
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewCreateProgram
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewCreateShader
+GrassesShader.obj : warning LNK4049: 已导入本地定义的符号 __glewCompileShader
+GuiRenderer.obj : warning LNK4049: 已导入本地定义的符号 __glewDisableVertexAttribArray
+glew32s.lib(glew.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“glew32s.lib(glew.obj)”或在“D:\openGL\demo\GameDemo\x64\Release\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Release\GameDemo.exe
+  GameDemo.vcxproj -> D:\openGL\demo\GameDemo\x64\Release\GameDemo.pdb (Full PDB)
