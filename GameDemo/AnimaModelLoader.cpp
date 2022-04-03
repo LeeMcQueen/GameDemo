@@ -196,7 +196,7 @@ bool AnimaModelLoader::readSkeleton(Bone& boneOutput,
 		boneOutput.setOffset(boneInfoTable[boneOutput.getName()].second);
 
 		printTabs();
-		std::cout << "[Node Name] : " << node->mName.C_Str() << "  [Chilred Number] : " << node->mNumChildren << std::endl;
+		std::cout << "[Node ID] : " << boneOutput.getId() << " [Node Name] : " << node->mName.C_Str() << "  [Chilred Number] : " << node->mNumChildren << std::endl;
 
 		for (int i = 0; i < node->mNumChildren; i++) {
 
@@ -215,7 +215,7 @@ bool AnimaModelLoader::readSkeleton(Bone& boneOutput,
 		for (int i = 0; i < node->mNumChildren; i++) {
 			if (readSkeleton(boneOutput, node->mChildren[i], boneInfoTable)) {
 
-				std::cout << "[Node Name] : " << node->mName.C_Str() << " [Chilred Number] : " << node->mNumChildren << std::endl;
+				std::cout << "[Node ID] : " << boneOutput.getId() << "[Node Name] : " << node->mName.C_Str() << " [Chilred Number] : " << node->mNumChildren << std::endl;
 
 				numTabs--;
 				return true;

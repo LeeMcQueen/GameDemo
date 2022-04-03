@@ -443,20 +443,20 @@ void getPose(Animation& animation,
 	//模型整体变换 复矩阵
 	glm::mat4 globaTransform = parentTransform * localTransform;
 
-	//std::cout << "[Duration] : " << animation.getDuration() << std::endl;
-	//std::cout << "[Duration] : " << animation.getTicksperSecond()[skeleton.getName()].positions_[fp.first - 1].x << std::endl;
-	//std::cout << "[Duration] : " << animation.getDuration() << std::endl;
-	//std::cout << "[TicksPerSecond] : " << animation.getTicksPerSecond() << std::endl;
-
-	std::cout << "[Skeleton ID] : " << skeleton.Id_ << " [Skeleton Name] : " << skeleton.getName() << std::endl;
+	if (skeleton.Id_ == 10) {}
+	//std::cout << "[Skeleton ID] : " << skeleton.Id_ << " [Skeleton Name] : " << skeleton.getName() << std::endl;
+	//std::cout << "" << skeleton.getOffset
 
 
-	glm::mat4 mat4NULL;
-	if (skeleton.Id_ == 10)
-		output[skeleton.Id_] = mat4NULL;
-	else
+	glm::mat4 NullMatrix4;
+	if (skeleton.Id_ == 11 && 12 && 13 && 10) {
+		//glm::mat4 localTransform = positionMat * rotationMat * scaleMat;
+		//output[skeleton.Id_] = NullMatrix4;
 		output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
-
+	}
+	else {
+		output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
+	}
 	//更新子骨骼的数组
 	for (Bone& child : skeleton.getChildren()) {
 		getPose(animation, child, dt, output, globaTransform, globalInverseTransform);

@@ -9,5 +9,7 @@ public:
 	bool KinectUpdate(void);
 
 	void KinectRelease();
+
+	Joint globalbodyJoints[];
 };
 

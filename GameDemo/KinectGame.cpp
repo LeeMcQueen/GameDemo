@@ -10,6 +10,7 @@ static INT32 iBodyCount;
 static IBody** aBody;
 static IBodyFrame* pBodyFrame;
 static IBodyFrameReader* pFrameReader;
+Joint globalbodyJoints[];
 
 bool KinectGame::KinectInit(void) {
 

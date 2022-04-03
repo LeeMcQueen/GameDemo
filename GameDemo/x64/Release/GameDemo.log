@@ -19,6 +19,8 @@ d:\opengl\demo\gamedemo\gamedemo\Cloth.h(240): warning C4244: “参数”: 从�
 d:\opengl\demo\gamedemo\gamedemo\Cloth.h(241): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
 d:\opengl\demo\gamedemo\gamedemo\Program.h(32): warning C4101: “currPath”: 未引用的局部变量
 d:\opengl\demo\gamedemo\gamedemo\GrassesShader.h(62): warning C5030: 未识别属性“nodiscard”
+d:\opengl\demo\gamedemo\gamedemo\KinectGame.h(13): warning C4200: 使用了非标准扩展: 结构/联合中的零大小数组
+  d:\opengl\demo\gamedemo\gamedemo\KinectGame.h(13): note: 默认构造函数或 copy/move 赋值运算符将忽略此成员
 main.cpp(260): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 main.cpp(267): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 main.cpp(280): warning C4018: “<”: 有符号/无符号不匹配
@@ -35,9 +37,9 @@ main.cpp(620): warning C4101: “objloader”: 未引用的局部变量
     正在创建库 D:\openGL\demo\GameDemo\x64\Release\GameDemo.lib 和对象 D:\openGL\demo\GameDemo\x64\Release\GameDemo.exp
 LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  122 of 3635 functions ( 3.4%) were compiled, the rest were copied from previous compilation.
+  133 of 3636 functions ( 3.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    72 functions had inline decision re-evaluated but remain unchanged
+    21 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
 Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewPatchParameteri
 Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGenBuffers
