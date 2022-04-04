@@ -30,16 +30,16 @@ main.cpp(288): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(289): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
 main.cpp(293): warning C4018: “<”: 有符号/无符号不匹配
 main.cpp(294): warning C4244: “参数”: 从“double”转换到“const float”，可能丢失数据
-main.cpp(756): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
-main.cpp(902): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
-main.cpp(915): warning C4102: “end”: 未引用的标签
-main.cpp(620): warning C4101: “objloader”: 未引用的局部变量
+main.cpp(761): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(907): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+main.cpp(920): warning C4102: “end”: 未引用的标签
+main.cpp(625): warning C4101: “objloader”: 未引用的局部变量
     正在创建库 D:\openGL\demo\GameDemo\x64\Release\GameDemo.lib 和对象 D:\openGL\demo\GameDemo\x64\Release\GameDemo.exp
 LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  133 of 3636 functions ( 3.7%) were compiled, the rest were copied from previous compilation.
+  127 of 3636 functions ( 3.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    21 functions had inline decision re-evaluated but remain unchanged
+    26 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
 Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewPatchParameteri
 Grasses.obj : warning LNK4049: 已导入本地定义的符号 __glewGenBuffers

@@ -402,10 +402,18 @@ void getPose(Animation& animation,
 
 	BoneTransformTrack& boneTransformTrack = animation.boneTransforms_[skeleton.getName()];
 
+	glm::mat4 NullMatrix4;
+	glm::vec3 tempPosition;
+	BoneTransformTrack& hipsTransformTrack = animation.boneTransforms_["mixamorig:Hips"];
+
+	//tempPosition = hipsTransformTrack.getPositions();
+
+	std::cout << "[hips position] : " << hipsTransformTrack.getPositions()[0].x << std::endl;
+	std::cout << "[skeleton BoneName] : " << skeleton.getName() << std::endl;
+
 	/* 多重动画修复 */
 	if (boneTransformTrack.getPositions().size() == 0 || boneTransformTrack.getRotations().size() == 0 || boneTransformTrack.getScales().size() == 0)
 		return;
-	//std::cout << "getPose() bone =" << skeleton.getName() << std::endl;
 	/* 多重动画修复 */
 
 	//余数
@@ -443,20 +451,15 @@ void getPose(Animation& animation,
 	//模型整体变换 复矩阵
 	glm::mat4 globaTransform = parentTransform * localTransform;
 
-	if (skeleton.Id_ == 10) {}
-	//std::cout << "[Skeleton ID] : " << skeleton.Id_ << " [Skeleton Name] : " << skeleton.getName() << std::endl;
-	//std::cout << "" << skeleton.getOffset
-
-
-	glm::mat4 NullMatrix4;
 	if (skeleton.Id_ == 11 && 12 && 13 && 10) {
 		//glm::mat4 localTransform = positionMat * rotationMat * scaleMat;
-		//output[skeleton.Id_] = NullMatrix4;
-		output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
+		output[skeleton.Id_] = NullMatrix4;
+		//output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
 	}
 	else {
 		output[skeleton.Id_] = globalInverseTransform * globaTransform * skeleton.offset_;
 	}
+
 	//更新子骨骼的数组
 	for (Bone& child : skeleton.getChildren()) {
 		getPose(animation, child, dt, output, globaTransform, globalInverseTransform);
